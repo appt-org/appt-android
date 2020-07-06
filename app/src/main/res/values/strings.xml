@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Appt</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+
+    <string name="title_knowledge">Kennisbank</string>
+    <string name="title_training">Trainingen</string>
+    <string name="title_information">Information</string>
 </resources>
