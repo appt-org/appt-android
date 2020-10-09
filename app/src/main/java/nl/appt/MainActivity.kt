@@ -1,12 +1,12 @@
 package nl.appt
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,10 +15,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_training, R.id.navigation_knowledge, R.id.navigation_information))
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(R.id.navigationController)
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.nav_view)
         bottomNavigationView.setupWithNavController(navController)
     }
 }

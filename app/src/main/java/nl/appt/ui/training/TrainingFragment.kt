@@ -1,13 +1,14 @@
 package nl.appt.ui.training
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_training.view.*
 import nl.appt.R
-import nl.appt.accessibility.accessibility
+import nl.appt.accessibility.view.accessibility
 
 class TrainingFragment : Fragment() {
 
@@ -16,7 +17,7 @@ class TrainingFragment : Fragment() {
 
         view.text.accessibility.label = "Training screen"
         view.text.accessibility.action = "Nothing"
-
+        
         return view
     }
 }

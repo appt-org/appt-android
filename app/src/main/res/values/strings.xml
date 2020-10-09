@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Appt</string>
 
-    <string name="title_knowledge">Kennisbank</string>
     <string name="title_training">Trainingen</string>
-    <string name="title_information">Information</string>
+    <string name="title_knowledge">Kennisbank</string>
+    <string name="title_information">Informatie</string>
 </resources>
