@@ -4,4 +4,6 @@
     <string name="title_training">Trainingen</string>
     <string name="title_knowledge">Kennisbank</string>
     <string name="title_information">Informatie</string>
+
+    <string name="appt_service_name">Appt training</string>
 </resources>

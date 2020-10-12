@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import nl.appt.R
 
+/**
+ * Created by Jan Jaap de Groot on 12/10/2020
+ * Copyright 2020 Stichting Appt
+ */
 class KnowledgeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
