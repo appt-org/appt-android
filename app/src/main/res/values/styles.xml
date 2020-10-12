@@ -1,14 +1,14 @@
 <resources>
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/white</item>
-        <item name="colorAccent">@color/colorPrimary</item>
+    <style name="AppTheme.Base" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textColorPrimary">@color/black</item>
-        <item name="android:actionMenuTextColor">@color/black</item>
+        <item name="android:textColor">@color/foreground</item>
+        <item name="android:textColorPrimary">@color/foreground</item>
+        <item name="android:actionMenuTextColor">@color/foreground</item>
 
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/background</item>
         <item name="android:actionBarStyle">@style/ActionBar</item>
     </style>
 
@@ -16,7 +16,7 @@
         <!-- Overriden in v23 -->
     </style>
 
-    <style name="ActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@color/white</item>
+    <style name="ActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@color/background</item>
     </style>
 </resources>
