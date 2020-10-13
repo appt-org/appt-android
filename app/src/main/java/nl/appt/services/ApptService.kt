@@ -5,7 +5,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED
-import android.view.accessibility.AccessibilityNodeInfo
+
 
 /**
  * This is where the magic happens.
@@ -47,16 +47,21 @@ class ApptService: AccessibilityService() {
             if (type == TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
                 Log.i(TAG, "Focused on: ${event.className}")
 
-                event.source?.apply {
-                    performAction(AccessibilityNodeInfo.ACTION_FOCUS)
-                    recycle()
-                }
+//                event.source?.apply {
+//                    performAction(AccessibilityNodeInfo.ACTION_FOCUS)
+//                    recycle()
+//                }
             }
         }
     }
 
     override fun onGesture(gestureId: Int): Boolean {
         Log.i(TAG, "onGesture: $gestureId")
+
+        val intent = Intent("GESTURE")
+        intent.setPackage(packageName)
+        intent.putExtra("id", gestureId)
+        applicationContext.sendBroadcast(intent)
 
         when (gestureId) {
             // UP
@@ -116,6 +121,6 @@ class ApptService: AccessibilityService() {
             }
         }
 
-        return super.onGesture(gestureId)
+        return true
     }
 }

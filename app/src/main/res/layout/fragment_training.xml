@@ -20,13 +20,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <nl.appt.views.GestureView
-        android:id="@+id/gesture"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/primary"
-        android:focusable="true"
-        android:accessibilityFlags="flagIncludeNotImportantViews|flagRequestTouchExplorationMode"
-        android:contentDescription="Voer gebaar uit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

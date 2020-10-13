@@ -1,25 +1,16 @@
 package nl.appt.extensions
 
-import android.accessibilityservice.AccessibilityServiceInfo
+import android.app.Activity
 import android.content.Context
-import android.view.accessibility.AccessibilityManager
-import nl.appt.services.ApptService
+import android.content.Intent
+import android.os.Bundle
 
-/**
- * Checks if the given class is enabled as accessibility service.
- */
-fun <T> Context.isAccessibilityServiceEnabled(clazz: Class<T>): Boolean {
-    (getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager).let { manager ->
-        val services = manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
-        for (service in services) {
-            if (service.resolveInfo.serviceInfo.name == clazz.name) {
-                return true
-            }
-        }
-    }
-    return false
+inline fun <reified T : Activity> Context.startActivity(options: Bundle? = null, noinline init: Intent.() -> Unit = {}) {
+    val intent = Intent(this, T::class.java)
+    intent.init()
+    startActivity(intent, options)
 }
 
-fun Context.isApptServiceEnabled(): Boolean {
-    return isAccessibilityServiceEnabled(ApptService::class.java)
+inline fun <reified T : Activity> Activity.launchActivity(options: Bundle? = null, noinline init: Intent.() -> Unit = {}) {
+    startActivity<T>(options, init)
 }

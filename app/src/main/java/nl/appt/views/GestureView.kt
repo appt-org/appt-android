@@ -23,7 +23,7 @@ class GestureView @JvmOverloads constructor(
         Log.d(TAG, "onHoverEvent: $event")
 
         if (Accessibility.isTalkBackEnabled(context)) {
-            onTouchEvent(event)
+            //onTouchEvent(event)
         }
 
         return super.onHoverEvent(event)
@@ -31,19 +31,22 @@ class GestureView @JvmOverloads constructor(
 
     override fun onInitializeAccessibilityEvent(event: AccessibilityEvent?) {
         Log.d(TAG, "onInitializeAccessibilityEvent: $event")
-        event?.className = "nl.appt.views.GestureView"
+        //event?.className = "nl.appt.views.GestureView"
         super.onInitializeAccessibilityEvent(event)
-
     }
 
     override fun onPopulateAccessibilityEvent(event: AccessibilityEvent?) {
-        event?.className = "nl.appt.views.GestureView"
-        super.onPopulateAccessibilityEvent(event)
         Log.d(TAG, "onPopulateAccessibilityEvent: $event")
+        //event?.className = "nl.appt.views.GestureView"
+        super.onPopulateAccessibilityEvent(event)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         Log.d(TAG, "onTouchEvent")
         return super.onTouchEvent(event)
+    }
+
+    override fun dispatchPopulateAccessibilityEvent(event: AccessibilityEvent?): Boolean {
+        return true
     }
 }
