@@ -1,10 +1,19 @@
 package nl.appt.services
 
 import android.accessibilityservice.AccessibilityService
+import android.accessibilityservice.AccessibilityServiceInfo
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
-import android.view.accessibility.AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOCUSED
+import android.view.accessibility.AccessibilityNodeInfo
+import android.widget.Toast
+import nl.appt.R
+import nl.appt.extensions.startActivity
+import nl.appt.model.Constants
+import nl.appt.ui.training.TrainingActivity
 
 
 /**
@@ -17,11 +26,17 @@ import android.view.accessibility.AccessibilityEvent.TYPE_VIEW_ACCESSIBILITY_FOC
  */
 class ApptService: AccessibilityService() {
 
-    private val TAG = "AccessibilityService"
+    private val TAG = "ApptService"
+    private val TRAINING_CLASS_NAME = TrainingActivity::class.java.name
 
     override fun onCreate() {
         super.onCreate()
         Log.i(TAG, "onCreate")
+
+        // Start TrainingActivity if needed.
+        if (!isTraining()) {
+            startTraining()
+        }
     }
 
     override fun onServiceConnected() {
@@ -39,18 +54,14 @@ class ApptService: AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        Log.i(TAG, "onAcccessibilityEvent: $event")
+        event?.let {
+            if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+                Log.d(TAG, "Changed window to: ${event.packageName}")
 
-        //Toast.makeText(this, "Event: $event", Toast.LENGTH_SHORT).show()
-
-        event?.eventType?.let { type ->
-            if (type == TYPE_VIEW_ACCESSIBILITY_FOCUSED) {
-                Log.i(TAG, "Focused on: ${event.className}")
-
-//                event.source?.apply {
-//                    performAction(AccessibilityNodeInfo.ACTION_FOCUS)
-//                    recycle()
-//                }
+                // Kill service if no longer training
+                if (!isTraining()) {
+                    kill()
+                }
             }
         }
     }
@@ -58,69 +69,40 @@ class ApptService: AccessibilityService() {
     override fun onGesture(gestureId: Int): Boolean {
         Log.i(TAG, "onGesture: $gestureId")
 
-        val intent = Intent("GESTURE")
-        intent.setPackage(packageName)
-        intent.putExtra("id", gestureId)
-        applicationContext.sendBroadcast(intent)
-
-        when (gestureId) {
-            // UP
-            GESTURE_SWIPE_UP -> {
-                Log.i(TAG, "GESTURE_SWIPE_UP")
-            }
-            GESTURE_SWIPE_UP_AND_RIGHT -> {
-                Log.i(TAG, "GESTURE_SWIPE_UP_AND_RIGHT")
-            }
-            GESTURE_SWIPE_UP_AND_DOWN -> {
-                Log.i(TAG, "GESTURE_SWIPE_UP_AND_DOWN")
-            }
-            GESTURE_SWIPE_UP_AND_LEFT -> {
-                Log.i(TAG, "GESTURE_SWIPE_UP_AND_LEFT")
-            }
-
-            // RIGHT
-            GESTURE_SWIPE_RIGHT -> {
-                Log.i(TAG, "GESTURE_SWIPE_RIGHT")
-            }
-            GESTURE_SWIPE_RIGHT_AND_UP -> {
-                Log.i(TAG, "GESTURE_SWIPE_RIGHT_AND_UP")
-            }
-            GESTURE_SWIPE_RIGHT_AND_DOWN -> {
-                Log.i(TAG, "GESTURE_SWIPE_RIGHT_AND_DOWN")
-            }
-            GESTURE_SWIPE_RIGHT_AND_LEFT -> {
-                Log.i(TAG, "GESTURE_SWIPE_RIGHT_AND_LEFT")
-            }
-
-            // DOWN
-            GESTURE_SWIPE_DOWN -> {
-                Log.i(TAG, "GESTURE_SWIPE_DOWN")
-            }
-            GESTURE_SWIPE_DOWN_AND_UP -> {
-                Log.i(TAG, "GESTURE_SWIPE_DOWN_AND_UP")
-            }
-            GESTURE_SWIPE_DOWN_AND_RIGHT -> {
-                Log.i(TAG, "GESTURE_SWIPE_DOWN_AND_RIGHT")
-            }
-            GESTURE_SWIPE_DOWN_AND_LEFT -> {
-                Log.i(TAG, "GESTURE_SWIPE_DOWN_AND_LEFT")
-            }
-
-            // LEFT
-            GESTURE_SWIPE_LEFT -> {
-                Log.i(TAG, "GESTURE_SWIPE_LEFT")
-            }
-            GESTURE_SWIPE_LEFT_AND_UP -> {
-                Log.i(TAG, "GESTURE_SWIPE_LEFT_AND_UP")
-            }
-            GESTURE_SWIPE_LEFT_AND_RIGHT -> {
-                Log.i(TAG, "GESTURE_SWIPE_LEFT_AND_RIGHT")
-            }
-            GESTURE_SWIPE_LEFT_AND_DOWN -> {
-                Log.i(TAG, "GESTURE_SWIPE_LEFT_AND_DOWN")
-            }
+        // Kill service if no longer training
+        if (!isTraining()) {
+            kill()
+            return false
         }
 
+        // Broadcast gesture to TrainingActivity
+        val intent = Intent(Constants.SERVICE_ACTION)
+        intent.setPackage(packageName)
+        intent.putExtra(Constants.SERVICE_GESTURE, gestureId)
+        applicationContext.sendBroadcast(intent)
+
         return true
+    }
+
+    private fun kill() {
+        Toast.makeText(this, R.string.service_killed, Toast.LENGTH_SHORT).show()
+        disableSelf()
+    }
+
+    private fun isTraining(): Boolean {
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        activityManager.getRunningTasks(1).firstOrNull()?.topActivity?.let { activity ->
+            return activity.className == TRAINING_CLASS_NAME
+        }
+        return false
+    }
+
+    private fun startTraining() {
+        startActivity<TrainingActivity> {
+            putExtra("launch", true)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+        }
     }
 }

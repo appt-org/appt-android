@@ -24,7 +24,7 @@
         <service
             android:name="nl.appt.services.ApptService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:label="@string/appt_service_description">
+            android:label="@string/service_label">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>

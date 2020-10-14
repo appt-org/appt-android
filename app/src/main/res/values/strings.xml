@@ -5,6 +5,8 @@
     <string name="title_knowledge">Kennisbank</string>
     <string name="title_information">Informatie</string>
 
-    <string name="appt_service_description">Appt training</string>
-    <string name="appt_service_summary">Herkennen van gebaren</string>
+    <string name="service_label">Appt</string>
+    <string name="service_summary">Herkennen van gebaren</string>
+    <string name="service_description">Om gebaren te herkennen is het noodzakelijk dat je deze service aanzet.\n\nDe service wordt automatisch uitgeschakeld wanneer je de training stopt of wisselt naar een andere app.\n\nEr worden geen gegevens opgeslagen.</string>
+    <string name="service_killed">De Appt service is automatisch uitgezet</string>
 </resources>

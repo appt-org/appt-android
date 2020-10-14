@@ -2,7 +2,6 @@ package nl.appt.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.accessibility.AccessibilityEvent
@@ -18,9 +17,10 @@ class GestureView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private val TAG = "GestureView"
+    private val CLASS_NAME = GestureView::class.java.name
 
     override fun onHoverEvent(event: MotionEvent?): Boolean {
-        Log.d(TAG, "onHoverEvent: $event")
+        //Log.d(TAG, "onHoverEvent: $event")
 
         if (Accessibility.isTalkBackEnabled(context)) {
             //onTouchEvent(event)
@@ -30,23 +30,19 @@ class GestureView @JvmOverloads constructor(
     }
 
     override fun onInitializeAccessibilityEvent(event: AccessibilityEvent?) {
-        Log.d(TAG, "onInitializeAccessibilityEvent: $event")
-        //event?.className = "nl.appt.views.GestureView"
+        //Log.d(TAG, "onInitializeAccessibilityEvent: $event")
+        event?.className = CLASS_NAME
         super.onInitializeAccessibilityEvent(event)
     }
 
     override fun onPopulateAccessibilityEvent(event: AccessibilityEvent?) {
-        Log.d(TAG, "onPopulateAccessibilityEvent: $event")
-        //event?.className = "nl.appt.views.GestureView"
+        //Log.d(TAG, "onPopulateAccessibilityEvent: $event")
+        event?.className = CLASS_NAME
         super.onPopulateAccessibilityEvent(event)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        Log.d(TAG, "onTouchEvent")
+        //Log.d(TAG, "onTouchEvent")
         return super.onTouchEvent(event)
-    }
-
-    override fun dispatchPopulateAccessibilityEvent(event: AccessibilityEvent?): Boolean {
-        return true
     }
 }

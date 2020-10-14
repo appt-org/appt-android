@@ -24,8 +24,4 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         bottomNavigationView.setupWithNavController(navController)
     }
-
-    override fun dispatchPopulateAccessibilityEvent(event: AccessibilityEvent?): Boolean {
-        return false
-    }
 }

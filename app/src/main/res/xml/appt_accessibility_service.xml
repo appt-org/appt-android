@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
-    android:description="@string/appt_service_description"
-    android:summary="@string/appt_service_summary"
+    android:summary="@string/service_summary"
+    android:description="@string/service_description"
     android:accessibilityEventTypes="typeAllMask"
     android:accessibilityFlags="flagIncludeNotImportantViews|flagRequestTouchExplorationMode"
     android:accessibilityFeedbackType="feedbackSpoken|feedbackHaptic|feedbackAudible|feedbackGeneric"
     android:canRetrieveWindowContent="true"
-    android:notificationTimeout="100"
-    android:packageNames="nl.appt"
-    android:settingsActivity="nl.appt" />
+    android:canRequestTouchExplorationMode="true"
+    android:notificationTimeout="100" />
