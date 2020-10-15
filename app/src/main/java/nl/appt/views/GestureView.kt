@@ -1,60 +1,64 @@
 package nl.appt.views
 
+import android.accessibilityservice.AccessibilityService.*
 import android.content.Context
-import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.accessibility.AccessibilityEvent
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
+import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Direction
+import nl.appt.model.Gesture
+
+interface GestureViewCallback {
+    fun correct(gesture: Gesture)
+    fun incorrect(gesture: Gesture, feedback: String? = null)
+}
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-class GestureView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+open class GestureView(val gesture: Gesture, context: Context) : View(context) {
 
     private val TAG = "GestureView"
     private val CLASS_NAME = GestureView::class.java.name
 
+    var callback: GestureViewCallback? = null
+
     override fun onHoverEvent(event: MotionEvent?): Boolean {
-        //Log.d(TAG, "onHoverEvent: $event")
+        Log.d(TAG, "onHoverEvent: $event")
 
         if (Accessibility.isTalkBackEnabled(context)) {
-            //onTouchEvent(event)
+            onTouchEvent(event)
         }
 
         return super.onHoverEvent(event)
     }
 
     override fun onInitializeAccessibilityEvent(event: AccessibilityEvent?) {
-        //Log.d(TAG, "onInitializeAccessibilityEvent: $event")
         event?.className = CLASS_NAME
         super.onInitializeAccessibilityEvent(event)
     }
 
     override fun onPopulateAccessibilityEvent(event: AccessibilityEvent?) {
-        //Log.d(TAG, "onPopulateAccessibilityEvent: $event")
         event?.className = CLASS_NAME
         super.onPopulateAccessibilityEvent(event)
     }
 
-
-    private val swipeListener = object : SwipeListener(context) {
-        override fun onSwipe(directions: List<Direction>) {
-            Log.d(TAG, "onSwipe: $directions")
-        }
+    fun correct() {
+        callback?.correct(gesture)
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        //Log.d(TAG, "onTouchEvent")
-
-        swipeListener.onTouchEvent(event)
-
-        return true
+    fun incorrect(feedback: String? = "Geen feedback") {
+        callback?.incorrect(gesture, feedback)
     }
+
+    open fun onAccessibilityGesture(gesture: AccessibilityGesture) {
+        // Can be overridden
+    }
+
+
 }

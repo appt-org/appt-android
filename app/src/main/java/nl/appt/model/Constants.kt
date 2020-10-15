@@ -10,5 +10,6 @@ class Constants {
     companion object {
         val SERVICE_ACTION = "APPT_SERVICE"
         val SERVICE_GESTURE = "GESTURE"
+        val SERVICE_KILLED = "KILLED"
     }
 }

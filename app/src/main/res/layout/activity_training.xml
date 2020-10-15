@@ -6,12 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <nl.appt.views.GestureView
-        android:id="@+id/gestureView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/primary"
-        android:focusable="true"
-        android:accessibilityFlags="flagIncludeNotImportantViews|flagRequestTouchExplorationMode"
-        android:contentDescription="Voer gebaar uit" />
+
+<!--    <nl.appt.views.GestureView-->
+<!--        android:id="@+id/gestureView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="@color/primary"-->
+<!--        android:focusable="true"-->
+<!--        android:accessibilityFlags="flagIncludeNotImportantViews|flagRequestTouchExplorationMode"-->
+<!--        android:contentDescription="Voer gebaar uit" />-->
 </LinearLayout>

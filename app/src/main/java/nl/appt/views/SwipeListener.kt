@@ -44,9 +44,9 @@ abstract class SwipeListener(val context: Context) {
                 }
             } else {
                 if (distanceY > THRESHOLD) {
-                    direction = Direction.TOP
+                    direction = Direction.UP
                 } else if (distanceY < -THRESHOLD) {
-                    direction = Direction.BOTTOM
+                    direction = Direction.DOWN
                 }
             }
 

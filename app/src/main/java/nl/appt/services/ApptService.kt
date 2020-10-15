@@ -9,9 +9,10 @@ import android.view.accessibility.AccessibilityEvent
 import android.widget.Toast
 import nl.appt.R
 import nl.appt.extensions.startActivity
+import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
 import nl.appt.tabs.training.TrainingActivity
-
+import java.io.Serializable
 
 /**
  * This is where the magic happens.
@@ -30,10 +31,8 @@ class ApptService: AccessibilityService() {
         super.onCreate()
         Log.i(TAG, "onCreate")
 
-        // Start TrainingActivity if needed.
-        if (!isTraining()) {
-            startTraining()
-        }
+        // Start TrainingActivity
+        startTraining()
     }
 
     override fun onServiceConnected() {
@@ -55,8 +54,8 @@ class ApptService: AccessibilityService() {
             if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
                 Log.d(TAG, "Changed window to: ${event.packageName}")
 
-                // Kill service if no longer training
-                if (!isTraining()) {
+                // Kill service if window has changed or if TrainingActivity is no longer active.
+                if (event.packageName != this.packageName || !isTraining()) {
                     kill()
                 }
             }
@@ -73,16 +72,25 @@ class ApptService: AccessibilityService() {
         }
 
         // Broadcast gesture to TrainingActivity
-        val intent = Intent(Constants.SERVICE_ACTION)
-        intent.setPackage(packageName)
-        intent.putExtra(Constants.SERVICE_GESTURE, gestureId)
-        applicationContext.sendBroadcast(intent)
+        AccessibilityGesture.from(gestureId)?.let { gesture ->
+            broadcast(Constants.SERVICE_GESTURE, gesture)
+        }
 
         return true
     }
 
+    private fun broadcast(key: String, value: Serializable) {
+        val intent = Intent(Constants.SERVICE_ACTION)
+        intent.setPackage(packageName)
+        intent.putExtra(key, value)
+        applicationContext.sendBroadcast(intent)
+    }
+
     private fun kill() {
         Toast.makeText(this, R.string.service_killed, Toast.LENGTH_SHORT).show()
+
+        broadcast(Constants.SERVICE_KILLED, true)
+
         disableSelf()
     }
 
@@ -98,8 +106,6 @@ class ApptService: AccessibilityService() {
         startActivity<TrainingActivity> {
             putExtra("launch", true)
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
         }
     }
 }
