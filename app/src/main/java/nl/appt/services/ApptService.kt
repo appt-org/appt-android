@@ -1,19 +1,16 @@
 package nl.appt.services
 
 import android.accessibilityservice.AccessibilityService
-import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
-import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Toast
 import nl.appt.R
 import nl.appt.extensions.startActivity
 import nl.appt.model.Constants
-import nl.appt.ui.training.TrainingActivity
+import nl.appt.tabs.training.TrainingActivity
 
 
 /**

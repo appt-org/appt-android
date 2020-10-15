@@ -1,26 +1,24 @@
-package nl.appt.ui.training
+package nl.appt.tabs.training
 
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.*
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.MotionEvent
-import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
-import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_training.*
 import nl.appt.MainActivity
 import nl.appt.R
+import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.activity.accessibility
+import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.accessibility.view.accessibility
 import nl.appt.extensions.startActivity
 import nl.appt.model.Constants
 import nl.appt.model.Gesture
 import nl.appt.services.ApptService
-import java.util.*
 
 
 /**
@@ -75,7 +73,7 @@ class TrainingActivity: AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        if (!isApptServiceEnabled()) {
+        if (Accessibility.isTalkBackEnabled(this) && !isApptServiceEnabled()) {
             enableApptService()
         }
     }
@@ -102,7 +100,7 @@ class TrainingActivity: AppCompatActivity() {
                 startActivity(intent)
             }
             .setNegativeButton(android.R.string.no) { _, _ ->
-                finishAffinity()
+                onBackPressed()
             }
             .show()
     }

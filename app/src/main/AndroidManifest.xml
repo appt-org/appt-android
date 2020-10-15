@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.training.TrainingActivity" />
+        <activity android:name=".tabs.training.TrainingActivity" />
 
         <service
             android:name="nl.appt.services.ApptService"

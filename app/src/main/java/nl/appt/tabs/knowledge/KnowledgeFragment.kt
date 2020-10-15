@@ -1,4 +1,4 @@
-package nl.appt.ui.knowledge
+package nl.appt.tabs.knowledge
 
 import android.os.Bundle
 import android.view.LayoutInflater

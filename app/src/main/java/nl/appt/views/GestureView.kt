@@ -2,11 +2,13 @@ package nl.appt.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.accessibility.AccessibilityEvent
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
+import nl.appt.model.Direction
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
@@ -41,8 +43,18 @@ class GestureView @JvmOverloads constructor(
         super.onPopulateAccessibilityEvent(event)
     }
 
+
+    private val swipeListener = object : SwipeListener(context) {
+        override fun onSwipe(directions: List<Direction>) {
+            Log.d(TAG, "onSwipe: $directions")
+        }
+    }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         //Log.d(TAG, "onTouchEvent")
-        return super.onTouchEvent(event)
+
+        swipeListener.onTouchEvent(event)
+
+        return true
     }
 }
