@@ -1,6 +1,5 @@
 package nl.appt.views
 
-import android.accessibilityservice.AccessibilityService.*
 import android.content.Context
 import android.util.Log
 import android.view.MotionEvent
@@ -9,12 +8,11 @@ import android.view.accessibility.AccessibilityEvent
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.model.AccessibilityGesture
-import nl.appt.model.Direction
 import nl.appt.model.Gesture
 
 interface GestureViewCallback {
     fun correct(gesture: Gesture)
-    fun incorrect(gesture: Gesture, feedback: String? = null)
+    fun incorrect(gesture: Gesture, feedback: String)
 }
 
 /**
@@ -26,7 +24,7 @@ open class GestureView(val gesture: Gesture, context: Context) : View(context) {
     private val TAG = "GestureView"
     private val CLASS_NAME = GestureView::class.java.name
 
-    var callback: GestureViewCallback? = null
+    /** Touch events **/
 
     override fun onHoverEvent(event: MotionEvent?): Boolean {
         Log.d(TAG, "onHoverEvent: $event")
@@ -38,6 +36,8 @@ open class GestureView(val gesture: Gesture, context: Context) : View(context) {
         return super.onHoverEvent(event)
     }
 
+    /** Accessibility events **/
+
     override fun onInitializeAccessibilityEvent(event: AccessibilityEvent?) {
         event?.className = CLASS_NAME
         super.onInitializeAccessibilityEvent(event)
@@ -48,17 +48,19 @@ open class GestureView(val gesture: Gesture, context: Context) : View(context) {
         super.onPopulateAccessibilityEvent(event)
     }
 
-    fun correct() {
-        callback?.correct(gesture)
-    }
-
-    fun incorrect(feedback: String? = "Geen feedback") {
-        callback?.incorrect(gesture, feedback)
-    }
-
     open fun onAccessibilityGesture(gesture: AccessibilityGesture) {
         // Can be overridden
     }
 
+    /** Callback **/
 
+    var callback: GestureViewCallback? = null
+
+    fun correct() {
+        callback?.correct(gesture)
+    }
+
+    fun incorrect(feedback: String = "Geen feedback") {
+        callback?.incorrect(gesture, feedback)
+    }
 }

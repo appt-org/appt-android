@@ -28,17 +28,17 @@ abstract class SwipeListener(val context: Context) {
             var direction = Direction.UNKNOWN
             if (distanceX > THRESHOLD) {
                 if (distanceY > THRESHOLD) {
-                    direction = Direction.TOP_LEFT
+                    //direction = Direction.TOP_LEFT
                 } else if (distanceY < -THRESHOLD) {
-                    direction = Direction.BOTTOM_LEFT
+                    //direction = Direction.BOTTOM_LEFT
                 } else {
                     direction = Direction.LEFT
                 }
             } else if (distanceX < -THRESHOLD) {
                 if (distanceY > THRESHOLD) {
-                    direction = Direction.TOP_RIGHT
+                    //direction = Direction.TOP_RIGHT
                 } else if (distanceY < -THRESHOLD) {
-                    direction = Direction.BOTTOM_RIGHT
+                    //direction = Direction.BOTTOM_RIGHT
                 } else {
                     direction = Direction.RIGHT
                 }

@@ -20,10 +20,10 @@ enum class Gesture {
     val title: String
         get() {
             return when (this) {
-                SWIPE_RIGHT -> "Naar het volgende onderdeel"
-                SWIPE_LEFT -> "Naar het vorige onderdeel"
-                SWIPE_DOWN_AND_UP -> "Naar het laatste onderdeel"
-                SWIPE_UP_AND_DOWN -> "Naar het eerste onderdeel"
+                SWIPE_RIGHT -> "Naar het volgende onderdeel gaan"
+                SWIPE_LEFT -> "Naar het vorige onderdeel gaan"
+                SWIPE_DOWN_AND_UP -> "Naar het laatste onderdeel gaan"
+                SWIPE_UP_AND_DOWN -> "Naar het eerste onderdeel gaan"
             }
         }
 
@@ -31,9 +31,9 @@ enum class Gesture {
         get() {
             return when (this) {
                 SWIPE_RIGHT -> "Veeg naar rechts om naar het volgende onderdeel te gaan."
-                SWIPE_LEFT -> "Veeg naar links om naar het vorige onderdeel."
+                SWIPE_LEFT -> "Veeg naar links om naar het vorige onderdeel te gaan."
                 SWIPE_DOWN_AND_UP -> "Veeg omlaag en dan omhoog om naar het laatste onderdeel te gaan."
-                SWIPE_UP_AND_DOWN -> "Veeg omhoog en dan omlaag om naar het het eerste onderdeel te gaan."
+                SWIPE_UP_AND_DOWN -> "Veeg omhoog en dan omlaag om naar het eerste onderdeel te gaan."
             }
         }
 

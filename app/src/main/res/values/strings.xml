@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Appt</string>
 
+    <string name="font_regular" translatable="false">fonts/source_sans_pro.ttf</string>
+    <string name="font_semibold" translatable="false">fonts/source_sans_pro_semibold.ttf</string>
+    <string name="font_bold" translatable="false">fonts/source_sans_pro_bold.ttf</string>
+
     <string name="title_training">Trainingen</string>
     <string name="title_knowledge">Kennisbank</string>
     <string name="title_information">Informatie</string>

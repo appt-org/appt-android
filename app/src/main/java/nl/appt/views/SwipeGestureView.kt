@@ -34,7 +34,7 @@ class SwipeGestureView(
         if (directions.contentEquals(this.directions)) {
             correct()
         } else {
-            incorrect("Veeg ${Direction.feedback(*this.directions)} in plaats van ${Direction.feedback(*directions)}")
+            incorrect("Je veegde ${Direction.feedback(*directions)}. Veeg ${Direction.feedback(*this.directions)}.")
         }
     }
 

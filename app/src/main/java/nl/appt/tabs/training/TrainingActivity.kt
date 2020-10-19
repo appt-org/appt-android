@@ -2,19 +2,21 @@ package nl.appt.tabs.training
 
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.*
-import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.View
 import android.view.accessibility.AccessibilityManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_training.*
 import nl.appt.MainActivity
 import nl.appt.R
+import nl.appt.widgets.ToolbarActivity
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.activity.accessibility
+import nl.appt.accessibility.announce
 import nl.appt.accessibility.isTalkBackEnabled
+import nl.appt.accessibility.setFocus
 import nl.appt.accessibility.view.accessibility
 import nl.appt.extensions.startActivity
 import nl.appt.model.AccessibilityGesture
@@ -28,12 +30,12 @@ import nl.appt.views.GestureViewCallback
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-class TrainingActivity: AppCompatActivity() {
+class TrainingActivity: ToolbarActivity() {
 
     private val TAG = "TrainingActivity"
     private val APPT_SERVICE = ApptService::class.java.name
 
-    private val gesture = Gesture.SWIPE_UP_AND_DOWN
+    private val gesture = Gesture.values().random()
     private lateinit var gestureView: GestureView
 
     private val receiver = object : BroadcastReceiver() {
@@ -56,23 +58,33 @@ class TrainingActivity: AppCompatActivity() {
     private val callback = object : GestureViewCallback {
         override fun correct(gesture: Gesture) {
             Toast.makeText(baseContext, "Gebaar correct uitgevoerd!", Toast.LENGTH_SHORT).show()
+            feedbackTextView.visibility = View.GONE
+            finish()
         }
 
-        override fun incorrect(gesture: Gesture, feedback: String?) {
-            Log.d(TAG, feedback)
-            Toast.makeText(baseContext, feedback, Toast.LENGTH_SHORT).show()
+        override fun incorrect(gesture: Gesture, feedback: String) {
+            Accessibility.announce(baseContext, feedback)
+            feedbackTextView.text = feedback
+            feedbackTextView.visibility = View.VISIBLE
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_training)
+    override fun getViewId(): Int {
+        return R.layout.activity_training
+    }
 
-        title = gesture.title
+    override fun getToolbarTitle(): String {
+        return gesture.title
+    }
+
+    override fun onViewCreated() {
+        super.onViewCreated()
+
+        // Show description
+        descriptionTextView.text = gesture.description
 
         // Initialize GestureView
         gestureView = gesture.view(this)
-        gestureView.setBackgroundColor(R.color.primary)
         gestureView.callback = callback
         gestureView.accessibility.label = gesture.description
         container.addView(gestureView)
@@ -102,6 +114,8 @@ class TrainingActivity: AppCompatActivity() {
         if (Accessibility.isTalkBackEnabled(this) && !isApptServiceEnabled()) {
             enableApptService()
         }
+
+        Accessibility.setFocus(gestureView)
     }
 
     private fun isApptServiceEnabled(): Boolean {
@@ -123,7 +137,7 @@ class TrainingActivity: AppCompatActivity() {
             .setMessage("De app kan alleen gebaren herkennen indien je de Appt service aanzet.")
             .setPositiveButton(android.R.string.yes) { _, _ ->
                 val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_NO_HISTORY
+                //intent.flags = Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_NO_HISTORY
                 startActivity(intent)
             }
             .setNegativeButton(android.R.string.no) { _, _ ->

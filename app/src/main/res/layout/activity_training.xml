@@ -1,18 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/view_toolbar" />
 
-<!--    <nl.appt.views.GestureView-->
-<!--        android:id="@+id/gestureView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:background="@color/primary"-->
-<!--        android:focusable="true"-->
-<!--        android:accessibilityFlags="flagIncludeNotImportantViews|flagRequestTouchExplorationMode"-->
-<!--        android:contentDescription="Voer gebaar uit" />-->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:focusable="false"
+            android:clickable="false">
+
+            <TextView style="@style/Widget.TextView.Bold"
+                android:id="@+id/descriptionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="Uitleg" />
+
+            <TextView style="@style/Widget.TextView.SemiBold"
+                android:id="@+id/feedbackTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:textColor="@color/red"
+                android:textSize="18sp"
+                android:text="Feedback"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

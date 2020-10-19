@@ -2,18 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_training"
+        android:id="@+id/tab_training"
         android:icon="@drawable/tab_training"
         android:title="@string/title_training" />
 
     <item
-        android:id="@+id/navigation_knowledge"
+        android:id="@+id/tab_knowledge"
         android:icon="@drawable/tab_knowledge"
         android:title="@string/title_knowledge" />
 
     <item
-        android:id="@+id/navigation_information"
+        android:id="@+id/tab_information"
         android:icon="@drawable/tab_info"
         android:title="@string/title_information" />
-
 </menu>
