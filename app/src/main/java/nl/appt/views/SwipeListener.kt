@@ -12,7 +12,7 @@ import nl.appt.model.Direction
  */
 abstract class SwipeListener(val context: Context) {
 
-    private val THRESHOLD = 25
+    private val THRESHOLD = 50
     private var directions = arrayListOf<Direction>()
 
     abstract fun onSwipe(directions: List<Direction>)
@@ -26,26 +26,17 @@ abstract class SwipeListener(val context: Context) {
         override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
             // Determine direction
             var direction = Direction.UNKNOWN
-            if (distanceX > THRESHOLD) {
-                if (distanceY > THRESHOLD) {
-                    //direction = Direction.TOP_LEFT
-                } else if (distanceY < -THRESHOLD) {
-                    //direction = Direction.BOTTOM_LEFT
-                } else {
+            when {
+                distanceX > THRESHOLD -> {
                     direction = Direction.LEFT
                 }
-            } else if (distanceX < -THRESHOLD) {
-                if (distanceY > THRESHOLD) {
-                    //direction = Direction.TOP_RIGHT
-                } else if (distanceY < -THRESHOLD) {
-                    //direction = Direction.BOTTOM_RIGHT
-                } else {
+                distanceX < -THRESHOLD -> {
                     direction = Direction.RIGHT
                 }
-            } else {
-                if (distanceY > THRESHOLD) {
+                distanceY > THRESHOLD -> {
                     direction = Direction.UP
-                } else if (distanceY < -THRESHOLD) {
+                }
+                distanceY < -THRESHOLD -> {
                     direction = Direction.DOWN
                 }
             }
@@ -71,7 +62,9 @@ abstract class SwipeListener(val context: Context) {
         }
 
         override fun onFling(e1: MotionEvent?, e2: MotionEvent?, velocityX: Float, velocityY: Float): Boolean {
-            onSwipe(directions)
+            if (directions.isNotEmpty()) {
+                onSwipe(directions)
+            }
             directions.clear()
 
             return super.onFling(e1, e2, velocityX, velocityY)

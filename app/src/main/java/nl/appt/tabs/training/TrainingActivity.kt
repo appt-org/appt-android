@@ -35,7 +35,14 @@ class TrainingActivity: ToolbarActivity() {
     private val TAG = "TrainingActivity"
     private val APPT_SERVICE = ApptService::class.java.name
 
-    private val gesture = Gesture.values().random()
+    private val gesture: Gesture by lazy {
+        var gesture = Gesture.SWIPE_DOWN_UP
+        (intent.getSerializableExtra("gesture") as? Gesture)?.let {
+            gesture = it
+        }
+        gesture
+    }
+
     private lateinit var gestureView: GestureView
 
     private val receiver = object : BroadcastReceiver() {
@@ -59,7 +66,7 @@ class TrainingActivity: ToolbarActivity() {
         override fun correct(gesture: Gesture) {
             Toast.makeText(baseContext, "Gebaar correct uitgevoerd!", Toast.LENGTH_SHORT).show()
             feedbackTextView.visibility = View.GONE
-            finish()
+            onBackPressed()
         }
 
         override fun incorrect(gesture: Gesture, feedback: String) {

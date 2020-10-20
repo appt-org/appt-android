@@ -16,11 +16,10 @@
             android:id="@+id/toolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_marginEnd="32dp"
             android:maxLines="1"
             android:ellipsize="end"
+            android:accessibilityHeading="true"
             tools:text="Title"/>
     </androidx.appcompat.widget.Toolbar>
 

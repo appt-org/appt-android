@@ -2,15 +2,34 @@ package nl.appt.tabs.training
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_training.view.*
 import nl.appt.R
+import nl.appt.adapters.ItemRecyclerViewAdapter
 import nl.appt.widgets.ToolbarFragment
 import nl.appt.extensions.startActivity
+import nl.appt.model.Gesture
+import nl.appt.model.Header
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-class TrainingFragment : ToolbarFragment() {
+class TrainingFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Gesture> {
+
+    private val gestures = listOf(
+        Header("Verkennen"),
+        Gesture.SWIPE_RIGHT,
+        Gesture.SWIPE_LEFT,
+        Gesture.SWIPE_UP,
+        Gesture.SWIPE_DOWN,
+        Header("Navigeren"),
+        Gesture.SWIPE_UP_DOWN,
+        Gesture.SWIPE_DOWN_UP,
+        Gesture.SWIPE_RIGHT_LEFT,
+        Gesture.SWIPE_LEFT_RIGHT
+    )
 
     override fun getViewId(): Int {
         return R.layout.fragment_training
@@ -21,10 +40,22 @@ class TrainingFragment : ToolbarFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         view.setOnClickListener {
             context?.startActivity<TrainingActivity>()
         }
 
-        super.onViewCreated(view, savedInstanceState)
+        with(view.recyclerView) {
+            layoutManager = LinearLayoutManager(context)
+            adapter = ItemRecyclerViewAdapter(gestures, this@TrainingFragment)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        }
+    }
+
+    override fun onItemClicked(item: Gesture) {
+        startActivity<TrainingActivity> {
+            putExtra("gesture", item)
+        }
     }
 }

@@ -9,7 +9,9 @@
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:clickable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
+                android:clickable="false"
                 android:gravity="center"
                 android:textSize="20sp"
                 android:text="Uitleg" />
@@ -34,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:focusable="false"
+                android:clickable="false"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:textColor="@color/red"

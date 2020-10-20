@@ -2,5 +2,7 @@
 <resources>
     <color name="foreground">#fff</color>
     <color name="background">#000</color>
+    <color name="list">#000</color>
+    <color name="row">#111</color>
     <color name="divider">#111111</color>
 </resources>
