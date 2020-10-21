@@ -19,7 +19,7 @@ interface GestureViewCallback {
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-open class GestureView(val gesture: Gesture, context: Context) : View(context) {
+abstract class GestureView(val gesture: Gesture, context: Context) : View(context) {
 
     private val TAG = "GestureView"
     private val CLASS_NAME = GestureView::class.java.name
@@ -48,19 +48,17 @@ open class GestureView(val gesture: Gesture, context: Context) : View(context) {
         super.onPopulateAccessibilityEvent(event)
     }
 
-    open fun onAccessibilityGesture(gesture: AccessibilityGesture) {
-        // Can be overridden
-    }
+    abstract fun onAccessibilityGesture(gesture: AccessibilityGesture)
 
     /** Callback **/
 
     var callback: GestureViewCallback? = null
 
-    fun correct() {
+    open fun correct() {
         callback?.correct(gesture)
     }
 
-    fun incorrect(feedback: String = "Geen feedback") {
+    open fun incorrect(feedback: String = "Geen feedback") {
         callback?.incorrect(gesture, feedback)
     }
 }
