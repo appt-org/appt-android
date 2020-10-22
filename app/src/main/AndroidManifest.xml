@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".tabs.training.TrainingActivity" />
+        <activity android:name=".tabs.training.TrainingActivity" android:launchMode="singleTask" />
 
         <service
             android:name="nl.appt.services.ApptService"

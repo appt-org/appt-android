@@ -19,12 +19,15 @@ import nl.appt.model.Header
 class TrainingFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Gesture> {
 
     private val gestures = listOf(
-        Header("Verkennen"),
+        Header("Selecteren"),
+        Gesture.TOUCH,
+        Gesture.DOUBLE_TAP,
+        Header("Navigeren"),
         Gesture.SWIPE_RIGHT,
         Gesture.SWIPE_LEFT,
         Gesture.SWIPE_UP,
         Gesture.SWIPE_DOWN,
-        Header("Navigeren"),
+        Header("Verplaatsen"),
         Gesture.SWIPE_UP_DOWN,
         Gesture.SWIPE_DOWN_UP,
         Gesture.SWIPE_RIGHT_LEFT,

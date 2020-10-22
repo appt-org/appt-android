@@ -25,6 +25,8 @@ import nl.appt.model.Gesture
 import nl.appt.services.ApptService
 import nl.appt.views.GestureView
 import nl.appt.views.GestureViewCallback
+import java.util.*
+import kotlin.concurrent.schedule
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
@@ -56,7 +58,7 @@ class TrainingActivity: ToolbarActivity() {
             }
 
             // Gesture check
-            (intent?.getSerializableExtra(Constants.SERVICE_GESTURE) as AccessibilityGesture).let { gesture ->
+            (intent?.getSerializableExtra(Constants.SERVICE_GESTURE) as? AccessibilityGesture)?.let { gesture ->
                 gestureView.onAccessibilityGesture(gesture)
             }
         }
@@ -103,6 +105,11 @@ class TrainingActivity: ToolbarActivity() {
         registerReceiver(receiver, filter)
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        Log.d(TAG, "onNewIntent") // Called after relaunching from ApptService
+        super.onNewIntent(intent)
+    }
+
     override fun onBackPressed() {
         if (intent.getBooleanExtra("launch", false)) {
             startActivity<MainActivity>()
@@ -118,11 +125,17 @@ class TrainingActivity: ToolbarActivity() {
     override fun onResume() {
         super.onResume()
 
-        if (Accessibility.isTalkBackEnabled(this) && !isApptServiceEnabled()) {
-            enableApptService()
+        if (Accessibility.isTalkBackEnabled(this)) {
+            if (isApptServiceEnabled()) {
+                Timer().schedule(500) {
+                    runOnUiThread {
+                        Accessibility.setFocus(gestureView)
+                    }
+                }
+            } else {
+                enableApptService()
+            }
         }
-
-        Accessibility.setFocus(gestureView)
     }
 
     private fun isApptServiceEnabled(): Boolean {
@@ -144,7 +157,7 @@ class TrainingActivity: ToolbarActivity() {
             .setMessage("De app kan alleen gebaren herkennen indien je de Appt service aanzet.")
             .setPositiveButton(android.R.string.yes) { _, _ ->
                 val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-                //intent.flags = Intent.FLAG_ACTIVITY_NEW_DOCUMENT or Intent.FLAG_ACTIVITY_NO_HISTORY
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_DOCUMENT
                 startActivity(intent)
             }
             .setNegativeButton(android.R.string.no) { _, _ ->

@@ -3,12 +3,17 @@ package nl.appt.model
 import android.content.Context
 import nl.appt.views.GestureView
 import nl.appt.views.SwipeGestureView
+import nl.appt.views.TapGestureView
+import nl.appt.views.TouchGestureView
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
 enum class Gesture: Item {
+
+    TOUCH,
+    DOUBLE_TAP,
 
     SWIPE_RIGHT,
     SWIPE_LEFT,
@@ -23,6 +28,9 @@ enum class Gesture: Item {
     override val title: String
         get() {
             return when (this) {
+                TOUCH -> "Een onderdeel selecteren en uitspreken"
+                DOUBLE_TAP -> "Het geselecteerde onderdeel activeren"
+
                 SWIPE_RIGHT -> "Naar het volgende onderdeel gaan"
                 SWIPE_LEFT -> "Naar het vorige onderdeel gaan"
                 SWIPE_UP -> "Navigatie instelling omhoog aanpassen"
@@ -38,6 +46,9 @@ enum class Gesture: Item {
     val description: String
         get() {
             return when (this) {
+                TOUCH -> "Raak het scherm aan om een onderdeel te selecteren en uit te spreken."
+                DOUBLE_TAP -> "Dubbeltik om het geselecteerde onderdeel te activeren."
+
                 SWIPE_RIGHT -> "Veeg naar rechts om naar het volgende onderdeel te gaan."
                 SWIPE_LEFT -> "Veeg naar links om naar het vorige onderdeel te gaan."
                 SWIPE_UP -> "Veeg omhoog om de navigatie instelling omhoog aan te passen."
@@ -52,6 +63,9 @@ enum class Gesture: Item {
 
     fun view(context: Context): GestureView {
         return when (this) {
+            TOUCH -> TouchGestureView(context, this)
+            DOUBLE_TAP -> TapGestureView(context, this, 1, 2)
+
             SWIPE_RIGHT -> SwipeGestureView(context, this, Direction.RIGHT)
             SWIPE_LEFT -> SwipeGestureView(context, this, Direction.LEFT)
             SWIPE_UP -> SwipeGestureView(context, this, Direction.UP)
