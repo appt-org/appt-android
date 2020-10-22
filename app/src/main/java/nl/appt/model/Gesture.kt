@@ -23,7 +23,15 @@ enum class Gesture: Item {
     SWIPE_UP_DOWN,
     SWIPE_DOWN_UP,
     SWIPE_RIGHT_LEFT,
-    SWIPE_LEFT_RIGHT;
+    SWIPE_LEFT_RIGHT,
+
+    SWIPE_DOWN_LEFT,
+    SWIPE_UP_LEFT,
+    SWIPE_LEFT_UP,
+    SWIPE_RIGHT_DOWN,
+    SWIPE_LEFT_DOWN,
+    SWIPE_UP_RIGHT,
+    SWIPE_DOWN_RIGHT;
 
     override val title: String
         get() {
@@ -40,6 +48,14 @@ enum class Gesture: Item {
                 SWIPE_UP_DOWN -> "Naar het eerste onderdeel gaan"
                 SWIPE_RIGHT_LEFT -> "Vooruit scrollen"
                 SWIPE_LEFT_RIGHT -> "Terug scrollen"
+
+                SWIPE_DOWN_LEFT -> "Terug"
+                SWIPE_UP_LEFT -> "Thuis"
+                SWIPE_LEFT_UP -> "Overzicht"
+                SWIPE_RIGHT_DOWN -> "Meldingen"
+                SWIPE_LEFT_DOWN -> "Zoeken"
+                SWIPE_UP_RIGHT -> "Lokaal contextmenu"
+                SWIPE_DOWN_RIGHT -> "Algemeen contextmenu"
             }
         }
 
@@ -58,6 +74,14 @@ enum class Gesture: Item {
                 SWIPE_UP_DOWN -> "Veeg omhoog en dan omlaag om naar het eerste onderdeel te gaan."
                 SWIPE_RIGHT_LEFT -> "Veeg naar rechts en dan naar links om vooruit te scrollen."
                 SWIPE_LEFT_RIGHT -> "Veeg naar links en dan naar rechts om achteruit te scrollen."
+
+                SWIPE_DOWN_LEFT -> "Veeg omlaag en dan naar links om terug te gaan "
+                SWIPE_UP_LEFT -> "Veeg omhoog en dan naar links om de thuisknop te activeren"
+                SWIPE_LEFT_UP -> "Veeg naar links en dan omhoog om recente apps te bekijken"
+                SWIPE_RIGHT_DOWN -> "Veeg naar rechts en dan omlaag om meldingen te tonen"
+                SWIPE_LEFT_DOWN -> "Veeg naar links en dan omlaag om op het scherm te zoeken"
+                SWIPE_UP_RIGHT -> "Veeg omhoog en dan naar rechts om het lokale contextmenu te openen"
+                SWIPE_DOWN_RIGHT -> "Veeg omlaag en dan naar rechts om het algemene contextmenu te openen"
             }
         }
 
@@ -75,6 +99,14 @@ enum class Gesture: Item {
             SWIPE_UP_DOWN -> SwipeGestureView(context, this, Direction.UP, Direction.DOWN)
             SWIPE_RIGHT_LEFT -> SwipeGestureView(context, this, Direction.RIGHT, Direction.LEFT)
             SWIPE_LEFT_RIGHT -> SwipeGestureView(context, this, Direction.LEFT, Direction.RIGHT)
+
+            SWIPE_DOWN_LEFT -> SwipeGestureView(context, this, Direction.DOWN, Direction.LEFT)
+            SWIPE_UP_LEFT -> SwipeGestureView(context, this, Direction.UP, Direction.LEFT)
+            SWIPE_LEFT_UP -> SwipeGestureView(context, this, Direction.LEFT, Direction.UP)
+            SWIPE_RIGHT_DOWN -> SwipeGestureView(context, this, Direction.RIGHT, Direction.DOWN)
+            SWIPE_LEFT_DOWN -> SwipeGestureView(context, this, Direction.LEFT, Direction.DOWN)
+            SWIPE_UP_RIGHT -> SwipeGestureView(context, this, Direction.UP, Direction.RIGHT)
+            SWIPE_DOWN_RIGHT -> SwipeGestureView(context, this, Direction.DOWN, Direction.RIGHT)
         }
     }
 }

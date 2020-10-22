@@ -31,7 +31,15 @@ class TrainingFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Gest
         Gesture.SWIPE_UP_DOWN,
         Gesture.SWIPE_DOWN_UP,
         Gesture.SWIPE_RIGHT_LEFT,
-        Gesture.SWIPE_LEFT_RIGHT
+        Gesture.SWIPE_LEFT_RIGHT,
+        Header("Snelkoppelingen"),
+        Gesture.SWIPE_DOWN_LEFT,
+        Gesture.SWIPE_UP_LEFT,
+        Gesture.SWIPE_LEFT_UP,
+        Gesture.SWIPE_RIGHT_DOWN ,
+        Gesture.SWIPE_LEFT_DOWN,
+        Gesture.SWIPE_UP_RIGHT,
+        Gesture.SWIPE_DOWN_RIGHT
     )
 
     override fun getViewId(): Int {
