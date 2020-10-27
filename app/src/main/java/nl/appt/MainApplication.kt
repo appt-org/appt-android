@@ -1,6 +1,7 @@
 package nl.appt
 
 import android.app.Application
+import com.github.kittinunf.fuel.core.FuelManager
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
@@ -13,6 +14,14 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        // Fuel
+        FuelManager.instance.basePath = BuildConfig.BASE_URL
+//        FuelManager.instance.baseHeaders = mapOf(
+//            "User-Agent" to "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0",
+//            "Platform" to "Android",
+//            "Version" to BuildConfig.VERSION_NAME
+//        )
 
         // Calligraphy
         ViewPump.init(ViewPump.builder()
