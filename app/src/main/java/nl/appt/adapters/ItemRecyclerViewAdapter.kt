@@ -14,11 +14,9 @@ import nl.appt.R
 import nl.appt.model.Header
 import nl.appt.model.Item
 
-
-
 class ItemRecyclerViewAdapter<T: Item>(
-    private val items: List<Any>,
-    private val listener: Callback<T>?
+    private var items: MutableList<T> = mutableListOf(),
+    private val listener: Callback<T>? = null
 ) : RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder>() {
 
     interface Callback<T> {
@@ -31,13 +29,20 @@ class ItemRecyclerViewAdapter<T: Item>(
 
     init {
         onClickListener = View.OnClickListener { v ->
-            if (v.tag is Item) {
-                (v.tag as? T)?.let { item ->
-                    listener?.onItemClicked(item)
-                }
+            (v.tag as? T)?.let { item ->
+                listener?.onItemClicked(item)
             }
-
         }
+    }
+
+    fun add(vararg elements: T) {
+        items.addAll(elements)
+        notifyDataSetChanged()
+    }
+
+    fun add(elements: Collection<T>) {
+        items.addAll(elements)
+        notifyDataSetChanged()
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -65,7 +70,7 @@ class ItemRecyclerViewAdapter<T: Item>(
         val item = items[position]
 
         if (item is Header && holder is ItemRecyclerViewAdapter<*>.HeaderViewHolder) {
-            holder.header.text = item.title
+            holder.header.text = item.title()
 
             ViewCompat.setAccessibilityDelegate(holder.header, object : AccessibilityDelegateCompat() {
                 override fun onInitializeAccessibilityNodeInfo(host: View, info: AccessibilityNodeInfoCompat) {
@@ -73,8 +78,8 @@ class ItemRecyclerViewAdapter<T: Item>(
                     info.isHeading = true
                 }
             })
-        } else if (item is Item && holder is ItemRecyclerViewAdapter<*>.ItemViewHolder) {
-            holder.title.text = item.title
+        } else if (holder is ItemRecyclerViewAdapter<*>.ItemViewHolder) {
+            holder.title.text = item.title()
 
             with(holder.view) {
                 tag = item

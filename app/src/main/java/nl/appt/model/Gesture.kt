@@ -5,12 +5,13 @@ import nl.appt.views.GestureView
 import nl.appt.views.SwipeGestureView
 import nl.appt.views.TapGestureView
 import nl.appt.views.TouchGestureView
+import java.io.Serializable
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-enum class Gesture: Item {
+enum class Gesture: Item, Serializable {
 
     TOUCH,
     DOUBLE_TAP,
@@ -33,7 +34,11 @@ enum class Gesture: Item {
     SWIPE_UP_RIGHT,
     SWIPE_DOWN_RIGHT;
 
-    override val title: String
+    override fun title(): String {
+        return title
+    }
+
+    val title: String
         get() {
             return when (this) {
                 TOUCH -> "Een onderdeel selecteren en uitspreken"

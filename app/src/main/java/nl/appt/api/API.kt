@@ -14,11 +14,11 @@ import nl.appt.model.Article
 class API {
     companion object {
 
-        fun getArticles(callback: (Response<List<Article>>) -> Unit) {
+        fun getArticles(page: Int, callback: (Response<List<Article>>) -> Unit) {
             val parameters = listOf(
                 "_fields" to "type,id,date,title",
-                "page" to 1,
-                "per_page" to 1
+                "page" to page,
+                "per_page" to 20
             )
             return getObject("posts", parameters, callback)
         }

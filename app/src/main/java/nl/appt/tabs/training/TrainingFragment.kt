@@ -4,21 +4,22 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_training.view.*
+import kotlinx.android.synthetic.main.fragment_list.view.*
 import nl.appt.R
 import nl.appt.adapters.ItemRecyclerViewAdapter
 import nl.appt.widgets.ToolbarFragment
 import nl.appt.extensions.startActivity
 import nl.appt.model.Gesture
 import nl.appt.model.Header
+import nl.appt.model.Item
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-class TrainingFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Gesture> {
+class TrainingFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Item> {
 
-    private val gestures = listOf(
+    private val gestures = mutableListOf<Item>(
         Header("Selecteren"),
         Gesture.TOUCH,
         Gesture.DOUBLE_TAP,
@@ -43,7 +44,7 @@ class TrainingFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Gest
     )
 
     override fun getViewId(): Int {
-        return R.layout.fragment_training
+        return R.layout.fragment_list
     }
 
     override fun getTitle(): String {
@@ -59,14 +60,16 @@ class TrainingFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Gest
 
         with(view.recyclerView) {
             layoutManager = LinearLayoutManager(context)
-            adapter = ItemRecyclerViewAdapter(gestures, this@TrainingFragment)
+            adapter = ItemRecyclerViewAdapter(items = gestures, listener = this@TrainingFragment)
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 
-    override fun onItemClicked(item: Gesture) {
-        startActivity<TrainingActivity> {
-            putExtra("gesture", item)
+    override fun onItemClicked(item: Item) {
+        if (item is Gesture) {
+            startActivity<TrainingActivity> {
+                putExtra("gesture", item)
+            }
         }
     }
 }

@@ -5,5 +5,5 @@ package nl.appt.model
  * Copyright 2020 Stichting Appt
  */
 interface Item {
-    val title: String
+    fun title(): String
 }

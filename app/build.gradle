@@ -68,9 +68,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
-    // Fuel
+    // Networking
     implementation 'com.github.kittinunf.fuel:fuel-android:2.2.0'
     implementation 'com.github.kittinunf.fuel:fuel-gson:2.2.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    // StringUtils
+    implementation 'org.apache.commons:commons-text:1.7'
 
     // Testing
     testImplementation 'junit:junit:4.12'
