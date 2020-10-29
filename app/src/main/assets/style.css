@@ -1,0 +1,151 @@
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-weight: normal;
+    src: url('fonts/source_sans_pro.ttf');
+}
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-weight: 600;
+    src: url('fonts/source_sans_pro_semibold.ttf');
+}
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-weight: bold;
+    src: url('fonts/source_sans_pro_semibold.ttf');
+}
+
+:root {
+    color-scheme: light dark;
+    --color-background: #fff;
+    --color-primary: #d023be;
+    --color-secondary: #ddd;
+    --color-selection: #d023be1a;
+    --color-text: #000;
+}
+
+::-moz-selection {
+    background-color: var(--color-selection);
+}
+::selection {
+    background-color: var(--color-selection);
+}
+
+* {
+    box-sizing: inherit;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: none;
+    word-break: break-word;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.5;
+}
+
+body, html, table {
+    font-size: 1.05rem;
+    color: var(--color-text);
+    background-color: var(--color-background);
+}
+
+html {
+    font: -apple-system-body;
+}
+
+a {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: .1rem solid var(--color-primary);
+}
+a[href*="//"]:not([href*="appt.nl/kennisbank"]):after {
+     content: " " url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTFweCIgaGVpZ2h0PSIxMnB4IiB2aWV3Qm94PSIwIDAgMTEgMTIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+ZXh0ZXJuYWw8L3RpdGxlPgogICAgPGcgaWQ9ImV4dGVybmFsIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0iR3JvdXAiIGZpbGw9IiNEMDIzQkUiIGZpbGwtcnVsZT0ibm9uemVybyI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMC4zMTg2OTM3LDAgTDYuMzY3MTE3MTIsMCBDNS45NTgzMzMzMywwIDUuNjg1ODEwODEsMC4yODIzNTI5NDEgNS42ODU4MTA4MSwwLjcwNTg4MjM1MyBDNS42ODU4MTA4MSwxLjEyOTQxMTc2IDUuOTU4MzMzMzMsMS40MTE3NjQ3MSA2LjM2NzExNzEyLDEuNDExNzY0NzEgTDguNjgzNTU4NTYsMS40MTE3NjQ3MSBMMy40Mzc1LDYuNzc2NDcwNTkgTDQuNDU5NDU5NDYsNy43NjQ3MDU4OCBMOS42MzczODczOSwyLjQgTDkuNjM3Mzg3MzksNC44IEM5LjYzNzM4NzM5LDUuMjIzNTI5NDEgOS45MDk5MDk5MSw1LjUwNTg4MjM1IDEwLjMxODY5MzcsNS41MDU4ODIzNSBDMTAuNzI3NDc3NSw1LjUwNTg4MjM1IDExLDUuMjIzNTI5NDEgMTEsNC44IEwxMSwwLjcwNTg4MjM1MyBDMTEsMC4yODIzNTI5NDEgMTAuNjU5MzQ2OCwwIDEwLjMxODY5MzcsMCBaIiBpZD0iUGF0aCI+PC9wYXRoPgogICAgICAgICAgICA8cG9seWdvbiBpZD0iUGF0aCIgcG9pbnRzPSI4LjkzNzUgMTIgMCAxMiAwIDIuODIzNTI5NDEgNC4zMzEyNSAyLjgyMzUyOTQxIDQuMzMxMjUgNC4yMzUyOTQxMiAxLjM3NSA0LjIzNTI5NDEyIDEuMzc1IDEwLjU4ODIzNTMgNy41NjI1IDEwLjU4ODIzNTMgNy41NjI1IDcuMDU4ODIzNTMgOC45Mzc1IDcuMDU4ODIzNTMiPjwvcG9seWdvbj4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==);
+    padding-right: 2px;
+    margin-left: -1px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0.5em 0;
+    font-size: 1.25rem;
+}
+h1 {
+    font-size: 1.75rem;
+}
+h2 {
+    font-size: 1.5rem;
+}
+
+p {
+    margin: 0 0 1.5em;
+}
+
+figure {
+    display: block !important;
+    width: 100%;
+    margin: 0;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+img {
+    max-width: 100% !important;
+    max-height: 90vh !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+figcaption {
+    font-style: italic;
+}
+
+iframe {
+    width: 100% !important;
+    height: 50vw !important;
+}
+
+table {
+    table-layout: fixed;
+    border: 1px solid var(--color-secondary);
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+th, td {
+    text-align: left;
+    border: 1px solid var(--color-secondary);
+    padding: 3px 6px;
+}
+
+pre {
+    font-family: monospace;
+    font-size: 0.9rem;
+    display: block;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1em;
+    page-break-inside: avoid;
+    word-wrap: break-word;
+    background: var(--color-secondary);
+    border: 1px solid var(--color-secondary);
+    border-left: 3px solid var(--color-primary);
+    color: var(--color-text);
+}
+
+blockquote {
+    font-style: italic;
+}
+cite {
+    text-transform: uppercase;
+}
+
+hr {
+    margin: 2rem 0;
+    height: 2px;
+    border: 0;
+    background: var(--color-secondary);
+    color: var(--color-secondary);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        --color-background: #000;
+        --color-secondary: #222;
+        --color-text: #fff;
+    }
+}

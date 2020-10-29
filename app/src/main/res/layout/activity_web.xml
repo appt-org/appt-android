@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/list"
     android:orientation="vertical">
 
     <include layout="@layout/view_toolbar" />
 
     <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <WebView
+            android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="LinearLayoutManager"
-            tools:context=".tabs.training.TrainingFragment2"
-            tools:listitem="@layout/view_item" />
+            android:background="@android:color/transparent"
+            android:visibility="invisible"/>
 
         <ProgressBar style="?android:attr/progressBarStyle"
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
+            android:layout_gravity="center"/>
     </FrameLayout>
 </LinearLayout>

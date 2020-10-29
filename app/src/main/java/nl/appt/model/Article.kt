@@ -7,13 +7,13 @@ import java.io.Serializable
  * Created by Jan Jaap de Groot on 27/10/2020
  * Copyright 2020 Stichting Appt
  */
-class Article(
+open class Article(
     val type: Article.Type,
     val id: Int,
     val date: String,
     val modified: String?,
     val title: Content,
-    val content: Any?,
+    val content: Content?,
     val author: Int?,
     val tags: List<Int>?,
     val categories: List<Int>?,
@@ -35,3 +35,6 @@ class Article(
         return "Article(type=$type, id=$id, date='$date', modified=$modified, title=$title, content=$content, author=$author, tags=$tags, categories=$categories, link=$link)"
     }
 }
+
+typealias Page = Article
+typealias Post = Article

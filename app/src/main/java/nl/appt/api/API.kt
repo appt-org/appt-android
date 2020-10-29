@@ -23,6 +23,30 @@ class API {
             return getObject("posts", parameters, callback)
         }
 
+        fun getArticle(id: Int, callback: (Response<Article>) -> Unit) {
+            val parameters = listOf(
+                "_fields" to "type,id,date,modified,link,title,content,author,tags,categories"
+            )
+            return getObject("posts/$id", parameters, callback)
+        }
+
+        fun getArticle(slug: String, callback: (Response<Article>) -> Unit) {
+            val parameters = listOf(
+                "_fields" to "type,id,date,modified,link,title,content,author,tags,categories",
+                "slug" to slug,
+                "per_page" to 1
+            )
+
+            // Get articles by slug, return first article.
+            getObject<List<Article>>("posts", parameters) { response ->
+                var article: Article? = null
+                response.result?.firstOrNull()?.let {
+                    article = it
+                }
+                callback(Response(article, response.total, response.pages, response.error))
+            }
+        }
+
         /** Helper methods **/
 
         private inline fun<reified T : Any> getObject(path: String, parameters: Parameters?, crossinline callback: (Response<T>) -> Unit) {

@@ -26,7 +26,7 @@ class KnowledgeFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Art
         return R.layout.fragment_list
     }
 
-    override fun getTitle(): String {
+    override fun getTitle(): String? {
         return getString(R.string.title_knowledge)
     }
 
@@ -45,8 +45,16 @@ class KnowledgeFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Art
             return
         }
 
+        getArticles()
+    }
+
+    private fun getArticles() {
+        setLoading(true)
+
         API.getArticles(page = 1) { response ->
             Log.d(TAG, "Result: ${response.result}, error: ${response.error}")
+
+            setLoading(false)
 
             response.result?.let { articles ->
                 onArticles(articles)
@@ -62,6 +70,8 @@ class KnowledgeFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Art
     }
 
     override fun onItemClicked(item: Article) {
-        // TODO
+        startActivity<ArticleActivity> {
+            putExtra("id", item.id)
+        }
     }
 }

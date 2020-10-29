@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nl.appt">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MainApplication"
         android:label="@string/app_name"
@@ -10,6 +12,7 @@
         android:theme="@style/AppTheme"
         android:allowBackup="true"
         android:fullBackupContent="true"
+        android:hardwareAccelerated="true"
         android:supportsRtl="true"
         android:windowSoftInputMode="adjustResize">
 
@@ -23,6 +26,8 @@
         </activity>
 
         <activity android:name=".tabs.training.TrainingActivity" android:launchMode="singleTask" />
+
+        <activity android:name=".tabs.knowledge.ArticleActivity" />
 
         <service
             android:name="nl.appt.services.ApptService"

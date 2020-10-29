@@ -47,7 +47,7 @@ class TrainingFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Item
         return R.layout.fragment_list
     }
 
-    override fun getTitle(): String {
+    override fun getTitle(): String? {
         return getString(R.string.title_training)
     }
 

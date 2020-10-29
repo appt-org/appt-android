@@ -15,7 +15,7 @@ abstract class ToolbarFragment : BaseFragment() {
 
     var toolbar: Toolbar? = null
 
-    abstract fun getTitle(): String
+    abstract fun getTitle(): String?
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

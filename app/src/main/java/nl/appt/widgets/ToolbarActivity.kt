@@ -12,7 +12,7 @@ abstract class ToolbarActivity : BaseActivity() {
 
     var toolbar: Toolbar? = null
 
-    abstract fun getToolbarTitle(): String
+    abstract fun getToolbarTitle(): String?
 
     override fun onViewCreated() {
         super.onViewCreated()

@@ -13,7 +13,7 @@ class InformationFragment : ToolbarFragment() {
         return R.layout.fragment_information
     }
 
-    override fun getTitle(): String {
+    override fun getTitle(): String? {
         return getString(R.string.title_information)
     }
 }

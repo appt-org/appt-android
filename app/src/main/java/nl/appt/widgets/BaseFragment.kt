@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import nl.appt.R
+import nl.appt.extensions.setVisible
 import nl.appt.extensions.startActivity
 
 /**
@@ -24,6 +27,12 @@ abstract class BaseFragment : Fragment() {
 
     open fun willShow() {
         // Can be overridden
+    }
+
+    fun setLoading(loading: Boolean) {
+        view?.findViewById<ProgressBar>(R.id.progressBar)?.let { progressBar ->
+            progressBar.setVisible(loading)
+        }
     }
 
     inline fun <reified T : Activity> startActivity(options: Bundle? = null, noinline init: Intent.() -> Unit = {}) {
