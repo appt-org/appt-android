@@ -15,6 +15,9 @@
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:importantForAccessibility="yes"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:background="@android:color/transparent"
             android:visibility="invisible"/>
 

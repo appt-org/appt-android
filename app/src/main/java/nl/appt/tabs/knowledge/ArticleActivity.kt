@@ -1,9 +1,11 @@
 package nl.appt.tabs.knowledge
 
 import android.annotation.SuppressLint
+import androidx.core.app.ShareCompat
 import nl.appt.R
 import nl.appt.api.API
 import nl.appt.api.Response
+import nl.appt.extensions.showError
 import nl.appt.model.Article
 import nl.appt.widgets.WebActivity
 
@@ -57,7 +59,7 @@ class ArticleActivity: WebActivity() {
 
         response.error?.let { error ->
             setLoading(false)
-            // TODO: Show error
+            showError(error)
         }
     }
 
@@ -65,7 +67,19 @@ class ArticleActivity: WebActivity() {
         this.article = article
 
         article.content?.let { content ->
+            setShareEnabled(true)
             load(content = content.rendered, title = article.title.rendered)
+        }
+    }
+
+    override fun onShare() {
+        article?.let { article ->
+            ShareCompat.IntentBuilder.from(this)
+                .setType("text/plain")
+                .setChooserTitle(R.string.action_share_article)
+                .setSubject(article.title.decoded())
+                .setText(article.link)
+                .startChooser()
         }
     }
 }

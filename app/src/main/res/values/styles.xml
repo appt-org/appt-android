@@ -11,15 +11,10 @@
 
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="android:windowBackground">@color/background</item>
-        <item name="android:actionBarStyle">@style/ActionBar</item>
     </style>
 
     <style name="AppTheme" parent="AppTheme.Base">
         <!-- Overriden in v23 -->
-    </style>
-
-    <style name="ActionBar" parent="@android:style/Widget.Holo.ActionBar">
-        <item name="android:background">@color/background</item>
     </style>
 
     <!-- Toolbar -->
@@ -30,6 +25,7 @@
     </style>
 
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
+        <item name="android:background">@color/background</item>
         <item name="colorControlNormal">@color/foreground</item>
     </style>
 

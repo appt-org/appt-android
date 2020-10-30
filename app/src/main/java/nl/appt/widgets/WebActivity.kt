@@ -1,10 +1,11 @@
 package nl.appt.widgets
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -13,8 +14,10 @@ import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import kotlinx.android.synthetic.main.activity_web.*
 import nl.appt.R
+import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setVisible
 import nl.appt.extensions.startActivity
+import nl.appt.tabs.knowledge.ArticleActivity
 
 /**
  * Created by Jan Jaap de Groot on 28/10/2020
@@ -24,6 +27,7 @@ import nl.appt.extensions.startActivity
 open class WebActivity: ToolbarActivity() {
 
     private val TAG = "WebActivity"
+    private var shareItem: MenuItem? = null
 
     override fun getViewId(): Int {
         return R.layout.activity_web
@@ -31,6 +35,32 @@ open class WebActivity: ToolbarActivity() {
 
     override fun getToolbarTitle(): String? {
         return null
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.share, menu)
+
+        shareItem = menu?.findItem(R.id.action_share)
+        setShareEnabled(false)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_share -> {
+                onShare()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun setShareEnabled(enabled: Boolean) {
+        shareItem?.isVisible = enabled
+    }
+
+    open fun onShare() {
+
     }
 
     override fun onViewCreated() {
@@ -42,11 +72,13 @@ open class WebActivity: ToolbarActivity() {
         webView.setBackgroundColor(0x00000000)
         webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
 
+        webView.accessibilityDelegate = View.AccessibilityDelegate()
         webView.webChromeClient = ApptWebChromeClient()
         webView.webViewClient = ApptWebViewClient()
 
         val settings = webView.settings
 
+        // Automatic WebView dark mode is buggy, using FORCE_DARK_ON works better.
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
             val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
             if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
@@ -91,13 +123,12 @@ open class WebActivity: ToolbarActivity() {
             // Check if kennisbank article (appt.nl/kennisbank/slug)
             if (uri.host == "appt.nl" && segments.size == 2 && segments[0] == "kennisbank") {
                 // Kennisbank url
-                startActivity<WebActivity> {
+                startActivity<ArticleActivity> {
                     putExtra("slug", segments[1])
                 }
             } else {
-                // External url
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                startActivity(intent)
+                // Open website
+                openWebsite(uri)
             }
             return true
         }

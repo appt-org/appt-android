@@ -11,7 +11,7 @@ class Response<T>(
     val result: T? = null,
     val total: Int? = null,
     val pages: Int? = null,
-    val error: Any? = null)
+    val error: FuelError? = null)
 {
     companion object {
         fun <T : Any> from(response: com.github.kittinunf.fuel.core.Response, result: Result<T, FuelError>): Response<T> {

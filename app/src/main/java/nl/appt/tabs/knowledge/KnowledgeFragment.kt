@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.fragment_list.view.*
 import nl.appt.R
 import nl.appt.adapters.ItemRecyclerViewAdapter
 import nl.appt.api.API
+import nl.appt.extensions.showError
 import nl.appt.model.Article
 import nl.appt.widgets.ToolbarFragment
 
@@ -58,6 +59,9 @@ class KnowledgeFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Art
 
             response.result?.let { articles ->
                 onArticles(articles)
+            }
+            response.error?.let { error ->
+                context?.showError(error)
             }
         }
     }

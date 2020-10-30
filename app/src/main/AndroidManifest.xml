@@ -25,9 +25,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".tabs.training.TrainingActivity" android:launchMode="singleTask" />
+        <activity
+            android:name=".tabs.training.TrainingActivity"
+            android:launchMode="singleTask">
+        </activity>
 
-        <activity android:name=".tabs.knowledge.ArticleActivity" />
+        <activity
+            android:name=".tabs.knowledge.ArticleActivity"
+            android:configChanges="orientation|screenSize">
+        </activity>
 
         <service
             android:name="nl.appt.services.ApptService"

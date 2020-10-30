@@ -13,4 +13,24 @@
     <string name="service_summary">Herkennen van gebaren</string>
     <string name="service_description">Om gebaren te herkennen is het noodzakelijk dat je deze service aanzet.\n\nDe service wordt automatisch uitgeschakeld wanneer je de training stopt of wisselt naar een andere app.\n\nEr worden geen gegevens opgeslagen.</string>
     <string name="service_killed">De Appt service is automatisch uitgezet</string>
+
+    <!-- Errors -->
+    <string name="error">Foutmelding</string>
+    <string name="error_redirect">Fout tijdens het doorverwijzen. Probeer het later opnieuw.</string>
+    <string name="error_something">Er is iets fout gegaan. Probeer het later opnieuw.</string>
+    <string name="error_network">Je bent niet met het internet verbonden. Probeer het later opnieuw.</string>
+    <string name="error_interrupted">Je internetverbinding is tussentijds verbroken. Probeer het later opnieuw.</string>
+    <string name="error_404">De opgevraagde gegevens zijn niet gevonden. Probeer het later opnieuw.</string>
+    <string name="error_500">Er is iets foutgegaan bij onze server. Probeer het later opnieuw.</string>
+    <string name="error_503">Onze server is momenteel niet bereikbaar. Probeer het later opnieuw.</string>
+
+    <!-- Actions -->
+    <string name="action_ok">Oké</string>
+    <string name="action_confirm">Bevestigen</string>
+    <string name="action_cancel">Annuleren</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="action_info">Informatie</string>
+    <string name="action_share">Delen</string>
+    <string name="action_share_article">Deel artikel</string>
+    <string name="action_filter">Filteren</string>
 </resources>
