@@ -5,7 +5,7 @@ import com.github.kittinunf.fuel.gson.jsonBody
 import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
-import nl.appt.model.Article
+import nl.appt.model.*
 
 /**
  * Created by Jan Jaap de Groot on 26/10/2020
@@ -13,6 +13,8 @@ import nl.appt.model.Article
  */
 class API {
     companion object {
+
+        /** Articles **/
 
         fun getArticles(page: Int, callback: (Response<List<Article>>) -> Unit) {
             val parameters = listOf(
@@ -44,6 +46,39 @@ class API {
                     article = it
                 }
                 callback(Response(article, response.total, response.pages, response.error))
+            }
+        }
+
+        /** Filters **/
+
+        private fun getTaxonomies(path: String, callback: (Response<List<Taxonomy>>) -> Unit) {
+            val parameters = listOf(
+                "_fields" to "id,count,name,description",
+            )
+            return getObject(path, parameters, callback)
+        }
+
+        private fun getCategories(callback: (Response<List<Category>>) -> Unit) {
+            return getTaxonomies("categories", callback)
+        }
+
+        private fun getTags(callback: (Response<List<Tag>>) -> Unit) {
+            return getTaxonomies("tags", callback)
+        }
+
+        fun getFilters(callback: (Response<Filters>) -> Unit) {
+            getCategories { response1 ->
+                response1.result?.let { categories ->
+                    getTags { response2 ->
+                        response2.result?.let { tags ->
+                            callback(Response(result = Filters(categories, tags)))
+                        } ?: run {
+                            callback(Response(error = response2.error))
+                        }
+                    }
+                } ?: run {
+                    callback(Response(error = response1.error))
+                }
             }
         }
 

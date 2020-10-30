@@ -20,7 +20,7 @@ class MainActivity : BaseActivity() {
     private val tabs = listOf(R.id.tab_training, R.id.tab_knowledge, R.id.tab_information)
     private val fragments = listOf(TrainingFragment(), KnowledgeFragment(), InformationFragment())
 
-    override fun getViewId(): Int {
+    override fun getLayoutId(): Int {
         return R.layout.activity_main
     }
 

@@ -1,6 +1,5 @@
 package nl.appt.tabs.knowledge
 
-import android.annotation.SuppressLint
 import androidx.core.app.ShareCompat
 import nl.appt.R
 import nl.appt.api.API
@@ -13,7 +12,6 @@ import nl.appt.widgets.WebActivity
  * Created by Jan Jaap de Groot on 28/10/2020
  * Copyright 2020 Stichting Appt
  */
-@SuppressLint("SetJavaScriptEnabled")
 class ArticleActivity: WebActivity() {
 
     private var article: Article? = null
@@ -24,9 +22,7 @@ class ArticleActivity: WebActivity() {
     private val slug: String?
         get() = intent.getStringExtra("slug")
 
-    override fun getViewId(): Int {
-        return R.layout.activity_web
-    }
+    override fun getLayoutId() = R.layout.activity_web
 
     override fun getToolbarTitle(): String? {
         return null

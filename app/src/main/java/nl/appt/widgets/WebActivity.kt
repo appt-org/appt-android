@@ -29,7 +29,7 @@ open class WebActivity: ToolbarActivity() {
     private val TAG = "WebActivity"
     private var shareItem: MenuItem? = null
 
-    override fun getViewId(): Int {
+    override fun getLayoutId(): Int {
         return R.layout.activity_web
     }
 

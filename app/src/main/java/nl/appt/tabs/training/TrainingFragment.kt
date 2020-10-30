@@ -43,9 +43,7 @@ class TrainingFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Item
         Gesture.SWIPE_DOWN_RIGHT
     )
 
-    override fun getViewId(): Int {
-        return R.layout.fragment_list
-    }
+    override fun getLayoutId() = R.layout.fragment_list
 
     override fun getTitle(): String? {
         return getString(R.string.title_training)

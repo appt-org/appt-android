@@ -14,7 +14,7 @@ import nl.appt.extensions.setVisible
  */
 abstract class BaseActivity : AppCompatActivity() {
 
-    abstract fun getViewId(): Int
+    abstract fun getLayoutId(): Int
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
@@ -35,7 +35,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(getViewId())
+        setContentView(getLayoutId())
         onViewCreated()
     }
 

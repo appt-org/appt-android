@@ -27,13 +27,7 @@ open class Article(
         POST
     }
 
-    override fun title(): String {
-        return title.decoded()
-    }
-
-    override fun toString(): String {
-        return "Article(type=$type, id=$id, date='$date', modified=$modified, title=$title, content=$content, author=$author, tags=$tags, categories=$categories, link=$link)"
-    }
+    override fun title() = title.decoded()
 }
 
 typealias Page = Article

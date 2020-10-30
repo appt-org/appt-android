@@ -9,9 +9,7 @@ import nl.appt.widgets.ToolbarFragment
  */
 class InformationFragment : ToolbarFragment() {
 
-    override fun getViewId(): Int {
-        return R.layout.fragment_information
-    }
+    override fun getLayoutId() = R.layout.fragment_information
 
     override fun getTitle(): String? {
         return getString(R.string.title_information)

@@ -1,7 +1,6 @@
 package nl.appt.widgets
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,10 +18,10 @@ import nl.appt.extensions.startActivity
  */
 abstract class BaseFragment : Fragment() {
 
-    abstract fun getViewId(): Int
+    abstract fun getLayoutId(): Int
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(getViewId(), container, false)
+        return inflater.inflate(getLayoutId(), container, false)
     }
 
     open fun willShow() {

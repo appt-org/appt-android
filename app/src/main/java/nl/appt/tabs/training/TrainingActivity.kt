@@ -80,9 +80,7 @@ class TrainingActivity: ToolbarActivity() {
         }
     }
 
-    override fun getViewId(): Int {
-        return R.layout.activity_training
-    }
+    override fun getLayoutId() = R.layout.activity_training
 
     override fun getToolbarTitle(): String? {
         return gesture.title

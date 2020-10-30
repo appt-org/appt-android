@@ -31,6 +31,11 @@
         </activity>
 
         <activity
+            android:name=".tabs.knowledge.FilterActivity"
+            android:configChanges="orientation|screenSize">
+        </activity>
+
+        <activity
             android:name=".tabs.knowledge.ArticleActivity"
             android:configChanges="orientation|screenSize">
         </activity>
