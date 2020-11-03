@@ -75,8 +75,9 @@ dependencies {
     implementation 'com.github.kittinunf.fuel:fuel-gson:2.2.0'
     implementation 'com.google.code.gson:gson:2.8.5'
 
-    // StringUtils
-    implementation 'org.apache.commons:commons-text:1.7'
+    // Adapter delegates
+    implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.0'
+    implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl-layoutcontainer:4.3.0'
 
     // Testing
     testImplementation 'junit:junit:4.12'

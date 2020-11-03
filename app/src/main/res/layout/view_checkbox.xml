@@ -7,12 +7,14 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@drawable/selector_row"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-    <TextView style="@style/Widget.TextView"
-        android:id="@+id/textView"
+    <androidx.appcompat.widget.AppCompatCheckBox style="@style/Widget.TextView"
+        android:id="@+id/checkBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_medium"
-        tools:text="Title"/>
+        android:paddingStart="@dimen/margin_small"
+        android:layout_marginStart="@dimen/margin_small"
+        tools:text="CheckBox" />
 </LinearLayout>

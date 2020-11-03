@@ -4,15 +4,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_list.view.*
+import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
+import kotlinx.android.synthetic.main.view_list.view.*
 import nl.appt.R
-import nl.appt.adapters.ItemRecyclerViewAdapter
+import nl.appt.adapters.articleAdapterDelegate
+import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.api.API
 import nl.appt.extensions.showError
 import nl.appt.model.Article
 import nl.appt.model.Category
 import nl.appt.model.Tag
+import nl.appt.tabs.training.TrainingActivity
 import nl.appt.widgets.ToolbarFragment
 import java.io.Serializable
 
@@ -20,16 +22,31 @@ import java.io.Serializable
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-class KnowledgeFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Article> {
+class KnowledgeFragment: ToolbarFragment() {
 
     private val TAG = "TrainingFragment"
-    private var adapter = ItemRecyclerViewAdapter(listener = this)
+    private var items = mutableListOf<Any>()
     private var loaded = false
 
     private var categories: List<Category>? = null
     private var tags: List<Tag>? = null
 
-    override fun getLayoutId() = R.layout.fragment_list
+    private val adapter: ListDelegationAdapter<List<Any>> by lazy {
+        val adapter = ListDelegationAdapter(
+            headerAdapterDelegate(),
+            articleAdapterDelegate { article ->
+                startActivity<TrainingActivity> {
+                    startActivity<ArticleActivity> {
+                        putExtra("id", article.id)
+                    }
+                }
+            }
+        )
+        adapter.items = items
+        adapter
+    }
+
+    override fun getLayoutId() = R.layout.view_list
 
     override fun getTitle(): String? {
         return getString(R.string.title_knowledge)
@@ -43,11 +60,11 @@ class KnowledgeFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Art
             onOptionsItemSelected(item)
         }
 
-        with(view.recyclerView) {
-            layoutManager = LinearLayoutManager(context)
-            adapter = this@KnowledgeFragment.adapter
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-        }
+
+        adapter.items = items
+
+        view.recyclerView.adapter = adapter
+        view.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -90,13 +107,7 @@ class KnowledgeFragment: ToolbarFragment(), ItemRecyclerViewAdapter.Callback<Art
     private fun onArticles(articles: List<Article>) {
         loaded = true
 
-        Log.d(TAG, "onArticles: $articles")
-        adapter.add(articles)
-    }
-
-    override fun onItemClicked(item: Article) {
-        startActivity<ArticleActivity> {
-            putExtra("id", item.id)
-        }
+        items.addAll(articles)
+        adapter.notifyDataSetChanged()
     }
 }
