@@ -10,7 +10,6 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import nl.appt.R
 import nl.appt.extensions.setVisible
-import nl.appt.extensions.startActivity
 
 /**
  * Created by Jan Jaap de Groot on 19/10/2020
@@ -34,7 +33,11 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
-    inline fun <reified T : Activity> startActivity(options: Bundle? = null, noinline init: Intent.() -> Unit = {}) {
-        context?.startActivity<T>(options, init)
+    inline fun <reified T : Activity> startActivity(requestCode: Int = -1, options: Bundle? = null, noinline init: Intent.() -> Unit = {}) {
+        context?.let { context ->
+             val intent = Intent(context, T::class.java)
+            intent.init()
+            startActivityForResult(intent, requestCode, options)
+        }
     }
 }

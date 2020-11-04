@@ -9,7 +9,6 @@ import nl.appt.R
 import nl.appt.adapters.gestureAdapterDelegate
 import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.widgets.ToolbarFragment
-import nl.appt.extensions.startActivity
 import nl.appt.model.Gesture
 
 /**
@@ -39,10 +38,6 @@ class TrainingFragment: ToolbarFragment() {
 
         view.recyclerView.adapter  = adapter
         view.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-
-        view.setOnClickListener {
-            context?.startActivity<TrainingActivity>()
-        }
     }
 
     companion object {

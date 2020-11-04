@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.widget.Toast
 import nl.appt.R
-import nl.appt.extensions.startActivity
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
 import nl.appt.tabs.training.TrainingActivity
@@ -103,9 +102,9 @@ class ApptService: AccessibilityService() {
     }
 
     private fun startTraining() {
-        startActivity<TrainingActivity> {
-            putExtra("launch", true)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
+        val intent = Intent(this, TrainingActivity::class.java)
+        intent.putExtra("launch", true)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 }

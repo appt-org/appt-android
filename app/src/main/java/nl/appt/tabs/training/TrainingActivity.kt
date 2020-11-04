@@ -5,9 +5,7 @@ import android.content.*
 import android.provider.Settings
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.view.accessibility.AccessibilityManager
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_training.*
@@ -20,7 +18,6 @@ import nl.appt.accessibility.announce
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.accessibility.setFocus
 import nl.appt.accessibility.view.accessibility
-import nl.appt.extensions.startActivity
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
 import nl.appt.model.Gesture

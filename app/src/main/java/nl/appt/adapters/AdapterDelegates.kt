@@ -47,7 +47,7 @@ fun taxonomyAdapterDelegate(callback: (Taxonomy) -> Unit) = adapterDelegate<Taxo
     val checkBox: CheckBox = findViewById(R.id.checkBox)
 
     checkBox.setOnCheckedChangeListener { _, checked ->
-        item.selected = !item.selected
+        item.selected = checked
         callback(item)
     }
 

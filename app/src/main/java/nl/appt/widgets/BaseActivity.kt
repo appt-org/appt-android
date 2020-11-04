@@ -1,7 +1,10 @@
 package nl.appt.widgets
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
@@ -47,5 +50,11 @@ abstract class BaseActivity : AppCompatActivity() {
         findViewById<ProgressBar>(R.id.progressBar)?.let { progressBar ->
             progressBar.setVisible(loading)
         }
+    }
+
+    inline fun <reified T : Activity> startActivity(requestCode: Int = -1, options: Bundle? = null, noinline init: Intent.() -> Unit = {}) {
+        val intent = Intent(this, T::class.java)
+        intent.init()
+        startActivityForResult(intent, requestCode, options)
     }
 }

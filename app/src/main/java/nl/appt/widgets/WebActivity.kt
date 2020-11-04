@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_web.*
 import nl.appt.R
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setVisible
-import nl.appt.extensions.startActivity
 import nl.appt.tabs.knowledge.ArticleActivity
 
 /**

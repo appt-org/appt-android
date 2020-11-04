@@ -1,5 +1,7 @@
 package nl.appt.tabs.knowledge
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -13,6 +15,7 @@ import nl.appt.api.API
 import nl.appt.extensions.showError
 import nl.appt.model.Article
 import nl.appt.model.Category
+import nl.appt.model.Filters
 import nl.appt.model.Tag
 import nl.appt.tabs.training.TrainingActivity
 import nl.appt.widgets.ToolbarFragment
@@ -24,21 +27,23 @@ import java.io.Serializable
  */
 class KnowledgeFragment: ToolbarFragment() {
 
-    private val TAG = "TrainingFragment"
-    private var items = mutableListOf<Any>()
+    private val REQUEST_CODE_FILTER = 1337
+
+    private val TAG = "KnowledgeFragment"
+    private var items = arrayListOf<Any>()
+
+    private var page = 1
+    private var pages: Int? = null
     private var loaded = false
 
-    private var categories: List<Category>? = null
-    private var tags: List<Tag>? = null
+    private var filters: Filters? = null
 
     private val adapter: ListDelegationAdapter<List<Any>> by lazy {
         val adapter = ListDelegationAdapter(
             headerAdapterDelegate(),
             articleAdapterDelegate { article ->
-                startActivity<TrainingActivity> {
-                    startActivity<ArticleActivity> {
-                        putExtra("id", article.id)
-                    }
+                startActivity<ArticleActivity> {
+                    putExtra("id", article.id)
                 }
             }
         )
@@ -60,7 +65,6 @@ class KnowledgeFragment: ToolbarFragment() {
             onOptionsItemSelected(item)
         }
 
-
         adapter.items = items
 
         view.recyclerView.adapter = adapter
@@ -68,15 +72,26 @@ class KnowledgeFragment: ToolbarFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_filter -> {
-                startActivity<FilterActivity> {
-                    putExtra("categories", arrayOf<Any>())
-                    putExtra("tags", arrayOf<Serializable>())
-                }
+        if (item.itemId == R.id.action_filter) {
+            startActivity<FilterActivity>(REQUEST_CODE_FILTER) {
+                putExtra("filters", filters)
+            }
+            return true
+        }
+        return false
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d(TAG, "onActivityResult")
+
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_FILTER) {
+            (data?.getSerializableExtra("filters") as? Filters)?.let { filters ->
+                this.filters = filters
+                reset()
+                getArticles()
             }
         }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun willShow() {
@@ -87,27 +102,32 @@ class KnowledgeFragment: ToolbarFragment() {
         getArticles()
     }
 
+    private fun reset() {
+        page = 1
+        items.clear()
+        adapter.notifyDataSetChanged()
+    }
+
     private fun getArticles() {
         setLoading(true)
 
-        API.getArticles(page = 1) { response ->
+        API.getArticles(filters = filters, page = page) { response ->
             Log.d(TAG, "Result: ${response.result}, error: ${response.error}")
 
             setLoading(false)
 
+            response.pages?.let { pages ->
+                this.page++
+                this.pages = pages
+            }
             response.result?.let { articles ->
-                onArticles(articles)
+                loaded = true
+                items.addAll(articles)
+                adapter.notifyDataSetChanged()
             }
             response.error?.let { error ->
                 context?.showError(error)
             }
         }
-    }
-
-    private fun onArticles(articles: List<Article>) {
-        loaded = true
-
-        items.addAll(articles)
-        adapter.notifyDataSetChanged()
     }
 }

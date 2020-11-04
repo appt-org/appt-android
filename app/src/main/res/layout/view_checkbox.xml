@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingStart="@dimen/margin_small"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:clickable="true"
     android:background="@drawable/selector_row"
     android:orientation="horizontal">
 
@@ -15,6 +17,5 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_medium"
         android:paddingStart="@dimen/margin_small"
-        android:layout_marginStart="@dimen/margin_small"
         tools:text="CheckBox" />
 </LinearLayout>

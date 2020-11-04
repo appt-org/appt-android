@@ -16,12 +16,21 @@ class API {
 
         /** Articles **/
 
-        fun getArticles(page: Int, callback: (Response<List<Article>>) -> Unit) {
-            val parameters = listOf(
+        fun getArticles(filters: Filters?, page: Int, callback: (Response<List<Article>>) -> Unit) {
+            val parameters = arrayListOf(
                 "_fields" to "type,id,date,title",
                 "page" to page,
                 "per_page" to 20
             )
+
+            filters?.categories()?.let { categories ->
+                parameters.add("categories" to categories)
+            }
+
+            filters?.tags()?.let { tags ->
+                parameters.add("tags" to tags)
+            }
+
             return getObject("posts", parameters, callback)
         }
 
@@ -51,18 +60,18 @@ class API {
 
         /** Filters **/
 
-        private fun getTaxonomies(path: String, callback: (Response<List<Taxonomy>>) -> Unit) {
+        private fun getTaxonomies(path: String, callback: (Response<ArrayList<Taxonomy>>) -> Unit) {
             val parameters = listOf(
                 "_fields" to "id,count,name,description",
             )
             return getObject(path, parameters, callback)
         }
 
-        private fun getCategories(callback: (Response<List<Category>>) -> Unit) {
+        private fun getCategories(callback: (Response<ArrayList<Category>>) -> Unit) {
             return getTaxonomies("categories", callback)
         }
 
-        private fun getTags(callback: (Response<List<Tag>>) -> Unit) {
+        private fun getTags(callback: (Response<ArrayList<Tag>>) -> Unit) {
             return getTaxonomies("tags", callback)
         }
 
