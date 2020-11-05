@@ -9,10 +9,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegate
 import nl.appt.R
-import nl.appt.model.Article
-import nl.appt.model.Gesture
-import nl.appt.model.Item
-import nl.appt.model.Taxonomy
+import nl.appt.model.*
 
 /**
  * Created by Jan Jaap de Groot on 03/11/2020
@@ -51,6 +48,10 @@ fun gestureAdapterDelegate(callback: (Gesture) -> Unit): AdapterDelegate<List<An
 }
 
 fun articleAdapterDelegate(callback: (Article) -> Unit): AdapterDelegate<List<Any>> {
+    return itemAdapterDelegate(callback)
+}
+
+fun topicAdapterDelegate(callback: (Topic) -> Unit): AdapterDelegate<List<Any>> {
     return itemAdapterDelegate(callback)
 }
 

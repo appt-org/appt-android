@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_web.*
 import nl.appt.R
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setVisible
+import nl.appt.model.Article
 import nl.appt.tabs.knowledge.ArticleActivity
 
 /**
@@ -59,7 +60,7 @@ open class WebActivity: ToolbarActivity() {
     }
 
     open fun onShare() {
-
+        // Can be overridden
     }
 
     override fun onViewCreated() {
@@ -123,6 +124,7 @@ open class WebActivity: ToolbarActivity() {
             if (uri.host == "appt.nl" && segments.size == 2 && segments[0] == "kennisbank") {
                 // Kennisbank url
                 startActivity<ArticleActivity> {
+                    putExtra("type", Article.Type.POST)
                     putExtra("slug", segments[1])
                 }
             } else {

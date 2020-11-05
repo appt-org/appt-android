@@ -30,8 +30,10 @@ fun Context.openWebsite(uri: Uri) {
     builder.setToolbarColor(backgroundColor)
     builder.setSecondaryToolbarColor(backgroundColor)
 
-    val intent = builder.build()
-    intent.launchUrl(this, uri)
+    val tabsIntent = builder.build()
+    tabsIntent.intent.putExtra(CustomTabsIntent.EXTRA_ENABLE_URLBAR_HIDING, false)
+
+    tabsIntent.launchUrl(this, uri)
 }
 
 /** Dialog **/

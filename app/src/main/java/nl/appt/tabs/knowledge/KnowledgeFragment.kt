@@ -18,6 +18,7 @@ import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.api.API
 import nl.appt.extensions.onInfiniteScroll
 import nl.appt.extensions.showError
+import nl.appt.model.Article
 import nl.appt.model.Filters
 import nl.appt.widgets.ToolbarFragment
 
@@ -39,6 +40,7 @@ class KnowledgeFragment: ToolbarFragment() {
             headerAdapterDelegate(),
             articleAdapterDelegate { article ->
                 startActivity<ArticleActivity> {
+                    putExtra("type", Article.Type.POST)
                     putExtra("id", article.id)
                 }
             }
@@ -127,7 +129,7 @@ class KnowledgeFragment: ToolbarFragment() {
     private fun getArticles() {
         isLoading = true
 
-        API.getArticles(filters = filters, page = page) { response ->
+        API.getArticles(type = Article.Type.POST, filters = filters, page = page) { response ->
             this.pages = response.pages
             this.isLoading = false
 

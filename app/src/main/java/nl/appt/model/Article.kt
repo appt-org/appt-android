@@ -24,7 +24,15 @@ open class Article(
         @SerializedName("page")
         PAGE,
         @SerializedName("post")
-        POST
+        POST;
+
+        val path: String
+            get() {
+                return when (this) {
+                    PAGE -> "pages"
+                    POST -> "posts"
+                }
+            }
     }
 
     override fun title() = title.decoded()

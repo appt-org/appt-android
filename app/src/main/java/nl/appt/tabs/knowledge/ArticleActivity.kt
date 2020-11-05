@@ -16,6 +16,9 @@ class ArticleActivity: WebActivity() {
 
     private var article: Article? = null
 
+    private val type: Article.Type
+        get() = intent.getSerializableExtra("type") as Article.Type
+
     private val id: Int
         get() = intent.getIntExtra("id", -1)
 
@@ -37,11 +40,11 @@ class ArticleActivity: WebActivity() {
             setLoading(true)
 
             slug?.let { slug ->
-                API.getArticle(slug) {
+                API.getArticle(type, slug) {
                     onResponse(it)
                 }
             } ?: run {
-                API.getArticle(id) {
+                API.getArticle(type, id) {
                     onResponse(it)
                 }
             }
