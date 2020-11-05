@@ -9,6 +9,8 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import nl.appt.R
+import nl.appt.accessibility.Accessibility
+import nl.appt.accessibility.announce
 import nl.appt.extensions.setVisible
 
 /**
@@ -47,6 +49,10 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun setLoading(loading: Boolean) {
+        if (loading) {
+            Accessibility.announce(this, "Aan het laden")
+        }
+
         findViewById<ProgressBar>(R.id.progressBar)?.let { progressBar ->
             progressBar.setVisible(loading)
         }

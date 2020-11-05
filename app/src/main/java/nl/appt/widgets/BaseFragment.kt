@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import nl.appt.R
+import nl.appt.accessibility.Accessibility
+import nl.appt.accessibility.announce
 import nl.appt.extensions.setVisible
 
 /**
@@ -16,6 +18,19 @@ import nl.appt.extensions.setVisible
  * Copyright 2020 Stichting Appt
  */
 abstract class BaseFragment : Fragment() {
+
+    var isLoading: Boolean = false
+        set(value) {
+            field = value
+
+            if (value) {
+                Accessibility.announce(context, getString(R.string.loading))
+            }
+
+            view?.findViewById<ProgressBar>(R.id.progressBar)?.let { progressBar ->
+                progressBar.setVisible(value)
+            }
+        }
 
     abstract fun getLayoutId(): Int
 
@@ -25,12 +40,6 @@ abstract class BaseFragment : Fragment() {
 
     open fun willShow() {
         // Can be overridden
-    }
-
-    fun setLoading(loading: Boolean) {
-        view?.findViewById<ProgressBar>(R.id.progressBar)?.let { progressBar ->
-            progressBar.setVisible(loading)
-        }
     }
 
     inline fun <reified T : Activity> startActivity(requestCode: Int = -1, options: Bundle? = null, noinline init: Intent.() -> Unit = {}) {

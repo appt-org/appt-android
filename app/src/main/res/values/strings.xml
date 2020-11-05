@@ -24,6 +24,8 @@
     <string name="error_500">Er is iets foutgegaan bij onze server. Probeer het later opnieuw.</string>
     <string name="error_503">Onze server is momenteel niet bereikbaar. Probeer het later opnieuw.</string>
 
+    <string name="loading">Aan het laden</string>
+
     <!-- Actions -->
     <string name="action_ok">Oké</string>
     <string name="action_confirm">Bevestigen</string>

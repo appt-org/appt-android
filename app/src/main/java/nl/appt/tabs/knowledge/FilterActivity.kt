@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import kotlinx.android.synthetic.main.view_list.*
 import nl.appt.R
+import nl.appt.accessibility.Accessibility
+import nl.appt.accessibility.announce
 import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.adapters.taxonomyAdapterDelegate
 import nl.appt.api.API
@@ -85,6 +87,8 @@ class FilterActivity: ToolbarActivity() {
 
     private fun onFilters(filters: Filters) {
         this.filters = filters
+
+        Accessibility.announce(this, "Er zijn ${filters.categories.size + filters.tags.size} filteropties geladen.")
 
         val items = arrayListOf<Any>()
         items.add("Categorieën")

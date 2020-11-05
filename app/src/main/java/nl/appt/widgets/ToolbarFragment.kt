@@ -1,6 +1,7 @@
 package nl.appt.widgets
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.View
@@ -29,5 +30,16 @@ abstract class ToolbarFragment : BaseFragment() {
         (activity as? AppCompatActivity)?.let {
             it.setSupportActionBar(toolbar)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackSelected()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun onBackSelected() {
+        // Can be overridden
     }
 }
