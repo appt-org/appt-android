@@ -8,9 +8,10 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.widget.Toast
 import nl.appt.R
+import nl.appt.extensions.setLaunch
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
-import nl.appt.tabs.training.TrainingActivity
+import nl.appt.tabs.training.GestureActivity
 import java.io.Serializable
 
 /**
@@ -24,14 +25,14 @@ import java.io.Serializable
 class ApptService: AccessibilityService() {
 
     private val TAG = "ApptService"
-    private val TRAINING_CLASS_NAME = TrainingActivity::class.java.name
+    private val GESTURE_TRAINING_CLASS_NAME = GestureActivity::class.java.name
 
     override fun onCreate() {
         super.onCreate()
         Log.i(TAG, "onCreate")
 
-        // Start TrainingActivity
-        startTraining()
+        // Start GestureActivity
+        startGestureTraining()
     }
 
     override fun onServiceConnected() {
@@ -53,8 +54,8 @@ class ApptService: AccessibilityService() {
             if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
                 Log.d(TAG, "Changed window to: ${event.packageName}")
 
-                // Kill service if window has changed or if TrainingActivity is no longer active.
-                if (event.packageName != this.packageName || !isTraining()) {
+                // Kill service if window has changed or if GestureActivity is no longer active.
+                if (event.packageName != this.packageName || !isGestureTraining()) {
                     kill()
                 }
             }
@@ -65,12 +66,12 @@ class ApptService: AccessibilityService() {
         Log.i(TAG, "onGesture: $gestureId")
 
         // Kill service if no longer training
-        if (!isTraining()) {
+        if (!isGestureTraining()) {
             kill()
             return false
         }
 
-        // Broadcast gesture to TrainingActivity
+        // Broadcast gesture to GestureActivity
         AccessibilityGesture.from(gestureId)?.let { gesture ->
             broadcast(Constants.SERVICE_GESTURE, gesture)
         }
@@ -93,17 +94,17 @@ class ApptService: AccessibilityService() {
         disableSelf()
     }
 
-    private fun isTraining(): Boolean {
+    private fun isGestureTraining(): Boolean {
         val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         activityManager.getRunningTasks(1).firstOrNull()?.topActivity?.let { activity ->
-            return activity.className == TRAINING_CLASS_NAME
+            return activity.className == GESTURE_TRAINING_CLASS_NAME
         }
         return false
     }
 
-    private fun startTraining() {
-        val intent = Intent(this, TrainingActivity::class.java)
-        intent.putExtra("launch", true)
+    private fun startGestureTraining() {
+        val intent = Intent(this, GestureActivity::class.java)
+        intent.setLaunch(true)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }

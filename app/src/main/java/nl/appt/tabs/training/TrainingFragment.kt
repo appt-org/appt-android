@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import kotlinx.android.synthetic.main.view_list.view.*
 import nl.appt.R
-import nl.appt.adapters.gestureAdapterDelegate
+import nl.appt.adapters.itemAdapterDelegate
 import nl.appt.adapters.headerAdapterDelegate
+import nl.appt.extensions.setText
+import nl.appt.extensions.setTitle
+import nl.appt.model.Course
 import nl.appt.widgets.ToolbarFragment
-import nl.appt.model.Gesture
+import nl.appt.widgets.TextActivity
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
@@ -19,18 +22,27 @@ class TrainingFragment: ToolbarFragment() {
 
     override fun getLayoutId() = R.layout.view_list
 
-    override fun getTitle(): String? {
-        return getString(R.string.title_training)
-    }
+    override fun getTitle()= getString(R.string.title_training)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ListDelegationAdapter(
             headerAdapterDelegate(),
-            gestureAdapterDelegate { gesture ->
-                startActivity<TrainingActivity> {
-                    putExtra("gesture", gesture)
+            itemAdapterDelegate<Course> { course ->
+                when (course) {
+                    Course.TALKBACK_GESTURES -> {
+                        startActivity<GesturesActivity>()
+                    }
+                    Course.TALKBACK_ENABLE -> {
+                        startActivity<TextActivity> {
+                            setTitle(getString(R.string.talkback_enable_title))
+                            setText(getString(R.string.talkback_enable_text))
+                        }
+                    }
+                    Course.TALKBACK_ACTIONS -> {
+                        startActivity<ActionsActivity>()
+                    }
                 }
             }
         )
@@ -42,27 +54,10 @@ class TrainingFragment: ToolbarFragment() {
 
     companion object {
         private val gestures = listOf(
-            "Selecteren",
-            Gesture.TOUCH,
-            Gesture.DOUBLE_TAP,
-            "Navigeren",
-            Gesture.SWIPE_RIGHT,
-            Gesture.SWIPE_LEFT,
-            Gesture.SWIPE_UP,
-            Gesture.SWIPE_DOWN,
-            "Verplaatsen",
-            Gesture.SWIPE_UP_DOWN,
-            Gesture.SWIPE_DOWN_UP,
-            Gesture.SWIPE_RIGHT_LEFT,
-            Gesture.SWIPE_LEFT_RIGHT,
-            "Snelkoppelingen",
-            Gesture.SWIPE_DOWN_LEFT,
-            Gesture.SWIPE_UP_LEFT,
-            Gesture.SWIPE_LEFT_UP,
-            Gesture.SWIPE_RIGHT_DOWN ,
-            Gesture.SWIPE_LEFT_DOWN,
-            Gesture.SWIPE_UP_RIGHT,
-            Gesture.SWIPE_DOWN_RIGHT
+            "TalkBack",
+            Course.TALKBACK_GESTURES,
+            Course.TALKBACK_ENABLE,
+            Course.TALKBACK_ACTIONS
         )
     }
 }

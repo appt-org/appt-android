@@ -3,21 +3,15 @@ package nl.appt.tabs.knowledge
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import kotlinx.android.synthetic.main.view_list.view.*
 import nl.appt.R
-import nl.appt.accessibility.Accessibility
-import nl.appt.accessibility.setTraversalOrder
-import nl.appt.adapters.articleAdapterDelegate
 import nl.appt.adapters.headerAdapterDelegate
+import nl.appt.adapters.itemAdapterDelegate
 import nl.appt.api.API
-import nl.appt.extensions.onInfiniteScroll
-import nl.appt.extensions.showError
+import nl.appt.extensions.*
 import nl.appt.model.Article
 import nl.appt.model.Filters
 import nl.appt.widgets.ToolbarFragment
@@ -38,10 +32,10 @@ class KnowledgeFragment: ToolbarFragment() {
     private val adapter: ListDelegationAdapter<List<Any>> by lazy {
         val adapter = ListDelegationAdapter(
             headerAdapterDelegate(),
-            articleAdapterDelegate { article ->
+            itemAdapterDelegate<Article> { article ->
                 startActivity<ArticleActivity> {
-                    putExtra("type", Article.Type.POST)
-                    putExtra("id", article.id)
+                    setArticleType(article.type)
+                    setId(article.id)
                 }
             }
         )
@@ -51,9 +45,7 @@ class KnowledgeFragment: ToolbarFragment() {
 
     override fun getLayoutId() = R.layout.view_list
 
-    override fun getTitle(): String? {
-        return getString(R.string.title_knowledge)
-    }
+    override fun getTitle() = getString(R.string.title_knowledge)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,7 +83,7 @@ class KnowledgeFragment: ToolbarFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_filter) {
             startActivity<FilterActivity>(REQUEST_CODE_FILTER) {
-                putExtra("filters", filters)
+                setFilters(filters)
             }
             return true
         }
@@ -102,7 +94,7 @@ class KnowledgeFragment: ToolbarFragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_CODE_FILTER) {
-            (data?.getSerializableExtra("filters") as? Filters)?.let { filters ->
+            data?.getFilters()?.let { filters ->
                 this.filters = filters
 
                 // RESULT_OK when filters should be applied.

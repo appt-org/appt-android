@@ -26,8 +26,25 @@
         </activity>
 
         <activity
-            android:name=".tabs.training.TrainingActivity"
+            android:name=".tabs.training.GesturesActivity"
+            android:configChanges="orientation|screenSize"
             android:launchMode="singleTask">
+        </activity>
+
+        <activity
+            android:name=".tabs.training.GestureActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask">
+        </activity>
+
+        <activity
+            android:name=".tabs.training.ActionsActivity"
+            android:configChanges="orientation|screenSize">
+        </activity>
+
+        <activity
+            android:name=".tabs.knowledge.ArticleActivity"
+            android:configChanges="orientation|screenSize">
         </activity>
 
         <activity
@@ -36,7 +53,7 @@
         </activity>
 
         <activity
-            android:name=".tabs.knowledge.ArticleActivity"
+            android:name=".widgets.TextActivity"
             android:configChanges="orientation|screenSize">
         </activity>
 

@@ -18,6 +18,8 @@ import nl.appt.accessibility.announce
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.accessibility.setFocus
 import nl.appt.accessibility.view.accessibility
+import nl.appt.extensions.getGesture
+import nl.appt.extensions.getLaunch
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
 import nl.appt.model.Gesture
@@ -31,17 +33,13 @@ import kotlin.concurrent.schedule
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-class TrainingActivity: ToolbarActivity() {
+class GestureActivity: ToolbarActivity() {
 
-    private val TAG = "TrainingActivity"
+    private val TAG = "GestureActivity"
     private val APPT_SERVICE = ApptService::class.java.name
 
     private val gesture: Gesture by lazy {
-        var gesture = Gesture.SWIPE_DOWN_UP
-        (intent.getSerializableExtra("gesture") as? Gesture)?.let {
-            gesture = it
-        }
-        gesture
+        intent.getGesture() ?: Gesture.SWIPE_DOWN_UP
     }
 
     private lateinit var gestureView: GestureView
@@ -79,9 +77,7 @@ class TrainingActivity: ToolbarActivity() {
 
     override fun getLayoutId() = R.layout.activity_training
 
-    override fun getToolbarTitle(): String? {
-        return gesture.title
-    }
+    override fun getToolbarTitle() = gesture.title
 
     override fun onViewCreated() {
         super.onViewCreated()
@@ -108,7 +104,7 @@ class TrainingActivity: ToolbarActivity() {
     }
 
     override fun onBackPressed() {
-        if (intent.getBooleanExtra("launch", false)) {
+        if (intent.getLaunch()) {
             startActivity<MainActivity>()
         }
         super.onBackPressed()

@@ -13,6 +13,8 @@ import nl.appt.accessibility.announce
 import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.adapters.taxonomyAdapterDelegate
 import nl.appt.api.API
+import nl.appt.extensions.getFilters
+import nl.appt.extensions.setFilters
 import nl.appt.extensions.showError
 import nl.appt.model.*
 import nl.appt.widgets.ToolbarActivity
@@ -37,9 +39,7 @@ class FilterActivity: ToolbarActivity() {
 
     override fun getLayoutId() = R.layout.view_list
 
-    override fun getToolbarTitle(): String? {
-        return getString(R.string.action_filter)
-    }
+    override fun getToolbarTitle() = getString(R.string.action_filter)
 
     override fun onViewCreated() {
         super.onViewCreated()
@@ -58,7 +58,7 @@ class FilterActivity: ToolbarActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_apply) {
             val intent = Intent()
-            intent.putExtra("filters", filters)
+            intent.setFilters(filters)
             setResult(RESULT_OK, intent)
             finish()
             return true
@@ -67,7 +67,7 @@ class FilterActivity: ToolbarActivity() {
     }
 
     private fun getFilters() {
-        (intent.getSerializableExtra("filters") as? Filters)?.let { filters ->
+        intent.getFilters()?.let { filters ->
             onFilters(filters)
         } ?: run {
             setLoading(true)
@@ -79,7 +79,9 @@ class FilterActivity: ToolbarActivity() {
                     onFilters(filters)
                 }
                 response.error?.let { error ->
-                    showError(error)
+                    showError(error) {
+                        finish()
+                    }
                 }
             }
         }

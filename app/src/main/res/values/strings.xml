@@ -8,6 +8,8 @@
     <string name="title_training">Trainingen</string>
     <string name="title_knowledge">Kennisbank</string>
     <string name="title_information">Informatie</string>
+    <string name="title_gestures">TalkBack gebaren</string>
+    <string name="title_actions">TalkBack handelingen</string>
 
     <string name="service_label">Appt</string>
     <string name="service_summary">Herkennen van gebaren</string>
@@ -36,4 +38,8 @@
     <string name="action_share_article">Deel artikel</string>
     <string name="action_filter">Filteren</string>
     <string name="action_apply">Toepassen</string>
+
+    <!-- TalkBack -->
+    <string name="talkback_enable_title">TalkBack aanzetten</string>
+    <string name="talkback_enable_text">Voordat je TalkBack aanzet is het verstandig om eerst de gebaren te leren.\n\nJe kunt TalkBack op twee manieren aanzetten.\n\nManier 1:\n1. Open de Instellingen-app\n2. Scroll naar onderen, tik op Toegankelijkheid\n3. Tik op TalkBack\n4.Zet de schakelaar aan\n\nManier 2:\n1. Open de Instellingen-app\n2. Scroll naar onderen, tik op Toegankelijkheid\n3. Tik op Sneltoets via volumeknop\n4. Zet de schakelaar aan\n5. Tik op Service van sneltoets\n6. Tik op TalkBack\n7. Tik op Toestaan in het dialoogvenster\n8. Houd beide volumeknoppen drie seconden ingedrukt\n\nLet op: de tweede manier werkt alleen op toestellen met Android versie 8 of hoger.</string>
 </resources>

@@ -31,7 +31,7 @@ fun headerAdapterDelegate() = adapterDelegate<String, Any>(R.layout.view_header)
     }
 }
 
-private inline fun <reified T: Item> itemAdapterDelegate(crossinline callback : (T) -> Unit) = adapterDelegate<T, Any>(R.layout.view_item) {
+inline fun <reified T: Item> itemAdapterDelegate(crossinline callback : (T) -> Unit) = adapterDelegate<T, Any>(R.layout.view_item) {
     val textView: TextView = findViewById(R.id.textView)
 
     textView.setOnClickListener {
@@ -41,18 +41,6 @@ private inline fun <reified T: Item> itemAdapterDelegate(crossinline callback : 
     bind {
         textView.text = item.title()
     }
-}
-
-fun gestureAdapterDelegate(callback: (Gesture) -> Unit): AdapterDelegate<List<Any>> {
-    return itemAdapterDelegate(callback)
-}
-
-fun articleAdapterDelegate(callback: (Article) -> Unit): AdapterDelegate<List<Any>> {
-    return itemAdapterDelegate(callback)
-}
-
-fun topicAdapterDelegate(callback: (Topic) -> Unit): AdapterDelegate<List<Any>> {
-    return itemAdapterDelegate(callback)
 }
 
 fun taxonomyAdapterDelegate(callback: (Taxonomy) -> Unit) = adapterDelegate<Taxonomy, Any>(R.layout.view_checkbox) {

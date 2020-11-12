@@ -4,6 +4,9 @@ import androidx.core.app.ShareCompat
 import nl.appt.R
 import nl.appt.api.API
 import nl.appt.api.Response
+import nl.appt.extensions.getArticleType
+import nl.appt.extensions.getId
+import nl.appt.extensions.getSlug
 import nl.appt.extensions.showError
 import nl.appt.model.Article
 import nl.appt.widgets.WebActivity
@@ -17,19 +20,17 @@ class ArticleActivity: WebActivity() {
     private var article: Article? = null
 
     private val type: Article.Type
-        get() = intent.getSerializableExtra("type") as Article.Type
+        get() = intent.getArticleType()
 
     private val id: Int
-        get() = intent.getIntExtra("id", -1)
+        get() = intent.getId()
 
     private val slug: String?
-        get() = intent.getStringExtra("slug")
+        get() = intent.getSlug()
 
     override fun getLayoutId() = R.layout.activity_web
 
-    override fun getToolbarTitle(): String? {
-        return null
-    }
+    override fun getToolbarTitle(): String? = null
 
     override fun onViewCreated() {
         super.onViewCreated()
