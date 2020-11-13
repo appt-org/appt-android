@@ -38,6 +38,12 @@
     font-family: 'Source Sans Pro', sans-serif;
     line-height: 1.5;
 }
+*:focus {
+    outline: dotted;
+    outline-color: var(--color-primary);
+    outline-width: .2rem;
+    outline-offset: .2rem;
+}
 
 body, html, table {
     font-size: 1.05rem;

@@ -63,9 +63,7 @@ class KnowledgeFragment: ToolbarFragment() {
             onInfiniteScroll()
         }
 
-        if (savedInstanceState != null) {
-            getArticles()
-        }
+        getArticles()
     }
 
     private fun onInfiniteScroll() {
@@ -103,12 +101,6 @@ class KnowledgeFragment: ToolbarFragment() {
                     getArticles()
                 }
             }
-        }
-    }
-
-    override fun willShow() {
-        if (items.isEmpty()) {
-            getArticles()
         }
     }
 

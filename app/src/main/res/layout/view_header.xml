@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<TextView style="@style/Widget.TextView.Bold"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/headerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
+    android:paddingTop="@dimen/margin_medium"
+    android:paddingStart="@dimen/margin_medium"
+    android:paddingEnd="@dimen/margin_medium"
+    android:paddingBottom="@dimen/margin_small"
     android:accessibilityHeading="true"
-    android:orientation="vertical">
-
-    <TextView style="@style/Widget.TextView.Bold"
-        android:id="@+id/headerView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginStart="@dimen/margin_medium"
-        android:layout_marginEnd="@dimen/margin_medium"
-        android:layout_marginBottom="@dimen/margin_small"
-        tools:text="Header"/>
-</LinearLayout>
+    tools:text="Header"/>

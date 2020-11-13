@@ -34,7 +34,7 @@ fun headerAdapterDelegate() = adapterDelegate<String, Any>(R.layout.view_header)
 inline fun <reified T: Item> itemAdapterDelegate(crossinline callback : (T) -> Unit) = adapterDelegate<T, Any>(R.layout.view_item) {
     val textView: TextView = findViewById(R.id.textView)
 
-    textView.setOnClickListener {
+    itemView.setOnClickListener {
         callback(item)
     }
 
