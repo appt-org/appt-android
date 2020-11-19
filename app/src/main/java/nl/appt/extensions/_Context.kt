@@ -3,6 +3,8 @@ package nl.appt.extensions
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.view.Gravity
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabsIntent
 import com.github.kittinunf.fuel.core.FuelError
@@ -90,4 +92,11 @@ fun Context.showError(error: FuelError?, callback: (() -> Unit)? = null) {
     } ?: run {
         showError(R.string.error_something, callback)
     }
+}
+
+/** Toast **/
+fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT, gravity: Int = Gravity.CENTER, xOffset: Int = 0, yOffset: Int = 0) {
+    val toast = Toast.makeText(this, message, duration)
+    toast.setGravity(gravity, xOffset, yOffset)
+    toast.show()
 }

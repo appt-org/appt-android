@@ -1,5 +1,10 @@
 package nl.appt.model
 
+import android.content.Context
+import android.view.View
+import nl.appt.R
+import nl.appt.views.actions.ActionView
+import nl.appt.views.actions.HeadingsActionView
 import java.io.Serializable
 
 /**
@@ -28,4 +33,13 @@ enum class Action: Item, Serializable {
                 PASTE -> "Plakken"
             }
         }
+
+    val layoutId: Int
+        get() {
+            return R.layout.action_headings
+        }
+
+    fun view(context: Context): ActionView {
+        return HeadingsActionView(context)
+    }
 }

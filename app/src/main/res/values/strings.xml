@@ -41,5 +41,14 @@
 
     <!-- TalkBack -->
     <string name="talkback_enable_title">TalkBack aanzetten</string>
-    <string name="talkback_enable_text">Voordat je TalkBack aanzet is het verstandig om eerst de gebaren te leren.\n\nJe kunt TalkBack op twee manieren aanzetten.\n\nManier 1:\n1. Open de Instellingen-app\n2. Scroll naar onderen, tik op Toegankelijkheid\n3. Tik op TalkBack\n4.Zet de schakelaar aan\n\nManier 2:\n1. Open de Instellingen-app\n2. Scroll naar onderen, tik op Toegankelijkheid\n3. Tik op Sneltoets via volumeknop\n4. Zet de schakelaar aan\n5. Tik op Service van sneltoets\n6. Tik op TalkBack\n7. Tik op Toestaan in het dialoogvenster\n8. Houd beide volumeknoppen drie seconden ingedrukt\n\nLet op: de tweede manier werkt alleen op toestellen met Android versie 8 of hoger.</string>
+    <string name="talkback_enable_text">Voordat je TalkBack aanzet is het verstandig om eerst de gebaren te leren.\n\nJe kunt TalkBack op twee manieren aanzetten.\n\nManier 1:\n1. Open de Instellingen-app\n2. Scroll naar onderen, tik op Toegankelijkheid\n3. Tik op TalkBack\n4. Zet de schakelaar aan\n\nManier 2:\n1. Open de Instellingen-app\n2. Scroll naar onderen, tik op Toegankelijkheid\n3. Tik op Sneltoets via volumeknop\n4. Zet de schakelaar aan\n5. Tik op Service van sneltoets\n6. Tik op TalkBack\n7. Tik op Toestaan in het dialoogvenster\n8. Houd beide volumeknoppen drie seconden ingedrukt\n\nLet op: de tweede manier werkt alleen op toestellen met Android versie 8 of hoger.</string>
+
+    <!-- TalkBack actions -->
+    <string name="talkback_action_headings_instruction1">Met TalkBack kun je via koppen navigeren. Dit is handig bij lange pagina\'s of websites. Zo navigeer je via koppen:</string>
+    <string name="talkback_action_headings_instruction2">Zet de navigatie-instelling op \'Koppen\' door met één vinger omlaag of omhoog te vegen.</string>
+    <string name="talkback_action_headings_instruction3">Veeg naar links om naar de vorige kop te navigeren, veeg naar rechts om naar de volgende kop te navigeren.</string>
+    <string name="talkback_action_headings_heading1">Kop 1</string>
+    <string name="talkback_action_headings_heading2">Kop 2</string>
+    <string name="talkback_action_headings_heading3">Kop 3</string>
+    <string name="talkback_action_headings_skip">Als je via kopregels navigeert, sla je deze tekst over.</string>
 </resources>

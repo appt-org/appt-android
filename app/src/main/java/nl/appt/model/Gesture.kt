@@ -1,10 +1,10 @@
 package nl.appt.model
 
 import android.content.Context
-import nl.appt.views.GestureView
-import nl.appt.views.SwipeGestureView
-import nl.appt.views.TapGestureView
-import nl.appt.views.TouchGestureView
+import nl.appt.views.gestures.GestureView
+import nl.appt.views.gestures.SwipeGestureView
+import nl.appt.views.gestures.TapGestureView
+import nl.appt.views.gestures.TouchGestureView
 import java.io.Serializable
 
 /**

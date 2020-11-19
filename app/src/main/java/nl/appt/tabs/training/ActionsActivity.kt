@@ -6,6 +6,7 @@ import kotlinx.android.synthetic.main.view_list.*
 import nl.appt.R
 import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.adapters.itemAdapterDelegate
+import nl.appt.extensions.setAction2
 import nl.appt.model.Action
 import nl.appt.widgets.ToolbarActivity
 
@@ -25,7 +26,9 @@ class ActionsActivity: ToolbarActivity() {
         val adapter = ListDelegationAdapter(
             headerAdapterDelegate(),
             itemAdapterDelegate<Action> { action ->
-                // TODO
+                startActivity<ActionActivity> {
+                    setAction2(action)
+                }
             }
         )
         adapter.items = gestures

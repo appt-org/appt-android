@@ -60,6 +60,21 @@
         <item name="fontPath">@string/font_semibold</item>
     </style>
 
+    <style name="Widget.TextView.Training">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/margin_small</item>
+        <item name="android:paddingBottom">@dimen/margin_small</item>
+        <item name="android:paddingStart">@dimen/margin_medium</item>
+        <item name="android:paddingEnd">@dimen/margin_medium</item>
+        <item name="android:focusable">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
+
+    <style name="Widget.TextView.Training.Bold">
+        <item name="fontPath">@string/font_bold</item>
+    </style>
+
     <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
         <item name="fontPath">@string/font_semibold</item>
         <item name="android:fontFamily">@font/source_sans_pro_semibold</item>

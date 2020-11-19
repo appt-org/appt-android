@@ -1,13 +1,11 @@
-package nl.appt.views
+package nl.appt.views.gestures
 
 import android.content.Context
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.model.AccessibilityGesture
-import nl.appt.model.Direction
 import nl.appt.model.Gesture
 
 /**

@@ -5,13 +5,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import nl.appt.R
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.announce
 import nl.appt.extensions.setVisible
+import nl.appt.extensions.toast
 
 /**
  * Created by Jan Jaap de Groot on 19/10/2020

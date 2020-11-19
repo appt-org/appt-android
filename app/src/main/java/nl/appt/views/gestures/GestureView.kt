@@ -1,4 +1,4 @@
-package nl.appt.views
+package nl.appt.views.gestures
 
 import android.content.Context
 import android.util.Log

@@ -24,8 +24,8 @@ import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
 import nl.appt.model.Gesture
 import nl.appt.services.ApptService
-import nl.appt.views.GestureView
-import nl.appt.views.GestureViewCallback
+import nl.appt.views.gestures.GestureView
+import nl.appt.views.gestures.GestureViewCallback
 import java.util.*
 import kotlin.concurrent.schedule
 
