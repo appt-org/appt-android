@@ -43,12 +43,24 @@
     <string name="talkback_enable_title">TalkBack aanzetten</string>
     <string name="talkback_enable_text">Voordat je TalkBack aanzet is het verstandig om eerst de gebaren te leren.\n\nJe kunt TalkBack op twee manieren aanzetten.\n\nManier 1:\n1. Open de Instellingen-app\n2. Scroll naar onderen, tik op Toegankelijkheid\n3. Tik op TalkBack\n4. Zet de schakelaar aan\n\nManier 2:\n1. Open de Instellingen-app\n2. Scroll naar onderen, tik op Toegankelijkheid\n3. Tik op Sneltoets via volumeknop\n4. Zet de schakelaar aan\n5. Tik op Service van sneltoets\n6. Tik op TalkBack\n7. Tik op Toestaan in het dialoogvenster\n8. Houd beide volumeknoppen drie seconden ingedrukt\n\nLet op: de tweede manier werkt alleen op toestellen met Android versie 8 of hoger.</string>
 
-    <!-- TalkBack actions -->
+    <!-- TalkBack headings -->
     <string name="talkback_action_headings_instruction1">Met TalkBack kun je via koppen navigeren. Dit is handig bij lange pagina\'s of websites. Zo navigeer je via koppen:</string>
-    <string name="talkback_action_headings_instruction2">Zet de navigatie-instelling op \'Koppen\' door met één vinger omlaag of omhoog te vegen.</string>
-    <string name="talkback_action_headings_instruction3">Veeg naar links om naar de vorige kop te navigeren, veeg naar rechts om naar de volgende kop te navigeren.</string>
+    <string name="talkback_action_headings_instruction2">1. Zet de navigatie-instelling op \'Koppen\' door met één vinger omlaag of omhoog te vegen.</string>
+    <string name="talkback_action_headings_instruction3">2. Veeg naar links om naar de vorige kop te navigeren, veeg naar rechts om naar de volgende kop te navigeren.</string>
+    <string name="talkback_action_headings_instruction4">Navigeer drie keer via koppen om de training af te ronden.</string>
     <string name="talkback_action_headings_heading1">Kop 1</string>
     <string name="talkback_action_headings_heading2">Kop 2</string>
     <string name="talkback_action_headings_heading3">Kop 3</string>
-    <string name="talkback_action_headings_skip">Als je via kopregels navigeert, sla je deze tekst over.</string>
+    <string name="talkback_action_headings_skip">Deze tekst sla je over wanneer je via kopregels navigeert.</string>
+
+    <!-- TalkBack links -->
+    <string name="talkback_action_links_instruction1">Met TalkBack kun je via links navigeren. Dit is handig om bijvoorbeeld websites en telefoonnummers te vinden. Zo navigeer je via links:</string>
+    <string name="talkback_action_links_instruction2">1. Zet de navigatie-instelling op \'Links\' door met één vinger omlaag of omhoog te vegen.</string>
+    <string name="talkback_action_links_instruction3">2. Veeg met één vinger naar rechts om naar de volgende link te navigeren.</string>
+    <string name="talkback_action_links_instruction4">Navigeer drie keer via links om de training af te ronden.</string>
+    <string name="talkback_action_links_heading1">Link 1: www.appt.nl</string>
+    <string name="talkback_action_links_heading2">Link 2: info@appt.nl</string>
+    <string name="talkback_action_links_heading3">Link 3: +31612345678</string>
+    <string name="talkback_action_links_skip">Deze tekst sla je over wanneer je via links navigeert.</string>
+
 </resources>

@@ -1,5 +1,6 @@
 package nl.appt.tabs.training
 
+import android.content.Intent
 import kotlinx.android.synthetic.main.activity_action.*
 import nl.appt.R
 import nl.appt.extensions.getAction2
@@ -37,5 +38,13 @@ class ActionActivity: ToolbarActivity(), ActionViewCallback {
 
     override fun incorrect(action: Action, feedback: String) {
         toast(feedback)
+    }
+
+    override fun startActivity(intent: Intent?) {
+        if (intent?.action == Intent.ACTION_VIEW) {
+            // Ignore view actions
+            return
+        }
+        super.startActivity(intent)
     }
 }

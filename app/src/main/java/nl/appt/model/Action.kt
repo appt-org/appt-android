@@ -5,6 +5,7 @@ import android.view.View
 import nl.appt.R
 import nl.appt.views.actions.ActionView
 import nl.appt.views.actions.HeadingsActionView
+import nl.appt.views.actions.LinksActionView
 import java.io.Serializable
 
 /**
@@ -40,6 +41,12 @@ enum class Action: Item, Serializable {
         }
 
     fun view(context: Context): ActionView {
-        return HeadingsActionView(context)
+        return when (this) {
+            HEADINGS -> HeadingsActionView(context)
+            LINKS -> LinksActionView(context)
+            SELECTION -> HeadingsActionView(context)
+            COPY -> HeadingsActionView(context)
+            PASTE -> HeadingsActionView(context)
+        }
     }
 }
