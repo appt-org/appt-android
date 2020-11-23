@@ -10,7 +10,11 @@ import nl.appt.model.Action
  * Created by Jan Jaap de Groot on 23/11/2020
  * Copyright 2020 Stichting Appt
  */
-class CopyActionView(context: Context) : ActionView(context, Action.COPY, R.layout.action_copy) {
+class CopyActionView(context: Context): ActionView(
+    context,
+    Action.COPY,
+    R.layout.action_copy
+) {
 
     init {
         val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

@@ -9,7 +9,11 @@ import nl.appt.model.Action
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-abstract class FocusActionView(context: Context, action: Action, layoutId: Int) : ActionView(context, action, layoutId) {
+abstract class FocusActionView(
+    context: Context,
+    action: Action,
+    layoutId: Int
+) : ActionView(context, action, layoutId) {
 
     private val COUNT = 3
     private val CLASS_NAME = getClassName()

@@ -44,7 +44,7 @@ enum class Action: Item, Serializable {
             LINKS -> LinksActionView(context)
             SELECTION -> SelectionActionView(context)
             COPY -> CopyActionView(context)
-            PASTE -> CopyActionView(context)
+            PASTE -> PasteActionView(context)
         }
     }
 }

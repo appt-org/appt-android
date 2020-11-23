@@ -74,10 +74,21 @@
 
     <!-- TalkBack copy -->
     <string name="talkback_action_copy_instruction1">Via het lokale contextmenu kun je tekst kopiëren:</string>
-    <string name="talkback_action_copy_instruction2">1. Veeg omhoog en dan naar rechts om het lokale contextmenu te openen.</string>
-    <string name="talkback_action_copy_instruction3">2. Veeg met één vinger omlaag tot de optie \'Kopiëren\' geselecteerd is.</string>
-    <string name="talkback_action_copy_instruction4">3. Dubbeltik om de geselecteerde tekst te kopiëren.</string>
-    <string name="talkback_action_copy_instruction5">Kopieer tekst uit het onderstaande tekstveld om de training af te ronden.</string>
+    <string name="talkback_action_copy_instruction2">1. Selecteer het veld waar je tekst uit wilt kopiëren.</string>
+    <string name="talkback_action_copy_instruction3">2. Dubbeltik om te starten met bewerken.</string>
+    <string name="talkback_action_copy_instruction4">3. Veeg omhoog en dan naar rechts om het lokale contextmenu te openen.</string>
+    <string name="talkback_action_copy_instruction5">4. Veeg met één vinger omlaag tot de optie \'Kopiëren\' geselecteerd is.</string>
+    <string name="talkback_action_copy_instruction6">5. Dubbeltik om de geselecteerde tekst te kopiëren.</string>
+    <string name="talkback_action_copy_instruction7">Kopieer tekst uit het onderstaande tekstveld om de training af te ronden.</string>
     <string name="talkback_action_copy_text">Kopieer deze tekst</string>
 
+    <!-- TalkBack paste -->
+    <string name="talkback_action_paste_instruction1">Via het lokale contextmenu kun je tekst plakken:</string>
+    <string name="talkback_action_paste_instruction2">1. Selecteer het veld waar je tekst wilt plakken.</string>
+    <string name="talkback_action_paste_instruction3">2. Dubbeltik om te starten met bewerken.</string>
+    <string name="talkback_action_paste_instruction4">3. Veeg omhoog en dan naar rechts om het lokale contextmenu te openen.</string>
+    <string name="talkback_action_paste_instruction5">4. Veeg met één vinger omlaag tot de optie \'Plakken\' geselecteerd is.</string>
+    <string name="talkback_action_paste_instruction6">5. Dubbeltik om te plakken.</string>
+    <string name="talkback_action_paste_instruction7">Plak tekst in het onderstaande tekstveld om de training af te ronden.</string>
+    <string name="talkback_action_paste_text">Plak hier vanuit je klembord</string>
 </resources>
