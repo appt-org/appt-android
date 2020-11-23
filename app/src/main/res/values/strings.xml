@@ -63,6 +63,15 @@
     <string name="talkback_action_links_heading3">Link 3: +31612345678</string>
     <string name="talkback_action_links_skip">Deze tekst sla je over wanneer je via links navigeert.</string>
 
+    <!-- TalkBack select -->
+    <string name="talkback_action_select_instruction1">Zo selecteer je tekst:</string>
+    <string name="talkback_action_select_instruction2">1. Selecteer het veld waar je tekst wilt selecteren.</string>
+    <string name="talkback_action_select_instruction3">2. Dubbeltik om te starten met bewerken.</string>
+    <string name="talkback_action_select_instruction4">3. Veeg met één vinger omlaag tot de optie \'Selecteer alles\' geselecteerd is.</string>
+    <string name="talkback_action_select_instruction5">4. Dubbeltik om alle tekst te selecteren.</string>
+    <string name="talkback_action_select_instruction6">Selecteer tekst in het onderstaande tekstveld om de training af te ronden.</string>
+    <string name="talkback_action_select_text">Selecteer deze tekst</string>
+
     <!-- TalkBack copy -->
     <string name="talkback_action_copy_instruction1">Via het lokale contextmenu kun je tekst kopiëren:</string>
     <string name="talkback_action_copy_instruction2">1. Veeg omhoog en dan naar rechts om het lokale contextmenu te openen.</string>

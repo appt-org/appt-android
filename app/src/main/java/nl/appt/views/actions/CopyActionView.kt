@@ -20,7 +20,7 @@ class CopyActionView(context: Context) : ActionView(context, Action.COPY, R.layo
                 if (clip.itemCount > 0) {
                     val text = clip.getItemAt(0).text
 
-                    if (copyEditText.text.toString().contains(text, false)) {
+                    if (textField.text.toString().contains(text, false)) {
                         correct()
                     } else {
                         incorrect("Kopieer tekst uit het tekstveld.")

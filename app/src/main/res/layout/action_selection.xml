@@ -12,29 +12,34 @@
         <!-- Instructions -->
         <TextView style="@style/Widget.TextView.Training"
             android:id="@+id/textView1"
-            android:text="@string/talkback_action_copy_instruction1" />
+            android:text="@string/talkback_action_select_instruction1" />
 
         <TextView style="@style/Widget.TextView.Training"
             android:id="@+id/textView2"
-            android:text="@string/talkback_action_copy_instruction2" />
+            android:text="@string/talkback_action_select_instruction2" />
 
         <TextView style="@style/Widget.TextView.Training"
             android:id="@+id/textView3"
-            android:text="@string/talkback_action_copy_instruction3" />
+            android:text="@string/talkback_action_select_instruction3" />
 
         <TextView style="@style/Widget.TextView.Training"
             android:id="@+id/textView4"
-            android:text="@string/talkback_action_copy_instruction4" />
+            android:text="@string/talkback_action_select_instruction4" />
 
         <TextView style="@style/Widget.TextView.Training"
             android:id="@+id/textView5"
-            android:text="@string/talkback_action_copy_instruction5" />
+            android:text="@string/talkback_action_select_instruction5" />
 
-        <EditText style="@style/Widget.TextView.Training.Bold"
+        <TextView style="@style/Widget.TextView.Training"
+            android:id="@+id/textView6"
+            android:text="@string/talkback_action_select_instruction6" />
+
+        <nl.appt.views.SelectionEditText
+            style="@style/Widget.TextView.Training.Bold"
             android:id="@+id/textField"
             android:padding="@dimen/margin_medium"
             android:layout_margin="0dp"
-            android:text="@string/talkback_action_copy_text"/>
+            android:text="@string/talkback_action_select_text"/>
 
     </LinearLayout>
 </ScrollView>

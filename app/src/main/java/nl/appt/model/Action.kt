@@ -3,10 +3,7 @@ package nl.appt.model
 import android.content.Context
 import android.view.View
 import nl.appt.R
-import nl.appt.views.actions.ActionView
-import nl.appt.views.actions.CopyActionView
-import nl.appt.views.actions.HeadingsActionView
-import nl.appt.views.actions.LinksActionView
+import nl.appt.views.actions.*
 import java.io.Serializable
 
 /**
@@ -45,7 +42,7 @@ enum class Action: Item, Serializable {
         return when (this) {
             HEADINGS -> HeadingsActionView(context)
             LINKS -> LinksActionView(context)
-            SELECTION -> CopyActionView(context)
+            SELECTION -> SelectionActionView(context)
             COPY -> CopyActionView(context)
             PASTE -> CopyActionView(context)
         }
