@@ -94,7 +94,7 @@ open class WebActivity: ToolbarActivity() {
     }
 
     fun load(content: String, title: String) {
-        setLoading(true)
+        isLoading = true
 
         val html = """
                 <html lang="nl">

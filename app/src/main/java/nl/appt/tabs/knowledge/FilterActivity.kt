@@ -70,10 +70,10 @@ class FilterActivity: ToolbarActivity() {
         intent.getFilters()?.let { filters ->
             onFilters(filters)
         } ?: run {
-            setLoading(true)
+            isLoading = true
 
             API.getFilters { response ->
-                setLoading(false)
+                isLoading = false
 
                 response.result?.let { filters ->
                     onFilters(filters)

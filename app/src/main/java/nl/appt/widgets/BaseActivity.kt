@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -21,6 +20,17 @@ import nl.appt.extensions.toast
  * Copyright 2020 Stichting Appt
  */
 abstract class BaseActivity : AppCompatActivity() {
+
+    var isLoading: Boolean = false
+        set(value) {
+            field = value
+
+            if (value) {
+                Accessibility.announce(this, getString(R.string.loading))
+            }
+
+            findViewById<ProgressBar>(R.id.progressBar)?.setVisible(value)
+        }
 
     abstract fun getLayoutId(): Int
 
@@ -51,14 +61,8 @@ abstract class BaseActivity : AppCompatActivity() {
         // Can be overridden
     }
 
-    fun setLoading(loading: Boolean) {
-        if (loading) {
-            Accessibility.announce(this, "Aan het laden")
-        }
-
-        findViewById<ProgressBar>(R.id.progressBar)?.let { progressBar ->
-            progressBar.setVisible(loading)
-        }
+    fun toast(message: String, duration: Int = Toast.LENGTH_SHORT, gravity: Int = Gravity.CENTER, xOffset: Int = 0, yOffset: Int = 0) {
+        toast(this, message, duration, gravity, xOffset, yOffset)
     }
 
     inline fun <reified T : Activity> startActivity(requestCode: Int = -1, options: Bundle? = null, noinline init: Intent.() -> Unit = {}) {

@@ -38,7 +38,7 @@ class ArticleActivity: WebActivity() {
         article?.let {
             onArticle(it)
         } ?: run {
-            setLoading(true)
+            isLoading = true
 
             slug?.let { slug ->
                 API.getArticle(type, slug) {
@@ -58,7 +58,7 @@ class ArticleActivity: WebActivity() {
         }
 
         response.error?.let { error ->
-            setLoading(false)
+            isLoading = false
             showError(error)
         }
     }

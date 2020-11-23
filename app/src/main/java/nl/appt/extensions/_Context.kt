@@ -95,8 +95,8 @@ fun Context.showError(error: FuelError?, callback: (() -> Unit)? = null) {
 }
 
 /** Toast **/
-fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT, gravity: Int = Gravity.CENTER, xOffset: Int = 0, yOffset: Int = 0) {
-    val toast = Toast.makeText(this, message, duration)
+fun toast(context: Context?, message: String, duration: Int = Toast.LENGTH_SHORT, gravity: Int = Gravity.CENTER, xOffset: Int = 0, yOffset: Int = 0) {
+    val toast = Toast.makeText(context, message, duration)
     toast.setGravity(gravity, xOffset, yOffset)
     toast.show()
 }
