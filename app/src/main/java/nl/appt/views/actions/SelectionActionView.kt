@@ -4,7 +4,7 @@ import android.content.Context
 import kotlinx.android.synthetic.main.action_selection.view.*
 import nl.appt.R
 import nl.appt.model.Action
-import nl.appt.views.SelectionEditText
+import nl.appt.views.TrainingField
 
 /**
  * Created by Jan Jaap de Groot on 23/11/2020
@@ -14,14 +14,14 @@ class SelectionActionView(context: Context) : ActionView(
     context,
     Action.SELECTION,
     R.layout.action_selection
-), SelectionEditText.OnSelectionChangedListener {
+), TrainingField.OnSelectionChangedListener {
 
     init {
-        textField.callback = this
+        trainingField.callback = this
     }
 
     override fun onSelectionChanged(start: Int, end: Int) {
-        if ((end - start) > 0) {
+        if ((end - start) > 1) {
             correct()
         }
     }

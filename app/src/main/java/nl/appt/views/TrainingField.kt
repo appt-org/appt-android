@@ -4,16 +4,21 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.EditText
 
+
 /**
  * Created by Jan Jaap de Groot on 23/11/2020
  * Copyright 2020 Stichting Appt
  */
-
-class SelectionEditText @JvmOverloads constructor(
+class TrainingField @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
 ) : EditText(context, attrs, defStyle) {
+
+    init {
+        showSoftInputOnFocus = false
+        setTextIsSelectable(true)
+    }
 
     interface OnSelectionChangedListener {
         fun onSelectionChanged(start: Int, end: Int)

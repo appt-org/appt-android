@@ -24,7 +24,7 @@ class CopyActionView(context: Context): ActionView(
                 if (clip.itemCount > 0) {
                     val text = clip.getItemAt(0).text
 
-                    if (textField.text.toString().contains(text, false)) {
+                    if (trainingField.text.toString().contains(text, false)) {
                         correct()
                     } else {
                         incorrect("Kopieer tekst uit het tekstveld.")

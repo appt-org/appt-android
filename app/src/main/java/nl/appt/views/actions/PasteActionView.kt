@@ -17,7 +17,7 @@ class PasteActionView(context: Context) : ActionView(
 ) {
 
     init {
-        textField.addTextChangedListener(beforeTextChanged = { _, _, _, after ->
+        trainingField.addTextChangedListener(beforeTextChanged = { _, _, _, after ->
             if (after > 1) {
                 correct()
             }

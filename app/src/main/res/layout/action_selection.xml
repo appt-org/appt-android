@@ -34,9 +34,10 @@
             android:id="@+id/textView6"
             android:text="@string/talkback_action_select_instruction6" />
 
-        <nl.appt.views.SelectionEditText
+        <!-- Action -->
+        <nl.appt.views.TrainingField
             style="@style/Widget.TextView.Training.Bold"
-            android:id="@+id/textField"
+            android:id="@+id/trainingField"
             android:padding="@dimen/margin_medium"
             android:layout_margin="0dp"
             android:text="@string/talkback_action_select_text"/>

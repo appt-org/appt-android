@@ -47,6 +47,10 @@ fun Context.showDialog(title: String, message: String?, callback: (() -> Unit)? 
     builder.setMessage(message)
 
     builder.setPositiveButton(R.string.action_ok) { _, _ ->
+        // Ignored, handled by on dismiss listener.
+    }
+
+    builder.setOnDismissListener {
         callback?.let {
             it()
         }
@@ -74,22 +78,22 @@ fun Context.showError(message: String?, callback: (() -> Unit)? = null) {
 }
 
 fun Context.showError(error: FuelError?, callback: (() -> Unit)? = null) {
-    error?.let {
-        when (it.response.statusCode) {
+    if (error != null) {
+        when (error.response.statusCode) {
             404 -> showError(R.string.error_404, callback)
             500 -> showError(R.string.error_500, callback)
             503 -> showError(R.string.error_503, callback)
             else -> {
                 if (!hasInternet()) {
                     showError(R.string.error_network, callback)
-                } else if (it.causedByInterruption) {
+                } else if (error.causedByInterruption) {
                     showError(R.string.error_interrupted, callback)
                 } else {
-                    showError(it.localizedMessage, callback)
+                    showError(error.localizedMessage, callback)
                 }
             }
         }
-    } ?: run {
+    } else {
         showError(R.string.error_something, callback)
     }
 }

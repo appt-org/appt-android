@@ -3,7 +3,10 @@ package nl.appt.tabs.training
 import android.content.Intent
 import kotlinx.android.synthetic.main.activity_action.*
 import nl.appt.R
+import nl.appt.accessibility.Accessibility
+import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.extensions.getAction2
+import nl.appt.extensions.showDialog
 import nl.appt.extensions.toast
 import nl.appt.model.Action
 import nl.appt.views.actions.ActionViewCallback
@@ -29,6 +32,12 @@ class ActionActivity: ToolbarActivity(), ActionViewCallback {
         val view = action.view(this)
         view.callback = this
         scrollView.addView(view)
+
+        if (!Accessibility.isTalkBackEnabled(this)) {
+            showDialog(R.string.talkback_disabled_title, R.string.talkback_disabled_explanation) {
+                finish()
+            }
+        }
     }
 
     override fun correct(action: Action) {

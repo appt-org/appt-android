@@ -31,8 +31,10 @@
         <TextView style="@style/Widget.TextView.Training"
             android:text="@string/talkback_action_paste_instruction7" />
 
-        <EditText style="@style/Widget.TextView.Training.Bold"
-            android:id="@+id/textField"
+        <!-- Action -->
+        <nl.appt.views.TrainingField
+            style="@style/Widget.TextView.Training.Bold"
+            android:id="@+id/trainingField"
             android:padding="@dimen/margin_medium"
             android:layout_margin="0dp"
             android:hint="@string/talkback_action_paste_text"/>
