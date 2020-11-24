@@ -44,7 +44,7 @@ enum class Topic: Item, Serializable {
     val url: String?
         get() {
             return when (this) {
-                SOURCE -> "https://github.com/appt-nl/appt-ios"
+                SOURCE -> "https://github.com/appt-nl/appt-android"
                 SPONSOR -> "https://www.sidnfonds.nl"
                 else -> null
             }
