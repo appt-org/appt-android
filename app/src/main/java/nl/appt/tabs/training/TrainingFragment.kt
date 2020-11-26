@@ -11,6 +11,8 @@ import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.extensions.setText
 import nl.appt.extensions.setTitle
 import nl.appt.model.Course
+import nl.appt.tabs.training.actions.ActionsActivity
+import nl.appt.tabs.training.gestures.GesturesActivity
 import nl.appt.widgets.ToolbarFragment
 import nl.appt.widgets.TextActivity
 

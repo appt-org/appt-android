@@ -26,24 +26,24 @@
         </activity>
 
         <activity
-            android:name=".tabs.training.GesturesActivity"
+            android:name=".tabs.training.gestures.GesturesActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask">
         </activity>
 
         <activity
-            android:name=".tabs.training.GestureActivity"
+            android:name=".tabs.training.gestures.GestureActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask">
         </activity>
 
         <activity
-            android:name=".tabs.training.ActionsActivity"
+            android:name=".tabs.training.actions.ActionsActivity"
             android:configChanges="orientation|screenSize">
         </activity>
 
         <activity
-            android:name=".tabs.training.ActionActivity"
+            android:name=".tabs.training.actions.ActionActivity"
             android:configChanges="orientation|screenSize">
         </activity>
 

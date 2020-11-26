@@ -1,4 +1,4 @@
-package nl.appt.tabs.training
+package nl.appt.tabs.training.gestures
 
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.*
@@ -33,7 +33,7 @@ import kotlin.concurrent.schedule
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-class GestureActivity: ToolbarActivity() {
+class GestureActivity: ToolbarActivity(), GestureViewCallback {
 
     private val TAG = "GestureActivity"
     private val APPT_SERVICE = ApptService::class.java.name
@@ -49,7 +49,7 @@ class GestureActivity: ToolbarActivity() {
             // Kill check
             intent?.getBooleanExtra(Constants.SERVICE_KILLED, false)?.let { killed ->
                 if (killed) {
-                    Toast.makeText(baseContext, "Appt service staat uit", Toast.LENGTH_SHORT).show()
+                    toast("Appt service staat uit")
                     onBackPressed()
                 }
             }
@@ -58,20 +58,6 @@ class GestureActivity: ToolbarActivity() {
             (intent?.getSerializableExtra(Constants.SERVICE_GESTURE) as? AccessibilityGesture)?.let { gesture ->
                 gestureView.onAccessibilityGesture(gesture)
             }
-        }
-    }
-
-    private val callback = object : GestureViewCallback {
-        override fun correct(gesture: Gesture) {
-            Toast.makeText(baseContext, "Gebaar correct uitgevoerd!", Toast.LENGTH_SHORT).show()
-            feedbackTextView.visibility = View.GONE
-            onBackPressed()
-        }
-
-        override fun incorrect(gesture: Gesture, feedback: String) {
-            Accessibility.announce(baseContext, feedback)
-            feedbackTextView.text = feedback
-            feedbackTextView.visibility = View.VISIBLE
         }
     }
 
@@ -87,7 +73,7 @@ class GestureActivity: ToolbarActivity() {
 
         // Initialize GestureView
         gestureView = gesture.view(this)
-        gestureView.callback = callback
+        gestureView.callback = this
         gestureView.accessibility.label = gesture.description
         container.addView(gestureView)
         accessibility.elements = arrayOf(gestureView)
@@ -157,5 +143,21 @@ class GestureActivity: ToolbarActivity() {
                 onBackPressed()
             }
             .show()
+    }
+
+    override fun correct(gesture: Gesture) {
+        toast("Gebaar correct uitgevoerd!")
+        feedbackTextView.visibility = View.GONE
+
+        gesture.completed(baseContext, true)
+        setResult(RESULT_OK)
+
+        onBackPressed()
+    }
+
+    override fun incorrect(gesture: Gesture, feedback: String) {
+        Accessibility.announce(baseContext, feedback)
+        feedbackTextView.text = feedback
+        feedbackTextView.visibility = View.VISIBLE
     }
 }

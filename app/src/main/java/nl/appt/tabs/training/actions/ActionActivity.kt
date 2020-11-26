@@ -1,4 +1,4 @@
-package nl.appt.tabs.training
+package nl.appt.tabs.training.actions
 
 import android.content.Intent
 import kotlinx.android.synthetic.main.activity_action.*
@@ -7,7 +7,6 @@ import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.extensions.getAction2
 import nl.appt.extensions.showDialog
-import nl.appt.extensions.toast
 import nl.appt.model.Action
 import nl.appt.views.actions.ActionViewCallback
 import nl.appt.widgets.ToolbarActivity
@@ -42,6 +41,10 @@ class ActionActivity: ToolbarActivity(), ActionViewCallback {
 
     override fun correct(action: Action) {
         toast("Training afgerond!")
+
+        action.completed(this, true)
+        setResult(RESULT_OK)
+
         finish()
     }
 

@@ -12,7 +12,9 @@
         <item name="android:textColor">@color/foreground</item>
         <item name="android:textColorPrimary">@color/foreground</item>
 
-        <item name="android:actionMenuTextColor">@color/foreground</item>
+        <item name="homeAsUpIndicator">@drawable/icon_back</item>
+
+        <item name="android:actionMenuTextColor">@color/primary</item>
         <item name="android:actionMenuTextAppearance">@style/Menu.TextAppearance</item>
 
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>

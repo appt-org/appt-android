@@ -6,12 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
-import android.widget.Toast
 import nl.appt.R
 import nl.appt.extensions.setLaunch
+import nl.appt.extensions.toast
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
-import nl.appt.tabs.training.GestureActivity
+import nl.appt.tabs.training.gestures.GestureActivity
 import java.io.Serializable
 
 /**
@@ -87,7 +87,7 @@ class ApptService: AccessibilityService() {
     }
 
     private fun kill() {
-        Toast.makeText(this, R.string.service_killed, Toast.LENGTH_SHORT).show()
+        toast(baseContext, R.string.service_killed)
 
         broadcast(Constants.SERVICE_KILLED, true)
 

@@ -1,6 +1,7 @@
 package nl.appt.model
 
 import android.content.Context
+import nl.appt.helpers.Preferences
 import nl.appt.views.gestures.GestureView
 import nl.appt.views.gestures.SwipeGestureView
 import nl.appt.views.gestures.TapGestureView
@@ -11,7 +12,7 @@ import java.io.Serializable
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-enum class Gesture: Item, Serializable {
+enum class Gesture: Training, Serializable {
 
     TOUCH,
     DOUBLE_TAP,
@@ -113,5 +114,12 @@ enum class Gesture: Item, Serializable {
             SWIPE_UP_RIGHT -> SwipeGestureView(context, this, Direction.UP, Direction.RIGHT)
             SWIPE_DOWN_RIGHT -> SwipeGestureView(context, this, Direction.DOWN, Direction.RIGHT)
         }
+    }
+
+    override fun completed(context: Context): Boolean {
+        return Preferences(context).isCompleted(this)
+    }
+    override fun completed(context: Context, completed: Boolean) {
+        Preferences(context).setCompleted(this, true)
     }
 }

@@ -104,3 +104,7 @@ fun toast(context: Context?, message: String, duration: Int = Toast.LENGTH_SHORT
     toast.setGravity(gravity, xOffset, yOffset)
     toast.show()
 }
+
+fun toast(context: Context?, message: Int, duration: Int = Toast.LENGTH_SHORT, gravity: Int = Gravity.CENTER, xOffset: Int = 0, yOffset: Int = 0) {
+    toast(context, context?.getString(message) ?: "", duration, gravity, xOffset, yOffset)
+}

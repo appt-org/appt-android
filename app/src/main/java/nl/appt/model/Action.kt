@@ -1,8 +1,8 @@
 package nl.appt.model
 
 import android.content.Context
-import android.view.View
 import nl.appt.R
+import nl.appt.helpers.Preferences
 import nl.appt.views.actions.*
 import java.io.Serializable
 
@@ -10,7 +10,7 @@ import java.io.Serializable
  * Created by Jan Jaap de Groot on 06/11/2020
  * Copyright 2020 Stichting Appt
  */
-enum class Action: Item, Serializable {
+enum class Action: Training, Serializable {
 
     HEADINGS,
     LINKS,
@@ -46,5 +46,12 @@ enum class Action: Item, Serializable {
             COPY -> CopyActionView(context)
             PASTE -> PasteActionView(context)
         }
+    }
+
+    override fun completed(context: Context): Boolean {
+        return Preferences(context).isCompleted(this)
+    }
+    override fun completed(context: Context, completed: Boolean) {
+        Preferences(context).setCompleted(this, true)
     }
 }
