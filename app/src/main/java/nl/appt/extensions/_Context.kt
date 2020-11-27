@@ -110,6 +110,7 @@ fun toast(context: Context?, message: String, duration: Long = 3000, callback: (
     }
 
     val builder = AlertDialog.Builder(context)
+    builder.setCancelable(false)
     builder.setMessage(message)
 
     builder.setOnDismissListener {

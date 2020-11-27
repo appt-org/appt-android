@@ -15,6 +15,7 @@
     <string name="service_summary">Herkennen van gebaren</string>
     <string name="service_description">Om gebaren te herkennen is het noodzakelijk dat je deze service aanzet.\n\nDe service wordt automatisch uitgeschakeld wanneer je de training stopt of wisselt naar een andere app.\n\nEr worden geen gegevens opgeslagen.</string>
     <string name="service_killed">De Appt service is automatisch uitgezet</string>
+    <string name="service_inactive">De Appt service staat uit. Om gebaren te herkennen is het noodzakelijk dat je deze service aanzet.</string>
 
     <!-- Errors -->
     <string name="error">Foutmelding</string>
@@ -38,6 +39,7 @@
     <string name="action_share_article">Deel artikel</string>
     <string name="action_filter">Filteren</string>
     <string name="action_apply">Toepassen</string>
+    <string name="action_practice">Oefenen</string>
 
     <!-- TalkBack -->
     <string name="talkback_enable_title">TalkBack aanzetten</string>

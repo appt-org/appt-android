@@ -1,16 +1,22 @@
 package nl.appt.services
 
 import android.accessibilityservice.AccessibilityService
+import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityManager
+import androidx.appcompat.app.AlertDialog
 import nl.appt.R
+import nl.appt.extensions.setGestures
 import nl.appt.extensions.setLaunch
 import nl.appt.extensions.toast
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
+import nl.appt.model.Gesture
 import nl.appt.tabs.training.gestures.GestureActivity
 import java.io.Serializable
 
@@ -87,7 +93,7 @@ class ApptService: AccessibilityService() {
     }
 
     private fun kill() {
-        toast(baseContext, R.string.service_killed)
+        //toast(baseContext, R.string.service_killed)
 
         broadcast(Constants.SERVICE_KILLED, true)
 
@@ -104,8 +110,37 @@ class ApptService: AccessibilityService() {
 
     private fun startGestureTraining() {
         val intent = Intent(this, GestureActivity::class.java)
-        intent.setLaunch(true)
+        intent.setGestures(Gesture.all())
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+    }
+
+    companion object {
+        fun isEnabled(context: Context): Boolean {
+            (context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager).let { manager ->
+                val services = manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
+                for (service in services) {
+                    if (service.resolveInfo.serviceInfo.name == ApptService::class.java.name) {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+
+        fun enable(context: Context) {
+            AlertDialog.Builder(context)
+                .setTitle("Appt service aanzetten")
+                .setMessage("De app kan alleen gebaren herkennen indien je de Appt service aanzet.")
+                .setPositiveButton(android.R.string.yes) { _, _ ->
+                    val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_DOCUMENT
+                    context.startActivity(intent)
+                }
+                .setNegativeButton(android.R.string.no) { _, _ ->
+                    // Dismiss
+                }
+                .show()
+        }
     }
 }

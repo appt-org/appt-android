@@ -16,6 +16,11 @@ private const val KEY_GESTURE = "gesture"
 fun Intent.getGesture() = getSerializableExtra(KEY_GESTURE) as? Gesture
 fun Intent.setGesture(gesture: Gesture) = putExtra(KEY_GESTURE, gesture)
 
+/** Gestures **/
+private const val KEY_GESTURES = "gestures"
+fun Intent.getGestures() = getSerializableExtra(KEY_GESTURES) as? ArrayList<Gesture>
+fun Intent.setGestures(gestures: ArrayList<Gesture>) = putExtra(KEY_GESTURES, gestures)
+
 /** Launch **/
 private const val KEY_LAUNCH = "launch"
 fun Intent.getLaunch() = getBooleanExtra(KEY_LAUNCH, false)
@@ -55,5 +60,3 @@ fun Intent.setText(text: String) = putExtra(KEY_TEXT, text)
 private const val KEY_ACTION = "action"
 fun Intent.getAction2() = getSerializableExtra(KEY_ACTION) as? Action
 fun Intent.setAction2(action: Action) = putExtra(KEY_ACTION, action)
-
-

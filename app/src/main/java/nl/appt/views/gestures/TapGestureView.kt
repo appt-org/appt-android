@@ -5,6 +5,8 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
+import nl.appt.extensions.isEnd
+import nl.appt.extensions.isStart
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Gesture
 
@@ -26,13 +28,11 @@ class TapGestureView(
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         gestureDetector.onTouchEvent(event)
 
-        event?.actionMasked?.let { action ->
-            if (action == MotionEvent.ACTION_DOWN) {
-                tapped = false
-            } else if (action == MotionEvent.ACTION_UP) {
-                if (!tapped) {
-                    incorrect("Je maakte geen tik.")
-                }
+        if (event?.isStart() == true) {
+            tapped = false
+        } else if (event?.isEnd() == true) {
+            if (!tapped) {
+                incorrect("Je maakte geen tik.")
             }
         }
 
@@ -40,7 +40,9 @@ class TapGestureView(
     }
 
     override fun onAccessibilityGesture(gesture: AccessibilityGesture) {
-        // Ignored
+        if (!tapped) {
+            incorrect("Je maakte een veegbeweging in plaats van een tik.")
+        }
     }
 
     private fun onTapped(fingers: Int, taps: Int, longPress: Boolean = false) {

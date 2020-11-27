@@ -122,4 +122,10 @@ enum class Gesture: Training, Serializable {
     override fun completed(context: Context, completed: Boolean) {
         Preferences(context).setCompleted(this, true)
     }
+
+    companion object {
+        fun all(): ArrayList<Gesture> {
+            return values().toCollection(arrayListOf())
+        }
+    }
 }

@@ -27,14 +27,12 @@
 
         <activity
             android:name=".tabs.training.gestures.GesturesActivity"
-            android:configChanges="orientation|screenSize"
-            android:launchMode="singleTask">
+            android:configChanges="orientation|screenSize">
         </activity>
 
         <activity
             android:name=".tabs.training.gestures.GestureActivity"
-            android:configChanges="orientation|screenSize"
-            android:launchMode="singleTask">
+            android:configChanges="orientation|screenSize">
         </activity>
 
         <activity

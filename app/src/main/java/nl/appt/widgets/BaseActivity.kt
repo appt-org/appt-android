@@ -65,6 +65,10 @@ abstract class BaseActivity : AppCompatActivity() {
         toast(this, message, duration, callback)
     }
 
+    fun toast(message: Int, duration: Long = 3000, callback: (() -> Unit)? = null) {
+        toast(this, message, duration, callback)
+    }
+
     inline fun <reified T : Activity> startActivity(requestCode: Int = -1, options: Bundle? = null, noinline init: Intent.() -> Unit = {}) {
         val intent = Intent(this, T::class.java)
         intent.init()

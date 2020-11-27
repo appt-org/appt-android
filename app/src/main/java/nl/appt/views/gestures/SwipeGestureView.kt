@@ -3,6 +3,8 @@ package nl.appt.views.gestures
 import android.content.Context
 import android.view.GestureDetector
 import android.view.MotionEvent
+import nl.appt.extensions.isEnd
+import nl.appt.extensions.isStart
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Direction
 import nl.appt.model.Gesture
@@ -22,13 +24,11 @@ class SwipeGestureView(
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         gestureDetector.onTouchEvent(event)
 
-        event?.actionMasked?.let { action ->
-            if (action == MotionEvent.ACTION_DOWN) {
-                swiped = false
-            } else if (action == MotionEvent.ACTION_UP) {
-                if (!swiped) {
-                    incorrect("Je maakte geen veegbeweging.")
-                }
+        if (event?.isStart() == true) {
+            swiped = false
+        } else if (event?.isEnd() == true) {
+            if (!swiped) {
+                incorrect("Je maakte geen veegbeweging.")
             }
         }
 

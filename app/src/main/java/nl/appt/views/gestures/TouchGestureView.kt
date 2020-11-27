@@ -2,6 +2,7 @@ package nl.appt.views.gestures
 
 import android.content.Context
 import android.view.MotionEvent
+import nl.appt.extensions.isStart
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Gesture
 
@@ -17,21 +18,14 @@ class TouchGestureView(
     private var touched = false
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        if (touched) {
-            return true
+        if (!touched && event?.isStart() == true) {
+            touched = true
+            correct()
         }
-
-        event?.actionMasked?.let { action ->
-            if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_HOVER_ENTER) {
-                touched = true
-                correct()
-            }
-        }
-
         return true
     }
 
     override fun onAccessibilityGesture(gesture: AccessibilityGesture) {
-        // Ignored
+        incorrect("Je maakte een veegbeweging in plaats van een aanraking.")
     }
 }
