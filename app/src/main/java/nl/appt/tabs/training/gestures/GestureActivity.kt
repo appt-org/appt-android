@@ -146,13 +146,13 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
     }
 
     override fun correct(gesture: Gesture) {
-        toast("Gebaar correct uitgevoerd!")
-        feedbackTextView.visibility = View.GONE
-
         gesture.completed(baseContext, true)
         setResult(RESULT_OK)
+        feedbackTextView.visibility = View.GONE
 
-        onBackPressed()
+        toast("Gebaar correct uitgevoerd!") {
+            onBackPressed()
+        }
     }
 
     override fun incorrect(gesture: Gesture, feedback: String) {

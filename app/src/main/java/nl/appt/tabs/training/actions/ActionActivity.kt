@@ -40,12 +40,12 @@ class ActionActivity: ToolbarActivity(), ActionViewCallback {
     }
 
     override fun correct(action: Action) {
-        toast("Training afgerond!")
-
         action.completed(this, true)
         setResult(RESULT_OK)
 
-        finish()
+        toast("Training afgerond!") {
+            finish()
+        }
     }
 
     override fun incorrect(action: Action, feedback: String) {

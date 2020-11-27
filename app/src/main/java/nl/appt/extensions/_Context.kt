@@ -4,11 +4,16 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabsIntent
 import com.github.kittinunf.fuel.core.FuelError
+import kotlinx.android.synthetic.main.view_toast.view.*
+import kotlinx.coroutines.delay
 import nl.appt.R
+import java.util.*
+import kotlin.concurrent.schedule
 
 /** Networking **/
 
@@ -99,12 +104,28 @@ fun Context.showError(error: FuelError?, callback: (() -> Unit)? = null) {
 }
 
 /** Toast **/
-fun toast(context: Context?, message: String, duration: Int = Toast.LENGTH_SHORT, gravity: Int = Gravity.CENTER, xOffset: Int = 0, yOffset: Int = 0) {
-    val toast = Toast.makeText(context, message, duration)
-    toast.setGravity(gravity, xOffset, yOffset)
-    toast.show()
+fun toast(context: Context?, message: String, duration: Long = 3000, callback: (() -> Unit)? = null) {
+    if (context == null) {
+        return
+    }
+
+    val builder = AlertDialog.Builder(context)
+    builder.setMessage(message)
+
+    builder.setOnDismissListener {
+        callback?.let {
+            it()
+        }
+    }
+
+    val dialog = builder.create()
+    dialog.show()
+
+    Timer().schedule(duration) {
+        dialog.dismiss()
+    }
 }
 
-fun toast(context: Context?, message: Int, duration: Int = Toast.LENGTH_SHORT, gravity: Int = Gravity.CENTER, xOffset: Int = 0, yOffset: Int = 0) {
-    toast(context, context?.getString(message) ?: "", duration, gravity, xOffset, yOffset)
+fun toast(context: Context?, message: Int, duration: Long = 3000, callback: (() -> Unit)? = null) {
+    toast(context, context?.getString(message) ?: "", duration, callback)
 }

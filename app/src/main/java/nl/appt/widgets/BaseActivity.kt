@@ -61,8 +61,8 @@ abstract class BaseActivity : AppCompatActivity() {
         // Can be overridden
     }
 
-    fun toast(message: String, duration: Int = Toast.LENGTH_SHORT, gravity: Int = Gravity.CENTER, xOffset: Int = 0, yOffset: Int = 0) {
-        toast(this, message, duration, gravity, xOffset, yOffset)
+    fun toast(message: String, duration: Long = 3000, callback: (() -> Unit)? = null) {
+        toast(this, message, duration, callback)
     }
 
     inline fun <reified T : Activity> startActivity(requestCode: Int = -1, options: Bundle? = null, noinline init: Intent.() -> Unit = {}) {
