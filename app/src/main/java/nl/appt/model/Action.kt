@@ -2,6 +2,8 @@ package nl.appt.model
 
 import android.content.Context
 import nl.appt.R
+import nl.appt.extensions.getString
+import nl.appt.extensions.identifier
 import nl.appt.helpers.Preferences
 import nl.appt.views.actions.*
 import java.io.Serializable
@@ -18,25 +20,13 @@ enum class Action: Training, Serializable {
     COPY,
     PASTE;
 
-    override fun title(): String {
-        return title
+    private fun getString(context: Context, property: String): String {
+        return context.getString("talkback_action_${identifier}_${property}")
     }
 
-    val title: String
-        get() {
-            return when (this) {
-                HEADINGS -> "Navigeren via koppen"
-                LINKS -> "Navigeren via links"
-                SELECTION -> "Tekst selecteren"
-                COPY -> "Kopiëren"
-                PASTE -> "Plakken"
-            }
-        }
-
-    val layoutId: Int
-        get() {
-            return R.layout.action_headings
-        }
+    override fun title(context: Context): String {
+        return getString(context, "title")
+    }
 
     fun view(context: Context): ActionView {
         return when (this) {

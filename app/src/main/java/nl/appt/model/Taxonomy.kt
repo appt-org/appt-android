@@ -1,5 +1,6 @@
 package nl.appt.model
 
+import android.content.Context
 import java.io.Serializable
 
 /**
@@ -14,7 +15,7 @@ open class Taxonomy(
     var selected: Boolean = false
 ) : Item, Serializable {
 
-    override fun title() = name
+    override fun title(context: Context) = name
 
 }
 

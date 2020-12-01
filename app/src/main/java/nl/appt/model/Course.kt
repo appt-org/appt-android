@@ -1,5 +1,8 @@
 package nl.appt.model
 
+import android.content.Context
+import nl.appt.extensions.getString
+import nl.appt.extensions.identifier
 import java.io.Serializable
 
 /**
@@ -12,16 +15,11 @@ enum class Course: Item, Serializable {
     TALKBACK_ENABLE,
     TALKBACK_ACTIONS;
 
-    override fun title(): String {
-        return title
+    private fun getString(context: Context, property: String): String {
+        return context.getString("course_${identifier}_${property}")
     }
 
-    val title: String
-        get() {
-            return when (this) {
-                TALKBACK_GESTURES -> "TalkBack gebaren"
-                TALKBACK_ENABLE -> "TalkBack aanzetten"
-                TALKBACK_ACTIONS -> "TalkBack handelingen"
-            }
-        }
+    override fun title(context: Context): String {
+        return getString(context, "title")
+    }
 }

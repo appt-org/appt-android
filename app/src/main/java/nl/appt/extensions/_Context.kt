@@ -130,3 +130,18 @@ fun toast(context: Context?, message: String, duration: Long = 3000, callback: (
 fun toast(context: Context?, message: Int, duration: Long = 3000, callback: (() -> Unit)? = null) {
     toast(context, context?.getString(message) ?: "", duration, callback)
 }
+
+/** String **/
+
+fun Context.getIdentifier(resourceType: String, resourceName: String): Int {
+    return resources.getIdentifier(resourceName, resourceType, "nl.appt")
+}
+
+fun Context.getString(name: String): String {
+    val identifier = getIdentifier("string", name)
+    return if (identifier > 0) {
+        getString(identifier)
+    } else {
+        name
+    }
+}

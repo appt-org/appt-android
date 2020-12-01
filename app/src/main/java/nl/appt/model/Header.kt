@@ -1,5 +1,6 @@
 package nl.appt.model
 
+import android.content.Context
 import java.io.Serializable
 
 /**
@@ -10,7 +11,7 @@ data class Header(
     val title: String
 ): Item, Serializable {
 
-    override fun title(): String {
+    override fun title(context: Context): String {
         return title
     }
 }

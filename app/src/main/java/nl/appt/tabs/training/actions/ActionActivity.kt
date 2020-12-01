@@ -23,7 +23,7 @@ class ActionActivity: ToolbarActivity(), ActionViewCallback {
 
     override fun getLayoutId() = R.layout.activity_action
 
-    override fun getToolbarTitle() = action.title
+    override fun getToolbarTitle() = action.title(this)
 
     override fun onViewCreated() {
         super.onViewCreated()

@@ -42,7 +42,7 @@ inline fun <reified T: Item> itemAdapterDelegate(crossinline callback : (T) -> U
     }
 
     bind {
-        textView.text = item.title()
+        textView.text = item.title(context)
     }
 }
 
@@ -55,7 +55,7 @@ inline fun <reified T: Training> trainingAdapterDelegate(crossinline callback : 
     }
 
     bind {
-        val title = item.title()
+        val title = item.title(context)
         val completed = item.completed(context)
 
         textView.text = title
@@ -79,7 +79,7 @@ fun taxonomyAdapterDelegate(callback: (Taxonomy) -> Unit) = adapterDelegate<Taxo
     }
 
     bind {
-        checkBox.text = item.title()
+        checkBox.text = item.title(context)
         checkBox.isChecked = item.selected
     }
 }

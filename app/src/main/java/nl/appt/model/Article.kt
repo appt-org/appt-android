@@ -1,5 +1,6 @@
 package nl.appt.model
 
+import android.content.Context
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -35,7 +36,7 @@ open class Article(
             }
     }
 
-    override fun title() = title.decoded()
+    override fun title(context: Context) = title.decoded()
 }
 
 typealias Page = Article

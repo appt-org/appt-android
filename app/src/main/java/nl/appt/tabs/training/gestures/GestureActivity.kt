@@ -57,18 +57,18 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
 
     override fun getLayoutId() = R.layout.activity_training
 
-    override fun getToolbarTitle() = gesture.title
+    override fun getToolbarTitle() = gesture.title(this)
 
     override fun onViewCreated() {
         super.onViewCreated()
 
         // Show description
-        descriptionTextView.text = gesture.description
+        descriptionTextView.text = gesture.description(this)
 
         // Initialize GestureView
         gestureView = gesture.view(this)
         gestureView.callback = this
-        gestureView.accessibility.label = gesture.description
+        gestureView.accessibility.label = gesture.description(this)
         container.addView(gestureView)
         accessibility.elements = arrayOf(gestureView)
 
@@ -76,6 +76,19 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
         val filter = IntentFilter()
         filter.addAction(Constants.SERVICE_ACTION)
         registerReceiver(receiver, filter)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.explanation, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_explanation) {
+            showDialog(title = gesture.title(this), message = gesture.explanation(this))
+            return true
+        }
+        return false
     }
 
     override fun onDestroy() {

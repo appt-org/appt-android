@@ -1,5 +1,8 @@
 package nl.appt.model
 
+import android.content.Context
+import nl.appt.extensions.getString
+import nl.appt.extensions.identifier
 import java.io.Serializable
 
 /**
@@ -15,21 +18,13 @@ enum class Topic: Item, Serializable {
     SOURCE,
     SPONSOR;
 
-    override fun title(): String {
-        return title
+    private fun getString(context: Context, property: String): String {
+        return context.getString("topic_${identifier}_${property}")
     }
 
-    val title: String
-        get() {
-            return when (this) {
-                TERMS -> "Algemene voorwaarden"
-                PRIVACY -> "Privacybeleid"
-                ACCESSIBILITY -> "Toegankelijkheidsverklaring"
-
-                SOURCE -> "Bekijk de broncode"
-                SPONSOR -> "Ondersteund door het SIDN fonds"
-            }
-        }
+    override fun title(context: Context): String {
+        return getString(context, "title")
+    }
 
     val slug: String?
         get() {
