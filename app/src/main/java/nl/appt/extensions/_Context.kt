@@ -46,7 +46,7 @@ fun Context.openWebsite(uri: Uri) {
 /** Dialog **/
 
 fun Context.showDialog(title: String, message: String?, callback: (() -> Unit)? = null) {
-    val builder = AlertDialog.Builder(this)
+    val builder = AlertDialog.Builder(this, R.style.Dialog)
 
     builder.setTitle(title)
     builder.setMessage(message)
@@ -109,7 +109,7 @@ fun toast(context: Context?, message: String, duration: Long = 3000, callback: (
         return
     }
 
-    val builder = AlertDialog.Builder(context)
+    val builder = AlertDialog.Builder(context, R.style.Dialog)
     builder.setCancelable(false)
     builder.setMessage(message)
 

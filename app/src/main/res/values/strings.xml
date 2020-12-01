@@ -13,9 +13,11 @@
 
     <string name="service_label">Appt</string>
     <string name="service_summary">Herkennen van gebaren</string>
-    <string name="service_description">Om gebaren te herkennen is het noodzakelijk dat je deze service aanzet.\n\nDe service wordt automatisch uitgeschakeld wanneer je de training stopt of wisselt naar een andere app.\n\nEr worden geen gegevens opgeslagen.</string>
+    <string name="service_description">Om gebaren te herkennen is het noodzakelijk dat je deze service aanzet.\n\nDe gebaren training wordt automatisch gestart wanneer je de service aanzet.\n\nDe service wordt automatisch uitgeschakeld wanneer je de training stopt of wisselt naar een andere app.\n\nEr worden geen gegevens opgeslagen.</string>
     <string name="service_killed">De Appt service is automatisch uitgezet</string>
     <string name="service_inactive">De Appt service staat uit. Om gebaren te herkennen is het noodzakelijk dat je deze service aanzet.</string>
+    <string name="service_enable_title">Appt service aanzetten</string>
+    <string name="service_enable_message">Wegens technische limitaties kan de app alleen TalkBack gebaren herkennen wanneer je de Appt service aanzet.\n\nDat doe je als volgt:\n\n1. Navigeer naar de \'Activeren\' knop. Dubbeltik om de toegankelijkheidsinstellingen te openen.\n2. Navigeer naar de service met de naam \'Appt\'. Dubbeltik om het instellingenscherm te openen.\n3. Navigeer naar de schakelaar. Dubbeltik om de service toe te staan.\n4. Navigeer naar \'Toestaan\'. Dubbeltik om de service te activeren.\n5. Je hebt het activatieproces succesvol doorlopen. De gebaren training wordt automatisch gestart.\n\nNavigeer nu naar de \'Activeren\' knop om het activatieproces te starten.</string>
 
     <!-- Errors -->
     <string name="error">Foutmelding</string>
@@ -40,6 +42,8 @@
     <string name="action_filter">Filteren</string>
     <string name="action_apply">Toepassen</string>
     <string name="action_practice">Oefenen</string>
+    <string name="action_activate">Activeren</string>
+    <string name="action_explanation">Uitleg</string>
 
     <!-- TalkBack -->
     <string name="talkback_enable_title">TalkBack aanzetten</string>
@@ -47,6 +51,9 @@
 
     <string name="talkback_disabled_title">TalkBack staat uit</string>
     <string name="talkback_disabled_explanation">Je moet TalkBack aanzetten om deze training te volgen.</string>
+
+    <!-- TalkBack gestures -->
+    <string name="talkback_gesture_touch_explanation"></string>
 
     <!-- TalkBack headings -->
     <string name="talkback_action_headings_instruction1">Met TalkBack kun je via koppen navigeren. Dit is handig bij lange pagina\'s of websites. Zo navigeer je via koppen:</string>

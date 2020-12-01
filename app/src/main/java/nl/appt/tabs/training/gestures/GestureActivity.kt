@@ -1,6 +1,8 @@
 package nl.appt.tabs.training.gestures
 
 import android.content.*
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.activity_training.*
 import nl.appt.R
@@ -43,9 +45,7 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
         override fun onReceive(context: Context?, intent: Intent?) {
             // Kill check
             intent?.getBooleanExtra(Constants.SERVICE_KILLED, false)?.let { killed ->
-                if (killed) {
-                    finish()
-                }
+                toast(context, R.string.service_killed)
             }
 
             // Gesture check
@@ -94,7 +94,7 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
                     }
                 }
             } else {
-                toast(R.string.service_inactive) {
+                showError(R.string.service_inactive) {
                     finish()
                 }
             }

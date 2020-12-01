@@ -12,8 +12,6 @@ import android.view.accessibility.AccessibilityManager
 import androidx.appcompat.app.AlertDialog
 import nl.appt.R
 import nl.appt.extensions.setGestures
-import nl.appt.extensions.setLaunch
-import nl.appt.extensions.toast
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
 import nl.appt.model.Gesture
@@ -56,7 +54,15 @@ class ApptService: AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
+//        if (!isTouchExploring()) {
+//            kill()
+//            return
+//        }
+
+
         event?.let {
+            Log.d(TAG, "Event: ${event.toString()}")
+
             if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
                 Log.d(TAG, "Changed window to: ${event.packageName}")
 
@@ -71,11 +77,11 @@ class ApptService: AccessibilityService() {
     override fun onGesture(gestureId: Int): Boolean {
         Log.i(TAG, "onGesture: $gestureId")
 
-        // Kill service if no longer training
-        if (!isGestureTraining()) {
-            kill()
-            return false
-        }
+        // Kill service if touch exploration is disabled, or if the gesture training activity is not active
+//        if (!isTouchExploring() || !isGestureTraining()) {
+//            kill()
+//            return false
+//        }
 
         // Broadcast gesture to GestureActivity
         AccessibilityGesture.from(gestureId)?.let { gesture ->
@@ -93,11 +99,13 @@ class ApptService: AccessibilityService() {
     }
 
     private fun kill() {
-        //toast(baseContext, R.string.service_killed)
-
         broadcast(Constants.SERVICE_KILLED, true)
-
         disableSelf()
+    }
+
+    private fun isTouchExploring(): Boolean {
+        val service = getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        return service.isEnabled && service.isTouchExplorationEnabled
     }
 
     private fun isGestureTraining(): Boolean {
@@ -130,14 +138,14 @@ class ApptService: AccessibilityService() {
 
         fun enable(context: Context) {
             AlertDialog.Builder(context)
-                .setTitle("Appt service aanzetten")
-                .setMessage("De app kan alleen gebaren herkennen indien je de Appt service aanzet.")
-                .setPositiveButton(android.R.string.yes) { _, _ ->
+                .setTitle(R.string.service_enable_title)
+                .setMessage(R.string.service_enable_message)
+                .setPositiveButton(R.string.action_activate) { _, _ ->
                     val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_DOCUMENT
                     context.startActivity(intent)
                 }
-                .setNegativeButton(android.R.string.no) { _, _ ->
+                .setNegativeButton(R.string.action_cancel) { _, _ ->
                     // Dismiss
                 }
                 .show()
