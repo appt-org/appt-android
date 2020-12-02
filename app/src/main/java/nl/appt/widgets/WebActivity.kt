@@ -80,13 +80,20 @@ open class WebActivity: ToolbarActivity() {
 
         val settings = webView.settings
 
-        // Automatic WebView dark mode is buggy, using FORCE_DARK_ON works better.
+        // Apply dark mode based on configuration because automatic mode doesn't work properly.
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
             val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
             if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
                 WebSettingsCompat.setForceDark(settings, WebSettingsCompat.FORCE_DARK_ON)
+
             }
         }
+
+        // Use custom stylesheet strategy to make sure media query is applied.
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)) {
+            WebSettingsCompat.setForceDarkStrategy(settings, WebSettingsCompat.DARK_STRATEGY_WEB_THEME_DARKENING_ONLY)
+        }
+
         settings.javaScriptEnabled = true
         settings.builtInZoomControls = true
         settings.displayZoomControls = false

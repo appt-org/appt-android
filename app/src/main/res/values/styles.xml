@@ -47,6 +47,7 @@
     <!-- Toast -->
     <style name="Toast" parent="Dialog">
         <item name="android:gravity">center</item>
+        <item name="fontPath">@string/font_semibold</item>
     </style>
 
     <!-- Toolbar -->
