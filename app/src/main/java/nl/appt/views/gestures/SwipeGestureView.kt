@@ -1,8 +1,11 @@
 package nl.appt.views.gestures
 
 import android.content.Context
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
+import nl.appt.accessibility.Accessibility
+import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.extensions.isEnd
 import nl.appt.extensions.isStart
 import nl.appt.model.AccessibilityGesture
@@ -13,13 +16,13 @@ import nl.appt.model.Gesture
  * Created by Jan Jaap de Groot on 15/10/2020
  * Copyright 2020 Stichting Appt
  */
-class SwipeGestureView(
+open class SwipeGestureView(
     context: Context,
     gesture: Gesture,
-    private vararg val directions: Direction
+    vararg val directions: Direction
 ): GestureView(gesture, context) {
 
-    private var swiped = false
+    var swiped = false
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         gestureDetector.onTouchEvent(event)
@@ -39,7 +42,7 @@ class SwipeGestureView(
         onSwipe(gesture.directions)
     }
 
-    private fun onSwipe(directions: Array<Direction>) {
+    open fun onSwipe(directions: Array<Direction>) {
         swiped = true
 
         if (directions.contentEquals(this.directions)) {
@@ -84,14 +87,23 @@ class SwipeGestureView(
                 // Set amount of fingers
                 direction.fingers = e2?.pointerCount ?: 1
 
+                // Add one finger if TalkBack is activated
+                if (Accessibility.isTalkBackEnabled(context)) {
+                    if (direction.fingers == 1) {
+                        direction.fingers = 2
+                    }
+                }
+
                 if (path.isEmpty()) {
                     // Add first direction
                     path.add(direction)
+                    Log.d("Swipe", "Direction: $direction, fingers: ${direction.fingers}")
                 } else {
                     // Only add if direction is different than last direction
                     path.lastOrNull()?.let { lastDirection ->
                         if (direction != lastDirection) {
                             path.add(direction)
+                            Log.d("Swipe", "Direction: $direction, fingers: ${direction.fingers}")
                         }
                     }
                 }

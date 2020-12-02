@@ -34,7 +34,7 @@ enum class AccessibilityGesture(val gestureId: Int) {
 
     val directions: Array<Direction>
         get() {
-            return when (this) {
+            val array = when (this) {
                 SWIPE_UP -> arrayOf(Direction.UP)
                 SWIPE_UP_AND_RIGHT -> arrayOf(Direction.UP, Direction.RIGHT)
                 SWIPE_UP_AND_DOWN -> arrayOf(Direction.UP, Direction.DOWN)
@@ -55,11 +55,17 @@ enum class AccessibilityGesture(val gestureId: Int) {
                 SWIPE_LEFT_AND_RIGHT -> arrayOf(Direction.LEFT, Direction.RIGHT)
                 SWIPE_LEFT_AND_DOWN -> arrayOf(Direction.LEFT, Direction.DOWN)
             }
+
+            array.forEach { direction ->
+                direction.fingers = 1
+            }
+
+            return array
         }
 
     companion object {
-        fun from(gestureId: Int) = values().firstOrNull {
-            it.gestureId == gestureId
+        fun from(gestureId: Int) = values().firstOrNull { gesture ->
+            gesture.gestureId == gestureId
         }
     }
 }

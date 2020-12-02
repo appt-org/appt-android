@@ -4,7 +4,7 @@ package nl.appt.model
  * Created by Jan Jaap de Groot on 15/10/2020
  * Copyright 2020 Stichting Appt
  */
-enum class Direction(var fingers: Int? = null) {
+enum class Direction(var fingers: Int = 1) {
     UP,
     TOP_RIGHT,
     RIGHT,

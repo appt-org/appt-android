@@ -45,7 +45,9 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
         override fun onReceive(context: Context?, intent: Intent?) {
             // Kill check
             intent?.getBooleanExtra(Constants.SERVICE_KILLED, false)?.let { killed ->
-                toast(context, R.string.service_killed)
+                if (killed) {
+                    toast(context, R.string.service_killed)
+                }
             }
 
             // Gesture check

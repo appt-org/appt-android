@@ -81,13 +81,29 @@
     <string name="talkback_gesture_swipe_left_description">Veeg naar links om naar het vorige onderdeel te gaan.</string>
     <string name="talkback_gesture_swipe_left_explanation">Door naar links te vegen verken je het scherm van rechts naar links en van beneden naar boven.</string>
 
+    <string name="talkback_gesture_swipe_down_title">Navigatie instelling omlaag aanpassen</string>
+    <string name="talkback_gesture_swipe_down_description">Veeg omlaag om de navigatie instelling omlaag aan te passen.</string>
+    <string name="talkback_gesture_swipe_down_explanation">Door omlaag te vegen ga je naar de volgende navigatie instelling. Zo stel je bijvoorbeeld in om te navigeren via koppen.</string>
+
     <string name="talkback_gesture_swipe_up_title">Navigatie instelling omhoog aanpassen</string>
     <string name="talkback_gesture_swipe_up_description">Veeg omhoog om de navigatie instelling omhoog aan te passen.</string>
     <string name="talkback_gesture_swipe_up_explanation">Door omhoog te vegen ga je naar de vorige navigatie instelling. Zo stel je bijvoorbeeld in om te navigeren via links.</string>
 
-    <string name="talkback_gesture_swipe_down_title">Navigatie instelling omlaag aanpassen</string>
-    <string name="talkback_gesture_swipe_down_description">Veeg omlaag om de navigatie instelling omlaag aan te passen.</string>
-    <string name="talkback_gesture_swipe_down_explanation">Door omlaag te vegen ga je naar de volgende navigatie instelling. Zo stel je bijvoorbeeld in om te navigeren via koppen.</string>
+    <string name="talkback_gesture_scroll_down_title">Omlaag scrollen</string>
+    <string name="talkback_gesture_scroll_down_description">Veeg met twee vingers omlaag om omlaag te scrollen.</string>
+    <string name="talkback_gesture_scroll_down_explanation">In lijsten kun je met dit gebaar omlaag scrollen.</string>
+
+    <string name="talkback_gesture_scroll_up_title">Omhoog scrollen</string>
+    <string name="talkback_gesture_scroll_up_description">Veeg met twee vingers omhoog om omhoog te scrollen.</string>
+    <string name="talkback_gesture_scroll_up_explanation">In lijsten kun je met dit gebaar omhoog scrollen.</string>
+
+    <string name="talkback_gesture_scroll_left_title">Naar links scrollen</string>
+    <string name="talkback_gesture_scroll_left_description">Veeg met twee vingers naar links om naar links te scrollen.</string>
+    <string name="talkback_gesture_scroll_left_explanation">Je kunt naar het vorige scherm navigeren met dit gebaar.</string>
+
+    <string name="talkback_gesture_scroll_right_title">Naar rechts scrollen</string>
+    <string name="talkback_gesture_scroll_right_description">Veeg met twee vingers naar rechts om naar rechts te scrollen.</string>
+    <string name="talkback_gesture_scroll_right_explanation">Je kunt naar het volgende scherm navigeren met dit gebaar.</string>
 
     <string name="talkback_gesture_swipe_down_up_title">Naar het laatste onderdeel gaan</string>
     <string name="talkback_gesture_swipe_down_up_description">Veeg omlaag en dan omhoog om naar het laatste onderdeel te gaan.</string>

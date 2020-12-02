@@ -5,10 +5,7 @@ import nl.appt.R
 import nl.appt.extensions.getString
 import nl.appt.extensions.identifier
 import nl.appt.helpers.Preferences
-import nl.appt.views.gestures.GestureView
-import nl.appt.views.gestures.SwipeGestureView
-import nl.appt.views.gestures.TapGestureView
-import nl.appt.views.gestures.TouchGestureView
+import nl.appt.views.gestures.*
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
@@ -26,6 +23,11 @@ enum class Gesture: Training, Serializable {
     SWIPE_LEFT,
     SWIPE_UP,
     SWIPE_DOWN,
+
+    SCROLL_DOWN,
+    SCROLL_UP,
+    SCROLL_RIGHT,
+    SCROLL_LEFT,
 
     SWIPE_UP_DOWN,
     SWIPE_DOWN_UP,
@@ -55,8 +57,13 @@ enum class Gesture: Training, Serializable {
 
             SWIPE_RIGHT -> SwipeGestureView(context, this, Direction.RIGHT)
             SWIPE_LEFT -> SwipeGestureView(context, this, Direction.LEFT)
-            SWIPE_UP -> SwipeGestureView(context, this, Direction.UP)
             SWIPE_DOWN -> SwipeGestureView(context, this, Direction.DOWN)
+            SWIPE_UP -> SwipeGestureView(context, this, Direction.UP)
+
+            SCROLL_DOWN -> ScrollGestureView(context, this, Direction.DOWN)
+            SCROLL_UP -> ScrollGestureView(context, this, Direction.UP)
+            SCROLL_RIGHT -> ScrollGestureView(context, this, Direction.RIGHT)
+            SCROLL_LEFT -> ScrollGestureView(context, this, Direction.LEFT)
 
             SWIPE_DOWN_UP -> SwipeGestureView(context, this, Direction.DOWN, Direction.UP)
             SWIPE_UP_DOWN -> SwipeGestureView(context, this, Direction.UP, Direction.DOWN)
