@@ -27,13 +27,26 @@
 
     <!-- Dialog -->
     <style name="Dialog" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:windowTitleStyle">@style/Dialog.Title</item>
         <item name="buttonBarButtonStyle">@style/Dialog.Button</item>
-        <item name="fontPath">@string/font_semibold</item>
+        <item name="fontPath">@string/font_regular</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Dialog.Title">
+        <item name="fontPath">@string/font_bold</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="Dialog.Button" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:textColor">@color/primary</item>
         <item name="fontPath">@string/font_bold</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Toast -->
+    <style name="Toast" parent="Dialog">
+        <item name="android:gravity">center</item>
     </style>
 
     <!-- Toolbar -->

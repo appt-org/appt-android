@@ -109,7 +109,7 @@ fun toast(context: Context?, message: String, duration: Long = 3000, callback: (
         return
     }
 
-    val builder = AlertDialog.Builder(context, R.style.Dialog)
+    val builder = AlertDialog.Builder(context, R.style.Toast)
     builder.setCancelable(false)
     builder.setMessage(message)
 

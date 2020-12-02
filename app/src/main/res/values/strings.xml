@@ -67,71 +67,71 @@
     <!-- TalkBack gestures -->
     <string name="talkback_gesture_touch_title">Een onderdeel selecteren en uitspreken</string>
     <string name="talkback_gesture_touch_description">Raak het scherm aan om een onderdeel te selecteren en uit te spreken.</string>
-    <string name="talkback_gesture_touch_explanation">XXX</string>
+    <string name="talkback_gesture_touch_explanation">Wanneer je het scherm aanraakt wordt de inhoud onder in je vinger voorgelezen. Dit is een handige manier om te ontdekken hoe een scherm precies in elkaar zit.</string>
 
     <string name="talkback_gesture_double_tap_title">Het geselecteerde onderdeel activeren</string>
     <string name="talkback_gesture_double_tap_description">Dubbeltik om het geselecteerde onderdeel te activeren.</string>
-    <string name="talkback_gesture_double_tap_explanation">XXX</string>
+    <string name="talkback_gesture_double_tap_explanation">Door te dubbeltikken kun je bijvoorbeeld een knop activeren.</string>
 
     <string name="talkback_gesture_swipe_right_title">Naar het volgende onderdeel gaan</string>
     <string name="talkback_gesture_swipe_right_description">Veeg naar rechts om naar het volgende onderdeel te gaan.</string>
-    <string name="talkback_gesture_swipe_right_explanation">XXX</string>
+    <string name="talkback_gesture_swipe_right_explanation">Door naar rechts te vegen verken je het scherm van links naar rechts en van boven naar beneden.</string>
 
     <string name="talkback_gesture_swipe_left_title">Naar het vorige onderdeel gaan</string>
     <string name="talkback_gesture_swipe_left_description">Veeg naar links om naar het vorige onderdeel te gaan.</string>
-    <string name="talkback_gesture_swipe_left_explanation">XXX</string>
+    <string name="talkback_gesture_swipe_left_explanation">Door naar links te vegen verken je het scherm van rechts naar links en van beneden naar boven.</string>
 
     <string name="talkback_gesture_swipe_up_title">Navigatie instelling omhoog aanpassen</string>
     <string name="talkback_gesture_swipe_up_description">Veeg omhoog om de navigatie instelling omhoog aan te passen.</string>
-    <string name="talkback_gesture_swipe_up_explanation">XXX</string>
+    <string name="talkback_gesture_swipe_up_explanation">Door omhoog te vegen ga je naar de vorige navigatie instelling. Zo stel je bijvoorbeeld in om te navigeren via links.</string>
 
     <string name="talkback_gesture_swipe_down_title">Navigatie instelling omlaag aanpassen</string>
     <string name="talkback_gesture_swipe_down_description">Veeg omlaag om de navigatie instelling omlaag aan te passen.</string>
-    <string name="talkback_gesture_swipe_down_explanation">XXX</string>
+    <string name="talkback_gesture_swipe_down_explanation">Door omlaag te vegen ga je naar de volgende navigatie instelling. Zo stel je bijvoorbeeld in om te navigeren via koppen.</string>
 
     <string name="talkback_gesture_swipe_down_up_title">Naar het laatste onderdeel gaan</string>
     <string name="talkback_gesture_swipe_down_up_description">Veeg omlaag en dan omhoog om naar het laatste onderdeel te gaan.</string>
-    <string name="talkback_gesture_swipe_down_up_explanation">XXX</string>
+    <string name="talkback_gesture_swipe_down_up_explanation">Vaak is het laatste element een manier om te navigeren, via dit gebaar kun je hier direct heen verspringen.</string>
 
     <string name="talkback_gesture_swipe_up_down_title">Naar het eerste onderdeel gaan</string>
     <string name="talkback_gesture_swipe_up_down_description">Veeg omhoog en dan omlaag om naar het eerste onderdeel te gaan.</string>
-    <string name="talkback_gesture_swipe_up_down_explanation">XXX</string>
+    <string name="talkback_gesture_swipe_up_down_explanation">Vaak is het eerste element de terugknop, via dit gebaar kun je hier direct heen verspringen.</string>
 
     <string name="talkback_gesture_swipe_right_left_title">Vooruit scrollen</string>
-    <string name="talkback_gesture_swipe_right_left_description">XXX</string>
-    <string name="talkback_gesture_swipe_right_left_explanation">Veeg naar rechts en dan naar links om vooruit te scrollen.</string>
+    <string name="talkback_gesture_swipe_right_left_description">Veeg naar rechts en dan naar links om vooruit te scrollen.</string>
+    <string name="talkback_gesture_swipe_right_left_explanation">Met dit gebaar kun je een klein stukje naar voren scrollen. Je kan dit ook doen door met twee vingers naar onder te vegen.</string>
 
     <string name="talkback_gesture_swipe_left_right_title">Terug scrollen</string>
-    <string name="talkback_gesture_swipe_left_right_description">XXX</string>
-    <string name="talkback_gesture_swipe_left_right_explanation">Veeg naar links en dan naar rechts om achteruit te scrollen.</string>
+    <string name="talkback_gesture_swipe_left_right_description">Veeg naar links en dan naar rechts om achteruit te scrollen.</string>
+    <string name="talkback_gesture_swipe_left_right_explanation">Met dit gebaar kun je een klein stukje terug scrollen. Je kan dit ook doen door met twee vingers omhoog te vegen.</string>
 
     <string name="talkback_gesture_swipe_down_left_title">Terug</string>
-    <string name="talkback_gesture_swipe_down_left_description">XXX</string>
-    <string name="talkback_gesture_swipe_down_left_explanation">Veeg omlaag en dan naar links om terug te gaan.</string>
+    <string name="talkback_gesture_swipe_down_left_description">Veeg omlaag en dan naar links om terug te gaan.</string>
+    <string name="talkback_gesture_swipe_down_left_explanation">Dit gebaar is superhandig. Je kunt namelijk vanuit elke plek in een app terug navigeren. Daarnaast kun je ook meldingen sluiten.\n\nHelaas ondersteunen niet alle apps dit gebaar, als het niet werkt ligt het dus niet aan jou.</string>
 
     <string name="talkback_gesture_swipe_up_left_title">Thuis</string>
-    <string name="talkback_gesture_swipe_up_left_description">XXX</string>
-    <string name="talkback_gesture_swipe_up_left_explanation">Veeg omhoog en dan naar links om de thuisknop te activeren</string>
+    <string name="talkback_gesture_swipe_up_left_description">Veeg omhoog en dan naar links om de thuisknop te activeren.</string>
+    <string name="talkback_gesture_swipe_up_left_explanation">Dit is de snelste manier om naar het thuisscherm te gaan.</string>
 
     <string name="talkback_gesture_swipe_left_up_title">Overzicht</string>
-    <string name="talkback_gesture_swipe_left_up_description">XXX</string>
-    <string name="talkback_gesture_swipe_left_up_explanation">Veeg naar links en dan omhoog om recente apps te bekijken</string>
+    <string name="talkback_gesture_swipe_left_up_description">Veeg naar links en dan omhoog om recente apps te bekijken.</string>
+    <string name="talkback_gesture_swipe_left_up_explanation">Dit is de snelste manier om je recente apps te bekijken.</string>
 
     <string name="talkback_gesture_swipe_right_down_title">Meldingen</string>
-    <string name="talkback_gesture_swipe_right_down_description">XXX</string>
-    <string name="talkback_gesture_swipe_right_down_explanation">Veeg naar rechts en dan omlaag om meldingen te tonen</string>
+    <string name="talkback_gesture_swipe_right_down_description">Veeg naar rechts en dan omlaag om meldingen te tonen.</string>
+    <string name="talkback_gesture_swipe_right_down_explanation">Dit is de snelste manier om je meldingen te bekijken. Je kunt ook met twee vingers bovenaan het scherm naar onder vegen.</string>
 
     <string name="talkback_gesture_swipe_left_down_title">Zoeken</string>
     <string name="talkback_gesture_swipe_left_down_description">Veeg naar links en dan omlaag om op het scherm te zoeken</string>
-    <string name="talkback_gesture_swipe_left_down_explanation">XXX</string>
+    <string name="talkback_gesture_swipe_left_down_explanation">Dit is een superhandige manier om te vinden wat je zoekt. Voer het gebaar uit, en typ waar je naar op zoekt bent. Onder het zoekveld verschijnt een lijst met zoekresultaten. Wanneer je gevonden hebt waar je op zoek naar was kun je dubbeltikken om de focus te laten verspringen naar dit zoekresultaat.</string>
 
     <string name="talkback_gesture_swipe_up_right_title">Lokaal contextmenu</string>
     <string name="talkback_gesture_swipe_up_right_description">Veeg omhoog en dan naar rechts om het lokale contextmenu te openen.</string>
-    <string name="talkback_gesture_swipe_up_right_explanation">XXX</string>
+    <string name="talkback_gesture_swipe_up_right_explanation">Dit is een cruciaal gebaar om te kennen. Via het lokale contextmenu kun je diverse acties uitvoeren, waaronder tekst kopiëren en plakken.</string>
 
     <string name="talkback_gesture_swipe_down_right_title">Algemeen contextmenu</string>
     <string name="talkback_gesture_swipe_down_right_description">Veeg omlaag en dan naar rechts om het algemene contextmenu te openen.</string>
-    <string name="talkback_gesture_swipe_down_right_explanation">XXX</string>
+    <string name="talkback_gesture_swipe_down_right_explanation">Dit is een enorm handig gebaar om de opties die beschikbaar zijn te bekijken. Je kunt bijvoorbeeld het scherm laten voorlezen of de laatste uiting naar het klembord kopiëren.</string>
 
     <!-- TalkBack actions -->
     <string name="talkback_action_headings_title">Navigeren via koppen</string>
