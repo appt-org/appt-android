@@ -49,6 +49,7 @@ class KnowledgeFragment: ToolbarFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         toolbar?.inflateMenu(R.menu.filter)
         toolbar?.setOnMenuItemClickListener { item ->
@@ -78,6 +79,11 @@ class KnowledgeFragment: ToolbarFragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.filter, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_filter) {
             startActivity<FilterActivity>(REQUEST_CODE_FILTER) {
@@ -85,7 +91,7 @@ class KnowledgeFragment: ToolbarFragment() {
             }
             return true
         }
-        return false
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

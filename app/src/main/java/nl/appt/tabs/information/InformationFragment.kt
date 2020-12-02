@@ -1,7 +1,11 @@
 package nl.appt.tabs.information
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.core.app.ShareCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import kotlinx.android.synthetic.main.view_list.view.*
@@ -10,10 +14,12 @@ import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.adapters.itemAdapterDelegate
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setArticleType
+import nl.appt.extensions.setFilters
 import nl.appt.extensions.setSlug
 import nl.appt.model.Article
 import nl.appt.model.Topic
 import nl.appt.tabs.knowledge.ArticleActivity
+import nl.appt.tabs.knowledge.FilterActivity
 import nl.appt.widgets.ToolbarFragment
 
 /**
@@ -28,6 +34,12 @@ class InformationFragment : ToolbarFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
+
+        toolbar?.inflateMenu(R.menu.share)
+        toolbar?.setOnMenuItemClickListener { item ->
+            onOptionsItemSelected(item)
+        }
 
         val adapter = ListDelegationAdapter(
             headerAdapterDelegate(),
@@ -47,6 +59,24 @@ class InformationFragment : ToolbarFragment() {
 
         view.recyclerView.adapter  = adapter
         view.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.share, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_share) {
+            activity?.let { activity ->
+                ShareCompat.IntentBuilder.from(activity)
+                    .setType("text/plain")
+                    .setText("https://appt.nl/app")
+                    .startChooser()
+            }
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
