@@ -20,7 +20,7 @@ import java.io.Serializable
 
 /**
  * This is where the magic happens.
- * Running an AccessibilityService makes it "bypass" TalkBack.
+ * Running an AccessibilityService makes gestures "bypass" other services such as TalkBack and Voice Assistant.
  * The ApptService hooks into accessibility events and gestures.
  *
  * Created by Jan Jaap de Groot on 09/10/2020
@@ -54,18 +54,16 @@ class ApptService: AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-//        if (!isTouchExploring()) {
-//            kill()
-//            return
-//        }
-
+        // Kill service if touch exploration is disabled
+        if (!isTouchExploring()) {
+            kill()
+            return
+        }
 
         event?.let {
             Log.d(TAG, "Event: ${event.toString()}")
 
             if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-                Log.d(TAG, "Changed window to: ${event.packageName}")
-
                 // Kill service if window has changed or if GestureActivity is no longer active.
                 if (event.packageName != this.packageName || !isGestureTraining()) {
                     kill()
@@ -77,11 +75,11 @@ class ApptService: AccessibilityService() {
     override fun onGesture(gestureId: Int): Boolean {
         Log.i(TAG, "onGesture: $gestureId")
 
-        // Kill service if touch exploration is disabled, or if the gesture training activity is not active
-//        if (!isTouchExploring() || !isGestureTraining()) {
-//            kill()
-//            return false
-//        }
+        // Kill service if touch exploration is disabled
+        if (!isTouchExploring()) {
+            kill()
+            return false
+        }
 
         // Broadcast gesture to GestureActivity
         AccessibilityGesture.from(gestureId)?.let { gesture ->
@@ -104,8 +102,22 @@ class ApptService: AccessibilityService() {
     }
 
     private fun isTouchExploring(): Boolean {
-        val service = getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
-        return service.isEnabled && service.isTouchExplorationEnabled
+        var count = 0
+
+        val manager = getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        val services = manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_ALL_MASK)
+        for (service in services) {
+            val flags = service.capabilities
+            val capability = AccessibilityServiceInfo.CAPABILITY_CAN_REQUEST_TOUCH_EXPLORATION
+
+            // Check if Touch Exploration capability is granted
+            if (flags and capability == capability) {
+                count++
+            }
+        }
+
+        // Touch Exploration capability should be granted to at least two services: ApptService and TalkBack/VoiceAssistant/other.
+        return count >= 2
     }
 
     private fun isGestureTraining(): Boolean {
