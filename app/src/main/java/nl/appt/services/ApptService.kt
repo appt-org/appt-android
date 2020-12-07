@@ -54,20 +54,12 @@ class ApptService: AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        // Kill service if touch exploration is disabled
-        if (!isTouchExploring()) {
-            kill()
-            return
-        }
+        Log.i(TAG, "onAccessibilityEvent: $event")
 
-        event?.let {
-            Log.d(TAG, "Event: ${event.toString()}")
-
-            if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-                // Kill service if window has changed or if GestureActivity is no longer active.
-                if (event.packageName != this.packageName || !isGestureTraining()) {
-                    kill()
-                }
+        if (event != null && event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            // Kill service if window has changed or if GestureActivity is no longer active.
+            if (event.packageName != this.packageName || !isGestureTraining()) {
+                kill()
             }
         }
     }
@@ -75,15 +67,15 @@ class ApptService: AccessibilityService() {
     override fun onGesture(gestureId: Int): Boolean {
         Log.i(TAG, "onGesture: $gestureId")
 
+        // Broadcast gesture to GestureActivity
+        AccessibilityGesture.from(gestureId)?.let { gesture ->
+            broadcast(Constants.SERVICE_GESTURE, gesture)
+        }
+
         // Kill service if touch exploration is disabled
         if (!isTouchExploring()) {
             kill()
             return false
-        }
-
-        // Broadcast gesture to GestureActivity
-        AccessibilityGesture.from(gestureId)?.let { gesture ->
-            broadcast(Constants.SERVICE_GESTURE, gesture)
         }
 
         return true
@@ -160,6 +152,7 @@ class ApptService: AccessibilityService() {
                 .setNegativeButton(R.string.action_cancel) { _, _ ->
                     // Dismiss
                 }
+                .setCancelable(false)
                 .show()
         }
     }

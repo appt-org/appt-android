@@ -1,9 +1,13 @@
 package nl.appt.tabs.training.gestures
 
 import android.content.*
+import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.accessibility.AccessibilityEvent
+import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_training.*
 import nl.appt.R
 import nl.appt.widgets.ToolbarActivity
@@ -34,25 +38,32 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
     private val gestures: ArrayList<Gesture>? by lazy {
         intent.getGestures()
     }
-
     private val gesture: Gesture by lazy {
         gestures?.firstOrNull() ?: intent.getGesture() ?: Gesture.TOUCH
     }
-
     private lateinit var gestureView: GestureView
+
+    private var dialog: AlertDialog? = null
+    private var errorLimit = 5
+    private var errorCount = 0
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            // Kill check
+            // Received kill event
             intent?.getBooleanExtra(Constants.SERVICE_KILLED, false)?.let { killed ->
-                if (killed) {
-                    toast(context, R.string.service_killed)
-                }
+//                if (killed) {
+//                    toast(context, R.string.service_killed)
+//                }
+                Log.d(TAG, "SERVICE KILLED")
             }
 
-            // Gesture check
+            // Received gesture event
             (intent?.getSerializableExtra(Constants.SERVICE_GESTURE) as? AccessibilityGesture)?.let { gesture ->
-                gestureView.onAccessibilityGesture(gesture)
+                if (dialog != null) {
+                    dialog?.onAccessibilityGesture(gesture) // Pass gesture to AlertDialog if shown.
+                } else {
+                    gestureView.onAccessibilityGesture(gesture) // Pass gesture to GestureView.
+                }
             }
         }
     }
@@ -95,6 +106,7 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
 
     override fun onDestroy() {
         unregisterReceiver(receiver)
+        dialog?.dismiss()
         super.onDestroy()
     }
 
@@ -145,8 +157,29 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
     }
 
     override fun incorrect(gesture: Gesture, feedback: String) {
-        Accessibility.announce(baseContext, feedback)
         feedbackTextView.text = feedback
         feedbackTextView.visibility = View.VISIBLE
+
+        errorCount++
+
+        if (errorCount >= errorLimit) {
+            val message = if (Accessibility.isTalkBackEnabled(this)) {
+                "Veeg naar links om te stoppen.\n\nVeeg naar rechts om door te gaan."
+            } else {
+                null
+            }
+
+            dialog = AlertDialog.Builder(this)
+                        .setTitle("Je hebt het gebaar $errorCount keer fout uitgevoerd. Wil je doorgaan of stoppen?")
+                        .setMessage(message)
+                        .setPositiveButton(R.string.action_continue) { _, _ ->
+                            errorLimit *= 2
+                        }
+                        .setNegativeButton(R.string.action_stop) { _, _ ->
+                            finish()
+                        }
+                        .setCancelable(false)
+                        .show()
+        }
     }
 }

@@ -44,6 +44,8 @@
     <string name="action_practice">Oefenen</string>
     <string name="action_activate">Activeren</string>
     <string name="action_explanation">Uitleg</string>
+    <string name="action_stop">Stoppen</string>
+    <string name="action_continue">Doorgaan</string>
 
     <!-- Courses -->
     <string name="course_talkback_gestures_title">TalkBack gebaren</string>
