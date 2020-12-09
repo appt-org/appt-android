@@ -43,7 +43,7 @@ class MainActivity : BaseActivity() {
         navigationView.selectedItemId = tabs[0]
     }
 
-    class TabPagerAdapter(fragmentManager: FragmentManager, private val fragments: List<Fragment>) : FragmentPagerAdapter(fragmentManager) {
+    class TabPagerAdapter(fragmentManager: FragmentManager, private val fragments: List<Fragment>): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getItem(position: Int): Fragment {
             return fragments[position]

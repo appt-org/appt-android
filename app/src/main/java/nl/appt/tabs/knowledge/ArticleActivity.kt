@@ -59,7 +59,9 @@ class ArticleActivity: WebActivity() {
 
         response.error?.let { error ->
             isLoading = false
-            showError(error)
+            showError(error) {
+                finish()
+            }
         }
     }
 

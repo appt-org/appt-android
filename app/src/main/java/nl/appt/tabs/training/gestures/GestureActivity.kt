@@ -47,6 +47,7 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
     private var dialog: AlertDialog? = null
     private var errorLimit = 5
     private var errorCount = 0
+    private var finished = false
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -130,6 +131,7 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
     }
 
     override fun correct(gesture: Gesture) {
+        finished = true
         events.log(Events.Category.gestureCompleted, gesture.identifier, errorCount)
 
         gesture.completed(baseContext, true)
@@ -160,6 +162,10 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
     }
 
     override fun incorrect(gesture: Gesture, feedback: String) {
+        if (finished) {
+            return
+        }
+
         feedbackTextView.text = feedback
         feedbackTextView.visibility = View.VISIBLE
 

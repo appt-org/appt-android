@@ -63,8 +63,14 @@ class KnowledgeFragment: ToolbarFragment() {
         view.recyclerView.onInfiniteScroll {
             onInfiniteScroll()
         }
+    }
 
-        getArticles()
+    override fun onResume() {
+        super.onResume()
+
+        if (items.isEmpty()) {
+            getArticles()
+        }
     }
 
     private fun onInfiniteScroll() {

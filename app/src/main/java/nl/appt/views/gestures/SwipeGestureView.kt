@@ -62,7 +62,7 @@ open class SwipeGestureView(
      */
     private val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
 
-        private val THRESHOLD = 50
+        private val THRESHOLD = 40
         private var path = arrayListOf<Direction>()
 
         override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
