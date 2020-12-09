@@ -3,18 +3,20 @@ package nl.appt.widgets
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import nl.appt.R
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.announce
 import nl.appt.extensions.setVisible
 import nl.appt.extensions.toast
+import nl.appt.helpers.Events
 
 /**
  * Created by Jan Jaap de Groot on 19/10/2020
@@ -32,6 +34,15 @@ abstract class BaseFragment : Fragment() {
 
             view?.findViewById<ProgressBar>(R.id.progressBar)?.setVisible(value)
         }
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+    lateinit var events: Events
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        firebaseAnalytics = Firebase.analytics
+        events = Events(firebaseAnalytics)
+    }
 
     abstract fun getLayoutId(): Int
 

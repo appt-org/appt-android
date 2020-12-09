@@ -2,6 +2,7 @@ package nl.appt
 
 import android.app.Application
 import com.github.kittinunf.fuel.core.FuelManager
+import com.google.firebase.FirebaseApp
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
@@ -14,6 +15,9 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        // Firebase
+        FirebaseApp.initializeApp(this)
 
         // Fuel
         FuelManager.instance.basePath = BuildConfig.BASE_URL

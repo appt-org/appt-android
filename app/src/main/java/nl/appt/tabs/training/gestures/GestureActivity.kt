@@ -18,6 +18,7 @@ import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.accessibility.setFocus
 import nl.appt.accessibility.view.accessibility
 import nl.appt.extensions.*
+import nl.appt.helpers.Events
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
 import nl.appt.model.Gesture
@@ -129,6 +130,8 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
     }
 
     override fun correct(gesture: Gesture) {
+        events.log(Events.Category.gestureCompleted, gesture.identifier, errorCount)
+
         gesture.completed(baseContext, true)
         setResult(RESULT_OK)
         feedbackTextView.visibility = View.GONE

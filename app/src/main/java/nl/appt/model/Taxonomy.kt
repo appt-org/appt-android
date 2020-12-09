@@ -21,3 +21,12 @@ open class Taxonomy(
 
 typealias Category = Taxonomy
 typealias Tag = Taxonomy
+
+val List<Taxonomy>.selected
+    get() = filter { it.selected }
+
+val List<Taxonomy>.ids
+    get() = map { it.id }
+
+val List<Taxonomy>.names
+    get() = map { it.name }

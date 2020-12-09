@@ -16,6 +16,7 @@ import nl.appt.api.API
 import nl.appt.extensions.getFilters
 import nl.appt.extensions.setFilters
 import nl.appt.extensions.showError
+import nl.appt.helpers.Events
 import nl.appt.model.*
 import nl.appt.widgets.ToolbarActivity
 
@@ -57,13 +58,23 @@ class FilterActivity: ToolbarActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_apply) {
-            val intent = Intent()
-            intent.setFilters(filters)
-            setResult(RESULT_OK, intent)
-            finish()
+            applyFilters()
             return true
         }
         return false
+    }
+
+    private fun applyFilters() {
+        events.log(Events.Category.filters, mapOf(
+            "categories" to filters?.categories?.selected?.names,
+            "tags" to filters?.tags?.selected?.names
+        ))
+
+        val intent = Intent()
+        intent.setFilters(filters)
+        setResult(RESULT_OK, intent)
+
+        finish()
     }
 
     private fun getFilters() {

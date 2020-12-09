@@ -6,7 +6,9 @@ import nl.appt.R
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.extensions.getAction2
+import nl.appt.extensions.identifier
 import nl.appt.extensions.showDialog
+import nl.appt.helpers.Events
 import nl.appt.model.Action
 import nl.appt.views.actions.ActionViewCallback
 import nl.appt.widgets.ToolbarActivity
@@ -16,6 +18,8 @@ import nl.appt.widgets.ToolbarActivity
  * Copyright 2020 Stichting Appt
  */
 class ActionActivity: ToolbarActivity(), ActionViewCallback {
+
+    private val startTime = System.currentTimeMillis()
 
     private val action: Action by lazy {
         intent.getAction2() ?: Action.SELECTION
@@ -40,6 +44,9 @@ class ActionActivity: ToolbarActivity(), ActionViewCallback {
     }
 
     override fun correct(action: Action) {
+        val elapsedTime = (System.currentTimeMillis() - startTime).toInt()
+        events.log(Events.Category.actionCompleted, action.identifier, elapsedTime)
+
         action.completed(this, true)
         setResult(RESULT_OK)
 

@@ -18,6 +18,7 @@ import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setArticleType
 import nl.appt.extensions.setSlug
 import nl.appt.extensions.setVisible
+import nl.appt.helpers.Events
 import nl.appt.model.Article
 import nl.appt.tabs.knowledge.ArticleActivity
 
@@ -102,6 +103,8 @@ open class WebActivity: ToolbarActivity() {
 
     fun load(content: String, title: String) {
         isLoading = true
+
+        events.log(Events.Category.article, title)
 
         val html = """
                 <html lang="nl">

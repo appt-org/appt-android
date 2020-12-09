@@ -6,6 +6,9 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import nl.appt.accessibility.Accessibility
+import nl.appt.accessibility.isTalkBackEnabled
+import nl.appt.helpers.Events
 import nl.appt.tabs.information.InformationFragment
 import nl.appt.tabs.knowledge.KnowledgeFragment
 import nl.appt.tabs.training.TrainingFragment
@@ -26,6 +29,7 @@ class MainActivity : BaseActivity() {
 
     override fun onViewCreated() {
         this.title = ""
+        events.property(Events.Property.talkback, Accessibility.isTalkBackEnabled(this))
 
         // Tab adapter
         val tabAdapter = TabPagerAdapter(supportFragmentManager, fragments)

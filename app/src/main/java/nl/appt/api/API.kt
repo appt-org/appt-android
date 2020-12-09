@@ -23,12 +23,16 @@ class API {
                 "per_page" to 20
             )
 
-            filters?.categories()?.let { categories ->
-                parameters.add("categories" to categories)
+            filters?.categories?.selected?.ids?.let { categories ->
+                if (categories.isNotEmpty()) {
+                    parameters.add("categories" to categories.joinToString(","))
+                }
             }
 
-            filters?.tags()?.let { tags ->
-                parameters.add("tags" to tags)
+            filters?.tags?.selected?.ids?.let { tags ->
+                if (tags.isNotEmpty()) {
+                    parameters.add("tags" to tags.joinToString(","))
+                }
             }
 
             return getObject(type.path, parameters, callback)
