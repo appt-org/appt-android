@@ -81,4 +81,8 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+
+# App
 app/google-services.json
+app/release/*
