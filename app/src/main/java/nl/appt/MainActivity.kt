@@ -4,13 +4,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.helpers.Events
 import nl.appt.tabs.more.MoreFragment
-import nl.appt.tabs.news.KnowledgeFragment
+import nl.appt.tabs.knowledge.KnowledgeFragment
 import nl.appt.tabs.news.NewsFragment
 import nl.appt.tabs.training.TrainingFragment
 import nl.appt.widgets.BaseActivity

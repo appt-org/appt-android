@@ -15,10 +15,8 @@ import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import kotlinx.android.synthetic.main.activity_web.*
 import nl.appt.R
-import nl.appt.extensions.openWebsite
-import nl.appt.extensions.setArticleType
+import nl.appt.extensions.*
 import nl.appt.extensions.setSlug
-import nl.appt.extensions.setVisible
 import nl.appt.helpers.Events
 import nl.appt.model.Article
 import nl.appt.tabs.news.ArticleActivity
@@ -82,7 +80,7 @@ open class WebActivity: ToolbarActivity() {
 
         val settings = webView.settings
 
-        // Apply dark mode based on configuration because automatic mode doesn't work properly.
+        // Apply dark mode based on configuration, because automatic mode doesn't work properly.
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
             val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
             if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
@@ -140,11 +138,11 @@ open class WebActivity: ToolbarActivity() {
             val segments = uri.pathSegments
 
             // Check if kennisbank article (appt.nl/kennisbank/slug)
-            if (uri.host == "appt.nl" && segments.size == 2 && segments[0] == "kennisbank") {
+            if (uri.host == "appt.nl" && segments[0] == "kennisbank") {
                 // Kennisbank url
                 startActivity<ArticleActivity> {
-                    setArticleType(Article.Type.POST)
-                    setSlug(segments[1])
+                    setArticleType(Article.Type.PAGE)
+                    setUri(uri)
                 }
             } else {
                 // Open website

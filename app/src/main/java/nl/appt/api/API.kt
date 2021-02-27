@@ -1,5 +1,6 @@
 package nl.appt.api
 
+import android.net.Uri
 import com.github.kittinunf.fuel.core.Parameters
 import com.github.kittinunf.fuel.gson.jsonBody
 import com.github.kittinunf.fuel.gson.responseObject
@@ -16,9 +17,9 @@ class API {
 
         /** Articles **/
 
-        fun getArticles(type: Article.Type, filters: Filters?, page: Int, callback: (Response<List<Article>>) -> Unit) {
+        fun getArticles(type: Article.Type, filters: Filters? = null, slug: String? = null, parentId: Int? = null, page: Int = 1, callback: (Response<List<Article>>) -> Unit) {
             val parameters = arrayListOf(
-                "_fields" to "type,id,date,title",
+                "_fields" to "type,id,date,title,link",
                 "page" to page,
                 "per_page" to 20
             )
@@ -33,6 +34,22 @@ class API {
                 if (tags.isNotEmpty()) {
                     parameters.add("tags" to tags.joinToString(","))
                 }
+            }
+
+            slug?.let { slug ->
+                parameters.add("slug" to slug)
+            }
+
+            parentId?.let { id ->
+                parameters.add("parent" to id)
+            }
+
+            if (type == Article.Type.PAGE) {
+                parameters.add("orderby" to "title")
+                parameters.add("order" to "asc")
+            } else if (type == Article.Type.POST) {
+                parameters.add("orderby" to "date")
+                parameters.add("order" to "desc")
             }
 
             return getObject(type.path, parameters, callback)
@@ -59,6 +76,22 @@ class API {
                     article = it
                 }
                 callback(Response(article, response.total, response.pages, response.error))
+            }
+        }
+
+        fun getArticle(type: Article.Type, uri: Uri, callback: (Response<Article>) -> Unit) {
+            getArticles(type = type, slug = uri.lastPathSegment) { response ->
+                response.result?.let { articles ->
+                    articles.firstOrNull {
+                        it.link?.contains(uri.toString(), true) ?: false
+                    }?.let { article ->
+                        getArticle(type = type, id = article.id, callback = callback)
+                    }
+                }
+
+                response.error?.let { error ->
+                    callback(Response(error = error))
+                }
             }
         }
 

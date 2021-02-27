@@ -1,10 +1,9 @@
 package nl.appt.tabs.news
 
-import android.app.Activity.RESULT_OK
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import kotlinx.android.synthetic.main.view_list.view.*
 import nl.appt.R
@@ -17,7 +16,7 @@ import nl.appt.model.Filters
 import nl.appt.widgets.ToolbarFragment
 
 /**
- * Created by Jan Jaap de Groot on 12/10/2020
+ * Created by Jan Jaap de Groot on 24/02/2021
  * Copyright 2020 Stichting Appt
  */
 class NewsFragment: ToolbarFragment() {
@@ -45,7 +44,7 @@ class NewsFragment: ToolbarFragment() {
 
     override fun getLayoutId() = R.layout.view_list
 
-    override fun getTitle() = getString(R.string.tab_knowledge)
+    override fun getTitle() = getString(R.string.tab_news)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,7 +68,7 @@ class NewsFragment: ToolbarFragment() {
         super.onResume()
 
         if (items.isEmpty()) {
-//            getArticles()
+            getArticles()
         }
     }
 
@@ -108,7 +107,7 @@ class NewsFragment: ToolbarFragment() {
                 this.filters = filters
 
                 // RESULT_OK when filters should be applied.
-                if (resultCode == RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK) {
                     reset()
                     getArticles()
                 }

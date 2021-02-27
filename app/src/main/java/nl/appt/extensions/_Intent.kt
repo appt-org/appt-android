@@ -1,6 +1,7 @@
 package nl.appt.extensions
 
 import android.content.Intent
+import android.net.Uri
 import nl.appt.model.Action
 import nl.appt.model.Article
 import nl.appt.model.Filters
@@ -33,13 +34,24 @@ fun Intent.setArticleType(type: Article.Type) = putExtra(KEY_TYPE, type)
 
 /** Id **/
 private const val KEY_ID = "id"
-fun Intent.getId() = getIntExtra(KEY_ID, -1)
+fun Intent.getId(): Int? {
+    val id = getIntExtra(KEY_ID, -1)
+    return when (id != -1) {
+        true -> id
+        false -> null
+    }
+}
 fun Intent.setId(id: Int) = putExtra(KEY_ID, id)
 
 /** Slug **/
 private const val KEY_SLUG = "slug"
 fun Intent.getSlug() = getStringExtra(KEY_SLUG)
 fun Intent.setSlug(slug: String) = putExtra(KEY_SLUG, slug)
+
+/** Uri **/
+private const val KEY_URI = "uri"
+fun Intent.getUri() = getParcelableExtra(KEY_URI) as? Uri
+fun Intent.setUri(uri: Uri) = putExtra(KEY_URI, uri)
 
 /** Filters **/
 private const val KEY_FILTERS = "filters"

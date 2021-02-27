@@ -1,13 +1,11 @@
 package nl.appt.tabs.news
 
+import android.net.Uri
 import androidx.core.app.ShareCompat
 import nl.appt.R
 import nl.appt.api.API
 import nl.appt.api.Response
-import nl.appt.extensions.getArticleType
-import nl.appt.extensions.getId
-import nl.appt.extensions.getSlug
-import nl.appt.extensions.showError
+import nl.appt.extensions.*
 import nl.appt.model.Article
 import nl.appt.widgets.WebActivity
 
@@ -22,11 +20,14 @@ class ArticleActivity: WebActivity() {
     private val type: Article.Type
         get() = intent.getArticleType()
 
-    private val id: Int
+    private val id: Int?
         get() = intent.getId()
 
     private val slug: String?
         get() = intent.getSlug()
+
+    private val uri: Uri?
+        get() = intent.getUri()
 
     override fun getLayoutId() = R.layout.activity_web
 
@@ -40,14 +41,18 @@ class ArticleActivity: WebActivity() {
         } ?: run {
             isLoading = true
 
+            val callback = { response: Response<Article> ->
+                onResponse(response)
+            }
+
+            id?.let { id ->
+                API.getArticle(type, id, callback)
+            }
             slug?.let { slug ->
-                API.getArticle(type, slug) {
-                    onResponse(it)
-                }
-            } ?: run {
-                API.getArticle(type, id) {
-                    onResponse(it)
-                }
+                API.getArticle(type, slug, callback)
+            }
+            uri?.let { uri ->
+                API.getArticle(type, uri, callback)
             }
         }
     }
