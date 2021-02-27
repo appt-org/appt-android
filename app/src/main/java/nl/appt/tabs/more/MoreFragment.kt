@@ -1,4 +1,4 @@
-package nl.appt.tabs.information
+package nl.appt.tabs.more
 
 import android.os.Bundle
 import android.view.Menu
@@ -12,25 +12,24 @@ import kotlinx.android.synthetic.main.view_list.view.*
 import nl.appt.R
 import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.adapters.itemAdapterDelegate
+import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setArticleType
-import nl.appt.extensions.setFilters
 import nl.appt.extensions.setSlug
 import nl.appt.model.Article
 import nl.appt.model.Topic
-import nl.appt.tabs.knowledge.ArticleActivity
-import nl.appt.tabs.knowledge.FilterActivity
+import nl.appt.tabs.news.ArticleActivity
 import nl.appt.widgets.ToolbarFragment
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-class InformationFragment : ToolbarFragment() {
+class MoreFragment : ToolbarFragment() {
 
     override fun getLayoutId() = R.layout.view_list
 
-    override fun getTitle() = getString(R.string.title_information)
+    override fun getTitle() = getString(R.string.tab_more)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,7 +57,7 @@ class InformationFragment : ToolbarFragment() {
         adapter.items = items
 
         view.recyclerView.adapter  = adapter
-        view.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        view.recyclerView.addItemDecoration()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

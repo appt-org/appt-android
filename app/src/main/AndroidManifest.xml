@@ -47,12 +47,13 @@
         </activity>
 
         <activity
-            android:name=".tabs.knowledge.ArticleActivity"
-            android:configChanges="orientation|screenSize">
+            android:name=".tabs.news.ArticleActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true">
         </activity>
 
         <activity
-            android:name=".tabs.knowledge.FilterActivity"
+            android:name=".tabs.news.FilterActivity"
             android:configChanges="orientation|screenSize">
         </activity>
 

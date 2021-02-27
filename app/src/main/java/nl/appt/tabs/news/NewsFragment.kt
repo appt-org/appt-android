@@ -17,10 +17,10 @@ import nl.appt.model.Filters
 import nl.appt.widgets.ToolbarFragment
 
 /**
- * Created by Jan Jaap de Groot on 24/02/2021
+ * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-class KnowledgeFragment: ToolbarFragment() {
+class NewsFragment: ToolbarFragment() {
 
     private val REQUEST_CODE_FILTER = 1337
 

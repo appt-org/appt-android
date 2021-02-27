@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.webkit.WebSettingsCompat
@@ -20,7 +21,7 @@ import nl.appt.extensions.setSlug
 import nl.appt.extensions.setVisible
 import nl.appt.helpers.Events
 import nl.appt.model.Article
-import nl.appt.tabs.knowledge.ArticleActivity
+import nl.appt.tabs.news.ArticleActivity
 
 /**
  * Created by Jan Jaap de Groot on 28/10/2020
@@ -97,6 +98,13 @@ open class WebActivity: ToolbarActivity() {
         settings.javaScriptEnabled = true
         settings.builtInZoomControls = true
         settings.displayZoomControls = false
+        settings.domStorageEnabled = true
+        settings.javaScriptCanOpenWindowsAutomatically = true
+        settings.pluginState = WebSettings.PluginState.ON
+        settings.mediaPlaybackRequiresUserGesture = false
+        settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+        settings.allowFileAccess = true
+        settings.setAppCacheEnabled(true)
         settings.setSupportZoom(true)
     }
 

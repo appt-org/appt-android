@@ -9,8 +9,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.helpers.Events
-import nl.appt.tabs.information.InformationFragment
-import nl.appt.tabs.knowledge.KnowledgeFragment
+import nl.appt.tabs.more.MoreFragment
+import nl.appt.tabs.news.KnowledgeFragment
+import nl.appt.tabs.news.NewsFragment
 import nl.appt.tabs.training.TrainingFragment
 import nl.appt.widgets.BaseActivity
 
@@ -20,8 +21,8 @@ import nl.appt.widgets.BaseActivity
  */
 class MainActivity : BaseActivity() {
 
-    private val tabs = listOf(R.id.tab_training, R.id.tab_knowledge, R.id.tab_information)
-    private val fragments = listOf(TrainingFragment(), KnowledgeFragment(), InformationFragment())
+    private val tabs = listOf(R.id.tab_training, R.id.tab_knowledge, R.id.tab_news, R.id.tab_more)
+    private val fragments = listOf(TrainingFragment(), KnowledgeFragment(), NewsFragment(), MoreFragment())
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
@@ -34,16 +35,35 @@ class MainActivity : BaseActivity() {
         // Tab adapter
         val tabAdapter = TabPagerAdapter(supportFragmentManager, fragments)
         viewPager.currentItem = 0
-        viewPager.offscreenPageLimit = 3
+        viewPager.offscreenPageLimit = tabs.size
         viewPager.adapter = tabAdapter
-        viewPager.addOnPageChangeListener(onPageChangeListener)
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+                // Ignored
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                // Ignored
+            }
+
+            override fun onPageSelected(position: Int) {
+                navigationView.menu.getItem(position).isChecked = true
+            }
+        })
 
         // Navigation view
-        navigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        navigationView.setOnNavigationItemSelectedListener { item ->
+            val index = tabs.indexOf(item.itemId)
+
+            fragments[index].willShow()
+            viewPager.currentItem = index
+
+            tabs.contains(item.itemId)
+        }
         navigationView.selectedItemId = tabs[0]
     }
 
-    class TabPagerAdapter(fragmentManager: FragmentManager, private val fragments: List<Fragment>): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    private class TabPagerAdapter(fragmentManager: FragmentManager, private val fragments: List<Fragment>): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getItem(position: Int): Fragment {
             return fragments[position]
@@ -52,34 +72,5 @@ class MainActivity : BaseActivity() {
         override fun getCount(): Int {
             return fragments.size
         }
-    }
-
-    private val onPageChangeListener = object : ViewPager.OnPageChangeListener {
-        override fun onPageScrollStateChanged(state: Int) {
-            // Ignored
-        }
-
-        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            // Ignored
-        }
-
-        override fun onPageSelected(position: Int) {
-            navigationView.menu.getItem(position).isChecked = true
-        }
-    }
-
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        val index = tabs.indexOf(item.itemId)
-
-        fragments[index].willShow()
-        viewPager.currentItem = index
-
-        when (item.itemId) {
-            R.id.tab_training, R.id.tab_knowledge, R.id.tab_information -> {
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-
-        false
     }
 }

@@ -1,4 +1,4 @@
-package nl.appt.tabs.knowledge
+package nl.appt.tabs.news
 
 import androidx.core.app.ShareCompat
 import nl.appt.R

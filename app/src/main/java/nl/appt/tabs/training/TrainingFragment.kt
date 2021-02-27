@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.view_list.view.*
 import nl.appt.R
 import nl.appt.adapters.itemAdapterDelegate
 import nl.appt.adapters.headerAdapterDelegate
+import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.setText
 import nl.appt.extensions.setTitle
 import nl.appt.model.Course
@@ -24,7 +25,7 @@ class TrainingFragment: ToolbarFragment() {
 
     override fun getLayoutId() = R.layout.view_list
 
-    override fun getTitle()= getString(R.string.title_training)
+    override fun getTitle()= getString(R.string.tab_training)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,7 +52,7 @@ class TrainingFragment: ToolbarFragment() {
         adapter.items = gestures
 
         view.recyclerView.adapter  = adapter
-        view.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        view.recyclerView.addItemDecoration()
     }
 
     companion object {

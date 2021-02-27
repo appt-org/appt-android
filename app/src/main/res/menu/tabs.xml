@@ -4,15 +4,20 @@
     <item
         android:id="@+id/tab_training"
         android:icon="@drawable/tab_training"
-        android:title="@string/title_training" />
+        android:title="@string/tab_training" />
 
     <item
         android:id="@+id/tab_knowledge"
         android:icon="@drawable/tab_knowledge"
-        android:title="@string/title_knowledge" />
+        android:title="@string/tab_knowledge" />
 
     <item
-        android:id="@+id/tab_information"
-        android:icon="@drawable/tab_info"
-        android:title="@string/title_information" />
+        android:id="@+id/tab_news"
+        android:icon="@drawable/tab_news"
+        android:title="@string/tab_news" />
+
+    <item
+        android:id="@+id/tab_more"
+        android:icon="@drawable/tab_more"
+        android:title="@string/tab_more" />
 </menu>

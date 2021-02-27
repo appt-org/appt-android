@@ -10,7 +10,6 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/background"
         android:theme="@style/Toolbar">
 
         <TextView style="@style/Toolbar.Title"
@@ -23,6 +22,4 @@
             android:accessibilityHeading="true"
             tools:text="Title"/>
     </androidx.appcompat.widget.Toolbar>
-
-    <include layout="@layout/view_divider" />
 </LinearLayout>

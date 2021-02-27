@@ -1,4 +1,4 @@
-package nl.appt.tabs.knowledge
+package nl.appt.tabs.news
 
 import android.content.Intent
 import android.util.Log
