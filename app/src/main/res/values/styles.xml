@@ -1,6 +1,6 @@
 <resources>
     <!-- App -->
-    <style name="App" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Theme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -19,6 +19,10 @@
         <item name="android:windowBackground">@color/background</item>
 
         <item name="alertDialogTheme">@style/Dialog</item>
+    </style>
+
+    <style name="Theme.App" parent="Theme">
+        <!-- Can be overridden -->
     </style>
 
     <!-- WebView -->

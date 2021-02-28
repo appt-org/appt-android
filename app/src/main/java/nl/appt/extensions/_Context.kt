@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import com.github.kittinunf.fuel.core.FuelError
 import kotlinx.android.synthetic.main.view_toast.view.*
@@ -29,18 +30,32 @@ fun Context.openWebsite(url: String) {
 }
 
 fun Context.openWebsite(uri: Uri) {
-    val backgroundColor = resources.getColor(R.color.background, null)
+    val black = resources.getColor(R.color.black, null)
+    val white = resources.getColor(R.color.white, null)
 
-    val builder = CustomTabsIntent.Builder()
-    builder.addDefaultShareMenuItem()
-    builder.setNavigationBarColor(backgroundColor)
-    builder.setToolbarColor(backgroundColor)
-    builder.setSecondaryToolbarColor(backgroundColor)
+    val dark = CustomTabColorSchemeParams.Builder()
+                    .setToolbarColor(black)
+                    .setNavigationBarColor(black)
+                    .setNavigationBarDividerColor(black)
+                    .setSecondaryToolbarColor(black)
+                    .build()
 
-    val tabsIntent = builder.build()
-    tabsIntent.intent.putExtra(CustomTabsIntent.EXTRA_ENABLE_URLBAR_HIDING, false)
+    val light = CustomTabColorSchemeParams.Builder()
+                    .setToolbarColor(white)
+                    .setNavigationBarColor(white)
+                    .setNavigationBarDividerColor(white)
+                    .setSecondaryToolbarColor(white)
+                    .build()
 
-    tabsIntent.launchUrl(this, uri)
+    val intent = CustomTabsIntent.Builder()
+        .setShareState(CustomTabsIntent.SHARE_STATE_ON)
+        .setUrlBarHidingEnabled(false)
+        .setColorScheme(CustomTabsIntent.COLOR_SCHEME_SYSTEM)
+        .setColorSchemeParams(CustomTabsIntent.COLOR_SCHEME_DARK, dark)
+        .setColorSchemeParams(CustomTabsIntent.COLOR_SCHEME_LIGHT, light)
+        .build()
+
+    intent.launchUrl(this, uri)
 }
 
 /** Dialog **/
