@@ -207,4 +207,13 @@
     <string name="talkback_action_paste_instruction6">5. Kies de optie \'Plakken\'.</string>
     <string name="talkback_action_paste_instruction7">Plak tekst in het onderstaande tekstveld om de training af te ronden.</string>
     <string name="talkback_action_paste_text">Plak hier vanuit je klembord</string>
+
+    <!-- Auth -->
+    <string name="auth_heading">Welkom!</string>
+    <string name="auth_subtitle">Appt is het platform voor toegankelijkheid.\n\n\n
+        Maak een gratis account aan om toegang tot onze community te krijgen, onze trainingen te volgen en meer over toegankelijkheid te leren.
+    </string>
+    <string name="auth_button_create_account">Account aanmaken</string>
+    <string name="auth_button_login">Ik heb al een account</string>
+    <string name="auth_button_forgot_password">Wachtwoord vergeten?</string>
 </resources>
