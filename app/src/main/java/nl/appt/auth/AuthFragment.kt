@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_auth.*
 import nl.appt.R
+import nl.appt.databinding.FragmentAuthBinding
 import nl.appt.widgets.ToolbarFragment
 
 class AuthFragment : ToolbarFragment(), View.OnClickListener {
+
+    private lateinit var binding: FragmentAuthBinding
 
     override fun getTitle() = getString(R.string.tab_training)
 
@@ -14,9 +17,15 @@ class AuthFragment : ToolbarFragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        create_account_btn.setOnClickListener(this)
-        login_btn.setOnClickListener(this)
-        forgot_password_btn.setOnClickListener(this)
+        initUi()
+    }
+
+    fun initUi() {
+        binding = FragmentAuthBinding.inflate(layoutInflater)
+
+        binding.createAccountBtn.setOnClickListener(this)
+        binding.loginBtn.setOnClickListener(this)
+        binding.forgotPasswordBtn.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {

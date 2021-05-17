@@ -1,5 +1,6 @@
 package nl.appt.auth
 
+import android.os.Bundle
 import nl.appt.R
 import nl.appt.widgets.BaseActivity
 
@@ -9,7 +10,8 @@ class AuthActivity : BaseActivity() {
         return R.layout.activity_auth
     }
 
-    override fun onViewCreated() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         this.title = ""
         supportFragmentManager
             .beginTransaction()
