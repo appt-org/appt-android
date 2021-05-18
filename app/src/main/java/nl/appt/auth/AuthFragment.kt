@@ -6,7 +6,7 @@ import nl.appt.R
 import nl.appt.databinding.FragmentAuthBinding
 import nl.appt.widgets.ToolbarFragment
 
-class AuthFragment : ToolbarFragment(), View.OnClickListener {
+class AuthFragment : ToolbarFragment() {
 
     private lateinit var binding: FragmentAuthBinding
 
@@ -21,22 +21,14 @@ class AuthFragment : ToolbarFragment(), View.OnClickListener {
 
     fun initUi() {
         binding = FragmentAuthBinding.inflate(layoutInflater)
-        binding.createAccountBtn.setOnClickListener(this)
-        binding.loginBtn.setOnClickListener(this)
-        binding.forgotPasswordBtn.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.create_account_btn -> {
-                //Open Create Account Screen
-            }
-            R.id.login_btn -> {
-                //Open Login Screen
-            }
-            R.id.forgot_password_btn -> {
-                //Open Reset Password Screen
-            }
+        binding.createAccountBtn.setOnClickListener {
+            //Open Create Account Screen
+        }
+        binding.loginBtn.setOnClickListener {
+            //Open Login Screen
+        }
+        binding.forgotPasswordBtn.setOnClickListener {
+            //Open Reset Password Screen
         }
     }
 }
