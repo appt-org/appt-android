@@ -2,7 +2,6 @@ package nl.appt.auth
 
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.fragment_auth.*
 import nl.appt.R
 import nl.appt.databinding.FragmentAuthBinding
 import nl.appt.widgets.ToolbarFragment
