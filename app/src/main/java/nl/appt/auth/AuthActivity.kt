@@ -18,4 +18,4 @@ class AuthActivity : BaseActivity() {
             .replace(R.id.auth_container, AuthFragment())
             .commit()
     }
-}
+}   

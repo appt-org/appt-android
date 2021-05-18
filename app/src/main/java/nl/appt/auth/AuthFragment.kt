@@ -30,13 +30,13 @@ class AuthFragment : ToolbarFragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v) {
-            create_account_btn -> {
+            binding.createAccountBtn -> {
                 //Open Create Account Screen
             }
-            login_btn -> {
+            binding.loginBtn -> {
                 //Open Login Screen
             }
-            forgot_password_btn -> {
+            binding.forgotPasswordBtn -> {
                 //Open Reset Password Screen
             }
         }
