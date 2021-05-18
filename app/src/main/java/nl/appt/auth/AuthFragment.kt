@@ -2,12 +2,11 @@ package nl.appt.auth
 
 import android.os.Bundle
 import android.view.View
-import kotlinx.android.synthetic.main.fragment_auth.*
 import nl.appt.R
 import nl.appt.databinding.FragmentAuthBinding
 import nl.appt.widgets.ToolbarFragment
 
-class AuthFragment : ToolbarFragment(), View.OnClickListener {
+class AuthFragment : ToolbarFragment() {
 
     private lateinit var binding: FragmentAuthBinding
 
@@ -22,23 +21,14 @@ class AuthFragment : ToolbarFragment(), View.OnClickListener {
 
     fun initUi() {
         binding = FragmentAuthBinding.inflate(layoutInflater)
-
-        binding.createAccountBtn.setOnClickListener(this)
-        binding.loginBtn.setOnClickListener(this)
-        binding.forgotPasswordBtn.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View?) {
-        when (v) {
-            create_account_btn -> {
-                //Open Create Account Screen
-            }
-            login_btn -> {
-                //Open Login Screen
-            }
-            forgot_password_btn -> {
-                //Open Reset Password Screen
-            }
+        binding.createAccountBtn.setOnClickListener {
+            //Open Create Account Screen
+        }
+        binding.loginBtn.setOnClickListener {
+            //Open Login Screen
+        }
+        binding.forgotPasswordBtn.setOnClickListener {
+            //Open Reset Password Screen
         }
     }
 }
