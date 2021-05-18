@@ -21,21 +21,20 @@ class AuthFragment : ToolbarFragment(), View.OnClickListener {
 
     fun initUi() {
         binding = FragmentAuthBinding.inflate(layoutInflater)
-
         binding.createAccountBtn.setOnClickListener(this)
         binding.loginBtn.setOnClickListener(this)
         binding.forgotPasswordBtn.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        when (v) {
-            binding.createAccountBtn -> {
+        when (v?.id) {
+            R.id.create_account_btn -> {
                 //Open Create Account Screen
             }
-            binding.loginBtn -> {
+            R.id.login_btn -> {
                 //Open Login Screen
             }
-            binding.forgotPasswordBtn -> {
+            R.id.forgot_password_btn -> {
                 //Open Reset Password Screen
             }
         }
