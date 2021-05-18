@@ -6,70 +6,61 @@
 
     <application
         android:name=".MainApplication"
-        android:label="@string/app_name"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:theme="@style/Theme.App"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/Theme.App"
         android:windowSoftInputMode="adjustResize">
-
-        <activity
-            android:label="@string/app_name"
-            android:name=".MainActivity"
-            android:configChanges="orientation|screenSize">
+        <activity android:name=".auth.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name" />
         <activity
             android:name=".tabs.training.gestures.GesturesActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
-
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".tabs.training.gestures.GestureActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
-
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".tabs.training.actions.ActionsActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
-
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".tabs.training.actions.ActionActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
-
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".tabs.news.ArticleActivity"
             android:configChanges="orientation|screenSize"
-            android:hardwareAccelerated="true">
-        </activity>
-
+            android:hardwareAccelerated="true" />
         <activity
             android:name=".tabs.news.FilterActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
-
+            android:configChanges="orientation|screenSize" />
         <activity
             android:name=".widgets.TextActivity"
-            android:configChanges="orientation|screenSize">
-        </activity>
+            android:configChanges="orientation|screenSize" />
 
         <service
-            android:name="nl.appt.services.ApptService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:label="@string/service_label">
+            android:name=".services.ApptService"
+            android:label="@string/service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
-            <meta-data android:name="android.accessibilityservice" android:resource="@xml/appt_accessibility_service" />
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/appt_accessibility_service" />
         </service>
     </application>
+
 </manifest>
