@@ -92,7 +92,11 @@
     <style name="Widget.TextView">
         <item name="android:focusable">true</item>
         <item name="android:textColor">@color/foreground</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="Widget.TextView.EditTextLabel">
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="Widget.TextView.Bold">
@@ -141,5 +145,9 @@
 
     <style name="Widget.Button.ForgotPassword">
         <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Widget.ImageView">
+        <item name="android:src">@drawable/icon_appt</item>
     </style>
 </resources>
