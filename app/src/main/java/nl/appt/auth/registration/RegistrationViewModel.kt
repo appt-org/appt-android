@@ -10,7 +10,7 @@ class RegistrationViewModel() : ViewModel() {
         PASSWORD_ERROR, EMAIL_ERROR, PASSWORD_VALID, EMAIL_VALID
     }
 
-    val errorState = MutableLiveData<Enum<FieldStates>>()
+    val errorState = MutableLiveData<FieldStates>()
 
     fun checkPasswordField(password: String): Boolean {
         return if (!ValidationManager.isValidPassword(password)) {
