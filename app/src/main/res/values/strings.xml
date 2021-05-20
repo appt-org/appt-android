@@ -227,4 +227,7 @@
     <string name="registration_password_label_error">Wachtwoord*</string>
     <string name="registration_email_label_error">E-mailadres*</string>
     <string name="registration_email_error">Voer een geldig e-mailadres in</string>
+
+    <!-- Login -->
+    <string name="login_title">InLoggen</string>
 </resources>
