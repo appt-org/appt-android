@@ -32,7 +32,7 @@ class RegistrationActivity : ToolbarActivity() {
                 val password = binding.registrationPassword.text.toString()
                 viewModel.checkPasswordField(password)
             } else {
-                cleanError(RegistrationViewModel.PASSWORD_ERROR_CODE)
+                setFieldState(RegistrationViewModel.FieldStates.PASSWORD_VALID)
             }
         }
 
@@ -41,26 +41,22 @@ class RegistrationActivity : ToolbarActivity() {
                 val email = binding.registrationEmail.text.toString()
                 viewModel.checkEmailField(email)
             } else {
-                cleanError(RegistrationViewModel.EMAIL_ERROR_CODE)
+                setFieldState(RegistrationViewModel.FieldStates.EMAIL_VALID)
             }
         }
 
         binding.createAccountBtn.setOnClickListener {
-            if (isAllFieldsFiled(binding)) {
+            if (isAllFieldsFiled()) {
                 //to next screen
             }
         }
 
-        viewModel.errorCode.observe(this, { errorCode ->
-            setError(errorCode)
-        })
-
-        viewModel.cleanErrorCode.observe(this, { cleanErrorCode ->
-            cleanError(cleanErrorCode)
+        viewModel.errorState.observe(this, { errorState ->
+            setFieldState(errorState)
         })
     }
 
-    private fun isAllFieldsFiled(binding: ActivityRegistrationBinding): Boolean {
+    private fun isAllFieldsFiled(): Boolean {
         val password = binding.registrationPassword.text.toString()
         val email = binding.registrationEmail.text.toString()
 
@@ -69,30 +65,25 @@ class RegistrationActivity : ToolbarActivity() {
         return binding.termsAndConditionsCheckbox.isChecked && binding.privacyStatementCheckbox.isChecked && isValidEmail && isValidPassword
     }
 
-    private fun setError(errorCode: Int) {
-        when (errorCode) {
-            RegistrationViewModel.PASSWORD_ERROR_CODE -> {
+    private fun setFieldState(state: Enum<RegistrationViewModel.FieldStates>) {
+        when (state) {
+            RegistrationViewModel.FieldStates.PASSWORD_ERROR -> {
                 binding.labelPassword.text = getString(R.string.registration_password_label_error)
                 binding.labelPassword.setTextColor(getColor(R.color.red))
                 binding.registrationPasswordLayout.error =
                     getString(R.string.registration_password_length_error)
             }
-            RegistrationViewModel.EMAIL_ERROR_CODE -> {
+            RegistrationViewModel.FieldStates.EMAIL_ERROR -> {
                 binding.labelEmail.text = getString(R.string.registration_email_label_error)
                 binding.labelEmail.setTextColor(getColor(R.color.red))
                 binding.registrationEmailLayout.error = getString(R.string.registration_email_error)
             }
-        }
-    }
-
-    private fun cleanError(errorCode: Int) {
-        when (errorCode) {
-            RegistrationViewModel.PASSWORD_ERROR_CODE -> {
+            RegistrationViewModel.FieldStates.PASSWORD_VALID -> {
                 binding.registrationPasswordLayout.isErrorEnabled = false
                 binding.labelPassword.text = getString(R.string.registration_password)
                 binding.labelPassword.setTextColor(getColor(R.color.black))
             }
-            RegistrationViewModel.EMAIL_ERROR_CODE -> {
+            RegistrationViewModel.FieldStates.EMAIL_VALID -> {
                 binding.registrationEmailLayout.isErrorEnabled = false
                 binding.labelEmail.text = getText(R.string.registration_field_email)
                 binding.labelEmail.setTextColor(getColor(R.color.black))

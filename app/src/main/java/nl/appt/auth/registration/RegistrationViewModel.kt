@@ -6,31 +6,28 @@ import nl.appt.auth.ValidationManager
 
 class RegistrationViewModel() : ViewModel() {
 
-    companion object {
-        const val PASSWORD_ERROR_CODE = 1
-        const val EMAIL_ERROR_CODE = 2
+    enum class FieldStates {
+        PASSWORD_ERROR, EMAIL_ERROR, PASSWORD_VALID, EMAIL_VALID
     }
 
-    val errorCode = MutableLiveData<Int>()
-
-    val cleanErrorCode = MutableLiveData<Int>()
+    val errorState = MutableLiveData<Enum<FieldStates>>()
 
     fun checkPasswordField(password: String): Boolean {
         return if (!ValidationManager.isValidPassword(password)) {
-            errorCode.value = PASSWORD_ERROR_CODE
+            errorState.value = FieldStates.PASSWORD_ERROR
             false
         } else {
-            cleanErrorCode.value = PASSWORD_ERROR_CODE
+            errorState.value = FieldStates.PASSWORD_VALID
             true
         }
     }
 
     fun checkEmailField(email: String): Boolean {
         return if (!ValidationManager.isValidEmail(email)) {
-            errorCode.value = EMAIL_ERROR_CODE
+            errorState.value = FieldStates.EMAIL_ERROR
             false
         } else {
-            cleanErrorCode.value = EMAIL_ERROR_CODE
+            errorState.value = FieldStates.EMAIL_VALID
             true
         }
     }
