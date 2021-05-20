@@ -15,10 +15,13 @@
 
         <ScrollView
             android:id="@+id/scrollView"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,12 +36,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
-                    android:background="#19c3c3c3"
-                    android:gravity="center">
+                    android:background="@color/edit_text_background"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/label_email"
@@ -52,7 +55,6 @@
                         android:id="@+id/registrationEmailLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         app:errorTextColor="@color/red"
                         app:hintEnabled="false">
 
@@ -64,14 +66,14 @@
                             android:hint="@string/registration_field_email"
                             android:inputType="textEmailAddress" />
                     </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
+                </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
-                    android:background="#19c3c3c3"
-                    android:gravity="center">
+                    android:background="@color/edit_text_background"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/label_password"
@@ -85,7 +87,6 @@
                         android:id="@+id/registrationPasswordLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         app:endIconMode="password_toggle"
                         app:errorTextColor="@color/red"
                         app:hintEnabled="false">
@@ -97,7 +98,7 @@
                             android:hint="@string/registration_password"
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
-                </RelativeLayout>
+                </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatCheckBox
                     android:id="@+id/privacy_statement_checkbox"
