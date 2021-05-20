@@ -7,4 +7,8 @@
     <style name="Widget.Button.Login">
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="Widget.ImageView">
+        <item name="android:src">@drawable/icon_appt_night</item>
+    </style>
 </resources>

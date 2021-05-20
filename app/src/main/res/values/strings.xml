@@ -216,4 +216,15 @@
     <string name="auth_button_create_account">Account aanmaken</string>
     <string name="auth_button_login">Ik heb al een account</string>
     <string name="auth_button_forgot_password">Wachtwoord vergeten?</string>
+
+    <!-- Registration -->
+    <string name="registration_toolbar_title">Account aanmaken</string>
+    <string name="registration_field_email">E-mailadres</string>
+    <string name="registration_password">Wachtwoord</string>
+    <string name="registration_privacy_statement">Ik ga akkoord met Privacy Verklaring</string>
+    <string name="registration_terms_and_conditions">Ik ga akkoord met Algemene Voorwaarden</string>
+    <string name="registration_password_length_error">Je wachtwoord moet bestaan uit minimaal 10 karakters</string>
+    <string name="registration_password_label_error">Wachtwoord*</string>
+    <string name="registration_email_label_error">E-mailadres*</string>
+    <string name="registration_email_error">Voer een geldig e-mailadres in</string>
 </resources>

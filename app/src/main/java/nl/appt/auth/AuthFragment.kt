@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import nl.appt.R
+import nl.appt.auth.registration.RegistrationActivity
 import nl.appt.databinding.FragmentAuthBinding
 import nl.appt.widgets.ToolbarFragment
 
@@ -34,7 +35,7 @@ class AuthFragment : ToolbarFragment() {
 
     private fun initUi() {
         binding.createAccountBtn.setOnClickListener {
-            //Open Create Account Screen
+            startActivity<RegistrationActivity>()
         }
         binding.loginBtn.setOnClickListener {
             //Open Login Screen
