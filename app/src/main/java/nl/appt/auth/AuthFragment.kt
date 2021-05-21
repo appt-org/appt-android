@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import nl.appt.R
 import nl.appt.auth.login.LoginActivity
 import nl.appt.auth.registration.RegistrationActivity
+import nl.appt.auth.reset.ResetPasswordActivity
 import nl.appt.databinding.FragmentAuthBinding
 import nl.appt.widgets.ToolbarFragment
 
@@ -42,7 +43,7 @@ class AuthFragment : ToolbarFragment() {
             startActivity<LoginActivity>()
         }
         binding.forgotPasswordBtn.setOnClickListener {
-            //Open Reset Password Screen
+            startActivity<ResetPasswordActivity>()
         }
     }
 
