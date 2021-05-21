@@ -230,4 +230,10 @@
 
     <!-- Login -->
     <string name="login_title">InLoggen</string>
+
+    <!-- Reset password -->
+    <string name="reset_password_text_title">Wachtwoord vergeten?</string>
+    <string name="reset_password_text_subtitle">Vul hier je e-mailadres in en wij sturen een e-mail met een link waarmee je je wachtwoord kan wijzigen</string>
+    <string name="reset_password_login_button">Nieuw wachtwoord aanvragen</string>
+    <string name="reset_password_toolbar_title">Wachtwoord herstel</string>
 </resources>
