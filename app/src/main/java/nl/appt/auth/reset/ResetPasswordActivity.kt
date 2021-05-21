@@ -25,6 +25,7 @@ class ResetPasswordActivity : ToolbarActivity() {
     private fun initUi() {
         binding.resetBtn.setOnClickListener {
             //Send confirmation email.
+            startActivity<NewPasswordActivity>()
         }
     }
 }

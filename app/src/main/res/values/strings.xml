@@ -236,4 +236,10 @@
     <string name="reset_password_text_subtitle">Vul hier je e-mailadres in en wij sturen een e-mail met een link waarmee je je wachtwoord kan wijzigen</string>
     <string name="reset_password_login_button">Nieuw wachtwoord aanvragen</string>
     <string name="reset_password_toolbar_title">Wachtwoord herstel</string>
+
+    <!-- New password -->
+    <string name="new_password_toolbar_title">Nieuw paswoord</string>
+    <string name="new_password_text_title">Wachtwoord wijzigen</string>
+    <string name="new_password_button">Wijzigen</string>
+    <string name="new_password_label">Nieuw wachtwoord</string>
 </resources>
