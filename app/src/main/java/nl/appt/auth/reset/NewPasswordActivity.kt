@@ -25,6 +25,13 @@ class NewPasswordActivity : ToolbarActivity() {
         setContentView(view)
         onViewCreated()
         initUi()
+        setFieldStateObserver()
+    }
+
+    private fun setFieldStateObserver(){
+        viewModel.errorState.observe(this, { errorState ->
+            setFieldState(errorState)
+        })
     }
 
     private fun initUi() {
@@ -34,10 +41,6 @@ class NewPasswordActivity : ToolbarActivity() {
                 startActivity<MainActivity>()
             }
         }
-
-        viewModel.errorState.observe(this, { errorState ->
-            setFieldState(errorState)
-        })
     }
 
     private fun setFieldState(state: NewPasswordViewModel.FieldStates) {
