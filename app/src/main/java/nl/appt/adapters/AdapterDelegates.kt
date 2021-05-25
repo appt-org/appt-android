@@ -7,12 +7,14 @@ import android.widget.TextView
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
-import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegate
 import nl.appt.R
 import nl.appt.accessibility.view.accessibility
 import nl.appt.extensions.setVisible
-import nl.appt.model.*
+import nl.appt.model.Item
+import nl.appt.model.Meer
+import nl.appt.model.Taxonomy
+import nl.appt.model.Training
 
 /**
  * Created by Jan Jaap de Groot on 03/11/2020
@@ -43,6 +45,20 @@ inline fun <reified T: Item> itemAdapterDelegate(crossinline callback : (T) -> U
 
     bind {
         textView.text = item.title(context)
+    }
+}
+
+inline fun <reified T: Meer> meerAdapterDelegate(crossinline callback : (T) -> Unit) = adapterDelegate<T, Any>(R.layout.view_meer_item) {
+    val textView: TextView = findViewById(R.id.textView)
+    val imageView: ImageView = findViewById(R.id.meerImageView)
+
+    itemView.setOnClickListener {
+        callback(item)
+    }
+
+    bind {
+        textView.text = item.title(context)
+        imageView.setImageDrawable(item.image(context))
     }
 }
 

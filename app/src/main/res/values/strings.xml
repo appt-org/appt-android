@@ -56,10 +56,12 @@
 
     <!-- Topic -->
     <string name="topic_terms_title">Algemene voorwaarden</string>
-    <string name="topic_privacy_title">Privacybeleid</string>
+    <string name="topic_privacy_title">Privacy Verklaring</string>
     <string name="topic_accessibility_title">Toegankelijkheidsverklaring</string>
-    <string name="topic_source_title">Bekijk de broncode</string>
-    <string name="topic_sponsor_title">Ondersteund door het SIDN fonds</string>
+    <string name="topic_source_title">Broncode</string>
+    <string name="topic_sponsor_title">SIDN Fonds</string>
+    <string name="topic_profile_title">Mijn profiel</string>
+    <string name="topic_contact_title">Contact</string>
 
     <!-- TalkBack -->
     <string name="talkback_enable_title">TalkBack aanzetten</string>
