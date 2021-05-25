@@ -42,6 +42,14 @@ enum class Topic : Item, Meer, Serializable {
         }
     }
 
+    val userProfile: Boolean?
+        get() {
+            return when (this) {
+                PROFILE -> true
+                else -> null
+            }
+        }
+
     val slug: String?
         get() {
             return when (this) {

@@ -41,6 +41,9 @@ class MoreFragment : ToolbarFragment() {
                         setSlug(slug)
                     }
                 }
+                topic.userProfile?.let {
+                    startActivity<ProfileActivity>()
+                }
             }
         )
         adapter.items = items
