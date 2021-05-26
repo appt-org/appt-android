@@ -244,4 +244,9 @@
     <string name="new_password_text_title">Wachtwoord wijzigen</string>
     <string name="new_password_button">Wijzigen</string>
     <string name="new_password_label">Nieuw wachtwoord</string>
+
+    <!-- Profile -->
+    <string name="profile_delete_account"><u>Delete my account</u></string>
+    <string name="profile_log_out">Log out</string>
+    <string name="profile_change_password">Change my password</string>
 </resources>
