@@ -41,14 +41,14 @@ class MoreFragment : ToolbarFragment() {
                         setSlug(slug)
                     }
                 }
-                topic.userProfile?.let {
+                if (topic.userProfile) {
                     startActivity<ProfileActivity>()
                 }
             }
         )
         adapter.items = items
 
-        view.recyclerView.adapter  = adapter
+        view.recyclerView.adapter = adapter
         view.recyclerView.addItemDecoration()
     }
 

@@ -42,11 +42,11 @@ enum class Topic : Item, Meer, Serializable {
         }
     }
 
-    val userProfile: Boolean?
+    val userProfile: Boolean
         get() {
             return when (this) {
                 PROFILE -> true
-                else -> null
+                else -> false
             }
         }
 
