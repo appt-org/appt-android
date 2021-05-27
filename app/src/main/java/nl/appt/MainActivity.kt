@@ -11,7 +11,7 @@ import nl.appt.helpers.Events
 import nl.appt.tabs.more.MoreFragment
 import nl.appt.tabs.knowledge.KnowledgeFragment
 import nl.appt.tabs.news.NewsFragment
-import nl.appt.tabs.training.TrainingFragment
+import nl.appt.tabs.services.ServicesFragment
 import nl.appt.widgets.BaseActivity
 
 /**
@@ -20,8 +20,18 @@ import nl.appt.widgets.BaseActivity
  */
 class MainActivity : BaseActivity() {
 
-    private val tabs = listOf(R.id.tab_training, R.id.tab_knowledge, R.id.tab_news, R.id.tab_more)
-    private val fragments = listOf(TrainingFragment(), KnowledgeFragment(), NewsFragment(), MoreFragment())
+    private val tabs = listOf(
+        R.id.tab_knowledge,
+        R.id.tab_news,
+        R.id.tab_services,
+        R.id.tab_more
+    )
+    private val fragments = listOf(
+        KnowledgeFragment(),
+        NewsFragment(),
+        ServicesFragment(),
+        MoreFragment()
+    )
 
     override fun getLayoutId(): Int {
         return R.layout.activity_main
@@ -41,7 +51,11 @@ class MainActivity : BaseActivity() {
                 // Ignored
             }
 
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
                 // Ignored
             }
 
@@ -62,7 +76,10 @@ class MainActivity : BaseActivity() {
         navigationView.selectedItemId = tabs[0]
     }
 
-    private class TabPagerAdapter(fragmentManager: FragmentManager, private val fragments: List<Fragment>): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    private class TabPagerAdapter(
+        fragmentManager: FragmentManager,
+        private val fragments: List<Fragment>
+    ): FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getItem(position: Int): Fragment {
             return fragments[position]
