@@ -13,7 +13,7 @@
 
     <color name="foreground">#000</color>
     <color name="background">#fff</color>
-    <color name="list">#f2f2f2</color>
+    <color name="list">#e5e5e5</color>
     <color name="row">#fff</color>
     <color name="divider">#c6c6c6</color>
     <color name="disabled">#757575</color>

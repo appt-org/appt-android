@@ -1,35 +1,43 @@
 package nl.appt.tabs.training
 
 import android.os.Bundle
-import android.view.View
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
-import kotlinx.android.synthetic.main.view_list.view.*
 import nl.appt.R
-import nl.appt.adapters.itemAdapterDelegate
 import nl.appt.adapters.headerAdapterDelegate
+import nl.appt.adapters.itemAdapterDelegate
+import nl.appt.databinding.ViewListBinding
 import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.setText
 import nl.appt.extensions.setTitle
 import nl.appt.model.Course
 import nl.appt.tabs.training.actions.ActionsActivity
 import nl.appt.tabs.training.gestures.GesturesActivity
-import nl.appt.widgets.ToolbarFragment
 import nl.appt.widgets.TextActivity
+import nl.appt.widgets.ToolbarActivity
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-class TrainingFragment: ToolbarFragment() {
+class TrainingActivity : ToolbarActivity() {
+
+    private lateinit var binding: ViewListBinding
+
+    override fun getToolbarTitle() = getString(R.string.tab_training)
 
     override fun getLayoutId() = R.layout.view_list
 
-    override fun getTitle()= getString(R.string.tab_training)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        binding = ViewListBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        onViewCreated()
+        setListAdapter()
+    }
 
+    private fun setListAdapter(){
         val adapter = ListDelegationAdapter(
             headerAdapterDelegate(),
             itemAdapterDelegate<Course> { course ->
@@ -50,9 +58,8 @@ class TrainingFragment: ToolbarFragment() {
             }
         )
         adapter.items = gestures
-
-        view.recyclerView.adapter  = adapter
-        view.recyclerView.addItemDecoration()
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.addItemDecoration()
     }
 
     companion object {

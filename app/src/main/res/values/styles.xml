@@ -150,4 +150,11 @@
     <style name="Widget.ImageView">
         <item name="android:src">@drawable/icon_appt</item>
     </style>
+
+    <style name="Widget.ViewPagerToolbar">
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabTextColor">#99ffffff</item>
+        <item name="android:background">@color/primary</item>
+        <item name="tabIndicatorColor">@color/white</item>
+    </style>
 </resources>
