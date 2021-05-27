@@ -57,7 +57,7 @@ class UserTypeFragment() : BaseFragment(), OnBlockListener {
                 setBlockAdapter(UserBlocksManager.getUserBlocks())
             }
             ToolbarPagerAdapter.TAB_PROFESSIONAL_TITLE -> {
-                binding.title.text = getString(R.string.home_user_title)
+                binding.title.text = getString(R.string.home_professional_title)
                 setBlockAdapter(UserBlocksManager.getProfessionalBlocks())
             }
         }
