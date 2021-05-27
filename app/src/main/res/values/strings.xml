@@ -9,6 +9,7 @@
     <string name="tab_knowledge">Kennisbank</string>
     <string name="tab_news">Nieuws</string>
     <string name="tab_more">Meer</string>
+    <string name="tab_services">Diensten</string>
 
     <string name="title_gestures">TalkBack gebaren</string>
     <string name="title_actions">TalkBack handelingen</string>
@@ -249,4 +250,7 @@
     <string name="profile_delete_account"><u>Delete my account</u></string>
     <string name="profile_log_out">Log out</string>
     <string name="profile_change_password">Change my password</string>
+
+    <!-- Diensten -->
+    <string name="diensten_toolbar_title">Diensten</string>
 </resources>
