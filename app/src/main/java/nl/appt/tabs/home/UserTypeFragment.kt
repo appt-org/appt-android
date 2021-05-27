@@ -22,10 +22,10 @@ class UserTypeFragment() : BaseFragment(), OnBlockListener {
         private const val ARG_PARAM = "user_type"
 
         @JvmStatic
-        fun newInstance(param1: String) =
+        fun newInstance(userType: String) =
             UserTypeFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM, param1)
+                    putString(ARG_PARAM, userType)
                 }
             }
     }
@@ -54,11 +54,11 @@ class UserTypeFragment() : BaseFragment(), OnBlockListener {
         when (userType) {
             ToolbarPagerAdapter.TAB_USER_TITLE -> {
                 binding.title.text = getString(R.string.home_user_title)
-                setBlockAdapter(UserBlocksManager.getUserBlocks())
+                setBlockAdapter(UserBlocksManager.userBlocksData)
             }
             ToolbarPagerAdapter.TAB_PROFESSIONAL_TITLE -> {
                 binding.title.text = getString(R.string.home_professional_title)
-                setBlockAdapter(UserBlocksManager.getProfessionalBlocks())
+                setBlockAdapter(UserBlocksManager.professionalBlocksData)
             }
         }
     }

@@ -23,22 +23,14 @@ object UserBlocksManager {
     private const val OVERAPPT_LINK = "https://appt.nl/over"
     private const val AANPAK_LINK = "https://appt.nl/kennisbank/aanpak"
 
-    fun getUserBlocks(): ArrayList<Any> {
-        return userBlocksData
-    }
-
-    fun getProfessionalBlocks(): ArrayList<Any> {
-        return professionalBlocksData
-    }
-
-    private val userBlocksData = arrayListOf(
+    val userBlocksData = arrayListOf(
         HomeTrainingModel(R.drawable.icon_tiles_training, TRAINING_TITLE),
         HomeLinkModel(R.drawable.icon_tiles_meldpunt, MELDPUNT_TITLE, MELDPUNT_LINK),
         HomeLinkModel(R.drawable.icon_tiles_community, COMMUNITY_TITLE, COMMUNITY_LINK),
         HomeLinkModel(R.drawable.icon_tiles_overappt, OVER_APPT_TITLE, OVERAPPT_LINK),
     )
 
-    private val professionalBlocksData = arrayListOf(
+    val professionalBlocksData = arrayListOf(
         HomePagerModel(
             R.drawable.icon_tiles_kennisbank,
             KENNISBANK_TITLE,
