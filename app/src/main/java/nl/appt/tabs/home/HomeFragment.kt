@@ -32,8 +32,7 @@ class HomeFragment() : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val viewPager = binding.viewPager
-        viewPager.adapter = toolbarPagerAdapter
+        binding.viewPager.adapter = toolbarPagerAdapter
     }
 
     override fun onDestroyView() {
