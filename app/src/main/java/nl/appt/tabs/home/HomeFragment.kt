@@ -12,9 +12,9 @@ import nl.appt.widgets.BaseFragment
 
 class HomeFragment() : BaseFragment() {
 
-    private lateinit var toolbarPagerAdapter: ToolbarPagerAdapter
-
-    private lateinit var viewPager: ViewPager
+    private val toolbarPagerAdapter by lazy {
+        ToolbarPagerAdapter(childFragmentManager)
+    }
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -32,8 +32,7 @@ class HomeFragment() : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbarPagerAdapter = ToolbarPagerAdapter(childFragmentManager)
-        viewPager = binding.viewPager
+        val viewPager = binding.viewPager
         viewPager.adapter = toolbarPagerAdapter
     }
 

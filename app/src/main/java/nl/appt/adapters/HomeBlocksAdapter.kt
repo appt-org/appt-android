@@ -3,10 +3,9 @@ package nl.appt.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import nl.appt.R
+import nl.appt.databinding.ViewBlockBinding
 import nl.appt.model.HomeLinkModel
 import nl.appt.model.HomePagerModel
 import nl.appt.model.HomeTrainingModel
@@ -24,12 +23,11 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
     inner class LinkViewHolder(itemView: View, private val onBlockListener: OnBlockListener) :
         BaseViewHolder<HomeLinkModel>(itemView) {
 
-        private val blockTitle: TextView? = itemView.findViewById(R.id.block_title)
-        private val blockImage: ImageView? = itemView.findViewById(R.id.block_image)
+        val binding = ViewBlockBinding.bind(itemView)
 
         override fun bind(item: HomeLinkModel) {
-            blockTitle?.text = item.title
-            blockImage?.setImageResource(item.iconId)
+            binding.blockTitle.text = item.title
+            binding.blockImage.setImageResource(item.iconId)
             itemView.setOnClickListener {
                 onBlockListener.onLinkBlockClicked(item.link)
             }
@@ -39,12 +37,11 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
     inner class TrainingViewHolder(itemView: View, private val onBlockListener: OnBlockListener) :
         BaseViewHolder<HomeTrainingModel>(itemView) {
 
-        private val blockTitle: TextView? = itemView.findViewById(R.id.block_title)
-        private val blockImage: ImageView? = itemView.findViewById(R.id.block_image)
+        val binding = ViewBlockBinding.bind(itemView)
 
         override fun bind(item: HomeTrainingModel) {
-            blockTitle?.text = item.title
-            blockImage?.setImageResource(item.iconId)
+            binding.blockTitle.text = item.title
+            binding.blockImage.setImageResource(item.iconId)
             itemView.setOnClickListener {
                 onBlockListener.onTrainingBlockClicked()
             }
@@ -54,12 +51,11 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
     inner class PagerViewHolder(itemView: View, private val onBlockListener: OnBlockListener) :
         BaseViewHolder<HomePagerModel>(itemView) {
 
-        private val blockTitle: TextView? = itemView.findViewById(R.id.block_title)
-        private val blockImage: ImageView? = itemView.findViewById(R.id.block_image)
+        val binding = ViewBlockBinding.bind(itemView)
 
         override fun bind(item: HomePagerModel) {
-            blockTitle?.text = item.title
-            blockImage?.setImageResource(item.iconId)
+            binding.blockTitle.text = item.title
+            binding.blockImage.setImageResource(item.iconId)
             itemView.setOnClickListener {
                 onBlockListener.onPagerBlockClicked(item.pagerPosition)
             }

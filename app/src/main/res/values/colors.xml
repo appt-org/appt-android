@@ -18,4 +18,5 @@
     <color name="divider">#c6c6c6</color>
     <color name="disabled">#757575</color>
     <color name="edit_text_background">#19c3c3c3</color>
+    <color name="pager_toolbar_text">#99ffffff</color>
 </resources>

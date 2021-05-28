@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:id="@+id/block"
-        android:layout_width="155dp"
+        android:layout_width="156dp"
         android:layout_height="wrap_content"
         android:background="@drawable/block_background"
         android:orientation="vertical"
