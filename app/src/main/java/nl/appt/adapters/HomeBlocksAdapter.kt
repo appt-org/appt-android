@@ -1,10 +1,8 @@
 package nl.appt.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import nl.appt.R
 import nl.appt.databinding.ViewBlockBinding
 import nl.appt.model.HomeLinkModel
 import nl.appt.model.HomePagerModel
@@ -20,10 +18,9 @@ private const val ERROR_INVALID_VIEW_TYPE = "Invalid view type"
 class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val onBlockListener: OnBlockListener) :
     RecyclerView.Adapter<BaseViewHolder<*>>() {
 
-    inner class LinkViewHolder(itemView: View, private val onBlockListener: OnBlockListener) :
-        BaseViewHolder<HomeLinkModel>(itemView) {
 
-        val binding = ViewBlockBinding.bind(itemView)
+    inner class LinkViewHolder(private val binding: ViewBlockBinding, private val onBlockListener: OnBlockListener) :
+        BaseViewHolder<HomeLinkModel>(binding.root) {
 
         override fun bind(item: HomeLinkModel) {
             binding.blockTitle.text = item.title
@@ -34,10 +31,8 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
         }
     }
 
-    inner class TrainingViewHolder(itemView: View, private val onBlockListener: OnBlockListener) :
-        BaseViewHolder<HomeTrainingModel>(itemView) {
-
-        val binding = ViewBlockBinding.bind(itemView)
+    inner class TrainingViewHolder(private val binding: ViewBlockBinding, private val onBlockListener: OnBlockListener) :
+        BaseViewHolder<HomeTrainingModel>(binding.root) {
 
         override fun bind(item: HomeTrainingModel) {
             binding.blockTitle.text = item.title
@@ -48,10 +43,8 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
         }
     }
 
-    inner class PagerViewHolder(itemView: View, private val onBlockListener: OnBlockListener) :
-        BaseViewHolder<HomePagerModel>(itemView) {
-
-        val binding = ViewBlockBinding.bind(itemView)
+    inner class PagerViewHolder(private val binding: ViewBlockBinding, private val onBlockListener: OnBlockListener) :
+        BaseViewHolder<HomePagerModel>(binding.root) {
 
         override fun bind(item: HomePagerModel) {
             binding.blockTitle.text = item.title
@@ -63,21 +56,20 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
+        val binding = ViewBlockBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return when (viewType) {
             TYPE_LINK -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.view_block, parent, false)
-                LinkViewHolder(view, onBlockListener)
+                LinkViewHolder(binding, onBlockListener)
             }
             TYPE_TRAINING -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.view_block, parent, false)
-                TrainingViewHolder(view, onBlockListener)
+                TrainingViewHolder(binding, onBlockListener)
             }
             TYPE_PAGER -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.view_block, parent, false)
-                PagerViewHolder(view, onBlockListener)
+                PagerViewHolder(binding, onBlockListener)
             }
             else -> throw IllegalArgumentException(ERROR_INVALID_VIEW_TYPE)
         }
