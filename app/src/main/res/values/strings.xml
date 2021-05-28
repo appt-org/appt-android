@@ -5,6 +5,7 @@
     <string name="font_semibold" translatable="false">fonts/source_sans_pro_semibold.ttf</string>
     <string name="font_bold" translatable="false">fonts/source_sans_pro_bold.ttf</string>
 
+    <string name="tab_home">Home</string>
     <string name="tab_training">Trainingen</string>
     <string name="tab_knowledge">Kennisbank</string>
     <string name="tab_news">Nieuws</string>
@@ -253,4 +254,8 @@
 
     <!-- Diensten -->
     <string name="diensten_toolbar_title">Diensten</string>
+
+    <!-- Home -->
+    <string name="home_user_title">Wij helpen je hoe je apps kunt gebruiken als je een beperking hebt</string>
+    <string name="home_professional_title">Wij helpen je hoe je apps kunt verbeteren</string>
 </resources>

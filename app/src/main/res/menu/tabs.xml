@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/tab_home"
+        android:icon="@drawable/tab_home"
+        android:title="@string/tab_home" />
+
+    <item
         android:id="@+id/tab_knowledge"
         android:icon="@drawable/tab_knowledge"
         android:title="@string/tab_knowledge" />

@@ -27,6 +27,9 @@
             android:configChanges="orientation|screenSize"
             android:label="@string/app_name" />
         <activity
+            android:name=".tabs.training.TrainingActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
             android:name=".tabs.more.ProfileActivity"
             android:configChanges="orientation|screenSize" />
         <activity
