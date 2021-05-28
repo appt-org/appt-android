@@ -12,12 +12,28 @@ import nl.appt.model.*
  * Created by Jan Jaap de Groot on 26/10/2020
  * Copyright 2020 Stichting Appt
  */
+
+private const val ARTICLE_PATH = "wp-json/wp/v2/"
+
 class API {
     companion object {
 
+        /** Block **/
+
+        fun getBlocks(path: String, callback: (Response<Block>) -> Unit) {
+            getBlockObject(path, null, callback)
+        }
+
         /** Articles **/
 
-        fun getArticles(type: Article.Type, filters: Filters? = null, slug: String? = null, parentId: Int? = null, page: Int = 1, callback: (Response<List<Article>>) -> Unit) {
+        fun getArticles(
+            type: Article.Type,
+            filters: Filters? = null,
+            slug: String? = null,
+            parentId: Int? = null,
+            page: Int = 1,
+            callback: (Response<List<Article>>) -> Unit
+        ) {
             val parameters = arrayListOf(
                 "_fields" to "type,id,date,title,link",
                 "page" to page,
@@ -130,14 +146,33 @@ class API {
 
         /** Helper methods **/
 
-        private inline fun<reified T : Any> getObject(path: String, parameters: Parameters?, crossinline callback: (Response<T>) -> Unit) {
-            path.httpGet(parameters).responseObject<T> { _, response, result ->
+        private inline fun <reified T : Any> getObject(
+            path: String,
+            parameters: Parameters?,
+            crossinline callback: (Response<T>) -> Unit
+        ) {
+            (ARTICLE_PATH + path).httpGet(parameters).responseObject<T> { _, response, result ->
                 callback(Response.from(response, result))
             }
         }
 
-        private inline fun<reified T : Any> postObject(path: String, data: Any, crossinline callback: (Response<T>) -> Unit) {
-            path.httpPost().jsonBody(data).responseObject<T> { _, response, result ->
+        private inline fun <reified T : Any> postObject(
+            path: String,
+            data: Any,
+            crossinline callback: (Response<T>) -> Unit
+        ) {
+            (ARTICLE_PATH + path).httpPost().jsonBody(data)
+                .responseObject<T> { _, response, result ->
+                    callback(Response.from(response, result))
+                }
+        }
+
+        private inline fun <reified T : Any> getBlockObject(
+            path: String,
+            parameters: Parameters?,
+            crossinline callback: (Response<T>) -> Unit
+        ) {
+            path.httpGet(parameters).responseObject<T> { _, response, result ->
                 callback(Response.from(response, result))
             }
         }

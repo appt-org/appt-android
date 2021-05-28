@@ -18,7 +18,7 @@ import nl.appt.widgets.BaseFragment
 class UserTypeFragment() : BaseFragment(), OnBlockListener {
 
     companion object {
-        private const val COLUMNS_NUMBER = 2
+        const val COLUMNS_NUMBER = 2
         private const val ARG_PARAM = "user_type"
 
         @JvmStatic
