@@ -12,14 +12,56 @@ private const val TYPE_LINK = 0
 private const val TYPE_TRAINING = 1
 private const val TYPE_PAGER = 2
 
-private const val ERROR_INVALID_DATA_TYPE = "Invalid type of data "
-private const val ERROR_INVALID_VIEW_TYPE = "Invalid view type"
-
-class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val onBlockListener: OnBlockListener) :
+class HomeBlocksAdapter(
+    private val userBlocksData: ArrayList<Any>,
+    private val onBlockListener: OnBlockListener
+) :
     RecyclerView.Adapter<BaseViewHolder<*>>() {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
+        val binding = ViewBlockBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return when (viewType) {
+            TYPE_LINK -> {
+                LinkViewHolder(binding)
+            }
+            TYPE_TRAINING -> {
+                TrainingViewHolder(binding)
+            }
+            TYPE_PAGER -> {
+                PagerViewHolder(binding)
+            }
+            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_VIEW_TYPE + viewType)
+        }
+    }
 
-    inner class LinkViewHolder(private val binding: ViewBlockBinding, private val onBlockListener: OnBlockListener) :
+    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
+        val element = userBlocksData[position]
+        when (holder) {
+            is LinkViewHolder -> holder.bind(element as HomeLinkModel)
+            is TrainingViewHolder -> holder.bind(element as HomeTrainingModel)
+            is PagerViewHolder -> holder.bind(element as HomePagerModel)
+            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_HOLDER + holder)
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (userBlocksData[position]) {
+            is HomeLinkModel -> TYPE_LINK
+            is HomeTrainingModel -> TYPE_TRAINING
+            is HomePagerModel -> TYPE_PAGER
+            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_DATA_TYPE + position)
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return userBlocksData.size
+    }
+
+    inner class LinkViewHolder(private val binding: ViewBlockBinding) :
         BaseViewHolder<HomeLinkModel>(binding.root) {
 
         override fun bind(item: HomeLinkModel) {
@@ -31,7 +73,7 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
         }
     }
 
-    inner class TrainingViewHolder(private val binding: ViewBlockBinding, private val onBlockListener: OnBlockListener) :
+    inner class TrainingViewHolder(private val binding: ViewBlockBinding) :
         BaseViewHolder<HomeTrainingModel>(binding.root) {
 
         override fun bind(item: HomeTrainingModel) {
@@ -43,7 +85,7 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
         }
     }
 
-    inner class PagerViewHolder(private val binding: ViewBlockBinding, private val onBlockListener: OnBlockListener) :
+    inner class PagerViewHolder(private val binding: ViewBlockBinding) :
         BaseViewHolder<HomePagerModel>(binding.root) {
 
         override fun bind(item: HomePagerModel) {
@@ -53,49 +95,6 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
                 onBlockListener.onPagerBlockClicked(item.pagerPosition)
             }
         }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
-        val binding = ViewBlockBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return when (viewType) {
-            TYPE_LINK -> {
-                LinkViewHolder(binding, onBlockListener)
-            }
-            TYPE_TRAINING -> {
-                TrainingViewHolder(binding, onBlockListener)
-            }
-            TYPE_PAGER -> {
-                PagerViewHolder(binding, onBlockListener)
-            }
-            else -> throw IllegalArgumentException(ERROR_INVALID_VIEW_TYPE)
-        }
-    }
-
-    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
-        val element = userBlocksData[position]
-        when (holder) {
-            is LinkViewHolder -> holder.bind(element as HomeLinkModel)
-            is TrainingViewHolder -> holder.bind(element as HomeTrainingModel)
-            is PagerViewHolder -> holder.bind(element as HomePagerModel)
-            else -> throw IllegalArgumentException()
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return when (userBlocksData[position]) {
-            is HomeLinkModel -> TYPE_LINK
-            is HomeTrainingModel -> TYPE_TRAINING
-            is HomePagerModel -> TYPE_PAGER
-            else -> throw IllegalArgumentException(ERROR_INVALID_DATA_TYPE + position)
-        }
-    }
-
-    override fun getItemCount(): Int {
-        return userBlocksData.size
     }
 }
 

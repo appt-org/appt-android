@@ -6,11 +6,17 @@ import nl.appt.model.Action
 import nl.appt.model.Article
 import nl.appt.model.Filters
 import nl.appt.model.Gesture
+import nl.appt.model.Block
 
 /**
  * Created by Jan Jaap de Groot on 06/11/2020
  * Copyright 2020 Stichting Appt
  */
+
+/** Block **/
+private const val KEY_BLOCK = "block"
+fun Intent.getBlock() = getParcelableExtra<Block>(KEY_BLOCK) as Block
+fun Intent.setBlock(block: Block) = putExtra(KEY_BLOCK, block)
 
 /** Gesture **/
 private const val KEY_GESTURE = "gesture"

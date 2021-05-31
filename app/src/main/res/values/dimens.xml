@@ -6,4 +6,6 @@
     <dimen name="margin_small">4dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_large">32dp</dimen>
+
+    <dimen name="padding_recycler_view">32dp</dimen>
 </resources>
