@@ -1,8 +1,8 @@
 package nl.appt.widgets
 
 import android.os.Bundle
-import android.view.View
 import androidx.core.net.toUri
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import nl.appt.R
@@ -21,15 +21,18 @@ private const val LIST_TYPE = "list"
 
 class BlockActivity : ToolbarActivity(), OnCategoryListener {
 
-    companion object{
-        const val PATH_KNOWLEDGE_JSON = "wp-content/themes/appt/knowledgeBase.json"
-        const val PATH_SERVICES_JSON = "wp-content/themes/appt/services.json"
-    }
-
     private lateinit var binding: ViewCategoryBinding
 
     private val block by lazy {
         intent.getBlock()
+    }
+
+    private val adapterCategory by lazy {
+        CategoryAdapter(this)
+    }
+
+    private val adapterSubCategory by lazy {
+        SubCategoryAdapter(this)
     }
 
     override fun getToolbarTitle() = block.title
@@ -47,25 +50,19 @@ class BlockActivity : ToolbarActivity(), OnCategoryListener {
         setAdapter()
     }
 
-    private fun setAdapter(){
-        if(block.type == BLOCK_TYPE){
-            binding.blocksContainerSubtitle.visibility = View.GONE
-            binding.blocksContainer.visibility = View.VISIBLE
-
-            val recyclerView = binding.blocksContainer
-            recyclerView.layoutManager = GridLayoutManager(this, UserTypeFragment.COLUMNS_NUMBER)
-            val adapter = CategoryAdapter(block.children, this)
-            recyclerView.adapter = adapter
+    private fun setAdapter() {
+        if (block.type == BLOCK_TYPE) {
+            binding.itemsContainer.updatePadding(left = 32, right = 32)
+            binding.itemsContainer.layoutManager = GridLayoutManager(this, UserTypeFragment.COLUMNS_NUMBER)
+            adapterCategory.setData(block.children)
+            binding.itemsContainer.adapter = adapterCategory
         }
-        if (block.type == LIST_TYPE){
-            binding.blocksContainer.visibility = View.GONE
-            binding.blocksContainerSubtitle.visibility = View.VISIBLE
-
-            val recyclerView = binding.blocksContainerSubtitle
-            recyclerView.layoutManager = LinearLayoutManager(this)
-            val adapter = SubCategoryAdapter(block.children, this)
-            recyclerView.adapter = adapter
-            recyclerView.addItemDecoration()
+        if (block.type == LIST_TYPE) {
+            binding.itemsContainer.updatePadding(left = 0, right = 0)
+            binding.itemsContainer.layoutManager = LinearLayoutManager(this)
+            adapterSubCategory.setData(block.children)
+            binding.itemsContainer.adapter = adapterSubCategory
+            binding.itemsContainer.addItemDecoration()
         }
     }
 

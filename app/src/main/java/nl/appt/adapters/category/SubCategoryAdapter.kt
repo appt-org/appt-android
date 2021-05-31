@@ -7,21 +7,14 @@ import nl.appt.adapters.BaseViewHolder
 import nl.appt.databinding.ViewMeerItemBinding
 import nl.appt.model.Block
 
-class SubCategoryAdapter(private val category: ArrayList<Block>, private val onCategoryListener: OnCategoryListener): RecyclerView.Adapter<BaseViewHolder<*>>() {
+private const val TEST_IMAGE_SIZE = 256
 
-    inner class ViewHolder(private val binding: ViewMeerItemBinding) :
-        BaseViewHolder<Block>(binding.root) {
+class SubCategoryAdapter(private val onCategoryListener: OnCategoryListener) :
+    RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>() {
 
-        override fun bind(item: Block) {
-            binding.textView.text = item.title
-            GlideApp.with(itemView.context).load(item.image).override(256).into(binding.meerImageView)
-            itemView.setOnClickListener {
-                onCategoryListener.onCategoryClicked(item)
-            }
-        }
-    }
+    private val category = ArrayList<Block>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ViewMeerItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -30,14 +23,29 @@ class SubCategoryAdapter(private val category: ArrayList<Block>, private val onC
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
-        when (holder) {
-            is ViewHolder -> holder.bind(category[position])
-            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_HOLDER + position)
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(category[position])
     }
 
     override fun getItemCount(): Int {
         return category.size
+    }
+
+    fun setData(block: ArrayList<Block>) {
+        category.addAll(block)
+        notifyDataSetChanged()
+    }
+
+    inner class ViewHolder(private val binding: ViewMeerItemBinding) :
+        BaseViewHolder<Block>(binding.root) {
+
+        override fun bind(item: Block) {
+            binding.textView.text = item.title
+            GlideApp.with(itemView.context).load(item.image).override(TEST_IMAGE_SIZE)
+                .into(binding.meerImageView)
+            itemView.setOnClickListener {
+                onCategoryListener.onCategoryClicked(item)
+            }
+        }
     }
 }

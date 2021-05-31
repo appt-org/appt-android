@@ -12,44 +12,11 @@ private const val TYPE_LINK = 0
 private const val TYPE_TRAINING = 1
 private const val TYPE_PAGER = 2
 
-class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val onBlockListener: OnBlockListener) :
+class HomeBlocksAdapter(
+    private val userBlocksData: ArrayList<Any>,
+    private val onBlockListener: OnBlockListener
+) :
     RecyclerView.Adapter<BaseViewHolder<*>>() {
-
-    inner class LinkViewHolder(private val binding: ViewBlockBinding, private val onBlockListener: OnBlockListener) :
-        BaseViewHolder<HomeLinkModel>(binding.root) {
-
-        override fun bind(item: HomeLinkModel) {
-            binding.blockTitle.text = item.title
-            binding.blockImage.setImageResource(item.iconId)
-            itemView.setOnClickListener {
-                onBlockListener.onLinkBlockClicked(item.link)
-            }
-        }
-    }
-
-    inner class TrainingViewHolder(private val binding: ViewBlockBinding, private val onBlockListener: OnBlockListener) :
-        BaseViewHolder<HomeTrainingModel>(binding.root) {
-
-        override fun bind(item: HomeTrainingModel) {
-            binding.blockTitle.text = item.title
-            binding.blockImage.setImageResource(item.iconId)
-            itemView.setOnClickListener {
-                onBlockListener.onTrainingBlockClicked()
-            }
-        }
-    }
-
-    inner class PagerViewHolder(private val binding: ViewBlockBinding, private val onBlockListener: OnBlockListener) :
-        BaseViewHolder<HomePagerModel>(binding.root) {
-
-        override fun bind(item: HomePagerModel) {
-            binding.blockTitle.text = item.title
-            binding.blockImage.setImageResource(item.iconId)
-            itemView.setOnClickListener {
-                onBlockListener.onPagerBlockClicked(item.pagerPosition)
-            }
-        }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         val binding = ViewBlockBinding.inflate(
@@ -59,15 +26,15 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
         )
         return when (viewType) {
             TYPE_LINK -> {
-                LinkViewHolder(binding, onBlockListener)
+                LinkViewHolder(binding)
             }
             TYPE_TRAINING -> {
-                TrainingViewHolder(binding, onBlockListener)
+                TrainingViewHolder(binding)
             }
             TYPE_PAGER -> {
-                PagerViewHolder(binding, onBlockListener)
+                PagerViewHolder(binding)
             }
-            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_VIEW_TYPE)
+            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_VIEW_TYPE + viewType)
         }
     }
 
@@ -77,7 +44,7 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
             is LinkViewHolder -> holder.bind(element as HomeLinkModel)
             is TrainingViewHolder -> holder.bind(element as HomeTrainingModel)
             is PagerViewHolder -> holder.bind(element as HomePagerModel)
-            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_HOLDER + position)
+            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_HOLDER + holder)
         }
     }
 
@@ -92,6 +59,42 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
 
     override fun getItemCount(): Int {
         return userBlocksData.size
+    }
+
+    inner class LinkViewHolder(private val binding: ViewBlockBinding) :
+        BaseViewHolder<HomeLinkModel>(binding.root) {
+
+        override fun bind(item: HomeLinkModel) {
+            binding.blockTitle.text = item.title
+            binding.blockImage.setImageResource(item.iconId)
+            itemView.setOnClickListener {
+                onBlockListener.onLinkBlockClicked(item.link)
+            }
+        }
+    }
+
+    inner class TrainingViewHolder(private val binding: ViewBlockBinding) :
+        BaseViewHolder<HomeTrainingModel>(binding.root) {
+
+        override fun bind(item: HomeTrainingModel) {
+            binding.blockTitle.text = item.title
+            binding.blockImage.setImageResource(item.iconId)
+            itemView.setOnClickListener {
+                onBlockListener.onTrainingBlockClicked()
+            }
+        }
+    }
+
+    inner class PagerViewHolder(private val binding: ViewBlockBinding) :
+        BaseViewHolder<HomePagerModel>(binding.root) {
+
+        override fun bind(item: HomePagerModel) {
+            binding.blockTitle.text = item.title
+            binding.blockImage.setImageResource(item.iconId)
+            itemView.setOnClickListener {
+                onBlockListener.onPagerBlockClicked(item.pagerPosition)
+            }
+        }
     }
 }
 

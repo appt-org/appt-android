@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import nl.appt.R
 import nl.appt.adapters.category.CategoryAdapter
 import nl.appt.adapters.category.OnCategoryListener
-import nl.appt.api.API
 import nl.appt.databinding.ViewCategoryBinding
 import nl.appt.extensions.setBlock
 import nl.appt.model.Block
-import nl.appt.widgets.BlockActivity
 import nl.appt.tabs.home.UserTypeFragment
+import nl.appt.widgets.BlockActivity
 import nl.appt.widgets.ToolbarFragment
 
 class ServicesFragment : ToolbarFragment(), OnCategoryListener {
@@ -26,6 +26,14 @@ class ServicesFragment : ToolbarFragment(), OnCategoryListener {
 
     private val binding get() = _binding!!
 
+    private val adapter by lazy {
+        CategoryAdapter(this)
+    }
+
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(ServicesViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,20 +45,22 @@ class ServicesFragment : ToolbarFragment(), OnCategoryListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
+        setAdapterData()
     }
 
     private fun setAdapter() {
+        binding.itemsContainer.layoutManager =
+            GridLayoutManager(requireContext(), UserTypeFragment.COLUMNS_NUMBER)
+        binding.itemsContainer.adapter = adapter
+    }
+
+    private fun setAdapterData() {
         isLoading = true
-        API.getBlocks(BlockActivity.PATH_SERVICES_JSON) { response ->
-            response.result?.let {
-                isLoading = false
-                val recyclerView = binding.blocksContainer
-                recyclerView.layoutManager =
-                    GridLayoutManager(requireContext(), UserTypeFragment.COLUMNS_NUMBER)
-                val adapter = CategoryAdapter(it.children, this)
-                recyclerView.adapter = adapter
-            }
-        }
+        viewModel.block.observe(viewLifecycleOwner, {
+            isLoading = false
+            adapter.setData(it.children)
+        })
+        viewModel.getBlocksData()
     }
 
     override fun onCategoryClicked(block: Block) {

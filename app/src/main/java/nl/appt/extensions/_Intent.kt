@@ -2,7 +2,11 @@ package nl.appt.extensions
 
 import android.content.Intent
 import android.net.Uri
-import nl.appt.model.*
+import nl.appt.model.Action
+import nl.appt.model.Article
+import nl.appt.model.Filters
+import nl.appt.model.Gesture
+import nl.appt.model.Block
 
 /**
  * Created by Jan Jaap de Groot on 06/11/2020

@@ -7,24 +7,15 @@ import nl.appt.adapters.BaseViewHolder
 import nl.appt.databinding.ViewBlockBinding
 import nl.appt.model.Block
 
+private const val TEST_IMAGE_SIZE = 256
+
 class CategoryAdapter(
-    private val category: ArrayList<Block>,
     private val onCategoryListener: OnCategoryListener
-) : RecyclerView.Adapter<BaseViewHolder<*>>() {
+) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val binding: ViewBlockBinding) :
-        BaseViewHolder<Block>(binding.root) {
+    private val category = arrayListOf<Block>()
 
-        override fun bind(item: Block) {
-            binding.blockTitle.text = item.title
-            GlideApp.with(itemView.context).load(item.image).override(256).into(binding.blockImage)
-            itemView.setOnClickListener {
-                onCategoryListener.onCategoryClicked(item)
-            }
-        }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ViewBlockBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
@@ -33,14 +24,31 @@ class CategoryAdapter(
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
-        when (holder) {
-            is ViewHolder -> holder.bind(category[position])
-            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_HOLDER + position)
-        }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(category[position])
     }
 
     override fun getItemCount(): Int {
         return category.size
     }
+
+    fun setData(block: ArrayList<Block>) {
+        category.addAll(block)
+        notifyDataSetChanged()
+    }
+
+    inner class ViewHolder(private val binding: ViewBlockBinding) :
+        BaseViewHolder<Block>(binding.root) {
+
+        override fun bind(item: Block) {
+            binding.blockTitle.text = item.title
+            GlideApp.with(itemView.context).load(item.image).override(TEST_IMAGE_SIZE)
+                .into(binding.blockImage)
+            itemView.setOnClickListener {
+                onCategoryListener.onCategoryClicked(item)
+            }
+        }
+    }
 }
+
+
