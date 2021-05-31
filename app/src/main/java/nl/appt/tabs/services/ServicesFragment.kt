@@ -57,17 +57,14 @@ class ServicesFragment : ToolbarFragment(), OnCategoryListener {
 
     private fun setAdapterData() {
         isLoading = true
-        viewModel.blockResponse.observe(viewLifecycleOwner, { response ->
+        viewModel.blockResponse.observe(viewLifecycleOwner, { block ->
             isLoading = false
-            response.result?.let { block ->
-                adapter.setData(block.children)
-            }
-
-            response.error?.let { error ->
-                context?.showError(error)
-            }
+            adapter.setData(block.children)
         })
-        viewModel.getBlocksData()
+        viewModel.errorEvent.observe(viewLifecycleOwner, {
+            isLoading = false
+            context?.showError(it.error)
+        })
     }
 
     override fun onCategoryClicked(block: Block) {

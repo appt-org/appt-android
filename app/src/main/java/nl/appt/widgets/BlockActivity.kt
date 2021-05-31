@@ -10,7 +10,11 @@ import nl.appt.adapters.category.CategoryAdapter
 import nl.appt.adapters.category.OnCategoryListener
 import nl.appt.adapters.category.SubCategoryAdapter
 import nl.appt.databinding.ViewCategoryBinding
-import nl.appt.extensions.*
+import nl.appt.extensions.getBlock
+import nl.appt.extensions.setArticleType
+import nl.appt.extensions.setBlock
+import nl.appt.extensions.setUri
+import nl.appt.extensions.addItemDecoration
 import nl.appt.model.Article
 import nl.appt.model.Block
 import nl.appt.tabs.home.UserTypeFragment
@@ -51,18 +55,28 @@ class BlockActivity : ToolbarActivity(), OnCategoryListener {
     }
 
     private fun setAdapter() {
-        if (block.type == BLOCK_TYPE) {
-            binding.itemsContainer.updatePadding(left = 32, right = 32)
-            binding.itemsContainer.layoutManager = GridLayoutManager(this, UserTypeFragment.COLUMNS_NUMBER)
-            adapterCategory.setData(block.children)
-            binding.itemsContainer.adapter = adapterCategory
-        }
-        if (block.type == LIST_TYPE) {
-            binding.itemsContainer.updatePadding(left = 0, right = 0)
-            binding.itemsContainer.layoutManager = LinearLayoutManager(this)
-            adapterSubCategory.setData(block.children)
-            binding.itemsContainer.adapter = adapterSubCategory
-            binding.itemsContainer.addItemDecoration()
+        when (block.type) {
+            BLOCK_TYPE -> {
+                binding.itemsContainer.run {
+                    updatePadding(
+                        left = resources.getDimensionPixelSize(R.dimen.padding_recycler_view),
+                        right = resources.getDimensionPixelSize(R.dimen.padding_recycler_view)
+                    )
+                    layoutManager =
+                        GridLayoutManager(context, UserTypeFragment.COLUMNS_NUMBER)
+                    adapter = adapterCategory
+                }
+                adapterCategory.setData(block.children)
+            }
+            LIST_TYPE -> {
+                binding.itemsContainer.run {
+                    updatePadding(left = 0, right = 0)
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = adapterSubCategory
+                    addItemDecoration()
+                }
+                adapterSubCategory.setData(block.children)
+            }
         }
     }
 
@@ -74,7 +88,7 @@ class BlockActivity : ToolbarActivity(), OnCategoryListener {
         } else {
             startActivity<ArticleActivity> {
                 setArticleType(Article.Type.PAGE)
-                setTitle(block.title)
+                title = block.title
                 setUri(block.url.toUri())
             }
         }
