@@ -9,16 +9,19 @@ private const val PATH_SERVICES_JSON = "wp-content/themes/appt/services.json"
 
 class ServicesViewModel : ViewModel() {
 
+    var blockResponse = MutableLiveData<Result<Any>>()
+
     init {
         getBlocksData()
     }
 
-    var blockResponse = MutableLiveData<Result<Int>>()
-
     private fun getBlocksData() {
+        blockResponse.postValue(Result.loading(true))
         API.getBlocks(PATH_SERVICES_JSON) { response ->
-            response.result?.let { block ->
-                blockResponse.value = Result.success(block)
+            blockResponse.postValue(Result.loading(false))
+
+            response.result?.let {
+                blockResponse.value = Result.success(response.error, it)
             }
 
             response.error?.let { error ->

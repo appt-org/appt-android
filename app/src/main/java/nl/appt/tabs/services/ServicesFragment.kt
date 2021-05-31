@@ -58,20 +58,21 @@ class ServicesFragment : ToolbarFragment(), OnCategoryListener {
     }
 
     private fun setAdapterData() {
-        isLoading = true
         viewModel.blockResponse.observe(viewLifecycleOwner, { result ->
-            isLoading = false
             onEvent(result)
         })
     }
 
-    private fun onEvent(result: Result<Int>){
-        when(result.status){
+    private fun onEvent(result: Result<Any>) {
+        when (result.status) {
             Status.SUCCESS -> {
-                result.data?.let { adapter.setData(it.children) }
+                adapter.setData((result.data as Block).children)
             }
             Status.ERROR -> {
-                context?.showError(result.error)
+                context?.showError(result.fuelError)
+            }
+            Status.LOADING -> {
+                isLoading = result.data as Boolean
             }
         }
     }

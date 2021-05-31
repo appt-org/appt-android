@@ -1,17 +1,21 @@
 package nl.appt.helpers
 
 import com.github.kittinunf.fuel.core.FuelError
-import nl.appt.model.Block
 
-data class Result<out T>(val status: Status, val error: FuelError?, val data: Block?) {
+data class Result<out T>(val status: Status, val data: T?, val fuelError: FuelError?){
     companion object {
 
-        fun <T> success(data: Block): Result<T> {
-            return Result(Status.SUCCESS, null, data)
+        fun <T> success(error: FuelError?, data: T? = null): Result<T> {
+            return Result(Status.SUCCESS, data, error)
         }
 
-        fun <T> error(error: FuelError): Result<T> {
-            return Result(Status.ERROR, error, null)
+        fun <T> error(error: FuelError?, data: T? = null): Result<T> {
+            return Result(Status.ERROR, data, error)
+        }
+
+        fun <T> loading(data: T): Result<T> {
+            return Result(Status.LOADING, data, null)
         }
     }
 }
+
