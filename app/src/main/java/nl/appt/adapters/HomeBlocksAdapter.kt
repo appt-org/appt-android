@@ -12,12 +12,8 @@ private const val TYPE_LINK = 0
 private const val TYPE_TRAINING = 1
 private const val TYPE_PAGER = 2
 
-private const val ERROR_INVALID_DATA_TYPE = "Invalid type of data "
-private const val ERROR_INVALID_VIEW_TYPE = "Invalid view type"
-
 class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val onBlockListener: OnBlockListener) :
     RecyclerView.Adapter<BaseViewHolder<*>>() {
-
 
     inner class LinkViewHolder(private val binding: ViewBlockBinding, private val onBlockListener: OnBlockListener) :
         BaseViewHolder<HomeLinkModel>(binding.root) {
@@ -71,7 +67,7 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
             TYPE_PAGER -> {
                 PagerViewHolder(binding, onBlockListener)
             }
-            else -> throw IllegalArgumentException(ERROR_INVALID_VIEW_TYPE)
+            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_VIEW_TYPE)
         }
     }
 
@@ -81,7 +77,7 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
             is LinkViewHolder -> holder.bind(element as HomeLinkModel)
             is TrainingViewHolder -> holder.bind(element as HomeTrainingModel)
             is PagerViewHolder -> holder.bind(element as HomePagerModel)
-            else -> throw IllegalArgumentException()
+            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_HOLDER + position)
         }
     }
 
@@ -90,7 +86,7 @@ class HomeBlocksAdapter(private val userBlocksData: ArrayList<Any>, private val 
             is HomeLinkModel -> TYPE_LINK
             is HomeTrainingModel -> TYPE_TRAINING
             is HomePagerModel -> TYPE_PAGER
-            else -> throw IllegalArgumentException(ERROR_INVALID_DATA_TYPE + position)
+            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_DATA_TYPE + position)
         }
     }
 

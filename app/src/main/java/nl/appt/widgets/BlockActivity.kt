@@ -77,6 +77,7 @@ class BlockActivity : ToolbarActivity(), OnCategoryListener {
         } else {
             startActivity<ArticleActivity> {
                 setArticleType(Article.Type.PAGE)
+                setTitle(block.title)
                 setUri(block.url.toUri())
             }
         }

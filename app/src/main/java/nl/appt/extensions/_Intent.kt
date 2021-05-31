@@ -11,7 +11,7 @@ import nl.appt.model.*
 
 /** Block **/
 private const val KEY_BLOCK = "block"
-fun Intent.getBlock() = getSerializableExtra(KEY_BLOCK) as Block
+fun Intent.getBlock() = getParcelableExtra<Block>(KEY_BLOCK) as Block
 fun Intent.setBlock(block: Block) = putExtra(KEY_BLOCK, block)
 
 /** Gesture **/

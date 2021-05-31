@@ -1,7 +1,9 @@
 package nl.appt.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Block(
     val title: String,
     val description: String,
@@ -9,4 +11,4 @@ data class Block(
     val url: String,
     val type: String,
     val children: ArrayList<Block>
-) : Serializable
+) : Parcelable

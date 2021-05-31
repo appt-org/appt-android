@@ -10,7 +10,7 @@ import nl.appt.model.Block
 class CategoryAdapter(
     private val category: ArrayList<Block>,
     private val onCategoryListener: OnCategoryListener
-): RecyclerView.Adapter<BaseViewHolder<*>>() {
+) : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     inner class ViewHolder(private val binding: ViewBlockBinding) :
         BaseViewHolder<Block>(binding.root) {
@@ -36,7 +36,7 @@ class CategoryAdapter(
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         when (holder) {
             is ViewHolder -> holder.bind(category[position])
-            else -> throw IllegalArgumentException()
+            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_HOLDER + position)
         }
     }
 

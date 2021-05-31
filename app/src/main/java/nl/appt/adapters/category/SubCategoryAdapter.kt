@@ -33,7 +33,7 @@ class SubCategoryAdapter(private val category: ArrayList<Block>, private val onC
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
         when (holder) {
             is ViewHolder -> holder.bind(category[position])
-            else -> throw IllegalArgumentException()
+            else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_HOLDER + position)
         }
     }
 

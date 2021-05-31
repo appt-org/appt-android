@@ -29,9 +29,12 @@ class ArticleActivity: WebActivity() {
     private val uri: Uri?
         get() = intent.getUri()
 
+    private val title: String?
+        get() = intent.getTitle()
+
     override fun getLayoutId() = R.layout.activity_web
 
-    override fun getToolbarTitle(): String? = null
+    override fun getToolbarTitle(): String? = title
 
     override fun onViewCreated() {
         super.onViewCreated()
