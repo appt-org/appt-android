@@ -63,16 +63,18 @@ class ServicesFragment : ToolbarFragment(), OnCategoryListener {
         })
     }
 
-    private fun onEvent(result: Result<Any>) {
+    private fun onEvent(result: Result<Block>) {
         when (result.status) {
             Status.SUCCESS -> {
-                adapter.setData((result.data as Block).children)
+                result.data?.let { adapter.setData(it.children) }
+                isLoading = false
             }
             Status.ERROR -> {
                 context?.showError(result.fuelError)
+                isLoading = false
             }
             Status.LOADING -> {
-                isLoading = result.data as Boolean
+                isLoading = true
             }
         }
     }

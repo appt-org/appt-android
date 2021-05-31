@@ -4,24 +4,24 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import nl.appt.api.API
 import nl.appt.helpers.Result
+import nl.appt.model.Block
 
 private const val PATH_SERVICES_JSON = "wp-content/themes/appt/services.json"
 
 class ServicesViewModel : ViewModel() {
 
-    var blockResponse = MutableLiveData<Result<Any>>()
+    var blockResponse = MutableLiveData<Result<Block>>()
 
     init {
         getBlocksData()
     }
 
     private fun getBlocksData() {
-        blockResponse.postValue(Result.loading(true))
+        blockResponse.value = Result.loading()
         API.getBlocks(PATH_SERVICES_JSON) { response ->
-            blockResponse.postValue(Result.loading(false))
 
-            response.result?.let {
-                blockResponse.value = Result.success(response.error, it)
+            response.result?.let { block ->
+                blockResponse.value = Result.success(block)
             }
 
             response.error?.let { error ->
