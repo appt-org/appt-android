@@ -33,9 +33,7 @@ class KnowledgeFragment : ToolbarFragment(), OnCategoryListener {
 
     private val binding get() = _binding!!
 
-    private val adapter by lazy {
-        CategoryAdapter(this)
-    }
+    private val adapter  =  CategoryAdapter(this)
 
     private val viewModel by lazy {
         ViewModelProvider(this).get(KnowledgeViewModel::class.java)
