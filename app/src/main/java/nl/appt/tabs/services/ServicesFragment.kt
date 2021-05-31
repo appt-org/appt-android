@@ -11,6 +11,7 @@ import nl.appt.adapters.category.CategoryAdapter
 import nl.appt.adapters.category.OnCategoryListener
 import nl.appt.databinding.ViewCategoryBinding
 import nl.appt.extensions.setBlock
+import nl.appt.extensions.showError
 import nl.appt.model.Block
 import nl.appt.tabs.home.UserTypeFragment
 import nl.appt.widgets.BlockActivity
@@ -56,9 +57,15 @@ class ServicesFragment : ToolbarFragment(), OnCategoryListener {
 
     private fun setAdapterData() {
         isLoading = true
-        viewModel.block.observe(viewLifecycleOwner, {
+        viewModel.blockResponse.observe(viewLifecycleOwner, { response ->
             isLoading = false
-            adapter.setData(it.children)
+            response.result?.let { block ->
+                adapter.setData(block.children)
+            }
+
+            response.error?.let { error ->
+                context?.showError(error)
+            }
         })
         viewModel.getBlocksData()
     }
