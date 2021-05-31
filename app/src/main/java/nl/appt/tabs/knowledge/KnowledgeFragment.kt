@@ -1,76 +1,96 @@
 package nl.appt.tabs.knowledge
 
 import android.os.Bundle
-import android.view.*
-import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
-import kotlinx.android.synthetic.main.view_list.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import nl.appt.R
-import nl.appt.adapters.headerAdapterDelegate
-import nl.appt.adapters.itemAdapterDelegate
-import nl.appt.api.API
-import nl.appt.extensions.*
-import nl.appt.model.Article
-import nl.appt.tabs.news.ArticleActivity
+import nl.appt.adapters.category.CategoryAdapter
+import nl.appt.adapters.category.OnCategoryListener
+import nl.appt.databinding.ViewCategoryBinding
+import nl.appt.extensions.setBlock
+import nl.appt.extensions.showError
+import nl.appt.helpers.Result
+import nl.appt.helpers.Status
+import nl.appt.model.Block
+import nl.appt.tabs.home.UserTypeFragment
+import nl.appt.widgets.BlockActivity
 import nl.appt.widgets.ToolbarFragment
 
 /**
  * Created by Jan Jaap de Groot on 24/02/2021
  * Copyright 2020 Stichting Appt
  */
-class KnowledgeFragment: ToolbarFragment() {
-
-    private val KENNISBANK_ID = 676
-    private var items = arrayListOf<Any>()
-
-    private val adapter: ListDelegationAdapter<List<Any>> by lazy {
-        val adapter = ListDelegationAdapter(
-            headerAdapterDelegate(),
-            itemAdapterDelegate<Article> { article ->
-                startActivity<ArticleActivity> {
-                    setArticleType(article.type)
-                    setId(article.id)
-                }
-            }
-        )
-        adapter.items = items
-        adapter
-    }
-
-    override fun getLayoutId() = R.layout.view_list
+class KnowledgeFragment : ToolbarFragment(), OnCategoryListener {
 
     override fun getTitle() = getString(R.string.tab_knowledge)
 
+    override fun getLayoutId() = R.layout.view_category
+
+    private var _binding: ViewCategoryBinding? = null
+
+    private val binding get() = _binding!!
+
+    private val adapter by lazy {
+        CategoryAdapter(this)
+    }
+
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(KnowledgeViewModel::class.java)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = ViewCategoryBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        adapter.items = items
-
-        view.recyclerView.adapter = adapter
-        view.recyclerView.addItemDecoration()
+        setAdapter()
+        setAdapterData()
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun setAdapter() {
+        binding.itemsContainer.layoutManager =
+            GridLayoutManager(requireContext(), UserTypeFragment.COLUMNS_NUMBER)
+        binding.itemsContainer.adapter = adapter
+    }
 
-        if (items.isEmpty()) {
-            getArticles()
+    private fun setAdapterData() {
+        viewModel.blockResponse.observe(viewLifecycleOwner, { result ->
+            onEvent(result)
+        })
+    }
+
+    private fun onEvent(result: Result<Block>) {
+        when (result.status) {
+            Status.SUCCESS -> {
+                result.data?.let { adapter.setData(it.children) }
+                isLoading = false
+            }
+            Status.ERROR -> {
+                context?.showError(result.fuelError)
+                isLoading = false
+            }
+            Status.LOADING -> {
+                isLoading = true
+            }
         }
     }
 
-    private fun getArticles() {
-        isLoading = true
-
-        API.getArticles(type = Article.Type.PAGE, parentId = KENNISBANK_ID) { response ->
-            this.isLoading = false
-
-            response.result?.let { articles ->
-                items.addAll(articles)
-                adapter.notifyDataSetChanged()
-            }
-
-            response.error?.let { error ->
-                context?.showError(error)
-            }
+    override fun onCategoryClicked(block: Block) {
+        startActivity<BlockActivity> {
+            setBlock(block)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
