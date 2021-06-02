@@ -2,11 +2,21 @@ package nl.appt.auth.registration
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import nl.appt.MainActivity
 import nl.appt.R
 import nl.appt.databinding.ActivityRegistrationBinding
+import nl.appt.extensions.showDialog
+import nl.appt.extensions.showError
+import nl.appt.helpers.Result
+import nl.appt.helpers.Status
+import nl.appt.model.User
 import nl.appt.widgets.ToolbarActivity
 
 class RegistrationActivity : ToolbarActivity() {
+
+    companion object{
+        const val USER_TYPES_KEY = "key_user_types"
+    }
 
     private lateinit var viewModel: RegistrationViewModel
 
@@ -20,8 +30,7 @@ class RegistrationActivity : ToolbarActivity() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
         onViewCreated()
         initUi()
     }
@@ -47,13 +56,35 @@ class RegistrationActivity : ToolbarActivity() {
 
         binding.createAccountBtn.setOnClickListener {
             if (isAllFieldsFiled()) {
-                //to next screen
+                val email = binding.registrationEmail.text.toString()
+                val password = binding.registrationPassword.text.toString()
+                val userTypes = intent.getStringArrayListExtra(USER_TYPES_KEY) as ArrayList<String>
+                viewModel.registrationResponse.observe(this, { result ->
+                    onEvent(result)
+                })
+                viewModel.userRegistration(email, password, userTypes)
             }
         }
 
         viewModel.errorState.observe(this, { errorState ->
             setFieldState(errorState)
         })
+    }
+
+    private fun onEvent(result: Result<User>) {
+        when (result.status) {
+            Status.SUCCESS -> {
+                showDialog(
+                    getString(R.string.registration_succeed_dialog_title),
+                    getString(R.string.registration_succeed_dialog_message)
+                ) {
+                    startActivity<MainActivity>()
+                }
+            }
+            Status.ERROR -> {
+                showError(result.fuelError)
+            }
+        }
     }
 
     private fun isAllFieldsFiled(): Boolean {

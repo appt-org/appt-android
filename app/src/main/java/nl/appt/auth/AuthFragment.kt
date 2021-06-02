@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import nl.appt.R
 import nl.appt.auth.login.LoginActivity
-import nl.appt.auth.registration.RegistrationActivity
+import nl.appt.auth.registration.ChooseTypeActivity
 import nl.appt.auth.reset.ResetPasswordActivity
 import nl.appt.databinding.FragmentAuthBinding
 import nl.appt.widgets.ToolbarFragment
@@ -37,7 +37,7 @@ class AuthFragment : ToolbarFragment() {
 
     private fun initUi() {
         binding.createAccountBtn.setOnClickListener {
-            startActivity<RegistrationActivity>()
+            startActivity<ChooseTypeActivity>()
         }
         binding.loginBtn.setOnClickListener {
             startActivity<LoginActivity>()

@@ -2,6 +2,7 @@ package nl.appt.api
 
 import android.net.Uri
 import com.github.kittinunf.fuel.core.Parameters
+import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.gson.jsonBody
 import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.fuel.httpGet
@@ -15,8 +16,20 @@ import nl.appt.model.*
 
 private const val ARTICLE_PATH = "wp-json/wp/v2/"
 
+private const val REGISTRATION_PATH = "users"
+
+private const val BASIC_AUTH_USERNAME = "bodia1994shv@gmail.com"
+
+private const val BASIC_AUTH_PASSWORD = "kbSkJG^yIEMDSQE&7(2K^v1T"
+
 class API {
     companion object {
+
+        /** Auth **/
+
+        fun userRegistration(data: User, callback: (Response<User>) -> Unit) {
+            postObject(REGISTRATION_PATH, data, callback)
+        }
 
         /** Block **/
 
@@ -161,7 +174,8 @@ class API {
             data: Any,
             crossinline callback: (Response<T>) -> Unit
         ) {
-            (ARTICLE_PATH + path).httpPost().jsonBody(data)
+            (ARTICLE_PATH + path).httpPost().authentication()
+                .basic(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD).jsonBody(data)
                 .responseObject<T> { _, response, result ->
                     callback(Response.from(response, result))
                 }
