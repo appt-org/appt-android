@@ -53,10 +53,6 @@ class LoginActivity : ToolbarActivity() {
             if (isAllFieldsFiled()) {
                 val email = binding.loginEmail.text.toString()
                 val password = binding.loginPassword.text.toString()
-
-                viewModel.loginResponse.observe(this, { result ->
-                    onEvent(result)
-                })
                 viewModel.userLogin(email, password)
             }
         }
@@ -67,6 +63,10 @@ class LoginActivity : ToolbarActivity() {
 
         viewModel.errorState.observe(this, { errorState ->
             setFieldState(errorState)
+        })
+
+        viewModel.loginResponse.observe(this, { result ->
+            onEvent(result)
         })
     }
 
