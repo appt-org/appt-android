@@ -236,6 +236,7 @@
 
     <!-- Login -->
     <string name="login_title">InLoggen</string>
+    <string name="login_error_message">Invalid user email or password</string>
 
     <!-- Reset password -->
     <string name="reset_password_text_title">Wachtwoord vergeten?</string>

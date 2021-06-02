@@ -50,14 +50,14 @@
                     android:text="@string/registration_field_email" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/registrationEmailLayout"
+                    android:id="@+id/loginEmailLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorTextColor="@color/red"
                     app:hintEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/registrationEmail"
+                        android:id="@+id/loginEmail"
                         style="@style/Widget.TextView"
                         android:layout_width="match_parent"
                         android:layout_height="?actionBarSize"
@@ -81,7 +81,7 @@
                     android:text="@string/registration_password" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/registrationPasswordLayout"
+                    android:id="@+id/loginPasswordLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:endIconMode="password_toggle"
@@ -89,7 +89,7 @@
                     app:hintEnabled="false">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/registrationPassword"
+                        android:id="@+id/loginPassword"
                         android:layout_width="match_parent"
                         android:layout_height="?actionBarSize"
                         android:hint="@string/registration_password"
