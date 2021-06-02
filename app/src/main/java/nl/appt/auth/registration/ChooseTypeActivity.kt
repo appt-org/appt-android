@@ -20,8 +20,7 @@ class ChooseTypeActivity : ToolbarActivity() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ChooseTypeViewModel::class.java)
         binding = ActivityChooseTypeBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
         onViewCreated()
         initUi()
 

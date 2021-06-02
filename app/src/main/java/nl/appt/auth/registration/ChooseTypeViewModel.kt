@@ -1,11 +1,10 @@
 package nl.appt.auth.registration
 
-import android.app.Application
 import android.widget.CheckBox
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import nl.appt.R
 
-class ChooseTypeViewModel(private val app: Application) : AndroidViewModel(app) {
+class ChooseTypeViewModel : ViewModel() {
 
     val checkBoxArrayList = arrayListOf<CheckBox>()
 
@@ -13,33 +12,24 @@ class ChooseTypeViewModel(private val app: Application) : AndroidViewModel(app) 
         val selectedTypes = arrayListOf<String>()
         checkBoxArrayList.forEach { checkBox ->
             if (checkBox.isChecked) {
-                when (checkBox.text) {
-                    app.getString(R.string.user_type_expert) ->
-                        selectedTypes.add(UserTypeConst.EXPERT)
+                when (checkBox.id) {
+                    R.id.expert_checkBox -> selectedTypes.add(UserTypeConst.EXPERT)
 
-                    app.getString(R.string.user_type_interested) ->
-                        selectedTypes.add(UserTypeConst.INTERESTED)
+                    R.id.interested_checkBox -> selectedTypes.add(UserTypeConst.INTERESTED)
 
-                    app.getString(R.string.user_type_ambassador) ->
-                        selectedTypes.add(UserTypeConst.AMBASSADOR)
+                    R.id.ambassador_checkBox -> selectedTypes.add(UserTypeConst.AMBASSADOR)
 
-                    app.getString(R.string.user_type_designer) ->
-                        selectedTypes.add(UserTypeConst.DESIGNER)
+                    R.id.designer_checkBox -> selectedTypes.add(UserTypeConst.DESIGNER)
 
-                    app.getString(R.string.user_type_tester) ->
-                        selectedTypes.add(UserTypeConst.TESTER)
+                    R.id.tester_checkBox -> selectedTypes.add(UserTypeConst.TESTER)
 
-                    app.getString(R.string.user_type_developer) ->
-                        selectedTypes.add(UserTypeConst.DEVELOPER)
+                    R.id.developer_checkBox -> selectedTypes.add(UserTypeConst.DEVELOPER)
 
-                    app.getString(R.string.user_type_manager) ->
-                        selectedTypes.add(UserTypeConst.MANAGER)
+                    R.id.manager_checkBox -> selectedTypes.add(UserTypeConst.MANAGER)
 
-                    app.getString(R.string.user_type_accessibility) ->
-                        selectedTypes.add(UserTypeConst.ACCESSIBILITY)
+                    R.id.accessibility_checkBox -> selectedTypes.add(UserTypeConst.ACCESSIBILITY)
 
-                    app.getString(R.string.user_type_auditor) ->
-                        selectedTypes.add(UserTypeConst.AUDITOR)
+                    R.id.auditor_checkBox -> selectedTypes.add(UserTypeConst.AUDITOR)
                 }
             }
         }

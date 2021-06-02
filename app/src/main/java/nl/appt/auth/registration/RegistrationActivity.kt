@@ -30,8 +30,7 @@ class RegistrationActivity : ToolbarActivity() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
         binding = ActivityRegistrationBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
         onViewCreated()
         initUi()
     }
