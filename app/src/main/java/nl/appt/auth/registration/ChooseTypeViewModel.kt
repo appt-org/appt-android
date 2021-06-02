@@ -1,59 +1,45 @@
 package nl.appt.auth.registration
 
-import android.content.Context
+import android.app.Application
 import android.widget.CheckBox
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import nl.appt.R
 
-class ChooseTypeViewModel : ViewModel() {
+class ChooseTypeViewModel(private val app: Application) : AndroidViewModel(app) {
 
-    var checkBoxArrayList = arrayListOf<CheckBox>()
+    val checkBoxArrayList = arrayListOf<CheckBox>()
 
-    var isButtonClickable = MutableLiveData(false)
-
-    fun setListenerOnCheckBox() {
-        checkBoxArrayList.forEach { checkBox ->
-            checkBox.setOnCheckedChangeListener { _, _ ->
-                isButtonEnable()
-            }
-        }
-    }
-
-    private fun isButtonEnable() {
-        checkBoxArrayList.forEach { checkBox ->
-            if (checkBox.isChecked) {
-                isButtonClickable.value = true
-                return
-            }
-        }
-        isButtonClickable.value = false
-    }
-
-    fun getSelectedTypes(context: Context): ArrayList<String> {
+    fun getSelectedTypes(): ArrayList<String> {
         val selectedTypes = arrayListOf<String>()
         checkBoxArrayList.forEach { checkBox ->
             if (checkBox.isChecked) {
                 when (checkBox.text) {
-                    context.getString(R.string.user_type_expert) -> selectedTypes.add(UserTypeConst.EXPERT)
-                    context.getString(R.string.user_type_interested) -> selectedTypes.add(
-                        UserTypeConst.INTERESTED
-                    )
-                    context.getString(R.string.user_type_ambassador) -> selectedTypes.add(
-                        UserTypeConst.AMBASSADOR
-                    )
-                    context.getString(R.string.user_type_designer) -> selectedTypes.add(
-                        UserTypeConst.DESIGNER
-                    )
-                    context.getString(R.string.user_type_tester) -> selectedTypes.add(UserTypeConst.TESTER)
-                    context.getString(R.string.user_type_developer) -> selectedTypes.add(
-                        UserTypeConst.DEVELOPER
-                    )
-                    context.getString(R.string.user_type_manager) -> selectedTypes.add(UserTypeConst.MANAGER)
-                    context.getString(R.string.user_type_accessibility) -> selectedTypes.add(
-                        UserTypeConst.ACCESSIBILITY
-                    )
-                    context.getString(R.string.user_type_auditor) -> selectedTypes.add(UserTypeConst.AUDITOR)
+                    app.getString(R.string.user_type_expert) ->
+                        selectedTypes.add(UserTypeConst.EXPERT)
+
+                    app.getString(R.string.user_type_interested) ->
+                        selectedTypes.add(UserTypeConst.INTERESTED)
+
+                    app.getString(R.string.user_type_ambassador) ->
+                        selectedTypes.add(UserTypeConst.AMBASSADOR)
+
+                    app.getString(R.string.user_type_designer) ->
+                        selectedTypes.add(UserTypeConst.DESIGNER)
+
+                    app.getString(R.string.user_type_tester) ->
+                        selectedTypes.add(UserTypeConst.TESTER)
+
+                    app.getString(R.string.user_type_developer) ->
+                        selectedTypes.add(UserTypeConst.DEVELOPER)
+
+                    app.getString(R.string.user_type_manager) ->
+                        selectedTypes.add(UserTypeConst.MANAGER)
+
+                    app.getString(R.string.user_type_accessibility) ->
+                        selectedTypes.add(UserTypeConst.ACCESSIBILITY)
+
+                    app.getString(R.string.user_type_auditor) ->
+                        selectedTypes.add(UserTypeConst.AUDITOR)
                 }
             }
         }

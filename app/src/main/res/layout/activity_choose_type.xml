@@ -177,6 +177,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="8dp"
+        android:enabled="false"
         android:background="@drawable/selector_registration_button"
         android:text="@string/user_type_continue"
         app:layout_constraintBottom_toBottomOf="parent"
