@@ -231,6 +231,8 @@
     <string name="registration_password_label_error">Wachtwoord*</string>
     <string name="registration_email_label_error">E-mailadres*</string>
     <string name="registration_email_error">Voer een geldig e-mailadres in</string>
+    <string name="registration_succeed_dialog_title">Bedankt!</string>
+    <string name="registration_succeed_dialog_message">Een activatielink was gestuurd op jouw e-mailadres. Je profiel wordt verifieerd nadat je op de activatielink klikt.</string>
 
     <!-- Login -->
     <string name="login_title">InLoggen</string>
@@ -258,4 +260,19 @@
     <!-- Home -->
     <string name="home_user_title">Wij helpen je hoe je apps kunt gebruiken als je een beperking hebt</string>
     <string name="home_professional_title">Wij helpen je hoe je apps kunt verbeteren</string>
+
+    <!-- Choose User Type -->
+    <string name="user_type_header">Wat is jouw rol?</string>
+    <string name="user_type_list_title">App gebruiker</string>
+    <string name="user_type_expert">Ervaringsdeskundige</string>
+    <string name="user_type_interested">Geïnteresseerde</string>
+    <string name="user_type_ambassador">Ambassadeur</string>
+    <string name="user_type_professional_title">Professional</string>
+    <string name="user_type_designer">Designer</string>
+    <string name="user_type_tester">Tester</string>
+    <string name="user_type_developer">Ontwikkelaar</string>
+    <string name="user_type_manager">Manager</string>
+    <string name="user_type_accessibility">Toegankelijkheidsexpert</string>
+    <string name="user_type_auditor">Auditor</string>
+    <string name="user_type_continue">Volgende</string>
 </resources>

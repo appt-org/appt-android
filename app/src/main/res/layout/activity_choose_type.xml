@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/list"
+    tools:context=".auth.registration.ChooseTypeActivity">
+
+    <include
+        android:id="@+id/view_toolbar"
+        layout="@layout/view_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/header_title"
+        style="@style/Widget.TextView.Bold"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/row"
+        android:gravity="center"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/user_type_header"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_toolbar" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@+id/create_account_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/container_type_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/row"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <TextView
+                    android:id="@+id/container_type_title"
+                    style="@style/Widget.TextView.SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/user_type_list_title"
+                    android:textColor="@color/primary"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/expert_checkBox"
+                    style="@style/Widget.TextView.CheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_type_expert" />
+
+                <include layout="@layout/view_divider" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/interested_checkBox"
+                    style="@style/Widget.TextView.CheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_type_interested" />
+
+                <include layout="@layout/view_divider" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/ambassador_checkBox"
+                    style="@style/Widget.TextView.CheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_type_ambassador" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/row"
+                android:orientation="vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <TextView
+                    android:id="@+id/list_type_title"
+                    style="@style/Widget.TextView.SemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/user_type_professional_title"
+                    android:textColor="@color/primary"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/designer_checkBox"
+                    style="@style/Widget.TextView.CheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_type_designer" />
+
+                <include layout="@layout/view_divider" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/tester_checkBox"
+                    style="@style/Widget.TextView.CheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_type_tester" />
+
+                <include layout="@layout/view_divider" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/developer_checkBox"
+                    style="@style/Widget.TextView.CheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_type_developer" />
+
+                <include layout="@layout/view_divider" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/manager_checkBox"
+                    style="@style/Widget.TextView.CheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_type_manager" />
+
+                <include layout="@layout/view_divider" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/accessibility_checkBox"
+                    style="@style/Widget.TextView.CheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_type_accessibility" />
+
+                <include layout="@layout/view_divider" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/auditor_checkBox"
+                    style="@style/Widget.TextView.CheckBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_type_auditor" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/create_account_btn"
+        style="@style/Widget.Button.CreateAccount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/selector_registration_button"
+        android:text="@string/user_type_continue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
