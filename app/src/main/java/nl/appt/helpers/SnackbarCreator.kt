@@ -2,15 +2,16 @@ package nl.appt.helpers
 
 import android.content.Context
 import android.view.Gravity
+import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
 import nl.appt.R
 
 object SnackbarCreator {
 
-    fun createSnackbar(context: Context, coordinatorLayout: CoordinatorLayout): Snackbar {
+    fun createSnackbar(context: Context, contextView: ViewGroup): Snackbar {
         val snackbar = Snackbar.make(
-            coordinatorLayout,
+            contextView,
             context.getString(R.string.user_not_verified_allert),
             Snackbar.LENGTH_INDEFINITE
         )
