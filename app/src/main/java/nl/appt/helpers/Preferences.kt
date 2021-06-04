@@ -22,19 +22,19 @@ class Preferences(val context: Context) {
         preferences?.edit()?.putBoolean(key, value)?.apply()
     }
 
-    private fun getInt(key: String): Int {
+    fun getInt(key: String): Int {
         return preferences?.getInt(key, 0) ?: 0
     }
 
-    private fun setInt(key: String, value: Int) {
+    fun setInt(key: String, value: Int) {
         preferences?.edit()?.putInt(key, value)?.apply()
     }
 
-    private fun getString(key: String): String {
+    fun getString(key: String): String {
         return preferences?.getString(key, "") ?: ""
     }
 
-    private fun setString(key: String, value: String) {
+    fun setString(key: String, value: String) {
         preferences?.edit()?.putString(key, value)?.apply()
     }
 

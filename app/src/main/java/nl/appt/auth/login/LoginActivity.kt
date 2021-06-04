@@ -1,5 +1,6 @@
 package nl.appt.auth.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import nl.appt.MainActivity
@@ -7,9 +8,11 @@ import nl.appt.R
 import nl.appt.auth.reset.ResetPasswordActivity
 import nl.appt.databinding.ActivityLoginBinding
 import nl.appt.extensions.showError
+import nl.appt.helpers.Preferences
 import nl.appt.helpers.Result
 import nl.appt.helpers.Status
-import nl.appt.model.User
+import nl.appt.helpers.UserConst
+import nl.appt.model.UserResponse
 import nl.appt.widgets.ToolbarActivity
 
 class LoginActivity : ToolbarActivity() {
@@ -70,10 +73,20 @@ class LoginActivity : ToolbarActivity() {
         })
     }
 
-    private fun onEvent(result: Result<User>) {
+    private fun onEvent(result: Result<UserResponse>) {
         when (result.status) {
             Status.SUCCESS -> {
-                startActivity<MainActivity>()
+                result.data?.let {
+                    Preferences(this).setString(UserConst.USER_EMAIL_KEY, result.data.email)
+                    Preferences(this).setInt(UserConst.USER_ID_KEY, result.data.id)
+                    Preferences(this).setString(
+                        UserConst.USER_VERIFIED_KEY,
+                        result.data.user_meta.user_activation_status[0]
+                    )
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                }
             }
             Status.ERROR -> {
                 showError(getString(R.string.login_error_message))

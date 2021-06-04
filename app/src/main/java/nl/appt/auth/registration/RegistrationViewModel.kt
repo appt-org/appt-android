@@ -6,17 +6,18 @@ import androidx.lifecycle.ViewModel
 import nl.appt.api.API
 import nl.appt.auth.ValidationManager
 import nl.appt.helpers.Result
-import nl.appt.model.User
+import nl.appt.model.UserRegistration
+import nl.appt.model.UserResponse
 
-class RegistrationViewModel() : ViewModel() {
+class RegistrationViewModel : ViewModel() {
 
     enum class FieldStates {
         PASSWORD_ERROR, EMAIL_ERROR, PASSWORD_VALID, EMAIL_VALID
     }
 
-    private val _registrationResponse = MutableLiveData<Result<User>>()
+    private val _registrationResponse = MutableLiveData<Result<UserResponse>>()
 
-    val registrationResponse: LiveData<Result<User>> = _registrationResponse
+    val registrationResponse: LiveData<Result<UserResponse>> = _registrationResponse
 
     private val _errorState = MutableLiveData<FieldStates>()
 
@@ -44,7 +45,7 @@ class RegistrationViewModel() : ViewModel() {
 
     fun userRegistration(email: String, password: String, userTypes: ArrayList<String>) {
         val username = createUsername(email)
-        API.userRegistration(User(email, username, password, userTypes)) { response ->
+        API.userRegistration(UserRegistration(email, username, password, userTypes)) { response ->
             response.result?.let { result ->
                 _registrationResponse.value = Result.success(result)
             }

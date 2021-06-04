@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import nl.appt.api.API
 import nl.appt.auth.ValidationManager
 import nl.appt.helpers.Result
-import nl.appt.model.User
 import nl.appt.model.UserLogin
+import nl.appt.model.UserResponse
 
 class LoginViewModel: ViewModel() {
 
@@ -15,9 +15,9 @@ class LoginViewModel: ViewModel() {
         PASSWORD_ERROR, EMAIL_ERROR, PASSWORD_VALID, EMAIL_VALID, LOGIN_ERROR,
     }
 
-    private val _loginResponse = MutableLiveData<Result<User>>()
+    private val _loginResponse = MutableLiveData<Result<UserResponse>>()
 
-    val loginResponse: LiveData<Result<User>> = _loginResponse
+    val loginResponse: LiveData<Result<UserResponse>> = _loginResponse
 
     private val _errorState = MutableLiveData<FieldStates>()
 
