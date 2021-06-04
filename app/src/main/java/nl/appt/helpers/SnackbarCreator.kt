@@ -9,7 +9,7 @@ import nl.appt.R
 
 object SnackbarCreator {
 
-    fun createSnackbar(context: Context, contextView: ViewGroup): Snackbar {
+    fun createSnackbar(context: Context, contextView: CoordinatorLayout): Snackbar {
         val snackbar = Snackbar.make(
             contextView,
             context.getString(R.string.user_not_verified_allert),
