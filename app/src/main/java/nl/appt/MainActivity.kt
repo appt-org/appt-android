@@ -12,6 +12,7 @@ import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
+import nl.appt.helpers.SnackbarCreator
 import nl.appt.helpers.UserConst
 import nl.appt.tabs.home.HomeFragment
 import nl.appt.tabs.knowledge.KnowledgeFragment
@@ -97,23 +98,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showSnackbar() {
-        val snackbar = Snackbar.make(
-            coordinatorLayout,
-            getString(R.string.user_not_verified_allert),
-            Snackbar.LENGTH_INDEFINITE
-        )
-            .setAction(getString(R.string.allert_action_title)) {}
-            .setActionTextColor(getColor(R.color.row))
-            .setTextColor(getColor(R.color.row))
-            .setBackgroundTint(getColor(R.color.red))
-            .setAnimationMode(Snackbar.ANIMATION_MODE_FADE)
-        val styledAttributes =
-            theme.obtainStyledAttributes(intArrayOf(android.R.attr.actionBarSize))
-        val view = snackbar.view
-        val params = view.layoutParams as CoordinatorLayout.LayoutParams
-        params.gravity = Gravity.TOP
-        params.topMargin = styledAttributes.getDimension(0, 0f).toInt()
-        view.layoutParams = params
+        val snackbar = SnackbarCreator.createSnackbar(this, coordinatorLayout)
         snackbar.show()
     }
 
