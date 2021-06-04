@@ -1,5 +1,8 @@
 package nl.appt.model
 
+import com.google.gson.annotations.SerializedName
+
 data class UserMeta(
-    val user_activation_status: ArrayList<String>
+    @SerializedName("user_activation_status")
+    val userActivationStatus: ArrayList<String>
 )

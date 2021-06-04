@@ -46,12 +46,10 @@ class RegistrationViewModel : ViewModel() {
     fun userRegistration(email: String, password: String, userTypes: ArrayList<String>) {
         val username = createUsername(email)
         API.userRegistration(UserRegistration(email, username, password, userTypes)) { response ->
-            response.result?.let { result ->
-                _registrationResponse.value = Result.success(result)
-            }
-
-            response.error?.let { error ->
-                _registrationResponse.value = Result.error(error)
+            if (response.result != null){
+                _registrationResponse.value = Result.success(response.result)
+            } else {
+                _registrationResponse.value = Result.error(response.error)
             }
         }
     }

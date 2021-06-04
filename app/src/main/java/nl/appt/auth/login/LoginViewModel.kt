@@ -46,12 +46,10 @@ class LoginViewModel: ViewModel() {
     fun userLogin(email: String, password: String) {
         val username = createUsername(email)
         API.userLogin(UserLogin(email, password, username)) { response ->
-            response.result?.let { result ->
-                _loginResponse.value = Result.success(result)
-            }
-
-            response.error?.let { error ->
-                _loginResponse.value = Result.error(error)
+            if (response.result != null){
+                _loginResponse.value = Result.success(response.result)
+            } else {
+                _loginResponse.value = Result.error(response.error)
             }
         }
     }

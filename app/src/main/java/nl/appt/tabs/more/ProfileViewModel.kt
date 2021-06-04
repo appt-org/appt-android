@@ -14,24 +14,20 @@ class ProfileViewModel : ViewModel() {
 
     fun logoutUser(id: Int) {
         API.userLogout(id) { response ->
-            response.result?.let { result ->
-                _response.value = Result.success(result)
-            }
-
-            response.error?.let { error ->
-                _response.value = Result.error(error)
+            if (response.result != null){
+                _response.value = Result.success(response.result)
+            } else {
+                _response.value = Result.error(response.error)
             }
         }
     }
 
     fun deleteUser(id: Int) {
         API.userDelete(id) { response ->
-            response.result?.let { result ->
-                _response.value = Result.success(result)
-            }
-
-            response.error?.let { error ->
-                _response.value = Result.error(error)
+            if (response.result != null){
+                _response.value = Result.success(response.result)
+            } else {
+                _response.value = Result.error(response.error)
             }
         }
     }

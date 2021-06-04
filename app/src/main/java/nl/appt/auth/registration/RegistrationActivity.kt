@@ -8,14 +8,16 @@ import nl.appt.R
 import nl.appt.databinding.ActivityRegistrationBinding
 import nl.appt.extensions.showDialog
 import nl.appt.extensions.showError
+import nl.appt.helpers.Preferences
 import nl.appt.helpers.Result
 import nl.appt.helpers.Status
+import nl.appt.helpers.UserConst
 import nl.appt.model.UserResponse
 import nl.appt.widgets.ToolbarActivity
 
 class RegistrationActivity : ToolbarActivity() {
 
-    companion object{
+    companion object {
         const val USER_TYPES_KEY = "key_user_types"
     }
 
@@ -79,9 +81,19 @@ class RegistrationActivity : ToolbarActivity() {
                     getString(R.string.registration_succeed_dialog_title),
                     getString(R.string.registration_succeed_dialog_message)
                 ) {
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)
+                    result.data?.let {
+                        Preferences.run {
+                            setString(UserConst.USER_EMAIL_KEY, result.data.email)
+                            setInt(UserConst.USER_ID_KEY, result.data.id)
+                            setString(
+                                UserConst.USER_VERIFIED_KEY,
+                                result.data.userMeta.userActivationStatus[0]
+                            )
+                        }
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        startActivity(intent)
+                    }
                 }
             }
             Status.ERROR -> {

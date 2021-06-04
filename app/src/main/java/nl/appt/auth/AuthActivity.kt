@@ -17,7 +17,7 @@ class AuthActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.title = ""
-        if (Preferences(this).getString(UserConst.USER_EMAIL_KEY).isEmpty()) {
+        if (Preferences.getString(UserConst.USER_EMAIL_KEY).isEmpty()) {
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.auth_container, AuthFragment())

@@ -34,12 +34,12 @@ class ProfileActivity : ToolbarActivity() {
     }
 
     private fun initUi() {
-        binding.userEmail.text = Preferences(this).getString(UserConst.USER_EMAIL_KEY)
+        binding.userEmail.text = Preferences.getString(UserConst.USER_EMAIL_KEY)
         binding.logoutBtn.setOnClickListener {
-            viewModel.logoutUser(Preferences(this).getInt(UserConst.USER_ID_KEY))
+            viewModel.logoutUser(Preferences.getInt(UserConst.USER_ID_KEY))
         }
         binding.deleteAccount.setOnClickListener {
-            viewModel.deleteUser(Preferences(this).getInt(UserConst.USER_ID_KEY))
+            viewModel.deleteUser(Preferences.getInt(UserConst.USER_ID_KEY))
         }
         viewModel.response.observe(this, { result ->
             onEvent(result)
@@ -49,7 +49,7 @@ class ProfileActivity : ToolbarActivity() {
     private fun onEvent(result: Result<Any>) {
         when (result.status) {
             Status.SUCCESS -> {
-                Preferences(this).setString(UserConst.USER_EMAIL_KEY, "")
+                Preferences.setString(UserConst.USER_EMAIL_KEY, "")
                 val intent = Intent(this, AuthActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)

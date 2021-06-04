@@ -217,8 +217,7 @@ class API {
                 }
         }
 
-        private inline
-        fun <reified T : Any> getBlockObject(
+        private inline fun <reified T : Any> getBlockObject(
             path: String,
             parameters: Parameters?,
             crossinline callback: (Response<T>) -> Unit

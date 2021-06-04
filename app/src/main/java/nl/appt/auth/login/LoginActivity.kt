@@ -77,12 +77,14 @@ class LoginActivity : ToolbarActivity() {
         when (result.status) {
             Status.SUCCESS -> {
                 result.data?.let {
-                    Preferences(this).setString(UserConst.USER_EMAIL_KEY, result.data.email)
-                    Preferences(this).setInt(UserConst.USER_ID_KEY, result.data.id)
-                    Preferences(this).setString(
-                        UserConst.USER_VERIFIED_KEY,
-                        result.data.user_meta.user_activation_status[0]
-                    )
+                    Preferences.run {
+                        setString(UserConst.USER_EMAIL_KEY, result.data.email)
+                        setInt(UserConst.USER_ID_KEY, result.data.id)
+                        setString(
+                            UserConst.USER_VERIFIED_KEY,
+                            result.data.userMeta.userActivationStatus[0]
+                        )
+                    }
                     val intent = Intent(this, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
