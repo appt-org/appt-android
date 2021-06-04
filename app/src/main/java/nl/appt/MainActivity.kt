@@ -1,13 +1,19 @@
 package nl.appt
 
+import android.view.Gravity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.helpers.Events
+import nl.appt.helpers.Preferences
+import nl.appt.helpers.SnackbarCreator
+import nl.appt.helpers.UserConst
 import nl.appt.tabs.home.HomeFragment
 import nl.appt.tabs.knowledge.KnowledgeFragment
 import nl.appt.tabs.more.MoreFragment
@@ -47,6 +53,7 @@ class MainActivity : BaseActivity() {
 
     override fun onViewCreated() {
         this.title = ""
+        checkUserMailVerification()
         events.property(Events.Property.talkback, Accessibility.isTalkBackEnabled(this))
 
         // Tab adapter
@@ -82,6 +89,17 @@ class MainActivity : BaseActivity() {
             tabs.contains(item.itemId)
         }
         navigationView.selectedItemId = tabs[0]
+    }
+
+    private fun checkUserMailVerification() {
+        if (Preferences.getString(UserConst.USER_VERIFIED_KEY) == "0") {
+            showSnackbar()
+        }
+    }
+
+    private fun showSnackbar() {
+        val snackbar = SnackbarCreator.createSnackbar(this, coordinatorLayout)
+        snackbar.show()
     }
 
     fun setPagerItem(itemNumber: Int) {
