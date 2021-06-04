@@ -21,7 +21,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", '"http://appt.crio-server.com/"'
+            buildConfigField "String", "BASE_URL", '"https://appt.crio-server.com/"'
             minifyEnabled false
         }
         release {

@@ -10,32 +10,36 @@ import nl.appt.model.Gesture
  * Copyright 2020 Stichting Appt
  */
 
-class Preferences(val context: Context) {
+object Preferences {
 
-    private val preferences: SharedPreferences? = context.getSharedPreferences("preferences", Context.MODE_PRIVATE)
+    private lateinit var preferences: SharedPreferences
+
+    fun init(context: Context) {
+        preferences = context.getSharedPreferences("preferences", Context.MODE_PRIVATE)
+    }
 
     private fun getBoolean(key: String): Boolean {
-        return preferences?.getBoolean(key, false) ?: false
+        return preferences.getBoolean(key, false)
     }
 
     private fun setBoolean(key: String, value: Boolean) {
-        preferences?.edit()?.putBoolean(key, value)?.apply()
+        preferences.edit()?.putBoolean(key, value)?.apply()
     }
 
-    private fun getInt(key: String): Int {
-        return preferences?.getInt(key, 0) ?: 0
+    fun getInt(key: String): Int {
+        return preferences.getInt(key, 0)
     }
 
-    private fun setInt(key: String, value: Int) {
-        preferences?.edit()?.putInt(key, value)?.apply()
+    fun setInt(key: String, value: Int) {
+        preferences.edit()?.putInt(key, value)?.apply()
     }
 
-    private fun getString(key: String): String {
-        return preferences?.getString(key, "") ?: ""
+    fun getString(key: String): String {
+        return preferences.getString(key, "") ?: ""
     }
 
-    private fun setString(key: String, value: String) {
-        preferences?.edit()?.putString(key, value)?.apply()
+    fun setString(key: String, value: String) {
+        preferences.edit()?.putString(key, value)?.apply()
     }
 
     /* Gesture */

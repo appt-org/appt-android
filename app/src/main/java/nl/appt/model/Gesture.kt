@@ -81,10 +81,10 @@ enum class Gesture: Training, Serializable {
     }
 
     override fun completed(context: Context): Boolean {
-        return Preferences(context).isCompleted(this)
+        return Preferences.isCompleted(this)
     }
     override fun completed(context: Context, completed: Boolean) {
-        Preferences(context).setCompleted(this, true)
+        Preferences.setCompleted(this, true)
     }
 
     companion object {

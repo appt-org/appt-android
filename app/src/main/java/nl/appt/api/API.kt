@@ -5,36 +5,53 @@ import com.github.kittinunf.fuel.core.Parameters
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.gson.jsonBody
 import com.github.kittinunf.fuel.gson.responseObject
+import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
-import nl.appt.model.*
+import nl.appt.model.Article
+import nl.appt.model.Block
+import nl.appt.model.Category
+import nl.appt.model.Filters
+import nl.appt.model.Tag
+import nl.appt.model.Taxonomy
+import nl.appt.model.UserLogin
+import nl.appt.model.UserRegistration
+import nl.appt.model.UserResponse
+import nl.appt.model.ids
+import nl.appt.model.selected
 
 /**
  * Created by Jan Jaap de Groot on 26/10/2020
  * Copyright 2020 Stichting Appt
  */
 
-private const val ARTICLE_PATH = "wp-json/wp/v2/"
-
-private const val REGISTRATION_PATH = "users"
-
-private const val LOGIN_PATH = "login"
-
-private const val BASIC_AUTH_USERNAME = "bodia1994shv@gmail.com"
-
-private const val BASIC_AUTH_PASSWORD = "kbSkJG^yIEMDSQE&7(2K^v1T"
-
 class API {
     companion object {
 
         /** Auth **/
 
-        fun userRegistration(data: User, callback: (Response<User>) -> Unit) {
-            postObject(REGISTRATION_PATH, data, callback)
+        fun userRegistration(data: UserRegistration, callback: (Response<UserResponse>) -> Unit) {
+            postObject(ApiConst.REGISTRATION_PATH, data, callback)
         }
 
-        fun userLogin(data: UserLogin, callback: (Response<User>) -> Unit) {
-            postObject(LOGIN_PATH, data, callback)
+        fun userLogin(data: UserLogin, callback: (Response<UserResponse>) -> Unit) {
+            postObject(ApiConst.LOGIN_PATH, data, callback)
+        }
+
+        fun userLogout(data: Int, callback: (Response<Any>) -> Unit) {
+            val parameters = arrayListOf(
+                ApiConst.PARAM_ID to data
+            )
+            getObject(ApiConst.LOGOUT_PATH, parameters, callback)
+        }
+
+        fun userDelete(data: Int, callback: (Response<UserResponse>) -> Unit) {
+            val parameters = arrayListOf(
+                ApiConst.PARAM_REASSIGN to "",
+                ApiConst.PARAM_FORCE to true
+
+            )
+            deleteObject(ApiConst.DELETE_PATH + data.toString(), parameters, callback)
         }
 
         /** Block **/
@@ -170,9 +187,10 @@ class API {
             parameters: Parameters?,
             crossinline callback: (Response<T>) -> Unit
         ) {
-            (ARTICLE_PATH + path).httpGet(parameters).responseObject<T> { _, response, result ->
-                callback(Response.from(response, result))
-            }
+            (ApiConst.ARTICLE_PATH + path).httpGet(parameters)
+                .responseObject<T> { _, response, result ->
+                    callback(Response.from(response, result))
+                }
         }
 
         private inline fun <reified T : Any> postObject(
@@ -180,8 +198,20 @@ class API {
             data: Any,
             crossinline callback: (Response<T>) -> Unit
         ) {
-            (ARTICLE_PATH + path).httpPost().authentication()
-                .basic(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD).jsonBody(data)
+            (ApiConst.ARTICLE_PATH + path).httpPost().authentication()
+                .basic(ApiConst.BASIC_AUTH_USERNAME, ApiConst.BASIC_AUTH_PASSWORD).jsonBody(data)
+                .responseObject<T> { _, response, result ->
+                    callback(Response.from(response, result))
+                }
+        }
+
+        private inline fun <reified T : Any> deleteObject(
+            path: String,
+            data: Parameters?,
+            crossinline callback: (Response<T>) -> Unit
+        ) {
+            (ApiConst.ARTICLE_PATH + path).httpDelete(data).authentication()
+                .basic(ApiConst.BASIC_AUTH_USERNAME, ApiConst.BASIC_AUTH_PASSWORD)
                 .responseObject<T> { _, response, result ->
                     callback(Response.from(response, result))
                 }

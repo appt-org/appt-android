@@ -6,6 +6,7 @@ import com.google.firebase.FirebaseApp
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
+import nl.appt.helpers.Preferences
 
 /**
  * Created by Jan Jaap de Groot on 19/10/2020
@@ -15,6 +16,7 @@ class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Preferences.init(applicationContext)
 
         // Firebase
         FirebaseApp.initializeApp(this)
@@ -28,12 +30,17 @@ class MainApplication : Application() {
         )
 
         // Calligraphy
-        ViewPump.init(ViewPump.builder()
-            .addInterceptor(CalligraphyInterceptor(
-                CalligraphyConfig.Builder()
-                    .setDefaultFontPath(getString(R.string.font_regular))
-                    .setFontAttrId(R.attr.fontPath)
-                    .build()))
-            .build())
+        ViewPump.init(
+            ViewPump.builder()
+                .addInterceptor(
+                    CalligraphyInterceptor(
+                        CalligraphyConfig.Builder()
+                            .setDefaultFontPath(getString(R.string.font_regular))
+                            .setFontAttrId(R.attr.fontPath)
+                            .build()
+                    )
+                )
+                .build()
+        )
     }
 }

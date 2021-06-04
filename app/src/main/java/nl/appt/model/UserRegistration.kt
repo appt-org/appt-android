@@ -1,6 +1,6 @@
 package nl.appt.model
 
-data class User(
+data class UserRegistration(
     val email: String,
     val username: String,
     val password: String,
