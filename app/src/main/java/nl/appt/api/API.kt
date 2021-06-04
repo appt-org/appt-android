@@ -18,6 +18,8 @@ private const val ARTICLE_PATH = "wp-json/wp/v2/"
 
 private const val REGISTRATION_PATH = "users"
 
+private const val LOGIN_PATH = "login"
+
 private const val BASIC_AUTH_USERNAME = "bodia1994shv@gmail.com"
 
 private const val BASIC_AUTH_PASSWORD = "kbSkJG^yIEMDSQE&7(2K^v1T"
@@ -29,6 +31,10 @@ class API {
 
         fun userRegistration(data: User, callback: (Response<User>) -> Unit) {
             postObject(REGISTRATION_PATH, data, callback)
+        }
+
+        fun userLogin(data: UserLogin, callback: (Response<User>) -> Unit) {
+            postObject(LOGIN_PATH, data, callback)
         }
 
         /** Block **/
