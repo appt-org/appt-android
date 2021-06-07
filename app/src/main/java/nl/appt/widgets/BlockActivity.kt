@@ -58,10 +58,6 @@ class BlockActivity : ToolbarActivity(), OnCategoryListener {
         when (block.type) {
             BLOCK_TYPE -> {
                 binding.itemsContainer.run {
-                    updatePadding(
-                        left = resources.getDimensionPixelSize(R.dimen.padding_recycler_view),
-                        right = resources.getDimensionPixelSize(R.dimen.padding_recycler_view)
-                    )
                     layoutManager =
                         GridLayoutManager(context, UserTypeFragment.COLUMNS_NUMBER)
                     adapter = adapterCategory
