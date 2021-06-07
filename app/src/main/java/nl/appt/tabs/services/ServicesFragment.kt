@@ -66,7 +66,10 @@ class ServicesFragment : ToolbarFragment(), OnCategoryListener {
     private fun onEvent(result: Result<Block>) {
         when (result.status) {
             Status.SUCCESS -> {
-                result.data?.let { adapter.setData(it.children) }
+                result.data?.let {
+                    binding.title.text = it.description
+                    adapter.setData(it.children)
+                }
                 isLoading = false
             }
             Status.ERROR -> {
