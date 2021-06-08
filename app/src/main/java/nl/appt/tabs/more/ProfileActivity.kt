@@ -45,10 +45,10 @@ class ProfileActivity : ToolbarActivity() {
     private fun initUi() {
         binding.userEmail.text = Preferences.getString(UserConst.USER_EMAIL_KEY)
         binding.logoutBtn.setOnClickListener {
-            viewModel.logoutUser(Preferences.getInt(UserConst.USER_ID_KEY))
+            viewModel.logoutUser()
         }
         binding.forgotPasswordBtn.setOnClickListener {
-            viewModel.changePassword(Preferences.getString(UserConst.USER_EMAIL_KEY))
+            viewModel.changePassword()
         }
         binding.deleteAccount.setOnClickListener {
             deleteAccount()
@@ -88,7 +88,7 @@ class ProfileActivity : ToolbarActivity() {
             .setTitle(getString(R.string.profile_delete_account))
             .setMessage(getString(R.string.delete_account_message))
             .setPositiveButton(getString(R.string.delete_account_positive_button)) { _, _ ->
-                viewModel.deleteUser(Preferences.getInt(UserConst.USER_ID_KEY))
+                viewModel.deleteUser()
             }
             .setNegativeButton(getString(R.string.delete_account_negative_button)) { _, _ ->
                 //Ignore
