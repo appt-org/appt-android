@@ -27,6 +27,12 @@ class ResetPasswordViewModel : ViewModel() {
     val errorState: LiveData<FieldStates> = _errorState
 
     fun resetPassword(email: String) {
+        if (checkEmailField(email)) {
+            sendResetPasswordEmail(email)
+        }
+    }
+
+    private fun sendResetPasswordEmail(email: String) {
         API.sendResetPasswordEmail(email) { response ->
             response.result?.let { data ->
                 if (data[RESPONSE_STATUS] == RESPONSE_STATUS_OK) {
@@ -38,7 +44,7 @@ class ResetPasswordViewModel : ViewModel() {
         }
     }
 
-    fun checkEmailField(email: String): Boolean {
+    private fun checkEmailField(email: String): Boolean {
         return if (!ValidationManager.isValidEmail(email)) {
             _errorState.value = FieldStates.EMAIL_ERROR
             false

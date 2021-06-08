@@ -46,9 +46,7 @@ class ResetPasswordActivity : ToolbarActivity() {
     private fun initUi() {
         binding.resetBtn.setOnClickListener {
             val email = binding.email.text.toString()
-            if (viewModel.checkEmailField(email)) {
-                viewModel.resetPassword(email)
-            }
+            viewModel.resetPassword(email)
         }
     }
 
