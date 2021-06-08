@@ -8,6 +8,8 @@ import nl.appt.auth.ValidationManager
 import nl.appt.helpers.Result
 
 private const val SUCCEED_MESSAGE = "Password successfully changed!"
+private const val SPLIT_DELIMITER = "&"
+private const val SUBSTRING_DELIMITER = "="
 
 class NewPasswordViewModel : ViewModel() {
 
@@ -23,7 +25,16 @@ class NewPasswordViewModel : ViewModel() {
 
     val errorState: LiveData<FieldStates> = _errorState
 
-    fun setNewPassword(key: String, login: String, password: String) {
+    fun setNewPassword(url: String, password: String){
+        if (checkPasswordField(password)) {
+            sendNewPassword(url, password)
+        }
+    }
+
+    private fun sendNewPassword(url: String, password: String) {
+        val values = url.split(SPLIT_DELIMITER)
+        val key = values[1].substringAfter(SUBSTRING_DELIMITER)
+        val login = values[2].substringAfter(SUBSTRING_DELIMITER)
         API.setNewPassword(key, login, password) { response ->
             val message = response.result.toString().replace("\"", "")
             if (message == SUCCEED_MESSAGE) {

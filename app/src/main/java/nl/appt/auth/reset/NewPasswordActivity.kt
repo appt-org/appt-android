@@ -11,9 +11,6 @@ import nl.appt.extensions.showError
 import nl.appt.helpers.Status
 import nl.appt.widgets.ToolbarActivity
 
-private const val SPLIT_DELIMITER = "&"
-private const val SUBSTRING_DELIMITER = "="
-
 class NewPasswordActivity : ToolbarActivity() {
 
     private lateinit var viewModel: NewPasswordViewModel
@@ -46,13 +43,11 @@ class NewPasswordActivity : ToolbarActivity() {
         viewModel.response.observe(this, { result ->
             if (result.status == Status.SUCCESS) {
                 showDialog(getString(R.string.reset_password_dialog_title), result.data) {
-                    val intent = Intent(this, AuthActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)
+                    toAuthActivity()
                 }
             } else {
                 showError(result.data) {
-                    finish()
+                    toAuthActivity()
                 }
             }
         })
@@ -61,12 +56,7 @@ class NewPasswordActivity : ToolbarActivity() {
     private fun initUi() {
         binding.newPasswordBtn.setOnClickListener {
             val password = binding.newPassword.text.toString()
-            if (viewModel.checkPasswordField(password)) {
-                val values = url.split(SPLIT_DELIMITER)
-                val key = values[1].substringAfter(SUBSTRING_DELIMITER)
-                val login = values[2].substringAfter(SUBSTRING_DELIMITER)
-                viewModel.setNewPassword(key, login, password)
-            }
+            viewModel.setNewPassword(url, password)
         }
     }
 
@@ -84,5 +74,16 @@ class NewPasswordActivity : ToolbarActivity() {
                 binding.labelPassword.setTextColor(getColor(R.color.black))
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        toAuthActivity()
+    }
+
+    private fun toAuthActivity() {
+        val intent = Intent(this, AuthActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
     }
 }
