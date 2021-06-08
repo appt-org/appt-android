@@ -233,6 +233,8 @@
     <string name="registration_email_error">Voer een geldig e-mailadres in</string>
     <string name="registration_succeed_dialog_title">Bedankt!</string>
     <string name="registration_succeed_dialog_message">Een activatielink was gestuurd op jouw e-mailadres. Je profiel wordt verifieerd nadat je op de activatielink klikt.</string>
+    <string name="registration_privacy_link">Privacyverklaring</string>
+    <string name="registration_terms_link">Algemene Voorwaarden</string>
 
     <!-- Login -->
     <string name="login_title">InLoggen</string>
