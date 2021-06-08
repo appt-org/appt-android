@@ -6,14 +6,21 @@ import androidx.lifecycle.ViewModelProvider
 import nl.appt.MainActivity
 import nl.appt.R
 import nl.appt.databinding.ActivityRegistrationBinding
+import nl.appt.extensions.setArticleType
+import nl.appt.extensions.setSlug
 import nl.appt.extensions.showDialog
 import nl.appt.extensions.showError
 import nl.appt.helpers.Preferences
 import nl.appt.helpers.Result
 import nl.appt.helpers.Status
 import nl.appt.helpers.UserConst
+import nl.appt.model.Article
 import nl.appt.model.UserResponse
+import nl.appt.tabs.news.ArticleActivity
 import nl.appt.widgets.ToolbarActivity
+
+private const val TERMS_SLUG = "algemene-voorwaarden"
+private const val PRIVACY_SLUG = "privacybeleid"
 
 class RegistrationActivity : ToolbarActivity() {
 
@@ -66,6 +73,20 @@ class RegistrationActivity : ToolbarActivity() {
                     onEvent(result)
                 })
                 viewModel.userRegistration(email, password, userTypes)
+            }
+        }
+
+        binding.privacyStatementLink.setOnClickListener {
+            startActivity<ArticleActivity> {
+                setArticleType(Article.Type.PAGE)
+                setSlug(PRIVACY_SLUG)
+            }
+        }
+
+        binding.termsAndConditionsLink.setOnClickListener {
+            startActivity<ArticleActivity> {
+                setArticleType(Article.Type.PAGE)
+                setSlug(TERMS_SLUG)
             }
         }
 

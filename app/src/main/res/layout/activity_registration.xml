@@ -101,17 +101,39 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/privacy_statement_link"
+                    style="@style/Widget.TextView.SemiBold"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/registration_privacy_link"
+                    android:textColor="@color/primary" />
+
                 <androidx.appcompat.widget.AppCompatCheckBox
                     android:id="@+id/privacy_statement_checkbox"
                     style="@style/Widget.TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/registration_privacy_statement"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/terms_and_conditions_link"
+                    style="@style/Widget.TextView.SemiBold"
+                    android:textSize="14sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/registration_terms_link"
+                    android:textColor="@color/primary" />
 
                 <androidx.appcompat.widget.AppCompatCheckBox
                     android:id="@+id/terms_and_conditions_checkbox"
@@ -119,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="16dp"
                     android:text="@string/registration_terms_and_conditions"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
