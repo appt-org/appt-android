@@ -40,7 +40,20 @@
             android:configChanges="orientation|screenSize" />
         <activity
             android:name=".auth.reset.NewPasswordActivity"
-            android:configChanges="orientation|screenSize" />
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="appt.crio-server.com"
+                    android:path="/wp-login.php"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".auth.reset.ResetPasswordActivity"
             android:configChanges="orientation|screenSize" />

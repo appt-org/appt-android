@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import nl.appt.R
 import nl.appt.auth.AuthActivity
 import nl.appt.databinding.ActivityProfileBinding
+import nl.appt.extensions.showDialog
 import nl.appt.extensions.showError
 import nl.appt.helpers.Preferences
 import nl.appt.helpers.Result
@@ -31,6 +32,13 @@ class ProfileActivity : ToolbarActivity() {
         setContentView(view)
         onViewCreated()
         initUi()
+        setObservers()
+    }
+
+    private fun setObservers() {
+        viewModel.response.observe(this, { result ->
+            onEvent(result)
+        })
     }
 
     private fun initUi() {
@@ -38,25 +46,46 @@ class ProfileActivity : ToolbarActivity() {
         binding.logoutBtn.setOnClickListener {
             viewModel.logoutUser(Preferences.getInt(UserConst.USER_ID_KEY))
         }
+        binding.forgotPasswordBtn.setOnClickListener {
+            viewModel.changePassword(Preferences.getString(UserConst.USER_EMAIL_KEY))
+        }
         binding.deleteAccount.setOnClickListener {
             viewModel.deleteUser(Preferences.getInt(UserConst.USER_ID_KEY))
         }
-        viewModel.response.observe(this, { result ->
-            onEvent(result)
-        })
     }
 
     private fun onEvent(result: Result<Any>) {
         when (result.status) {
             Status.SUCCESS -> {
-                Preferences.setString(UserConst.USER_EMAIL_KEY, "")
-                val intent = Intent(this, AuthActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(intent)
+                when (result.data) {
+                    ProfileViewModel.Event.DELETE -> {
+                        toAuthActivity()
+                    }
+                    ProfileViewModel.Event.LOGOUT -> {
+                        toAuthActivity()
+                    }
+                    else -> {
+                        showDialog(
+                            getString(R.string.reset_password_dialog_title),
+                            result.data.toString()
+                        )
+                    }
+                }
             }
             Status.ERROR -> {
-                showError(result.fuelError)
+                if (result.fuelError != null) {
+                    showError(result.fuelError)
+                } else {
+                    showError(result.data.toString())
+                }
             }
         }
+    }
+
+    private fun toAuthActivity() {
+        Preferences.setString(UserConst.USER_EMAIL_KEY, "")
+        val intent = Intent(this, AuthActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
     }
 }

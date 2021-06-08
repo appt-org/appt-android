@@ -54,6 +54,30 @@ class API {
             deleteObject(ApiConst.DELETE_PATH + data.toString(), parameters, callback)
         }
 
+        fun sendResetPasswordEmail(
+            email: String,
+            callback: (Response<Map<String, String>>) -> Unit
+        ) {
+            val parameters = arrayListOf(
+                ApiConst.PARAM_USER_LOGIN to email
+            )
+            getObject(ApiConst.RESET_PASSWORD_PATH, parameters, callback)
+        }
+
+        fun setNewPassword(
+            key: String,
+            login: String,
+            password: String,
+            callback: (Response<Any>) -> Unit
+        ) {
+            val data = arrayListOf(
+                ApiConst.PARAM_KEY to key,
+                ApiConst.PARAM_PASSWORD to password,
+                ApiConst.PARAM_LOGIN to login
+            )
+            postPassword<Any>(ApiConst.NEW_PASSWORD_PATH, data, callback)
+        }
+
         /** Block **/
 
         fun getBlocks(path: String, callback: (Response<Block>) -> Unit) {
@@ -201,6 +225,18 @@ class API {
             (ApiConst.ARTICLE_PATH + path).httpPost().authentication()
                 .basic(ApiConst.BASIC_AUTH_USERNAME, ApiConst.BASIC_AUTH_PASSWORD).jsonBody(data)
                 .responseObject<T> { _, response, result ->
+                    callback(Response.from(response, result))
+                }
+        }
+
+        private inline fun <reified T : Any> postPassword(
+            path: String,
+            data: Parameters?,
+            crossinline callback: (Response<Any>) -> Unit
+        ) {
+            (ApiConst.ARTICLE_PATH + path).httpPost(data).authentication()
+                .basic(ApiConst.BASIC_AUTH_USERNAME, ApiConst.BASIC_AUTH_PASSWORD)
+                .responseString { _, response, result ->
                     callback(Response.from(response, result))
                 }
         }

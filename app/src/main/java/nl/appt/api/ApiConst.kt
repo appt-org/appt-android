@@ -12,13 +12,25 @@ object ApiConst {
 
     const val LOGOUT_PATH = "logout"
 
+    const val RESET_PASSWORD_PATH = "1/user/retrieve_password"
+
+    const val NEW_PASSWORD_PATH = "change-password"
+
     const val BASIC_AUTH_USERNAME = "bodia1994shv@gmail.com"
 
     const val BASIC_AUTH_PASSWORD = "kbSkJG^yIEMDSQE&7(2K^v1T"
 
     const val PARAM_ID = "id"
 
+    const val PARAM_USER_LOGIN = "user_login"
+
     const val PARAM_FORCE = "force"
 
     const val PARAM_REASSIGN = "reassign"
+
+    const val PARAM_KEY = "key"
+
+    const val PARAM_LOGIN = "login"
+
+    const val PARAM_PASSWORD = "new_password"
 }
