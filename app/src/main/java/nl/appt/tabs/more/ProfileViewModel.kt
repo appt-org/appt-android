@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import nl.appt.api.API
+import nl.appt.helpers.Preferences
 import nl.appt.helpers.Result
+import nl.appt.helpers.UserConst
 
 private const val RESPONSE_STATUS = "status"
 private const val RESPONSE_STATUS_OK = "ok"
@@ -21,8 +23,8 @@ class ProfileViewModel : ViewModel() {
 
     val response: LiveData<Result<Any>> = _response
 
-    fun logoutUser(id: Int) {
-        API.userLogout(id) { response ->
+    fun logoutUser() {
+        API.userLogout(Preferences.getInt(UserConst.USER_ID_KEY)) { response ->
             if (response.result != null) {
                 _response.value = Result.success(Event.LOGOUT)
             } else {
@@ -31,8 +33,8 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    fun changePassword(email: String) {
-        API.sendResetPasswordEmail(email) { response ->
+    fun changePassword() {
+        API.sendResetPasswordEmail(Preferences.getString(UserConst.USER_EMAIL_KEY)) { response ->
             response.result?.let { data ->
                 if (data[RESPONSE_STATUS] == RESPONSE_STATUS_OK) {
                     _response.value = Result.success(data[RESPONSE_MESSAGE])
@@ -43,8 +45,8 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    fun deleteUser(id: Int) {
-        API.userDelete(id) { response ->
+    fun deleteUser() {
+        API.userDelete(Preferences.getInt(UserConst.USER_ID_KEY)) { response ->
             if (response.result != null) {
                 _response.value = Result.success(Event.DELETE)
             } else {
