@@ -252,9 +252,12 @@
     <string name="new_password_label">Nieuw wachtwoord</string>
 
     <!-- Profile -->
-    <string name="profile_delete_account"><u>Delete my account</u></string>
+    <string name="profile_delete_account"><u>Account verwijderen</u></string>
     <string name="profile_log_out">Log out</string>
     <string name="profile_change_password">Change my password</string>
+    <string name="delete_account_message">Weet je zeker dat je je account wilt verwijderen?</string>
+    <string name="delete_account_positive_button">Ja, verwijder mijn account</string>
+    <string name="delete_account_negative_button">Annuleren</string>
 
     <!-- Diensten -->
     <string name="diensten_toolbar_title">Diensten</string>
