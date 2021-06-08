@@ -66,6 +66,7 @@ class HomeBlocksAdapter(
 
         override fun bind(item: HomeLinkModel) {
             binding.blockTitle.text = item.title
+            binding.blockImage.contentDescription = item.title + IMAGE
             binding.blockImage.setImageResource(item.iconId)
             itemView.setOnClickListener {
                 onBlockListener.onLinkBlockClicked(item.link)
@@ -78,6 +79,7 @@ class HomeBlocksAdapter(
 
         override fun bind(item: HomeTrainingModel) {
             binding.blockTitle.text = item.title
+            binding.blockImage.contentDescription = item.title + IMAGE
             binding.blockImage.setImageResource(item.iconId)
             itemView.setOnClickListener {
                 onBlockListener.onTrainingBlockClicked()
@@ -90,6 +92,7 @@ class HomeBlocksAdapter(
 
         override fun bind(item: HomePagerModel) {
             binding.blockTitle.text = item.title
+            binding.blockImage.contentDescription = item.title + IMAGE
             binding.blockImage.setImageResource(item.iconId)
             itemView.setOnClickListener {
                 onBlockListener.onPagerBlockClicked(item.pagerPosition)

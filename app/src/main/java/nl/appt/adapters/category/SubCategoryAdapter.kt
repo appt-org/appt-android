@@ -41,6 +41,7 @@ class SubCategoryAdapter(private val onCategoryListener: OnCategoryListener) :
 
         override fun bind(item: Block) {
             binding.textView.text = item.title
+            binding.meerImageView.contentDescription = item.title + IMAGE
             GlideApp.with(itemView.context).load(item.image).override(TEST_IMAGE_SIZE)
                 .into(binding.meerImageView)
             itemView.setOnClickListener {
