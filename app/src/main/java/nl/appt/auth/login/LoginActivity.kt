@@ -76,19 +76,10 @@ class LoginActivity : ToolbarActivity() {
     private fun onEvent(result: Result<Any>) {
         when (result.status) {
             Status.SUCCESS -> {
-                if (result.data is UserResponse) {
-                    Preferences.run {
-                        setString(UserConst.USER_EMAIL_KEY, result.data.email)
-                        setInt(UserConst.USER_ID_KEY, result.data.id)
-                        setString(
-                            UserConst.USER_VERIFIED_KEY,
-                            result.data.userMeta.userActivationStatus[0]
-                        )
-                    }
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)
-                }
+                viewModel.saveUserData(result.data as UserResponse)
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
             }
             Status.ERROR -> {
                 showError(result.data.toString())
