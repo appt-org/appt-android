@@ -8,6 +8,7 @@ import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
+import com.google.gson.JsonObject
 import nl.appt.model.Article
 import nl.appt.model.Block
 import nl.appt.model.Category
@@ -34,7 +35,7 @@ class API {
             postObject(ApiConst.REGISTRATION_PATH, data, callback)
         }
 
-        fun userLogin(data: UserLogin, callback: (Response<UserResponse>) -> Unit) {
+        fun userLogin(data: UserLogin, callback: (Response<JsonObject>) -> Unit) {
             postObject(ApiConst.LOGIN_PATH, data, callback)
         }
 

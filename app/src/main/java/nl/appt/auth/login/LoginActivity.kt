@@ -73,10 +73,10 @@ class LoginActivity : ToolbarActivity() {
         })
     }
 
-    private fun onEvent(result: Result<UserResponse>) {
+    private fun onEvent(result: Result<Any>) {
         when (result.status) {
             Status.SUCCESS -> {
-                result.data?.let {
+                if (result.data is UserResponse) {
                     Preferences.run {
                         setString(UserConst.USER_EMAIL_KEY, result.data.email)
                         setInt(UserConst.USER_ID_KEY, result.data.id)
@@ -91,8 +91,7 @@ class LoginActivity : ToolbarActivity() {
                 }
             }
             Status.ERROR -> {
-                showError(getString(R.string.login_error_message))
-                setFieldState(LoginViewModel.FieldStates.LOGIN_ERROR)
+                showError(result.data.toString())
             }
         }
     }
@@ -132,16 +131,6 @@ class LoginActivity : ToolbarActivity() {
                 binding.labelEmail.run {
                     text = getText(R.string.registration_field_email)
                     setTextColor(getColor(R.color.black))
-                }
-            }
-            LoginViewModel.FieldStates.LOGIN_ERROR -> {
-                binding.labelPassword.run {
-                    text = getString(R.string.registration_password_label_error)
-                    setTextColor(getColor(R.color.red))
-                }
-                binding.labelEmail.run {
-                    text = getString(R.string.registration_email_label_error)
-                    setTextColor(getColor(R.color.red))
                 }
             }
         }
