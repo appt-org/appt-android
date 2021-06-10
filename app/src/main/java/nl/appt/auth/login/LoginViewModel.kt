@@ -58,13 +58,14 @@ class LoginViewModel : ViewModel() {
                     _loginResponse.value = Result.error(null, jsonObject[JSON_MESSAGE])
                 } else {
                     val userResponse = Gson().fromJson(jsonObject, UserResponse::class.java)
+                    saveUserData(userResponse)
                     _loginResponse.value = Result.success(userResponse)
                 }
             }
         }
     }
 
-    fun saveUserData(user: UserResponse) {
+    private fun saveUserData(user: UserResponse) {
         Preferences.run {
             setString(UserConst.USER_EMAIL_KEY, user.email)
             setInt(UserConst.USER_ID_KEY, user.id)

@@ -8,11 +8,8 @@ import nl.appt.R
 import nl.appt.auth.reset.ResetPasswordActivity
 import nl.appt.databinding.ActivityLoginBinding
 import nl.appt.extensions.showError
-import nl.appt.helpers.Preferences
 import nl.appt.helpers.Result
 import nl.appt.helpers.Status
-import nl.appt.helpers.UserConst
-import nl.appt.model.UserResponse
 import nl.appt.widgets.ToolbarActivity
 
 class LoginActivity : ToolbarActivity() {
@@ -76,7 +73,6 @@ class LoginActivity : ToolbarActivity() {
     private fun onEvent(result: Result<Any>) {
         when (result.status) {
             Status.SUCCESS -> {
-                viewModel.saveUserData(result.data as UserResponse)
                 val intent = Intent(this, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
