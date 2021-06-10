@@ -70,7 +70,7 @@ class LoginActivity : ToolbarActivity() {
         })
     }
 
-    private fun onEvent(result: Result<Any>) {
+    private fun onEvent(result: Result<String>) {
         when (result.status) {
             Status.SUCCESS -> {
                 val intent = Intent(this, MainActivity::class.java)
@@ -78,7 +78,7 @@ class LoginActivity : ToolbarActivity() {
                 startActivity(intent)
             }
             Status.ERROR -> {
-                showError(result.data.toString())
+                showError(result.data)
             }
         }
     }

@@ -22,9 +22,9 @@ class LoginViewModel : ViewModel() {
         PASSWORD_ERROR, EMAIL_ERROR, PASSWORD_VALID, EMAIL_VALID
     }
 
-    private val _loginResponse = MutableLiveData<Result<Any>>()
+    private val _loginResponse = MutableLiveData<Result<String>>()
 
-    val loginResponse: LiveData<Result<Any>> = _loginResponse
+    val loginResponse: LiveData<Result<String>> = _loginResponse
 
     private val _errorState = MutableLiveData<FieldStates>()
 
@@ -55,11 +55,11 @@ class LoginViewModel : ViewModel() {
         API.userLogin(UserLogin(email, password, username)) { response ->
             response.result?.let { jsonObject ->
                 if (jsonObject[JSON_CODE] != null) {
-                    _loginResponse.value = Result.error(null, jsonObject[JSON_MESSAGE])
+                    _loginResponse.value = Result.error(null, jsonObject[JSON_MESSAGE].asString)
                 } else {
                     val userResponse = Gson().fromJson(jsonObject, UserResponse::class.java)
                     saveUserData(userResponse)
-                    _loginResponse.value = Result.success(userResponse)
+                    _loginResponse.value = Result.success()
                 }
             }
         }
