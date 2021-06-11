@@ -10,6 +10,7 @@
         android:layout_width="156dp"
         android:layout_height="wrap_content"
         android:background="@drawable/block_background"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,18 +20,16 @@
 
         <ImageView
             android:id="@+id/block_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_width="82dp"
+            android:layout_height="82dp"
             app:srcCompat="@drawable/icon_tiles_community" />
 
         <TextView
             android:id="@+id/block_title"
             style="@style/Widget.TextView.SemiBold"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"/>
+            android:layout_marginTop="8dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
