@@ -7,8 +7,6 @@ import nl.appt.adapters.BaseViewHolder
 import nl.appt.databinding.ViewMeerItemBinding
 import nl.appt.model.Block
 
-private const val TEST_IMAGE_SIZE = 256
-
 class SubCategoryAdapter(private val onCategoryListener: OnCategoryListener) :
     RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>() {
 
@@ -42,7 +40,7 @@ class SubCategoryAdapter(private val onCategoryListener: OnCategoryListener) :
         override fun bind(item: Block) {
             binding.textView.text = item.title
             binding.meerImageView.contentDescription = item.title + IMAGE
-            GlideApp.with(itemView.context).load(item.image).override(TEST_IMAGE_SIZE)
+            GlideApp.with(itemView.context).load(item.image)
                 .into(binding.meerImageView)
             itemView.setOnClickListener {
                 onCategoryListener.onCategoryClicked(item)
