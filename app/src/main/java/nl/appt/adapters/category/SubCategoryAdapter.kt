@@ -1,8 +1,13 @@
 package nl.appt.adapters.category
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import nl.appt.R
 import nl.appt.adapters.BaseViewHolder
 import nl.appt.databinding.ViewMeerItemBinding
 import nl.appt.model.Block
@@ -41,6 +46,8 @@ class SubCategoryAdapter(private val onCategoryListener: OnCategoryListener) :
             binding.textView.text = item.title
             binding.meerImageView.contentDescription = item.title + IMAGE
             GlideApp.with(itemView.context).load(item.image)
+                .placeholder(R.drawable.icon_placeholder)
+                .error(R.drawable.icon_placeholder)
                 .into(binding.meerImageView)
             itemView.setOnClickListener {
                 onCategoryListener.onCategoryClicked(item)

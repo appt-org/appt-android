@@ -1,8 +1,13 @@
 package nl.appt.adapters.category
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import nl.appt.R
 import nl.appt.adapters.BaseViewHolder
 import nl.appt.databinding.ViewBlockBinding
 import nl.appt.model.Block
@@ -42,6 +47,8 @@ class CategoryAdapter(
             binding.blockTitle.text = item.title
             binding.blockImage.contentDescription = item.title + IMAGE
             GlideApp.with(itemView.context).load(item.image)
+                .placeholder(R.drawable.icon_placeholder)
+                .error(R.drawable.icon_placeholder)
                 .into(binding.blockImage)
             itemView.setOnClickListener {
                 onCategoryListener.onCategoryClicked(item)
