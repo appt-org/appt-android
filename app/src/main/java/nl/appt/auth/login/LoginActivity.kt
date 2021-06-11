@@ -8,11 +8,8 @@ import nl.appt.R
 import nl.appt.auth.reset.ResetPasswordActivity
 import nl.appt.databinding.ActivityLoginBinding
 import nl.appt.extensions.showError
-import nl.appt.helpers.Preferences
 import nl.appt.helpers.Result
 import nl.appt.helpers.Status
-import nl.appt.helpers.UserConst
-import nl.appt.model.UserResponse
 import nl.appt.widgets.ToolbarActivity
 
 class LoginActivity : ToolbarActivity() {
@@ -73,26 +70,15 @@ class LoginActivity : ToolbarActivity() {
         })
     }
 
-    private fun onEvent(result: Result<UserResponse>) {
+    private fun onEvent(result: Result<String>) {
         when (result.status) {
             Status.SUCCESS -> {
-                result.data?.let {
-                    Preferences.run {
-                        setString(UserConst.USER_EMAIL_KEY, result.data.email)
-                        setInt(UserConst.USER_ID_KEY, result.data.id)
-                        setString(
-                            UserConst.USER_VERIFIED_KEY,
-                            result.data.userMeta.userActivationStatus[0]
-                        )
-                    }
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)
-                }
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
             }
             Status.ERROR -> {
-                showError(getString(R.string.login_error_message))
-                setFieldState(LoginViewModel.FieldStates.LOGIN_ERROR)
+                showError(result.data)
             }
         }
     }
@@ -132,16 +118,6 @@ class LoginActivity : ToolbarActivity() {
                 binding.labelEmail.run {
                     text = getText(R.string.registration_field_email)
                     setTextColor(getColor(R.color.black))
-                }
-            }
-            LoginViewModel.FieldStates.LOGIN_ERROR -> {
-                binding.labelPassword.run {
-                    text = getString(R.string.registration_password_label_error)
-                    setTextColor(getColor(R.color.red))
-                }
-                binding.labelEmail.run {
-                    text = getString(R.string.registration_email_label_error)
-                    setTextColor(getColor(R.color.red))
                 }
             }
         }
