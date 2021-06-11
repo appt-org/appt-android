@@ -12,5 +12,4 @@
     android:paddingTop="@dimen/margin_medium"
     android:paddingEnd="@dimen/margin_medium"
     android:paddingBottom="@dimen/margin_small"
-    android:textColor="@color/primary"
     tools:text="Header" />

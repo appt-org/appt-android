@@ -57,8 +57,8 @@
     <string name="course_talkback_actions_title">TalkBack handelingen</string>
 
     <!-- Topic -->
-    <string name="topic_terms_title">Algemene voorwaarden</string>
-    <string name="topic_privacy_title">Privacy Verklaring</string>
+    <string name="topic_terms_title">Algemene Voorwaarden</string>
+    <string name="topic_privacy_title">Privacyverklaring</string>
     <string name="topic_accessibility_title">Toegankelijkheidsverklaring</string>
     <string name="topic_source_title">Broncode</string>
     <string name="topic_sponsor_title">SIDN Fonds</string>
@@ -255,8 +255,8 @@
 
     <!-- Profile -->
     <string name="profile_delete_account"><u>Account verwijderen</u></string>
-    <string name="profile_log_out">Log out</string>
-    <string name="profile_change_password">Change my password</string>
+    <string name="profile_log_out">Uitloggen</string>
+    <string name="profile_change_password">Wachtwoord wijzigen</string>
     <string name="delete_account_message">Weet je zeker dat je je account wilt verwijderen?</string>
     <string name="delete_account_positive_button">Ja, verwijder mijn account</string>
     <string name="delete_account_negative_button">Annuleren</string>
