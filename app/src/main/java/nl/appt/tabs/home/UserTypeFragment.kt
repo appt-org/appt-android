@@ -1,10 +1,10 @@
 package nl.appt.tabs.home
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.GridLayoutManager
 import nl.appt.MainActivity
 import nl.appt.R
@@ -17,7 +17,6 @@ import nl.appt.extensions.setArticleType
 import nl.appt.extensions.setTitle
 import nl.appt.extensions.setUri
 import nl.appt.model.Article
-import nl.appt.model.HomeLinkModel
 import nl.appt.tabs.news.ArticleActivity
 import nl.appt.tabs.training.TrainingActivity
 import nl.appt.widgets.BaseFragment
@@ -86,11 +85,11 @@ class UserTypeFragment() : BaseFragment(), OnBlockListener {
         requireContext().openWebsite(link)
     }
 
-    override fun onAppLinkBlockClicked(homeLinkModel: HomeLinkModel) {
+    override fun onAppLinkBlockClicked(title: String, link: Uri) {
         startActivity<ArticleActivity> {
             setArticleType(Article.Type.PAGE)
-            setTitle(homeLinkModel.title)
-            setUri(homeLinkModel.link.toUri())
+            setTitle(title)
+            setUri(link)
         }
     }
 

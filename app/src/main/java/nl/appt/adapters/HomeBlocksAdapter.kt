@@ -1,17 +1,19 @@
 package nl.appt.adapters
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import nl.appt.databinding.ViewBlockBinding
+import nl.appt.model.HomeAppLinkModel
 import nl.appt.model.HomeLinkModel
 import nl.appt.model.HomePagerModel
 import nl.appt.model.HomeTrainingModel
-import nl.appt.tabs.home.UserBlocksManager
 
 private const val TYPE_LINK = 0
 private const val TYPE_TRAINING = 1
 private const val TYPE_PAGER = 2
+private const val TYPE_APP_LINK = 3
 
 class HomeBlocksAdapter(
     private val userBlocksData: ArrayList<Any>,
@@ -35,6 +37,9 @@ class HomeBlocksAdapter(
             TYPE_PAGER -> {
                 PagerViewHolder(binding)
             }
+            TYPE_APP_LINK -> {
+                AppLinkViewHolder(binding)
+            }
             else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_VIEW_TYPE + viewType)
         }
     }
@@ -45,6 +50,7 @@ class HomeBlocksAdapter(
             is LinkViewHolder -> holder.bind(element as HomeLinkModel)
             is TrainingViewHolder -> holder.bind(element as HomeTrainingModel)
             is PagerViewHolder -> holder.bind(element as HomePagerModel)
+            is AppLinkViewHolder -> holder.bind(element as HomeAppLinkModel)
             else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_HOLDER + holder)
         }
     }
@@ -54,6 +60,7 @@ class HomeBlocksAdapter(
             is HomeLinkModel -> TYPE_LINK
             is HomeTrainingModel -> TYPE_TRAINING
             is HomePagerModel -> TYPE_PAGER
+            is HomeAppLinkModel -> TYPE_APP_LINK
             else -> throw IllegalArgumentException(BaseViewHolder.ERROR_INVALID_DATA_TYPE + position)
         }
     }
@@ -70,11 +77,20 @@ class HomeBlocksAdapter(
             binding.blockImage.contentDescription = item.title + IMAGE
             binding.blockImage.setImageResource(item.iconId)
             itemView.setOnClickListener {
-                if (item.title == UserBlocksManager.COMMUNITY_TITLE) {
-                    onBlockListener.onLinkBlockClicked(item.link)
-                } else {
-                    onBlockListener.onAppLinkBlockClicked(item)
-                }
+                onBlockListener.onLinkBlockClicked(item.link)
+            }
+        }
+    }
+
+    inner class AppLinkViewHolder(private val binding: ViewBlockBinding) :
+        BaseViewHolder<HomeAppLinkModel>(binding.root) {
+
+        override fun bind(item: HomeAppLinkModel) {
+            binding.blockTitle.text = item.title
+            binding.blockImage.contentDescription = item.title + IMAGE
+            binding.blockImage.setImageResource(item.iconId)
+            itemView.setOnClickListener {
+                onBlockListener.onAppLinkBlockClicked(item.title, item.link)
             }
         }
     }
@@ -108,7 +124,7 @@ class HomeBlocksAdapter(
 
 interface OnBlockListener {
     fun onLinkBlockClicked(link: String)
-    fun onAppLinkBlockClicked(homeLinkModel: HomeLinkModel)
+    fun onAppLinkBlockClicked(title: String, link: Uri)
     fun onPagerBlockClicked(number: Int)
     fun onTrainingBlockClicked()
 }

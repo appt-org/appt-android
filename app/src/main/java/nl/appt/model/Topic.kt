@@ -8,6 +8,7 @@ import androidx.core.net.toUri
 import nl.appt.R
 import nl.appt.extensions.getString
 import nl.appt.extensions.identifier
+import nl.appt.helpers.TopicConst
 import java.io.Serializable
 
 /**
@@ -55,9 +56,9 @@ enum class Topic : Item, Meer, Serializable {
     val slug: String?
         get() {
             return when (this) {
-                TERMS -> "algemene-voorwaarden"
-                PRIVACY -> "privacybeleid"
-                ACCESSIBILITY -> "toegankelijkheidsverklaring"
+                TERMS -> TopicConst.TERMS_SLUG
+                PRIVACY -> TopicConst.PRIVACY_SLUG
+                ACCESSIBILITY -> TopicConst.ACCESSIBILITY_SLUG
                 else -> null
             }
         }
@@ -65,8 +66,8 @@ enum class Topic : Item, Meer, Serializable {
     val url: String?
         get() {
             return when (this) {
-                SOURCE -> "https://github.com/appt-nl/appt-android"
-                SPONSOR -> "https://www.sidnfonds.nl"
+                SOURCE -> TopicConst.SOURCE_LINK
+                SPONSOR -> TopicConst.SPONSOR_LINK
                 else -> null
             }
         }
@@ -74,7 +75,7 @@ enum class Topic : Item, Meer, Serializable {
     val appLink: Uri?
         get() {
                 return when(this){
-                    CONTACT -> "https://appt.crio-server.com/contact".toUri()
+                    CONTACT -> TopicConst.CONTACT_LINK.toUri()
                     else -> null
                 }
         }

@@ -1,7 +1,9 @@
 package nl.appt.tabs.home
 
+import androidx.core.net.toUri
 import nl.appt.MainActivity
 import nl.appt.R
+import nl.appt.model.HomeAppLinkModel
 import nl.appt.model.HomeLinkModel
 import nl.appt.model.HomePagerModel
 import nl.appt.model.HomeTrainingModel
@@ -9,7 +11,7 @@ import nl.appt.model.HomeTrainingModel
 object UserBlocksManager {
 
     //Titles
-    const val COMMUNITY_TITLE = "Community"
+    private const val COMMUNITY_TITLE = "Community"
     private const val TRAINING_TITLE = "Training"
     private const val MELDPUNT_TITLE = "Meldpunt"
     private const val OVER_APPT_TITLE = "Over Appt"
@@ -25,9 +27,9 @@ object UserBlocksManager {
 
     val userBlocksData = arrayListOf(
         HomeTrainingModel(R.drawable.icon_tiles_training, TRAINING_TITLE),
-        HomeLinkModel(R.drawable.icon_tiles_meldpunt, MELDPUNT_TITLE, MELDPUNT_LINK),
+        HomeAppLinkModel(R.drawable.icon_tiles_meldpunt, MELDPUNT_TITLE, MELDPUNT_LINK.toUri()),
         HomeLinkModel(R.drawable.icon_tiles_community, COMMUNITY_TITLE, COMMUNITY_LINK),
-        HomeLinkModel(R.drawable.icon_tiles_overappt, OVER_APPT_TITLE, OVERAPPT_LINK),
+        HomeAppLinkModel(R.drawable.icon_tiles_overappt, OVER_APPT_TITLE, OVERAPPT_LINK.toUri()),
     )
 
     val professionalBlocksData = arrayListOf(
@@ -36,13 +38,13 @@ object UserBlocksManager {
             KENNISBANK_TITLE,
             MainActivity.KNOWLEDGE_FRAGMENT_NUMBER
         ),
-        HomeLinkModel(R.drawable.icon_tiles_aanpak, AANPAK_TITLE, AANPAK_LINK),
+        HomeAppLinkModel(R.drawable.icon_tiles_aanpak, AANPAK_TITLE, AANPAK_LINK.toUri()),
         HomeTrainingModel(R.drawable.icon_tiles_training, TRAINING_TITLE),
         HomePagerModel(
             R.drawable.icon_tiles_diensten,
             DEINSTEN_TITLE,
             MainActivity.SERVICE_FRAGMENT_NUMBER
         ),
-        HomeLinkModel(R.drawable.icon_tiles_overappt, OVER_APPT_TITLE, OVERAPPT_LINK),
+        HomeAppLinkModel(R.drawable.icon_tiles_overappt, OVER_APPT_TITLE, OVERAPPT_LINK.toUri()),
     )
 }
