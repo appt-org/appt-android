@@ -7,6 +7,7 @@ import nl.appt.databinding.ViewBlockBinding
 import nl.appt.model.HomeLinkModel
 import nl.appt.model.HomePagerModel
 import nl.appt.model.HomeTrainingModel
+import nl.appt.tabs.home.UserBlocksManager
 
 private const val TYPE_LINK = 0
 private const val TYPE_TRAINING = 1
@@ -69,7 +70,11 @@ class HomeBlocksAdapter(
             binding.blockImage.contentDescription = item.title + IMAGE
             binding.blockImage.setImageResource(item.iconId)
             itemView.setOnClickListener {
-                onBlockListener.onLinkBlockClicked(item.link)
+                if (item.title == UserBlocksManager.COMMUNITY_TITLE) {
+                    onBlockListener.onLinkBlockClicked(item.link)
+                } else {
+                    onBlockListener.onAppLinkBlockClicked(item)
+                }
             }
         }
     }
@@ -103,6 +108,7 @@ class HomeBlocksAdapter(
 
 interface OnBlockListener {
     fun onLinkBlockClicked(link: String)
+    fun onAppLinkBlockClicked(homeLinkModel: HomeLinkModel)
     fun onPagerBlockClicked(number: Int)
     fun onTrainingBlockClicked()
 }

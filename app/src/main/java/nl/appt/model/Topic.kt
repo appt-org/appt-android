@@ -2,7 +2,9 @@ package nl.appt.model
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import nl.appt.R
 import nl.appt.extensions.getString
 import nl.appt.extensions.identifier
@@ -65,8 +67,15 @@ enum class Topic : Item, Meer, Serializable {
             return when (this) {
                 SOURCE -> "https://github.com/appt-nl/appt-android"
                 SPONSOR -> "https://www.sidnfonds.nl"
-                CONTACT -> "https://appt.nl/contact"
                 else -> null
             }
+        }
+
+    val appLink: Uri?
+        get() {
+                return when(this){
+                    CONTACT -> "https://appt.crio-server.com/contact".toUri()
+                    else -> null
+                }
         }
 }

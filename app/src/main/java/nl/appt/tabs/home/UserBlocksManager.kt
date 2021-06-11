@@ -9,19 +9,19 @@ import nl.appt.model.HomeTrainingModel
 object UserBlocksManager {
 
     //Titles
+    const val COMMUNITY_TITLE = "Community"
     private const val TRAINING_TITLE = "Training"
     private const val MELDPUNT_TITLE = "Meldpunt"
-    private const val COMMUNITY_TITLE = "Community"
     private const val OVER_APPT_TITLE = "Over Appt"
     private const val KENNISBANK_TITLE = "Kennisbank"
     private const val AANPAK_TITLE = "Aanpak"
     private const val DEINSTEN_TITLE = "Diensten"
 
     //Links
-    private const val MELDPUNT_LINK = "https://appt.nl/meldpunt"
+    private const val MELDPUNT_LINK = "https://appt.crio-server.com/meldpunt"
     private const val COMMUNITY_LINK = "https://www.facebook.com/groups/1302246033296587"
-    private const val OVERAPPT_LINK = "https://appt.nl/over"
-    private const val AANPAK_LINK = "https://appt.nl/kennisbank/aanpak"
+    private const val OVERAPPT_LINK = "https://appt.crio-server.com/over"
+    private const val AANPAK_LINK = "https://appt.crio-server.com/kennisbank/aanpak"
 
     val userBlocksData = arrayListOf(
         HomeTrainingModel(R.drawable.icon_tiles_training, TRAINING_TITLE),

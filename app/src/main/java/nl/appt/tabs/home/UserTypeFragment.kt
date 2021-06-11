@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.GridLayoutManager
 import nl.appt.MainActivity
 import nl.appt.R
@@ -12,6 +13,12 @@ import nl.appt.adapters.OnBlockListener
 import nl.appt.adapters.ToolbarPagerAdapter
 import nl.appt.databinding.FragmentUserTypeBinding
 import nl.appt.extensions.openWebsite
+import nl.appt.extensions.setArticleType
+import nl.appt.extensions.setTitle
+import nl.appt.extensions.setUri
+import nl.appt.model.Article
+import nl.appt.model.HomeLinkModel
+import nl.appt.tabs.news.ArticleActivity
 import nl.appt.tabs.training.TrainingActivity
 import nl.appt.widgets.BaseFragment
 
@@ -76,7 +83,15 @@ class UserTypeFragment() : BaseFragment(), OnBlockListener {
     }
 
     override fun onLinkBlockClicked(link: String) {
-        context?.openWebsite(link)
+        requireContext().openWebsite(link)
+    }
+
+    override fun onAppLinkBlockClicked(homeLinkModel: HomeLinkModel) {
+        startActivity<ArticleActivity> {
+            setArticleType(Article.Type.PAGE)
+            setTitle(homeLinkModel.title)
+            setUri(homeLinkModel.link.toUri())
+        }
     }
 
     override fun onPagerBlockClicked(number: Int) {

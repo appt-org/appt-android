@@ -11,6 +11,8 @@ import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setArticleType
 import nl.appt.extensions.setSlug
+import nl.appt.extensions.setTitle
+import nl.appt.extensions.setUri
 import nl.appt.model.Article
 import nl.appt.model.Topic
 import nl.appt.tabs.news.ArticleActivity
@@ -33,7 +35,7 @@ class MoreFragment : ToolbarFragment() {
             headerAdapterDelegate(),
             meerAdapterDelegate<Topic> { topic ->
                 topic.url?.let { url ->
-                    context?.openWebsite(url)
+                    requireContext().openWebsite(url)
                 }
                 topic.slug?.let { slug ->
                     startActivity<ArticleActivity> {
@@ -41,6 +43,14 @@ class MoreFragment : ToolbarFragment() {
                         setSlug(slug)
                     }
                 }
+                topic.appLink?.let { appLink ->
+                    startActivity<ArticleActivity> {
+                        setArticleType(Article.Type.PAGE)
+                        setTitle(Topic.CONTACT.title(requireContext()))
+                        setUri(appLink)
+                    }
+                }
+
                 if (topic.userProfile) {
                     startActivity<ProfileActivity>()
                 }
