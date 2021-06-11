@@ -46,27 +46,8 @@ class SubCategoryAdapter(private val onCategoryListener: OnCategoryListener) :
             binding.textView.text = item.title
             binding.meerImageView.contentDescription = item.title + IMAGE
             GlideApp.with(itemView.context).load(item.image)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        dataSource: com.bumptech.glide.load.DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        return false
-                    }
-
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        binding.meerImageView.setImageResource(R.drawable.icon_placeholder)
-                        return true
-                    }
-                })
+                .placeholder(R.drawable.icon_placeholder)
+                .error(R.drawable.icon_placeholder)
                 .into(binding.meerImageView)
             itemView.setOnClickListener {
                 onCategoryListener.onCategoryClicked(item)
