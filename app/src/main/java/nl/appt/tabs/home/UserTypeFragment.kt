@@ -1,5 +1,6 @@
 package nl.appt.tabs.home
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,11 @@ import nl.appt.adapters.OnBlockListener
 import nl.appt.adapters.ToolbarPagerAdapter
 import nl.appt.databinding.FragmentUserTypeBinding
 import nl.appt.extensions.openWebsite
+import nl.appt.extensions.setArticleType
+import nl.appt.extensions.setTitle
+import nl.appt.extensions.setUri
+import nl.appt.model.Article
+import nl.appt.tabs.news.ArticleActivity
 import nl.appt.tabs.training.TrainingActivity
 import nl.appt.widgets.BaseFragment
 
@@ -76,7 +82,15 @@ class UserTypeFragment() : BaseFragment(), OnBlockListener {
     }
 
     override fun onLinkBlockClicked(link: String) {
-        context?.openWebsite(link)
+        requireContext().openWebsite(link)
+    }
+
+    override fun onAppLinkBlockClicked(title: String, link: Uri) {
+        startActivity<ArticleActivity> {
+            setArticleType(Article.Type.PAGE)
+            setTitle(title)
+            setUri(link)
+        }
     }
 
     override fun onPagerBlockClicked(number: Int) {

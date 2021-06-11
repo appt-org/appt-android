@@ -2,10 +2,13 @@ package nl.appt.model
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import nl.appt.R
 import nl.appt.extensions.getString
 import nl.appt.extensions.identifier
+import nl.appt.helpers.TopicConst
 import java.io.Serializable
 
 /**
@@ -53,9 +56,9 @@ enum class Topic : Item, Meer, Serializable {
     val slug: String?
         get() {
             return when (this) {
-                TERMS -> "algemene-voorwaarden"
-                PRIVACY -> "privacybeleid"
-                ACCESSIBILITY -> "toegankelijkheidsverklaring"
+                TERMS -> TopicConst.TERMS_SLUG
+                PRIVACY -> TopicConst.PRIVACY_SLUG
+                ACCESSIBILITY -> TopicConst.ACCESSIBILITY_SLUG
                 else -> null
             }
         }
@@ -63,10 +66,15 @@ enum class Topic : Item, Meer, Serializable {
     val url: String?
         get() {
             return when (this) {
-                SOURCE -> "https://github.com/appt-nl/appt-android"
-                SPONSOR -> "https://www.sidnfonds.nl"
-                CONTACT -> "https://appt.nl/contact"
+                SOURCE -> TopicConst.SOURCE_LINK
+                SPONSOR -> TopicConst.SPONSOR_LINK
                 else -> null
             }
+        }
+
+    val appLink: Uri?
+        get() = when (this) {
+            CONTACT -> TopicConst.CONTACT_LINK.toUri()
+            else -> null
         }
 }
