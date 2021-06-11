@@ -7,8 +7,6 @@ import nl.appt.adapters.BaseViewHolder
 import nl.appt.databinding.ViewMeerItemBinding
 import nl.appt.model.Block
 
-private const val TEST_IMAGE_SIZE = 256
-
 class SubCategoryAdapter(private val onCategoryListener: OnCategoryListener) :
     RecyclerView.Adapter<SubCategoryAdapter.ViewHolder>() {
 
