@@ -70,9 +70,9 @@ class MoreFragment : ToolbarFragment() {
             Topic.SPONSOR,
             Topic.CONTACT,
             "Juridisch",
-            Topic.PRIVACY,
-            Topic.ACCESSIBILITY,
             Topic.TERMS,
+            Topic.PRIVACY,
+            Topic.ACCESSIBILITY
         )
     }
 }
