@@ -32,7 +32,6 @@ private const val ARG_PARAM = "user_type"
 class UserTypeFragment : BaseFragment() {
 
     companion object {
-        @JvmStatic
         fun newInstance(userType: String) =
             UserTypeFragment().apply {
                 arguments = Bundle().apply {
@@ -78,17 +77,15 @@ class UserTypeFragment : BaseFragment() {
         arguments?.let {
             userType = it.getString(ARG_PARAM)
         }
-        setAdapter()
         when (userType) {
             ToolbarPagerAdapter.TAB_USER_TITLE -> {
                 adapterDelegate.items = UserBlocksManager.userBlocksData
-                adapterDelegate.notifyDataSetChanged()
             }
             ToolbarPagerAdapter.TAB_PROFESSIONAL_TITLE -> {
                 adapterDelegate.items = UserBlocksManager.professionalBlocksData
-                adapterDelegate.notifyDataSetChanged()
             }
         }
+        setAdapter()
     }
 
     override fun onDestroyView() {

@@ -71,14 +71,11 @@ class ServicesFragment : ToolbarFragment() {
         })
     }
 
-    private fun onEvent(result: Result<Block>) {
+    private fun onEvent(result: Result<List<Any>>) {
         when (result.status) {
             Status.SUCCESS -> {
                 result.data?.let { block ->
-                    val list = arrayListOf<Any>()
-                    list.add(block.description)
-                    list.addAll(block.children)
-                    adapterDelegate.items = list
+                    adapterDelegate.items = block
                     adapterDelegate.notifyDataSetChanged()
                 }
                 isLoading = false

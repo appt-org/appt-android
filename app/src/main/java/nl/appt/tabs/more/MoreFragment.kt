@@ -1,17 +1,19 @@
 package nl.appt.tabs.more
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.FragmentActivity
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
-import kotlinx.android.synthetic.main.view_list.view.*
 import nl.appt.R
 import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.adapters.moreItemAdapterDelegate
+import nl.appt.databinding.ViewMeerListBinding
 import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setArticleType
@@ -27,11 +29,27 @@ import nl.appt.widgets.ToolbarFragment
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
+
+private const val TEXT_FOR_CHOOSER = "https://appt.nl/app"
+private const val TYPE_FOR_CHOOSER = "text/plain"
+
 class MoreFragment : ToolbarFragment() {
 
     override fun getLayoutId() = R.layout.view_meer_list
 
     override fun getTitle() = getString(R.string.tab_more)
+
+    private var _binding: ViewMeerListBinding? = null
+
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = ViewMeerListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,8 +87,8 @@ class MoreFragment : ToolbarFragment() {
         )
         adapter.items = items
 
-        view.recyclerView.adapter = adapter
-        view.recyclerView.addItemDecoration()
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.addItemDecoration()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -88,8 +106,8 @@ class MoreFragment : ToolbarFragment() {
 
     private fun startChooser(activity: FragmentActivity) {
         ShareCompat.IntentBuilder.from(activity)
-            .setType("text/plain")
-            .setText("https://appt.nl/app")
+            .setType(TYPE_FOR_CHOOSER)
+            .setText(TEXT_FOR_CHOOSER)
             .startChooser()
     }
 
@@ -105,5 +123,10 @@ class MoreFragment : ToolbarFragment() {
             Topic.PRIVACY,
             Topic.ACCESSIBILITY
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

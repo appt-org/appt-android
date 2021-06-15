@@ -170,7 +170,7 @@ fun descriptionAdapterDelegate() =
     }
 
 fun homeDescriptionAdapterDelegate() =
-    adapterDelegateViewBinding<String, Any, ViewHomeDescriptionBinding>(
+    adapterDelegateViewBinding<Int, Any, ViewHomeDescriptionBinding>(
         { layoutInflater, root ->
             ViewHomeDescriptionBinding.inflate(
                 layoutInflater,
@@ -181,7 +181,7 @@ fun homeDescriptionAdapterDelegate() =
     ) {
 
         bind {
-            binding.title.text = item
+            binding.title.text = getString(item)
         }
     }
 

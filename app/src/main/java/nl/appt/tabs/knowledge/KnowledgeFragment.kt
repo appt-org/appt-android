@@ -75,13 +75,10 @@ class KnowledgeFragment : ToolbarFragment() {
         })
     }
 
-    private fun onEvent(result: Result<Block>) {
+    private fun onEvent(result: Result<List<Any>>) {
         when (result.status) {
             Status.SUCCESS -> {
-                result.data?.let { block ->
-                    val list = arrayListOf<Any>()
-                    list.add(block.description)
-                    list.addAll(block.children)
+                result.data?.let { list ->
                     adapterDelegate.items = list
                     adapterDelegate.notifyDataSetChanged()
                 }
