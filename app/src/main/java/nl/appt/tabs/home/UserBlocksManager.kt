@@ -10,6 +10,10 @@ import nl.appt.model.HomeTrainingModel
 
 object UserBlocksManager {
 
+    //Description
+    private const val USER_DESCRIPTION =  "Wij helpen je hoe je apps kunt gebruiken als je een beperking hebt"
+    private const val PROFESSIONAL_DESCRIPTION = "Wij helpen je hoe je apps kunt verbeteren"
+
     //Titles
     private const val COMMUNITY_TITLE = "Community"
     private const val TRAINING_TITLE = "Training"
@@ -26,6 +30,7 @@ object UserBlocksManager {
     private const val AANPAK_LINK = "https://appt.crio-server.com/kennisbank/aanpak"
 
     val userBlocksData = arrayListOf(
+        USER_DESCRIPTION,
         HomeTrainingModel(R.drawable.icon_tiles_training, TRAINING_TITLE),
         HomeAppLinkModel(R.drawable.icon_tiles_meldpunt, MELDPUNT_TITLE, MELDPUNT_LINK.toUri()),
         HomeLinkModel(R.drawable.icon_tiles_community, COMMUNITY_TITLE, COMMUNITY_LINK),
@@ -33,6 +38,7 @@ object UserBlocksManager {
     )
 
     val professionalBlocksData = arrayListOf(
+        PROFESSIONAL_DESCRIPTION,
         HomePagerModel(
             R.drawable.icon_tiles_kennisbank,
             KENNISBANK_TITLE,

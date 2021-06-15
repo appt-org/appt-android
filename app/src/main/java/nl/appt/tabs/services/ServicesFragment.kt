@@ -6,20 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.R
-import nl.appt.adapters.category.CategoryAdapter
-import nl.appt.adapters.category.OnCategoryListener
+import nl.appt.adapters.blockAdapterDelegate
+import nl.appt.adapters.descriptionAdapterDelegate
 import nl.appt.databinding.ViewCategoryBinding
+import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setBlock
 import nl.appt.extensions.showError
+import nl.appt.helpers.GridLayoutConst
 import nl.appt.helpers.Result
 import nl.appt.helpers.Status
 import nl.appt.model.Block
-import nl.appt.tabs.home.UserTypeFragment
 import nl.appt.widgets.BlockActivity
 import nl.appt.widgets.ToolbarFragment
 
-class ServicesFragment : ToolbarFragment(), OnCategoryListener {
+class ServicesFragment : ToolbarFragment() {
 
     override fun getTitle() = getString(R.string.diensten_toolbar_title)
 
@@ -29,13 +31,15 @@ class ServicesFragment : ToolbarFragment(), OnCategoryListener {
 
     private val binding get() = _binding!!
 
-    private val adapter by lazy {
-        CategoryAdapter(this)
-    }
-
     private val viewModel by lazy {
         ViewModelProvider(this).get(ServicesViewModel::class.java)
     }
+
+    private val adapterDelegate = ListDelegationAdapter(
+        descriptionAdapterDelegate(),
+        blockAdapterDelegate { block ->
+            onCategoryClicked(block)
+        })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,9 +56,18 @@ class ServicesFragment : ToolbarFragment(), OnCategoryListener {
     }
 
     private fun setAdapter() {
-        binding.itemsContainer.layoutManager =
-            GridLayoutManager(requireContext(), UserTypeFragment.COLUMNS_NUMBER)
-        binding.itemsContainer.adapter = adapter
+        val manager = GridLayoutManager(context, GridLayoutConst.SPAN_COUNT)
+        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (position == GridLayoutConst.HEADER_POSITION) {
+                    GridLayoutConst.SPAN_COUNT
+                } else GridLayoutConst.DEFAULT_SPAN_SIZE
+            }
+        }
+        binding.itemsContainer.run {
+            adapter = adapterDelegate
+            layoutManager = manager
+        }
     }
 
     private fun setAdapterData() {
@@ -66,9 +79,12 @@ class ServicesFragment : ToolbarFragment(), OnCategoryListener {
     private fun onEvent(result: Result<Block>) {
         when (result.status) {
             Status.SUCCESS -> {
-                result.data?.let {
-                    binding.title.text = it.description
-                    adapter.setData(it.children)
+                result.data?.let { block ->
+                    val list = arrayListOf<Any>()
+                    list.add(block.description)
+                    list.addAll(block.children)
+                    adapterDelegate.items = list
+                    adapterDelegate.notifyDataSetChanged()
                 }
                 isLoading = false
             }
@@ -82,9 +98,13 @@ class ServicesFragment : ToolbarFragment(), OnCategoryListener {
         }
     }
 
-    override fun onCategoryClicked(block: Block) {
-        startActivity<BlockActivity> {
-            setBlock(block)
+    private fun onCategoryClicked(block: Block) {
+        if (block.url.isNotEmpty()) {
+            requireContext().openWebsite(block.url)
+        } else {
+            startActivity<BlockActivity> {
+                setBlock(block)
+            }
         }
     }
 

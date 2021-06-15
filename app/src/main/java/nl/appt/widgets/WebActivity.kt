@@ -135,21 +135,12 @@ open class WebActivity: ToolbarActivity() {
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             Log.d(TAG, "shouldOverrideUrlLoading: $url")
 
-            val uri = Uri.parse(url)
-            val segments = uri.pathSegments
-
-            // Check if kennisbank article (appt.nl/kennisbank/slug)
-            if (uri.host == "appt.nl" && segments[0] == "kennisbank") {
-                // Kennisbank url
-                startActivity<ArticleActivity> {
-                    setArticleType(Article.Type.PAGE)
-                    setUri(uri)
-                }
-            } else {
-                // Open website
-                openWebsite(uri)
+            if (url != null) {
+                openWebsite(url)
+                return true
             }
-            return true
+
+            return false
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {

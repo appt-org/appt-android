@@ -13,7 +13,7 @@ import nl.appt.widgets.ToolbarFragment
 
 class AuthFragment : ToolbarFragment() {
 
-    override fun getTitle() = getString(R.string.tab_training)
+    override fun getTitle() = getString(R.string.app_name)
 
     override fun getLayoutId() = R.layout.fragment_auth
 

@@ -23,7 +23,7 @@ class TrainingActivity : ToolbarActivity() {
 
     private lateinit var binding: ViewListBinding
 
-    override fun getToolbarTitle() = getString(R.string.app_name)
+    override fun getToolbarTitle() = getString(R.string.tab_training)
 
     override fun getLayoutId() = R.layout.view_list
 
