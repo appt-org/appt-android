@@ -21,6 +21,7 @@ import nl.appt.extensions.setArticleType
 import nl.appt.extensions.setTitle
 import nl.appt.extensions.setUri
 import nl.appt.helpers.GridLayoutConst
+import nl.appt.helpers.GridLayoutSpanSize
 import nl.appt.model.Article
 import nl.appt.tabs.news.ArticleActivity
 import nl.appt.tabs.training.TrainingActivity
@@ -97,13 +98,7 @@ class UserTypeFragment : BaseFragment() {
 
     private fun setAdapter() {
         val manager = GridLayoutManager(context, GridLayoutConst.SPAN_COUNT)
-        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (position == GridLayoutConst.HEADER_POSITION) {
-                    GridLayoutConst.SPAN_COUNT
-                } else GridLayoutConst.DEFAULT_SPAN_SIZE
-            }
-        }
+        manager.spanSizeLookup = GridLayoutSpanSize
         binding.blocksContainer.run {
             layoutManager = manager
             adapter = adapterDelegate

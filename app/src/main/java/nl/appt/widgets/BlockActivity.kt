@@ -2,7 +2,6 @@ package nl.appt.widgets
 
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.R
@@ -15,6 +14,7 @@ import nl.appt.extensions.getBlock
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setBlock
 import nl.appt.helpers.GridLayoutConst
+import nl.appt.helpers.GridLayoutSpanSize
 import nl.appt.model.Block
 
 private const val BLOCK_TYPE = "blocks"
@@ -62,13 +62,7 @@ class BlockActivity : ToolbarActivity() {
                 binding.itemsContainer.run {
                     blockAdapterDelegate.items = list
                     val manager = GridLayoutManager(context, GridLayoutConst.SPAN_COUNT)
-                    manager.spanSizeLookup = object : SpanSizeLookup() {
-                        override fun getSpanSize(position: Int): Int {
-                            return if (position == GridLayoutConst.HEADER_POSITION) {
-                                GridLayoutConst.SPAN_COUNT
-                            } else GridLayoutConst.DEFAULT_SPAN_SIZE
-                        }
-                    }
+                    manager.spanSizeLookup = GridLayoutSpanSize
                     adapter = blockAdapterDelegate
                     layoutManager = manager
                 }

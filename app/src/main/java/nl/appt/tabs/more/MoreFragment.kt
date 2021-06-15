@@ -80,9 +80,7 @@ class MoreFragment : ToolbarFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_share) {
-            activity?.let { activity ->
-                startChooser(activity)
-            }
+            startChooser(requireActivity())
             return true
         }
         return super.onOptionsItemSelected(item)
