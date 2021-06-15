@@ -195,7 +195,7 @@ fun homeLinkAdapterDelegate(itemClickedListener: (HomeLinkModel) -> Unit) =
         }
 
         bind {
-            binding.blockTitle.text = item.title
+            binding.blockTitle.text = getString(item.titleId)
             binding.blockImage.setImageResource(item.iconId)
         }
     }
@@ -210,7 +210,7 @@ fun homeAppLinkAdapterDelegate(itemClickedListener: (HomeAppLinkModel) -> Unit) 
         }
 
         bind {
-            binding.blockTitle.text = item.title
+            binding.blockTitle.text = getString(item.titleId)
             binding.blockImage.setImageResource(item.iconId)
         }
     }
@@ -225,7 +225,7 @@ fun homePagerAdapterDelegate(itemClickedListener: (HomePagerModel) -> Unit) =
         }
 
         bind {
-            binding.blockTitle.text = item.title
+            binding.blockTitle.text = getString(item.titleId)
             binding.blockImage.setImageResource(item.iconId)
         }
     }
@@ -240,7 +240,7 @@ fun homeTrainingAdapterDelegate(itemClickedListener: (HomeTrainingModel) -> Unit
         }
 
         bind {
-            binding.blockTitle.text = item.title
+            binding.blockTitle.text = getString(item.titleId)
             binding.blockImage.setImageResource(item.iconId)
         }
     }

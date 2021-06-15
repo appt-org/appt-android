@@ -274,6 +274,17 @@
     <string name="allert_action_title">OK</string>
     <string name="home_user_description">Wij helpen je hoe je apps kunt gebruiken als je een beperking hebt</string>
     <string name="home_professional_description">Wij helpen je hoe je apps kunt verbeteren</string>
+    <string name="home_block_title_comminity">Community</string>
+    <string name="home_block_title_training">Training</string>
+    <string name="home_block_title_meldpunt">Meldpunt</string>
+    <string name="home_block_title_overappt">Over Appt</string>
+    <string name="home_block_title_kennisbank">Kennisbank</string>
+    <string name="home_block_title_aanpak">Aanpak</string>
+    <string name="home_block_title_deinsten">Diensten</string>
+    <string name="home_block_link_meldpunt">https://appt.crio-server.com/meldpunt</string>
+    <string name="home_block_link_community">https://www.facebook.com/groups/1302246033296587</string>
+    <string name="home_block_link_overappt">https://appt.crio-server.com/over</string>
+    <string name="home_block_link_aanpak">https://appt.crio-server.com/kennisbank/aanpak</string>
 
     <!-- Choose User Type -->
     <string name="user_type_header">Wat is jouw rol?</string>

@@ -1,10 +1,10 @@
 package nl.appt.tabs.home
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.GridLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.MainActivity
@@ -46,10 +46,10 @@ class UserTypeFragment : BaseFragment() {
             onTrainingBlockClicked()
         },
         homeAppLinkAdapterDelegate {
-            onAppLinkBlockClicked(it.title, it.link)
+            onAppLinkBlockClicked(it.titleId, it.linkId)
         },
         homeLinkAdapterDelegate {
-            onLinkBlockClicked(it.link)
+            onLinkBlockClicked(it.linkId)
         },
         homePagerAdapterDelegate {
             onPagerBlockClicked(it.pagerPosition)
@@ -102,15 +102,15 @@ class UserTypeFragment : BaseFragment() {
         }
     }
 
-    private fun onLinkBlockClicked(link: String) {
-        requireContext().openWebsite(link)
+    private fun onLinkBlockClicked(linkId: Int) {
+        requireContext().openWebsite(getString(linkId))
     }
 
-    private fun onAppLinkBlockClicked(title: String, link: Uri) {
+    private fun onAppLinkBlockClicked(titleId: Int, linkId: Int) {
         startActivity<ArticleActivity> {
             setArticleType(Article.Type.PAGE)
-            setTitle(title)
-            setUri(link)
+            setTitle(getString(titleId))
+            setUri(getString(linkId).toUri())
         }
     }
 
