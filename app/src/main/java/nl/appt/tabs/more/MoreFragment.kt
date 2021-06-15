@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.app.ShareCompat
+import androidx.fragment.app.FragmentActivity
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import kotlinx.android.synthetic.main.view_list.view.*
 import nl.appt.R
@@ -80,14 +81,18 @@ class MoreFragment : ToolbarFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_share) {
             activity?.let { activity ->
-                ShareCompat.IntentBuilder.from(activity)
-                    .setType("text/plain")
-                    .setText("https://appt.nl/app")
-                    .startChooser()
+                startChooser(activity)
             }
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun startChooser(activity: FragmentActivity) {
+        ShareCompat.IntentBuilder.from(activity)
+            .setType("text/plain")
+            .setText("https://appt.nl/app")
+            .startChooser()
     }
 
     companion object {

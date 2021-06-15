@@ -94,7 +94,7 @@ inline fun <reified T : Training> trainingAdapterDelegate(crossinline callback: 
 
             if (completed) {
                 imageView.setVisible(true)
-                itemView.accessibility.label = "Afgerond. $title"
+                itemView.accessibility.label = getString(R.string.adgerong_accessibility_label, title)
             } else {
                 imageView.setVisible(false)
                 itemView.accessibility.label = title

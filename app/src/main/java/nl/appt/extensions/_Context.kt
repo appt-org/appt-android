@@ -29,17 +29,18 @@ fun Context.openWebsite(url: String) {
     val uri = Uri.parse(url)
     val segments = uri.pathSegments
 
-    // Check if kennisbank article (appt.nl/kennisbank/)
     if (uri.host == HOST && segments.size > 0 && segments[0] == KENNISBANK) {
-        // Load article using WebView in ArticleActivity
-        val intent = Intent(this, ArticleActivity::class.java)
-        intent.setArticleType(Article.Type.PAGE)
-        intent.setUri(uri)
-        startActivity(intent)
+        startArticleActivity(this, uri)
     } else {
-        // Open URL in Chrome Tab
         openWebsite(uri)
     }
+}
+
+private fun startArticleActivity(context: Context, uri: Uri) {
+    val intent = Intent(context, ArticleActivity::class.java)
+    intent.setArticleType(Article.Type.PAGE)
+    intent.setUri(uri)
+    context.startActivity(intent)
 }
 
 fun Context.openWebsite(uri: Uri) {

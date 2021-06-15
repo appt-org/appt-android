@@ -212,6 +212,9 @@
     <string name="talkback_action_paste_instruction7">Plak tekst in het onderstaande tekstveld om de training af te ronden.</string>
     <string name="talkback_action_paste_text">Plak hier vanuit je klembord</string>
 
+    <!-- Accessibility_label -->
+    <string name="adgerong_accessibility_label">Afgerond. \'%1$s\'</string>
+
     <!-- Auth -->
     <string name="auth_heading">Welkom!</string>
     <string name="auth_subtitle">Appt is het platform voor toegankelijkheid.\n\n\n
