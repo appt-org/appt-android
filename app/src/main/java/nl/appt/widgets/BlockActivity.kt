@@ -1,29 +1,26 @@
 package nl.appt.widgets
 
 import android.os.Bundle
-import androidx.core.net.toUri
-import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.R
-import nl.appt.adapters.category.CategoryAdapter
-import nl.appt.adapters.category.OnCategoryListener
-import nl.appt.adapters.category.SubCategoryAdapter
+import nl.appt.adapters.blockAdapterDelegate
+import nl.appt.adapters.descriptionAdapterDelegate
+import nl.appt.adapters.listItemAdapterDelegate
 import nl.appt.databinding.ViewCategoryBinding
-import nl.appt.extensions.getBlock
-import nl.appt.extensions.setArticleType
-import nl.appt.extensions.setBlock
-import nl.appt.extensions.setUri
 import nl.appt.extensions.addItemDecoration
-import nl.appt.model.Article
+import nl.appt.extensions.getBlock
+import nl.appt.extensions.openWebsite
+import nl.appt.extensions.setBlock
+import nl.appt.helpers.GridLayoutConst
+import nl.appt.helpers.GridLayoutSpanSize
 import nl.appt.model.Block
-import nl.appt.tabs.home.UserTypeFragment
-import nl.appt.tabs.news.ArticleActivity
 
 private const val BLOCK_TYPE = "blocks"
 private const val LIST_TYPE = "list"
 
-class BlockActivity : ToolbarActivity(), OnCategoryListener {
+class BlockActivity : ToolbarActivity() {
 
     private lateinit var binding: ViewCategoryBinding
 
@@ -31,13 +28,17 @@ class BlockActivity : ToolbarActivity(), OnCategoryListener {
         intent.getBlock()
     }
 
-    private val adapterCategory by lazy {
-        CategoryAdapter(this)
-    }
+    private val blockAdapterDelegate = ListDelegationAdapter(
+        descriptionAdapterDelegate(),
+        blockAdapterDelegate { block ->
+            onBlockClicked(block)
+        })
 
-    private val adapterSubCategory by lazy {
-        SubCategoryAdapter(this)
-    }
+    private val listAdapterDelegate = ListDelegationAdapter(
+        descriptionAdapterDelegate(),
+        listItemAdapterDelegate { block ->
+            onBlockClicked(block)
+        })
 
     override fun getToolbarTitle() = block.title
 
@@ -48,45 +49,42 @@ class BlockActivity : ToolbarActivity(), OnCategoryListener {
         binding = ViewCategoryBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
-        binding.title.text = block.description
         onViewCreated()
         setAdapter()
     }
 
     private fun setAdapter() {
+        val list = arrayListOf<Any>()
+        list.add(block.description)
+        list.addAll(block.children)
         when (block.type) {
             BLOCK_TYPE -> {
                 binding.itemsContainer.run {
-                    layoutManager =
-                        GridLayoutManager(context, UserTypeFragment.COLUMNS_NUMBER)
-                    adapter = adapterCategory
+                    blockAdapterDelegate.items = list
+                    val manager = GridLayoutManager(context, GridLayoutConst.SPAN_COUNT)
+                    manager.spanSizeLookup = GridLayoutSpanSize
+                    adapter = blockAdapterDelegate
+                    layoutManager = manager
                 }
-                adapterCategory.setData(block.children)
             }
             LIST_TYPE -> {
                 binding.itemsContainer.run {
-                    updatePadding(left = 0, right = 0)
+                    listAdapterDelegate.items = list
+                    adapter = listAdapterDelegate
                     layoutManager = LinearLayoutManager(context)
-                    adapter = adapterSubCategory
                     addItemDecoration()
                 }
-                adapterSubCategory.setData(block.children)
             }
         }
     }
 
-    override fun onCategoryClicked(block: Block) {
+    private fun onBlockClicked(block: Block) {
         if (block.children.isNotEmpty()) {
             startActivity<BlockActivity> {
                 setBlock(block)
             }
         } else {
-            startActivity<ArticleActivity> {
-                setArticleType(Article.Type.PAGE)
-                setTitle(block.title)
-                setUri(block.url.toUri())
-            }
+            openWebsite(block.url)
         }
     }
 }

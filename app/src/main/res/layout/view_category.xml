@@ -11,29 +11,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/title"
-        style="@style/Widget.TextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:paddingBottom="16dp"
-        android:text="@string/home_user_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_toolbar" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/items_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/list"
-        android:clipToPadding="false"
-        android:paddingTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@+id/view_toolbar" />
 
     <ProgressBar
         android:id="@+id/progressBar"

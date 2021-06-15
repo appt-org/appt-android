@@ -1,18 +1,16 @@
 package nl.appt.extensions
 
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Uri
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import com.github.kittinunf.fuel.core.FuelError
-import kotlinx.android.synthetic.main.view_toast.view.*
-import kotlinx.coroutines.delay
 import nl.appt.R
+import nl.appt.model.Article
+import nl.appt.tabs.news.ArticleActivity
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -24,9 +22,25 @@ fun Context.hasInternet(): Boolean {
 }
 
 /** Browser **/
+private const val HOST = "appt.crio-server.com"
+private const val KENNISBANK = "kennisbank"
 
 fun Context.openWebsite(url: String) {
-    openWebsite(Uri.parse(url))
+    val uri = Uri.parse(url)
+    val segments = uri.pathSegments
+
+    if (uri.host == HOST && segments.size > 0 && segments[0] == KENNISBANK) {
+        startArticleActivity(this, uri)
+    } else {
+        openWebsite(uri)
+    }
+}
+
+private fun startArticleActivity(context: Context, uri: Uri) {
+    val intent = Intent(context, ArticleActivity::class.java)
+    intent.setArticleType(Article.Type.PAGE)
+    intent.setUri(uri)
+    context.startActivity(intent)
 }
 
 fun Context.openWebsite(uri: Uri) {
@@ -34,18 +48,18 @@ fun Context.openWebsite(uri: Uri) {
     val white = resources.getColor(R.color.white, null)
 
     val dark = CustomTabColorSchemeParams.Builder()
-                    .setToolbarColor(black)
-                    .setNavigationBarColor(black)
-                    .setNavigationBarDividerColor(black)
-                    .setSecondaryToolbarColor(black)
-                    .build()
+        .setToolbarColor(black)
+        .setNavigationBarColor(black)
+        .setNavigationBarDividerColor(black)
+        .setSecondaryToolbarColor(black)
+        .build()
 
     val light = CustomTabColorSchemeParams.Builder()
-                    .setToolbarColor(white)
-                    .setNavigationBarColor(white)
-                    .setNavigationBarDividerColor(white)
-                    .setSecondaryToolbarColor(white)
-                    .build()
+        .setToolbarColor(white)
+        .setNavigationBarColor(white)
+        .setNavigationBarDividerColor(white)
+        .setSecondaryToolbarColor(white)
+        .build()
 
     val intent = CustomTabsIntent.Builder()
         .setShareState(CustomTabsIntent.SHARE_STATE_ON)
@@ -119,7 +133,12 @@ fun Context.showError(error: FuelError?, callback: (() -> Unit)? = null) {
 }
 
 /** Toast **/
-fun toast(context: Context?, message: String, duration: Long = 3000, callback: (() -> Unit)? = null) {
+fun toast(
+    context: Context?,
+    message: String,
+    duration: Long = 3000,
+    callback: (() -> Unit)? = null
+) {
     if (context == null) {
         return
     }

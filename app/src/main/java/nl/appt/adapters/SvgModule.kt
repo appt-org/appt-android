@@ -1,4 +1,4 @@
-package nl.appt.adapters.category
+package nl.appt.adapters
 
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule

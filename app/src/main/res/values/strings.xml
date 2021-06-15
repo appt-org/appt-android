@@ -212,6 +212,9 @@
     <string name="talkback_action_paste_instruction7">Plak tekst in het onderstaande tekstveld om de training af te ronden.</string>
     <string name="talkback_action_paste_text">Plak hier vanuit je klembord</string>
 
+    <!-- Accessibility_label -->
+    <string name="adgerong_accessibility_label">Afgerond. \'%1$s\'</string>
+
     <!-- Auth -->
     <string name="auth_heading">Welkom!</string>
     <string name="auth_subtitle">Appt is het platform voor toegankelijkheid.\n\n\n
@@ -269,6 +272,19 @@
     <string name="home_professional_title">Wij helpen je hoe je apps kunt verbeteren</string>
     <string name="user_not_verified_allert">Je hebt jouw account nog niet geverifieerd. Ga naar je e-mail om account te verifiëren.</string>
     <string name="allert_action_title">OK</string>
+    <string name="home_user_description">Wij helpen je hoe je apps kunt gebruiken als je een beperking hebt</string>
+    <string name="home_professional_description">Wij helpen je hoe je apps kunt verbeteren</string>
+    <string name="home_block_title_comminity">Community</string>
+    <string name="home_block_title_training">Training</string>
+    <string name="home_block_title_meldpunt">Meldpunt</string>
+    <string name="home_block_title_overappt">Over Appt</string>
+    <string name="home_block_title_kennisbank">Kennisbank</string>
+    <string name="home_block_title_aanpak">Aanpak</string>
+    <string name="home_block_title_deinsten">Diensten</string>
+    <string name="home_block_link_meldpunt">https://appt.crio-server.com/meldpunt</string>
+    <string name="home_block_link_community">https://www.facebook.com/groups/1302246033296587</string>
+    <string name="home_block_link_overappt">https://appt.crio-server.com/over</string>
+    <string name="home_block_link_aanpak">https://appt.crio-server.com/kennisbank/aanpak</string>
 
     <!-- Choose User Type -->
     <string name="user_type_header">Wat is jouw rol?</string>

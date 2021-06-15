@@ -1,12 +1,9 @@
 package nl.appt
 
-import android.view.Gravity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled

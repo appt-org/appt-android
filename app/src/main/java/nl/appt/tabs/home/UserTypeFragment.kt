@@ -1,33 +1,37 @@
 package nl.appt.tabs.home
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.GridLayoutManager
+import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.MainActivity
 import nl.appt.R
-import nl.appt.adapters.HomeBlocksAdapter
-import nl.appt.adapters.OnBlockListener
 import nl.appt.adapters.ToolbarPagerAdapter
+import nl.appt.adapters.homeAppLinkAdapterDelegate
+import nl.appt.adapters.homeDescriptionAdapterDelegate
+import nl.appt.adapters.homeLinkAdapterDelegate
+import nl.appt.adapters.homePagerAdapterDelegate
+import nl.appt.adapters.homeTrainingAdapterDelegate
 import nl.appt.databinding.FragmentUserTypeBinding
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setArticleType
 import nl.appt.extensions.setTitle
 import nl.appt.extensions.setUri
+import nl.appt.helpers.GridLayoutConst
+import nl.appt.helpers.GridLayoutSpanSize
 import nl.appt.model.Article
 import nl.appt.tabs.news.ArticleActivity
 import nl.appt.tabs.training.TrainingActivity
 import nl.appt.widgets.BaseFragment
 
-class UserTypeFragment() : BaseFragment(), OnBlockListener {
+private const val ARG_PARAM = "user_type"
+
+class UserTypeFragment : BaseFragment() {
 
     companion object {
-        const val COLUMNS_NUMBER = 2
-        private const val ARG_PARAM = "user_type"
-
-        @JvmStatic
         fun newInstance(userType: String) =
             UserTypeFragment().apply {
                 arguments = Bundle().apply {
@@ -35,6 +39,22 @@ class UserTypeFragment() : BaseFragment(), OnBlockListener {
                 }
             }
     }
+
+    private val adapterDelegate = ListDelegationAdapter(
+        homeDescriptionAdapterDelegate(),
+        homeTrainingAdapterDelegate {
+            onTrainingBlockClicked()
+        },
+        homeAppLinkAdapterDelegate {
+            onAppLinkBlockClicked(it.titleId, it.linkId)
+        },
+        homeLinkAdapterDelegate {
+            onLinkBlockClicked(it.linkId)
+        },
+        homePagerAdapterDelegate {
+            onPagerBlockClicked(it.pagerPosition)
+        }
+    )
 
     private var userType: String? = null
 
@@ -59,21 +79,13 @@ class UserTypeFragment() : BaseFragment(), OnBlockListener {
         }
         when (userType) {
             ToolbarPagerAdapter.TAB_USER_TITLE -> {
-                binding.title.text = getString(R.string.home_user_title)
-                setBlockAdapter(UserBlocksManager.userBlocksData)
+                adapterDelegate.items = UserBlocksManager.userBlocksData
             }
             ToolbarPagerAdapter.TAB_PROFESSIONAL_TITLE -> {
-                binding.title.text = getString(R.string.home_professional_title)
-                setBlockAdapter(UserBlocksManager.professionalBlocksData)
+                adapterDelegate.items = UserBlocksManager.professionalBlocksData
             }
         }
-    }
-
-    private fun setBlockAdapter(data: ArrayList<Any>) {
-        val recyclerView = binding.blocksContainer
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), COLUMNS_NUMBER)
-        val adapter = HomeBlocksAdapter(data, this)
-        recyclerView.adapter = adapter
+        setAdapter()
     }
 
     override fun onDestroyView() {
@@ -81,23 +93,32 @@ class UserTypeFragment() : BaseFragment(), OnBlockListener {
         _binding = null
     }
 
-    override fun onLinkBlockClicked(link: String) {
-        requireContext().openWebsite(link)
-    }
-
-    override fun onAppLinkBlockClicked(title: String, link: Uri) {
-        startActivity<ArticleActivity> {
-            setArticleType(Article.Type.PAGE)
-            setTitle(title)
-            setUri(link)
+    private fun setAdapter() {
+        val manager = GridLayoutManager(context, GridLayoutConst.SPAN_COUNT)
+        manager.spanSizeLookup = GridLayoutSpanSize
+        binding.blocksContainer.run {
+            layoutManager = manager
+            adapter = adapterDelegate
         }
     }
 
-    override fun onPagerBlockClicked(number: Int) {
+    private fun onLinkBlockClicked(linkId: Int) {
+        requireContext().openWebsite(getString(linkId))
+    }
+
+    private fun onAppLinkBlockClicked(titleId: Int, linkId: Int) {
+        startActivity<ArticleActivity> {
+            setArticleType(Article.Type.PAGE)
+            setTitle(getString(titleId))
+            setUri(getString(linkId).toUri())
+        }
+    }
+
+    private fun onPagerBlockClicked(number: Int) {
         (activity as MainActivity).setPagerItem(number)
     }
 
-    override fun onTrainingBlockClicked() {
+    private fun onTrainingBlockClicked() {
         startActivity<TrainingActivity>()
     }
 }
