@@ -154,7 +154,7 @@
     <style name="Widget.ViewPagerToolbar">
         <item name="tabTextAppearance">@style/Toolbar.Title</item>
         <item name="tabSelectedTextColor">@color/white</item>
-        <item name="tabTextColor">@color/pager_toolbar_text</item>
+        <item name="tabTextColor">@color/white</item>
         <item name="android:background">@color/primary</item>
         <item name="tabIndicatorColor">@color/white</item>
     </style>

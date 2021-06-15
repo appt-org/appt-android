@@ -63,17 +63,20 @@ inline fun <reified T : Item> itemAdapterDelegate(crossinline callback: (T) -> U
     }
 
 inline fun <reified T : Meer> moreItemAdapterDelegate(crossinline callback: (T) -> Unit) =
-    adapterDelegate<T, Any>(R.layout.view_meer_item) {
-        val textView: TextView = findViewById(R.id.textView)
-        val imageView: ImageView = findViewById(R.id.meerImageView)
+    adapterDelegateViewBinding<T, Any, ViewMeerItemBinding>(
+        { layoutInflater, root -> ViewMeerItemBinding.inflate(layoutInflater, root, false) }
+    ) {
 
         itemView.setOnClickListener {
             callback(item)
         }
 
+
         bind {
-            textView.text = item.title(context)
-            imageView.setImageDrawable(item.image(context))
+            binding.textView.text = item.title(context)
+            binding.meerImageView.setImageDrawable(item.image(context))
+
+            itemView.accessibility.label = item.title(context)
         }
     }
 
@@ -94,7 +97,8 @@ inline fun <reified T : Training> trainingAdapterDelegate(crossinline callback: 
 
             if (completed) {
                 imageView.setVisible(true)
-                itemView.accessibility.label = getString(R.string.adgerong_accessibility_label, title)
+                itemView.accessibility.label =
+                    getString(R.string.adgerong_accessibility_label, title)
             } else {
                 imageView.setVisible(false)
                 itemView.accessibility.label = title
@@ -132,6 +136,8 @@ fun blockAdapterDelegate(itemClickedListener: (Block) -> Unit) =
                 .placeholder(R.drawable.icon_placeholder)
                 .error(R.drawable.icon_placeholder)
                 .into(binding.blockImage)
+
+            itemView.accessibility.label = item.title
         }
     }
 
@@ -150,6 +156,8 @@ fun listItemAdapterDelegate(itemClickedListener: (Block) -> Unit) =
                 .placeholder(R.drawable.icon_placeholder)
                 .error(R.drawable.icon_placeholder)
                 .into(binding.meerImageView)
+
+            itemView.accessibility.label = item.title
         }
     }
 
@@ -197,6 +205,8 @@ fun homeLinkAdapterDelegate(itemClickedListener: (HomeLinkModel) -> Unit) =
         bind {
             binding.blockTitle.text = getString(item.titleId)
             binding.blockImage.setImageResource(item.iconId)
+
+            itemView.accessibility.label = getString(item.titleId)
         }
     }
 
@@ -212,6 +222,8 @@ fun homeAppLinkAdapterDelegate(itemClickedListener: (HomeAppLinkModel) -> Unit) 
         bind {
             binding.blockTitle.text = getString(item.titleId)
             binding.blockImage.setImageResource(item.iconId)
+
+            itemView.accessibility.label = getString(item.titleId)
         }
     }
 
@@ -227,6 +239,8 @@ fun homePagerAdapterDelegate(itemClickedListener: (HomePagerModel) -> Unit) =
         bind {
             binding.blockTitle.text = getString(item.titleId)
             binding.blockImage.setImageResource(item.iconId)
+
+            itemView.accessibility.label = getString(item.titleId)
         }
     }
 
@@ -242,5 +256,7 @@ fun homeTrainingAdapterDelegate(itemClickedListener: (HomeTrainingModel) -> Unit
         bind {
             binding.blockTitle.text = getString(item.titleId)
             binding.blockImage.setImageResource(item.iconId)
+
+            itemView.accessibility.label = getString(item.titleId)
         }
     }
