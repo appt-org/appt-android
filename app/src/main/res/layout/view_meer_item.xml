@@ -11,6 +11,7 @@
         style="@style/Widget.TextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
         android:padding="@dimen/margin_medium"
         android:paddingStart="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
