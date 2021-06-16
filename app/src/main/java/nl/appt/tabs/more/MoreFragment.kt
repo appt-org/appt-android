@@ -62,7 +62,7 @@ class MoreFragment : ToolbarFragment() {
 
         val adapter = ListDelegationAdapter(
             headerAdapterDelegate(),
-            moreItemAdapterDelegate<Topic> { topic ->
+            moreItemAdapterDelegate { topic ->
                 topic.url?.let { url ->
                     requireContext().openWebsite(url)
                 }

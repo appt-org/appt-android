@@ -1,6 +1,7 @@
 package nl.appt.adapters
 
 import android.view.View
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,8 +23,8 @@ import nl.appt.model.HomeLinkModel
 import nl.appt.model.HomePagerModel
 import nl.appt.model.HomeTrainingModel
 import nl.appt.model.Item
-import nl.appt.model.Meer
 import nl.appt.model.Taxonomy
+import nl.appt.model.Topic
 import nl.appt.model.Training
 
 /**
@@ -37,15 +38,7 @@ fun headerAdapterDelegate() = adapterDelegate<String, Any>(R.layout.view_header)
     bind {
         header.text = item
 
-        ViewCompat.setAccessibilityDelegate(header, object : AccessibilityDelegateCompat() {
-            override fun onInitializeAccessibilityNodeInfo(
-                host: View,
-                info: AccessibilityNodeInfoCompat
-            ) {
-                super.onInitializeAccessibilityNodeInfo(host, info)
-                info.isHeading = true
-            }
-        })
+        setAccessibilityHeading(header)
     }
 }
 
@@ -62,8 +55,8 @@ inline fun <reified T : Item> itemAdapterDelegate(crossinline callback: (T) -> U
         }
     }
 
-inline fun <reified T : Meer> moreItemAdapterDelegate(crossinline callback: (T) -> Unit) =
-    adapterDelegateViewBinding<T, Any, ViewMeerItemBinding>(
+fun moreItemAdapterDelegate(callback: (Topic) -> Unit) =
+    adapterDelegateViewBinding<Topic, Any, ViewMeerItemBinding>(
         { layoutInflater, root -> ViewMeerItemBinding.inflate(layoutInflater, root, false) }
     ) {
 
@@ -77,6 +70,7 @@ inline fun <reified T : Meer> moreItemAdapterDelegate(crossinline callback: (T) 
             binding.meerImageView.setImageDrawable(item.image(context))
 
             itemView.accessibility.label = item.title(context)
+            setAccessibilityButtonDelegate(itemView)
         }
     }
 
@@ -138,6 +132,7 @@ fun blockAdapterDelegate(itemClickedListener: (Block) -> Unit) =
                 .into(binding.blockImage)
 
             itemView.accessibility.label = item.title
+            setAccessibilityButtonDelegate(itemView)
         }
     }
 
@@ -158,6 +153,7 @@ fun listItemAdapterDelegate(itemClickedListener: (Block) -> Unit) =
                 .into(binding.meerImageView)
 
             itemView.accessibility.label = item.title
+            setAccessibilityButtonDelegate(itemView)
         }
     }
 
@@ -174,6 +170,8 @@ fun descriptionAdapterDelegate() =
 
         bind {
             binding.title.text = item
+
+            setAccessibilityHeading(itemView)
         }
     }
 
@@ -190,6 +188,8 @@ fun homeDescriptionAdapterDelegate() =
 
         bind {
             binding.title.text = getString(item)
+
+            setAccessibilityHeading(itemView)
         }
     }
 
@@ -207,6 +207,7 @@ fun homeLinkAdapterDelegate(itemClickedListener: (HomeLinkModel) -> Unit) =
             binding.blockImage.setImageResource(item.iconId)
 
             itemView.accessibility.label = getString(item.titleId)
+            setAccessibilityButtonDelegate(itemView)
         }
     }
 
@@ -224,6 +225,7 @@ fun homeAppLinkAdapterDelegate(itemClickedListener: (HomeAppLinkModel) -> Unit) 
             binding.blockImage.setImageResource(item.iconId)
 
             itemView.accessibility.label = getString(item.titleId)
+            setAccessibilityButtonDelegate(itemView)
         }
     }
 
@@ -241,6 +243,7 @@ fun homePagerAdapterDelegate(itemClickedListener: (HomePagerModel) -> Unit) =
             binding.blockImage.setImageResource(item.iconId)
 
             itemView.accessibility.label = getString(item.titleId)
+            setAccessibilityButtonDelegate(itemView)
         }
     }
 
@@ -258,5 +261,30 @@ fun homeTrainingAdapterDelegate(itemClickedListener: (HomeTrainingModel) -> Unit
             binding.blockImage.setImageResource(item.iconId)
 
             itemView.accessibility.label = getString(item.titleId)
+            setAccessibilityButtonDelegate(itemView)
         }
     }
+
+private fun setAccessibilityButtonDelegate(view: View) {
+    ViewCompat.setAccessibilityDelegate(view, object : AccessibilityDelegateCompat() {
+        override fun onInitializeAccessibilityNodeInfo(
+            host: View,
+            info: AccessibilityNodeInfoCompat
+        ) {
+            super.onInitializeAccessibilityNodeInfo(host, info)
+            info.className = Button::class.java.name
+        }
+    })
+}
+
+private fun setAccessibilityHeading(header: View){
+    ViewCompat.setAccessibilityDelegate(header, object : AccessibilityDelegateCompat() {
+        override fun onInitializeAccessibilityNodeInfo(
+            host: View,
+            info: AccessibilityNodeInfoCompat
+        ) {
+            super.onInitializeAccessibilityNodeInfo(host, info)
+            info.isHeading = true
+        }
+    })
+}
