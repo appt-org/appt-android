@@ -7,6 +7,5 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/margin_medium"
     android:paddingStart="@dimen/margin_small"
-    android:layout_marginStart="@dimen/margin_small"
     android:background="@drawable/selector_row"
     tools:text="CheckBox" />

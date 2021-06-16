@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:importantForAccessibility="no"
         android:padding="@dimen/margin_medium"
-        android:paddingStart="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/meerImageView"

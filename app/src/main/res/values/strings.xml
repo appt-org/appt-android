@@ -285,6 +285,7 @@
     <string name="home_block_link_community">https://www.facebook.com/groups/1302246033296587</string>
     <string name="home_block_link_overappt">https://appt.crio-server.com/over</string>
     <string name="home_block_link_aanpak">https://appt.crio-server.com/kennisbank/aanpak</string>
+    <string name="home_appt_logo">Appt logo</string>
 
     <!-- Choose User Type -->
     <string name="user_type_header">Wat is jouw rol?</string>
