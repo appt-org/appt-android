@@ -30,6 +30,8 @@ class ServicesFragment : ToolbarFragment() {
 
     override fun getLayoutId() = R.layout.view_category
 
+    private lateinit var manager: GridLayoutManager
+
     private var _binding: ViewCategoryBinding? = null
 
     private val binding get() = _binding!!
@@ -65,19 +67,15 @@ class ServicesFragment : ToolbarFragment() {
 
     private fun setAdapter() {
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            val manager = GridLayoutManager(context, GridLayoutConst.LANDSCAPE_SPAN_COUNT)
+            manager = GridLayoutManager(context, GridLayoutConst.LANDSCAPE_SPAN_COUNT)
             manager.spanSizeLookup = GridLayoutLandscapeSpanSize
-            binding.itemsContainer.run {
-                layoutManager = manager
-                adapter = adapterDelegate
-            }
         } else {
-            val manager = GridLayoutManager(context, GridLayoutConst.PORTRAIT_SPAN_COUNT)
+            manager = GridLayoutManager(context, GridLayoutConst.PORTRAIT_SPAN_COUNT)
             manager.spanSizeLookup = GridLayoutPortraitSpanSize
-            binding.itemsContainer.run {
-                layoutManager = manager
-                adapter = adapterDelegate
-            }
+        }
+        binding.itemsContainer.run {
+            layoutManager = manager
+            adapter = adapterDelegate
         }
     }
 

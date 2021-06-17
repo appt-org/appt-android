@@ -26,6 +26,8 @@ class BlockActivity : ToolbarActivity() {
 
     private lateinit var binding: ViewCategoryBinding
 
+    private lateinit var manager: GridLayoutManager
+
     private val block by lazy {
         intent.getBlock()
     }
@@ -83,19 +85,15 @@ class BlockActivity : ToolbarActivity() {
 
     private fun setBlockAdapter() {
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            val manager = GridLayoutManager(this, GridLayoutConst.LANDSCAPE_SPAN_COUNT)
+            manager = GridLayoutManager(this, GridLayoutConst.LANDSCAPE_SPAN_COUNT)
             manager.spanSizeLookup = GridLayoutLandscapeSpanSize
-            binding.itemsContainer.run {
-                layoutManager = manager
-                adapter = blockAdapterDelegate
-            }
         } else {
-            val manager = GridLayoutManager(this, GridLayoutConst.PORTRAIT_SPAN_COUNT)
+            manager = GridLayoutManager(this, GridLayoutConst.PORTRAIT_SPAN_COUNT)
             manager.spanSizeLookup = GridLayoutPortraitSpanSize
-            binding.itemsContainer.run {
-                layoutManager = manager
-                adapter = blockAdapterDelegate
-            }
+        }
+        binding.itemsContainer.run {
+            layoutManager = manager
+            adapter = blockAdapterDelegate
         }
     }
 
