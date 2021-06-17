@@ -50,7 +50,7 @@ class MainActivity : BaseActivity() {
 
     override fun onViewCreated() {
         this.title = ""
-        checkUserMailVerification()
+   //   checkUserMailVerification()
         events.property(Events.Property.talkback, Accessibility.isTalkBackEnabled(this))
 
         // Tab adapter
