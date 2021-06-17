@@ -22,7 +22,7 @@ fun Context.hasInternet(): Boolean {
 }
 
 /** Browser **/
-private const val HOST = "appt.crio-server.com"
+private const val HOST = "appt.nl"
 private const val KENNISBANK = "kennisbank"
 
 fun Context.openWebsite(url: String) {

@@ -7,5 +7,5 @@ object TopicConst {
     const val ACCESSIBILITY_SLUG = "toegankelijkheidsverklaring"
     const val SOURCE_LINK = "https://github.com/appt-nl/appt-android"
     const val SPONSOR_LINK = "https://www.sidnfonds.nl"
-    const val CONTACT_LINK = "https://appt.crio-server.com/contact"
+    const val CONTACT_LINK = "https://appt.nl/contact"
 }

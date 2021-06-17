@@ -1,5 +1,6 @@
 package nl.appt.tabs.home
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +19,10 @@ import nl.appt.adapters.homeTrainingAdapterDelegate
 import nl.appt.databinding.FragmentUserTypeBinding
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setArticleType
-import nl.appt.extensions.setTitle
 import nl.appt.extensions.setUri
 import nl.appt.helpers.GridLayoutConst
-import nl.appt.helpers.GridLayoutSpanSize
+import nl.appt.helpers.GridLayoutLandscapeSpanSize
+import nl.appt.helpers.GridLayoutPortraitSpanSize
 import nl.appt.model.Article
 import nl.appt.tabs.news.ArticleActivity
 import nl.appt.tabs.training.TrainingActivity
@@ -40,13 +41,15 @@ class UserTypeFragment : BaseFragment() {
             }
     }
 
+    private lateinit var manager: GridLayoutManager
+
     private val adapterDelegate = ListDelegationAdapter(
         homeDescriptionAdapterDelegate(),
         homeTrainingAdapterDelegate {
             onTrainingBlockClicked()
         },
         homeAppLinkAdapterDelegate {
-            onAppLinkBlockClicked(it.titleId, it.linkId)
+            onAppLinkBlockClicked(it.linkId)
         },
         homeLinkAdapterDelegate {
             onLinkBlockClicked(it.linkId)
@@ -88,14 +91,24 @@ class UserTypeFragment : BaseFragment() {
         setAdapter()
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        setAdapter()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     private fun setAdapter() {
-        val manager = GridLayoutManager(context, GridLayoutConst.SPAN_COUNT)
-        manager.spanSizeLookup = GridLayoutSpanSize
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            manager = GridLayoutManager(context, GridLayoutConst.LANDSCAPE_SPAN_COUNT)
+            manager.spanSizeLookup = GridLayoutLandscapeSpanSize
+        } else {
+            manager = GridLayoutManager(context, GridLayoutConst.PORTRAIT_SPAN_COUNT)
+            manager.spanSizeLookup = GridLayoutPortraitSpanSize
+        }
         binding.blocksContainer.run {
             layoutManager = manager
             adapter = adapterDelegate
@@ -106,10 +119,9 @@ class UserTypeFragment : BaseFragment() {
         requireContext().openWebsite(getString(linkId))
     }
 
-    private fun onAppLinkBlockClicked(titleId: Int, linkId: Int) {
+    private fun onAppLinkBlockClicked(linkId: Int) {
         startActivity<ArticleActivity> {
             setArticleType(Article.Type.PAGE)
-            setTitle(getString(titleId))
             setUri(getString(linkId).toUri())
         }
     }
