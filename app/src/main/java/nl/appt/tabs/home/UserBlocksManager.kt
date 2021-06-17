@@ -12,7 +12,7 @@ object UserBlocksManager {
     val userBlocksData = arrayListOf(
         R.string.home_user_title,
         HomeTrainingModel(R.drawable.icon_tiles_training, R.string.home_block_title_training),
-        HomeAppLinkModel(
+        HomeLinkModel(
             R.drawable.icon_tiles_meldpunt,
             R.string.home_block_title_meldpunt,
             R.string.home_block_link_meldpunt

@@ -58,7 +58,7 @@
 
     <!-- Topic -->
     <string name="topic_terms_title">Algemene Voorwaarden</string>
-    <string name="topic_privacy_title">Privacyverklaring</string>
+    <string name="topic_privacy_title">Privacybeleid</string>
     <string name="topic_accessibility_title">Toegankelijkheidsverklaring</string>
     <string name="topic_source_title">Broncode</string>
     <string name="topic_sponsor_title">SIDN Fonds</string>
@@ -279,10 +279,10 @@
     <string name="home_block_title_kennisbank">Kennisbank</string>
     <string name="home_block_title_aanpak">Aanpak</string>
     <string name="home_block_title_deinsten">Diensten</string>
-    <string name="home_block_link_meldpunt">https://appt.crio-server.com/meldpunt</string>
+    <string name="home_block_link_meldpunt">https://appt.nl/meldpunt</string>
     <string name="home_block_link_community">https://www.facebook.com/groups/1302246033296587</string>
-    <string name="home_block_link_overappt">https://appt.crio-server.com/over</string>
-    <string name="home_block_link_aanpak">https://appt.crio-server.com/kennisbank/aanpak</string>
+    <string name="home_block_link_overappt">https://appt.nl/over</string>
+    <string name="home_block_link_aanpak">https://appt.nl/kennisbank/aanpak</string>
     <string name="home_appt_logo">Appt logo</string>
 
     <!-- Choose User Type -->

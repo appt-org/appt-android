@@ -1,5 +1,6 @@
 package nl.appt.tabs.services
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,8 @@ import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setBlock
 import nl.appt.extensions.showError
 import nl.appt.helpers.GridLayoutConst
-import nl.appt.helpers.GridLayoutSpanSize
+import nl.appt.helpers.GridLayoutLandscapeSpanSize
+import nl.appt.helpers.GridLayoutPortraitSpanSize
 import nl.appt.helpers.Result
 import nl.appt.helpers.Status
 import nl.appt.model.Block
@@ -56,12 +58,26 @@ class ServicesFragment : ToolbarFragment() {
         setAdapterData()
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        setAdapter()
+    }
+
     private fun setAdapter() {
-        val manager = GridLayoutManager(context, GridLayoutConst.SPAN_COUNT)
-        manager.spanSizeLookup = GridLayoutSpanSize
-        binding.itemsContainer.run {
-            adapter = adapterDelegate
-            layoutManager = manager
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            val manager = GridLayoutManager(context, GridLayoutConst.LANDSCAPE_SPAN_COUNT)
+            manager.spanSizeLookup = GridLayoutLandscapeSpanSize
+            binding.itemsContainer.run {
+                layoutManager = manager
+                adapter = adapterDelegate
+            }
+        } else {
+            val manager = GridLayoutManager(context, GridLayoutConst.PORTRAIT_SPAN_COUNT)
+            manager.spanSizeLookup = GridLayoutPortraitSpanSize
+            binding.itemsContainer.run {
+                layoutManager = manager
+                adapter = adapterDelegate
+            }
         }
     }
 

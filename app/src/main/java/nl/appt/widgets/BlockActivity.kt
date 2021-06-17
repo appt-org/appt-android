@@ -1,5 +1,6 @@
 package nl.appt.widgets
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,8 @@ import nl.appt.extensions.getBlock
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setBlock
 import nl.appt.helpers.GridLayoutConst
-import nl.appt.helpers.GridLayoutSpanSize
+import nl.appt.helpers.GridLayoutLandscapeSpanSize
+import nl.appt.helpers.GridLayoutPortraitSpanSize
 import nl.appt.model.Block
 
 private const val BLOCK_TYPE = "blocks"
@@ -40,6 +42,8 @@ class BlockActivity : ToolbarActivity() {
             onBlockClicked(block)
         })
 
+    private val list = arrayListOf<Any>()
+
     override fun getToolbarTitle() = block.title
 
     override fun getLayoutId() = R.layout.view_category
@@ -50,21 +54,20 @@ class BlockActivity : ToolbarActivity() {
         val view = binding.root
         setContentView(view)
         onViewCreated()
+        setAdapterData()
         setAdapter()
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        setBlockAdapter()
+    }
+
     private fun setAdapter() {
-        val list = arrayListOf<Any>()
-        list.add(block.description)
-        list.addAll(block.children)
         when (block.type) {
             BLOCK_TYPE -> {
                 binding.itemsContainer.run {
-                    blockAdapterDelegate.items = list
-                    val manager = GridLayoutManager(context, GridLayoutConst.SPAN_COUNT)
-                    manager.spanSizeLookup = GridLayoutSpanSize
-                    adapter = blockAdapterDelegate
-                    layoutManager = manager
+                    setBlockAdapter()
                 }
             }
             LIST_TYPE -> {
@@ -76,6 +79,29 @@ class BlockActivity : ToolbarActivity() {
                 }
             }
         }
+    }
+
+    private fun setBlockAdapter() {
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            val manager = GridLayoutManager(this, GridLayoutConst.LANDSCAPE_SPAN_COUNT)
+            manager.spanSizeLookup = GridLayoutLandscapeSpanSize
+            binding.itemsContainer.run {
+                layoutManager = manager
+                adapter = blockAdapterDelegate
+            }
+        } else {
+            val manager = GridLayoutManager(this, GridLayoutConst.PORTRAIT_SPAN_COUNT)
+            manager.spanSizeLookup = GridLayoutPortraitSpanSize
+            binding.itemsContainer.run {
+                layoutManager = manager
+                adapter = blockAdapterDelegate
+            }
+        }
+    }
+
+    private fun setAdapterData() {
+        list.add(block.description)
+        list.addAll(block.children)
     }
 
     private fun onBlockClicked(block: Block) {

@@ -68,13 +68,8 @@ enum class Topic : Item, Meer, Serializable {
             return when (this) {
                 SOURCE -> TopicConst.SOURCE_LINK
                 SPONSOR -> TopicConst.SPONSOR_LINK
+                CONTACT -> TopicConst.CONTACT_LINK
                 else -> null
             }
-        }
-
-    val appLink: Uri?
-        get() = when (this) {
-            CONTACT -> TopicConst.CONTACT_LINK.toUri()
-            else -> null
         }
 }
