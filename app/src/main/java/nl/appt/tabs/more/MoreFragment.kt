@@ -81,7 +81,7 @@ class MoreFragment : ToolbarFragment() {
                 }
 
                 if (topic.userProfile) {
-                    startActivity<ProfileActivity>()
+                   startActivity<ProfileActivity>()
                 }
             }
         )
@@ -113,7 +113,7 @@ class MoreFragment : ToolbarFragment() {
 
     companion object {
         private val items = listOf(
-            Topic.PROFILE,
+        //  Topic.PROFILE,
             "Over deze app",
             Topic.SOURCE,
             Topic.SPONSOR,
