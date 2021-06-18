@@ -12,6 +12,9 @@
     <string name="tab_more">Meer</string>
     <string name="tab_services">Diensten</string>
 
+    <string name="home_tab_user_title">Gebruiker</string>
+    <string name="home_tab_professional_title">Professional</string>
+
     <string name="title_gestures">TalkBack gebaren</string>
     <string name="title_actions">TalkBack handelingen</string>
 

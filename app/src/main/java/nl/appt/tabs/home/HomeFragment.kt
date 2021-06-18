@@ -9,12 +9,13 @@ import nl.appt.adapters.ToolbarPagerAdapter
 import nl.appt.databinding.FragmentHomeBinding
 import nl.appt.helpers.OnPageChangeListener
 import nl.appt.helpers.Preferences
+import nl.appt.helpers.PrefsKeys
 import nl.appt.widgets.BaseFragment
 
 class HomeFragment() : BaseFragment() {
 
     private val toolbarPagerAdapter by lazy {
-        ToolbarPagerAdapter(childFragmentManager)
+        ToolbarPagerAdapter(childFragmentManager, requireContext())
     }
 
     private var _binding: FragmentHomeBinding? = null
@@ -34,7 +35,7 @@ class HomeFragment() : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewPager.adapter = toolbarPagerAdapter
-        binding.viewPager.currentItem = Preferences.getInt(ToolbarPagerAdapter.TAB_KEY)
+        binding.viewPager.currentItem = Preferences.getInt(PrefsKeys.TAB_KEY)
         binding.viewPager.addOnPageChangeListener(OnPageChangeListener())
     }
 

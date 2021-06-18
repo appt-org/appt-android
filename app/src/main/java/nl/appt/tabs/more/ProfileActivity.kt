@@ -10,9 +10,9 @@ import nl.appt.databinding.ActivityProfileBinding
 import nl.appt.extensions.showDialog
 import nl.appt.extensions.showError
 import nl.appt.helpers.Preferences
+import nl.appt.helpers.PrefsKeys
 import nl.appt.helpers.Result
 import nl.appt.helpers.Status
-import nl.appt.helpers.UserConst
 import nl.appt.widgets.ToolbarActivity
 
 class ProfileActivity : ToolbarActivity() {
@@ -43,7 +43,7 @@ class ProfileActivity : ToolbarActivity() {
     }
 
     private fun initUi() {
-        binding.userEmail.text = Preferences.getString(UserConst.USER_EMAIL_KEY)
+        binding.userEmail.text = Preferences.getString(PrefsKeys.USER_EMAIL_KEY)
         binding.logoutBtn.setOnClickListener {
             viewModel.logoutUser()
         }
@@ -97,7 +97,7 @@ class ProfileActivity : ToolbarActivity() {
     }
 
     private fun toAuthActivity() {
-        Preferences.setString(UserConst.USER_EMAIL_KEY, "")
+        Preferences.setString(PrefsKeys.USER_EMAIL_KEY, "")
         val intent = Intent(this, AuthActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)

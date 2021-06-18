@@ -7,8 +7,8 @@ import com.google.gson.Gson
 import nl.appt.api.API
 import nl.appt.auth.ValidationManager
 import nl.appt.helpers.Preferences
+import nl.appt.helpers.PrefsKeys
 import nl.appt.helpers.Result
-import nl.appt.helpers.UserConst
 import nl.appt.model.UserLogin
 import nl.appt.model.UserResponse
 
@@ -67,10 +67,10 @@ class LoginViewModel : ViewModel() {
 
     private fun saveUserData(user: UserResponse) {
         Preferences.run {
-            setString(UserConst.USER_EMAIL_KEY, user.email)
-            setInt(UserConst.USER_ID_KEY, user.id)
+            setString(PrefsKeys.USER_EMAIL_KEY, user.email)
+            setInt(PrefsKeys.USER_ID_KEY, user.id)
             setString(
-                UserConst.USER_VERIFIED_KEY,
+                PrefsKeys.USER_VERIFIED_KEY,
                 user.userMeta.userActivationStatus[0]
             )
         }

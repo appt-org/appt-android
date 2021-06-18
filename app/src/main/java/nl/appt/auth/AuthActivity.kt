@@ -5,7 +5,7 @@ import android.os.Bundle
 import nl.appt.MainActivity
 import nl.appt.R
 import nl.appt.helpers.Preferences
-import nl.appt.helpers.UserConst
+import nl.appt.helpers.PrefsKeys
 import nl.appt.widgets.BaseActivity
 
 class AuthActivity : BaseActivity() {
@@ -17,7 +17,7 @@ class AuthActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.title = ""
-        if (Preferences.getString(UserConst.USER_EMAIL_KEY).isEmpty()) {
+        if (Preferences.getString(PrefsKeys.USER_EMAIL_KEY).isEmpty()) {
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.auth_container, AuthFragment())

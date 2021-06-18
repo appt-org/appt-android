@@ -9,8 +9,8 @@ import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
+import nl.appt.helpers.PrefsKeys
 import nl.appt.helpers.SnackbarCreator
-import nl.appt.helpers.UserConst
 import nl.appt.tabs.home.HomeFragment
 import nl.appt.tabs.knowledge.KnowledgeFragment
 import nl.appt.tabs.more.MoreFragment
@@ -50,7 +50,7 @@ class MainActivity : BaseActivity() {
 
     override fun onViewCreated() {
         this.title = ""
-   //   checkUserMailVerification()
+        //   checkUserMailVerification()
         events.property(Events.Property.talkback, Accessibility.isTalkBackEnabled(this))
 
         // Tab adapter
@@ -89,7 +89,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun checkUserMailVerification() {
-        if (Preferences.getString(UserConst.USER_VERIFIED_KEY) == "0") {
+        if (Preferences.getString(PrefsKeys.USER_VERIFIED_KEY) == "0") {
             showSnackbar()
         }
     }

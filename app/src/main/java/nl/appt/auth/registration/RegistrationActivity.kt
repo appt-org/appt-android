@@ -11,10 +11,10 @@ import nl.appt.extensions.setSlug
 import nl.appt.extensions.showDialog
 import nl.appt.extensions.showError
 import nl.appt.helpers.Preferences
+import nl.appt.helpers.PrefsKeys
 import nl.appt.helpers.Result
 import nl.appt.helpers.Status
 import nl.appt.helpers.TopicConst
-import nl.appt.helpers.UserConst
 import nl.appt.model.Article
 import nl.appt.model.UserResponse
 import nl.appt.tabs.news.ArticleActivity
@@ -102,10 +102,10 @@ class RegistrationActivity : ToolbarActivity() {
                 ) {
                     result.data?.let {
                         Preferences.run {
-                            setString(UserConst.USER_EMAIL_KEY, result.data.email)
-                            setInt(UserConst.USER_ID_KEY, result.data.id)
+                            setString(PrefsKeys.USER_EMAIL_KEY, result.data.email)
+                            setInt(PrefsKeys.USER_ID_KEY, result.data.id)
                             setString(
-                                UserConst.USER_VERIFIED_KEY,
+                                PrefsKeys.USER_VERIFIED_KEY,
                                 result.data.userMeta.userActivationStatus[0]
                             )
                         }

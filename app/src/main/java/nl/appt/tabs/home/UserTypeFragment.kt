@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.MainActivity
 import nl.appt.R
-import nl.appt.adapters.ToolbarPagerAdapter
 import nl.appt.adapters.homeAppLinkAdapterDelegate
 import nl.appt.adapters.homeDescriptionAdapterDelegate
 import nl.appt.adapters.homeLinkAdapterDelegate
@@ -81,10 +80,10 @@ class UserTypeFragment : BaseFragment() {
             userType = it.getString(ARG_PARAM)
         }
         when (userType) {
-            ToolbarPagerAdapter.TAB_USER_TITLE -> {
+            requireContext().getString(R.string.home_tab_user_title) -> {
                 adapterDelegate.items = UserBlocksManager.userBlocksData
             }
-            ToolbarPagerAdapter.TAB_PROFESSIONAL_TITLE -> {
+            requireContext().getString(R.string.home_tab_professional_title) -> {
                 adapterDelegate.items = UserBlocksManager.professionalBlocksData
             }
         }
