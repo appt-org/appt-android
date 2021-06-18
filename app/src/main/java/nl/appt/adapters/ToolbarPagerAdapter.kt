@@ -12,6 +12,7 @@ class ToolbarPagerAdapter(fm: FragmentManager) :
         private const val TABS_COUNT = 2
         const val TAB_USER_TITLE = "Gebruiker"
         const val TAB_PROFESSIONAL_TITLE = "Professional"
+        const val TAB_KEY = "tabKey"
     }
 
     override fun getCount() = TABS_COUNT

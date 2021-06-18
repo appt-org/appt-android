@@ -15,7 +15,7 @@ class ServicesViewModel : ViewModel() {
         getBlocksData()
     }
 
-    private fun getBlocksData() {
+    fun getBlocksData() {
         blockResponse.value = Result.loading()
         API.getBlocks(PATH_SERVICES_JSON) { response ->
 

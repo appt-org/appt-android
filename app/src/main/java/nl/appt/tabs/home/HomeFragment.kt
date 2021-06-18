@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.viewpager.widget.ViewPager
 import nl.appt.R
 import nl.appt.adapters.ToolbarPagerAdapter
 import nl.appt.databinding.FragmentHomeBinding
+import nl.appt.helpers.OnPageChangeListener
+import nl.appt.helpers.Preferences
 import nl.appt.widgets.BaseFragment
 
 class HomeFragment() : BaseFragment() {
@@ -33,6 +34,8 @@ class HomeFragment() : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewPager.adapter = toolbarPagerAdapter
+        binding.viewPager.currentItem = Preferences.getInt(ToolbarPagerAdapter.TAB_KEY)
+        binding.viewPager.addOnPageChangeListener(OnPageChangeListener())
     }
 
     override fun onDestroyView() {

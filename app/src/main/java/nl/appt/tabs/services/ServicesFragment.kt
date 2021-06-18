@@ -104,6 +104,13 @@ class ServicesFragment : ToolbarFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.blockResponse.value?.status == Status.ERROR) {
+            viewModel.getBlocksData()
+        }
+    }
+
     private fun onCategoryClicked(block: Block) {
         if (block.url.isNotEmpty()) {
             requireContext().openWebsite(block.url)

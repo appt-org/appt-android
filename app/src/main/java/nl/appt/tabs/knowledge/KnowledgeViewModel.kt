@@ -15,7 +15,7 @@ class KnowledgeViewModel : ViewModel() {
         getBlocksData()
     }
 
-    private fun getBlocksData() {
+    fun getBlocksData() {
         blockResponse.value = Result.loading()
         API.getBlocks(PATH_KNOWLEDGE_JSON) { response ->
 
