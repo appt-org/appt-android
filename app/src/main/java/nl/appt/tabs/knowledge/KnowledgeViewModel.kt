@@ -14,10 +14,6 @@ class KnowledgeViewModel : ViewModel() {
 
     val blockResponse: LiveData<Result<List<Any>>> = _blockResponse
 
-    init {
-        getBlocksData()
-    }
-
     fun getBlocksData() {
         _blockResponse.value = Result.loading()
         API.getBlocks(PATH_KNOWLEDGE_JSON) { response ->

@@ -14,10 +14,6 @@ class ServicesViewModel : ViewModel() {
 
     val blockResponse: LiveData<Result<List<Any>>> = _blockResponse
 
-    init {
-        getBlocksData()
-    }
-
     fun getBlocksData() {
         _blockResponse.value = Result.loading()
         API.getBlocks(PATH_SERVICES_JSON) { response ->
