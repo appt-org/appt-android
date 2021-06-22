@@ -110,7 +110,8 @@ class KnowledgeFragment : ToolbarFragment() {
 
     override fun onResume() {
         super.onResume()
-        if (viewModel.blockResponse.value?.status == Status.ERROR) {
+
+        if (viewModel.blockResponse.value?.status != Status.SUCCESS) {
             viewModel.getBlocksData()
         }
     }
