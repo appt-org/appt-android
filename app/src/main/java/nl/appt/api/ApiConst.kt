@@ -16,10 +16,6 @@ object ApiConst {
 
     const val NEW_PASSWORD_PATH = "change-password"
 
-    const val BASIC_AUTH_USERNAME = "wordpress@appt.nl"
-
-    const val BASIC_AUTH_PASSWORD = "W6GW oM66 YN2j fWVf LAvg s7Uj"
-
     const val PARAM_ID = "id"
 
     const val PARAM_USER_LOGIN = "user_login"
