@@ -127,7 +127,6 @@ fun blockAdapterDelegate(itemClickedListener: (Block) -> Unit) =
         bind {
             binding.blockTitle.text = item.title
             GlideApp.with(itemView.context).load(item.image)
-                .placeholder(R.drawable.icon_placeholder)
                 .error(R.drawable.icon_placeholder)
                 .into(binding.blockImage)
 
@@ -148,7 +147,6 @@ fun listItemAdapterDelegate(itemClickedListener: (Block) -> Unit) =
         bind {
             binding.textView.text = item.title
             GlideApp.with(itemView.context).load(item.image)
-                .placeholder(R.drawable.icon_placeholder)
                 .error(R.drawable.icon_placeholder)
                 .into(binding.meerImageView)
 
