@@ -1,17 +1,17 @@
 @font-face {
-    font-family: 'Source Sans Pro';
+    font-family: 'Open Sans';
     font-weight: normal;
-    src: url('fonts/source_sans_pro.ttf');
+    src: url('fonts/open_sans_regular.ttf');
 }
 @font-face {
-    font-family: 'Source Sans Pro';
+    font-family: 'Open Sans';
     font-weight: 600;
-    src: url('fonts/source_sans_pro_semibold.ttf');
+    src: url('fonts/open_sans_semibold.ttf');
 }
 @font-face {
-    font-family: 'Source Sans Pro';
+    font-family: 'Open Sans';
     font-weight: bold;
-    src: url('fonts/source_sans_pro_semibold.ttf');
+    src: url('fonts/open_sans_bold.ttf');
 }
 
 :root {
@@ -35,7 +35,7 @@
     -webkit-font-smoothing: antialiased;
     -webkit-text-size-adjust: none;
     word-break: break-word;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     line-height: 1.5;
 }
 *:focus {

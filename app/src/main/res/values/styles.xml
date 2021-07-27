@@ -124,7 +124,7 @@
 
     <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
         <item name="fontPath">@string/font_semibold</item>
-        <item name="android:fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
     </style>
 
     <style name="Widget.Button" parent="TextAppearance.AppCompat.Button">
