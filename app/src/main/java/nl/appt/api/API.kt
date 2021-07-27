@@ -223,8 +223,9 @@ class API {
             data: Any,
             crossinline callback: (Response<T>) -> Unit
         ) {
-            (ApiConst.ARTICLE_PATH + path).httpPost().authentication()
-                .basic(ApiConst.BASIC_AUTH_USERNAME, ApiConst.BASIC_AUTH_PASSWORD).jsonBody(data)
+            (ApiConst.ARTICLE_PATH + path)
+                .httpPost()
+                .jsonBody(data)
                 .responseObject<T> { _, response, result ->
                     callback(Response.from(response, result))
                 }
@@ -235,8 +236,8 @@ class API {
             data: Parameters?,
             crossinline callback: (Response<Any>) -> Unit
         ) {
-            (ApiConst.ARTICLE_PATH + path).httpPost(data).authentication()
-                .basic(ApiConst.BASIC_AUTH_USERNAME, ApiConst.BASIC_AUTH_PASSWORD)
+            (ApiConst.ARTICLE_PATH + path)
+                .httpPost(data)
                 .responseString { _, response, result ->
                     callback(Response.from(response, result))
                 }
@@ -247,8 +248,8 @@ class API {
             data: Parameters?,
             crossinline callback: (Response<T>) -> Unit
         ) {
-            (ApiConst.ARTICLE_PATH + path).httpDelete(data).authentication()
-                .basic(ApiConst.BASIC_AUTH_USERNAME, ApiConst.BASIC_AUTH_PASSWORD)
+            (ApiConst.ARTICLE_PATH + path)
+                .httpDelete(data)
                 .responseObject<T> { _, response, result ->
                     callback(Response.from(response, result))
                 }
