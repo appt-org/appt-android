@@ -172,14 +172,13 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
         errorCount++
 
         if (errorCount >= errorLimit) {
-            val message = if (Accessibility.isTalkBackEnabled(this)) {
-                "Veeg naar links om te stoppen.\n\nVeeg naar rechts om door te gaan."
-            } else {
-                null
+            var message = "Je hebt het gebaar $errorCount keer fout uitgevoerd. Wil je doorgaan of stoppen?"
+
+            if (Accessibility.isTalkBackEnabled(this)) {
+                message += "\n\n" + "Veeg naar links om te stoppen.\n\nVeeg naar rechts om door te gaan."
             }
 
             dialog = AlertDialog.Builder(this)
-                        .setTitle("Je hebt het gebaar $errorCount keer fout uitgevoerd. Wil je doorgaan of stoppen?")
                         .setMessage(message)
                         .setPositiveButton(R.string.action_continue) { _, _ ->
                             errorLimit *= 2
