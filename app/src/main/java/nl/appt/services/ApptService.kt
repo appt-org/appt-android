@@ -5,11 +5,16 @@ import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Region
+import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.core.hardware.display.DisplayManagerCompat
 import nl.appt.R
 import nl.appt.extensions.setGestures
 import nl.appt.model.AccessibilityGesture
@@ -35,8 +40,27 @@ class ApptService: AccessibilityService() {
         super.onCreate()
         Log.i(TAG, "onCreate")
 
+        // Set passthrough regions
+        setPassthroughRegions()
+
         // Start GestureActivity
         startGestureTraining()
+    }
+
+    private fun setPassthroughRegions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            ContextCompat.getSystemService(this, WindowManager::class.java)?.let { windowManager ->
+                val bounds = windowManager.currentWindowMetrics.bounds
+                val region = Region(bounds.left, bounds.top, bounds.right, bounds.bottom)
+
+                val displays = DisplayManagerCompat.getInstance(this).displays
+                displays.forEach { display ->
+                    Log.d(TAG, "Setting passthrough for display $${display.displayId} to: $region")
+                    setTouchExplorationPassthroughRegion(display.displayId, region)
+                    setGestureDetectionPassthroughRegion(display.displayId, region)
+                }
+            }
+        }
     }
 
     override fun onServiceConnected() {

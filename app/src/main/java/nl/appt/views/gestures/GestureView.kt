@@ -46,8 +46,19 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
     override fun onHoverEvent(event: MotionEvent?): Boolean {
         Log.d(TAG, "onHoverEvent: $event")
 
-        if (Accessibility.isTalkBackEnabled(context)) {
-            onTouchEvent(event)
+        if (Accessibility.isTalkBackEnabled(context) && event != null) {
+            when (event.action) {
+                MotionEvent.ACTION_HOVER_ENTER -> {
+                    event.action = MotionEvent.ACTION_DOWN
+                }
+                MotionEvent.ACTION_HOVER_MOVE -> {
+                    event.action = MotionEvent.ACTION_MOVE
+                }
+                MotionEvent.ACTION_HOVER_EXIT -> {
+                    event.action = MotionEvent.ACTION_UP
+                }
+            }
+            return onTouchEvent(event)
         }
 
         return super.onHoverEvent(event)
