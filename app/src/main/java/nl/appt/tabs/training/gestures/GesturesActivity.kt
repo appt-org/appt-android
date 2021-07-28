@@ -25,7 +25,7 @@ class GesturesActivity: ToolbarActivity() {
 
     override fun getLayoutId() = R.layout.view_list
 
-    override fun getToolbarTitle() = getString(R.string.title_gestures)
+    override fun getToolbarTitle() = getString(R.string.title_talkback_gestures)
 
     override fun onViewCreated() {
         super.onViewCreated()

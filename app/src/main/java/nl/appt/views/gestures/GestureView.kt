@@ -40,7 +40,6 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
     }
     private var touches = mutableMapOf<Int, ArrayList<Point>>()
 
-
     /** Touch events **/
 
     override fun onHoverEvent(event: MotionEvent?): Boolean {
@@ -99,6 +98,12 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         }
 
         return super.onTouchEvent(event)
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        touches.clear()
+        invalidate()
     }
 
     override fun onDraw(canvas: Canvas) {

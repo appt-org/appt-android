@@ -50,6 +50,10 @@ enum class Gesture: Training, Serializable {
     fun description(context: Context) = getString(context, "description")
     fun explanation(context: Context) = getString(context, "explanation")
 
+    fun image(): Int {
+        return R.drawable.gesture_one_finger_double_tap
+    }
+
     fun view(context: Context): GestureView {
         return when (this) {
             TOUCH -> TouchGestureView(context, this)

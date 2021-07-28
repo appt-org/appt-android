@@ -1,19 +1,17 @@
 package nl.appt.tabs.training.gestures
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.*
-import android.provider.Settings
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.accessibility.AccessibilityEvent
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_training.*
 import nl.appt.R
-import nl.appt.widgets.ToolbarActivity
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.activity.accessibility
-import nl.appt.accessibility.announce
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.accessibility.setFocus
 import nl.appt.accessibility.view.accessibility
@@ -25,8 +23,10 @@ import nl.appt.model.Gesture
 import nl.appt.services.ApptService
 import nl.appt.views.gestures.GestureView
 import nl.appt.views.gestures.GestureViewCallback
+import nl.appt.widgets.ToolbarActivity
 import java.util.*
 import kotlin.concurrent.schedule
+
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
@@ -53,9 +53,9 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
         override fun onReceive(context: Context?, intent: Intent?) {
             // Received kill event
             intent?.getBooleanExtra(Constants.SERVICE_KILLED, false)?.let { killed ->
-//                if (killed) {
-//                    toast(context, R.string.service_killed)
-//                }
+                if (killed) {
+                    toast(context, R.string.service_killed)
+                }
                 Log.d(TAG, "SERVICE KILLED")
             }
 
@@ -72,18 +72,19 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
 
     override fun getLayoutId() = R.layout.activity_training
 
-    override fun getToolbarTitle() = gesture.title(this)
+    override fun getToolbarTitle() = ""
 
     override fun onViewCreated() {
         super.onViewCreated()
 
-        // Show description
+        titleTextView.text = gesture.title(this)
         descriptionTextView.text = gesture.description(this)
+        gestureImageView.setImageResource(gesture.image())
 
         // Initialize GestureView
         gestureView = gesture.view(this)
         gestureView.callback = this
-        gestureView.accessibility.label = gesture.description(this)
+        gestureView.accessibility.label = String.format("%s: %s", titleTextView.text, descriptionTextView.text)
         container.addView(gestureView)
         accessibility.elements = arrayOf(gestureView)
 
@@ -166,8 +167,16 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
             return
         }
 
-        feedbackTextView.text = feedback
-        feedbackTextView.visibility = View.VISIBLE
+        feedbackTextView.animate()
+            .alpha(0.0f)
+            .setDuration(250)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animator: Animator?) {
+                    feedbackTextView.visibility = View.VISIBLE
+                    feedbackTextView.text = feedback
+                    feedbackTextView.animate().alpha(1.0f).setDuration(250)
+                }
+            })
 
         errorCount++
 
@@ -175,7 +184,7 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
             var message = "Je hebt het gebaar $errorCount keer fout uitgevoerd. Wil je doorgaan of stoppen?"
 
             if (Accessibility.isTalkBackEnabled(this)) {
-                message += "\n\n" + "Veeg naar links om te stoppen.\n\nVeeg naar rechts om door te gaan."
+                message += "\n\nVeeg naar links om te stoppen.\n\nVeeg naar rechts om door te gaan."
             }
 
             dialog = AlertDialog.Builder(this)
