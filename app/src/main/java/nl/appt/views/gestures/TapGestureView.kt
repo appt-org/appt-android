@@ -26,6 +26,7 @@ class TapGestureView(
     private var tapped = false
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        super.onTouchEvent(event)
         gestureDetector.onTouchEvent(event)
 
         if (event?.isStart() == true) {

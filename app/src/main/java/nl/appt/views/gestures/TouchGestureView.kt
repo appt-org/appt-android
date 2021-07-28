@@ -18,10 +18,13 @@ class TouchGestureView(
     private var touched = false
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        super.onTouchEvent(event)
+
         if (!touched && event?.isStart() == true) {
             touched = true
             correct()
         }
+
         return true
     }
 

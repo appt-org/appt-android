@@ -25,6 +25,7 @@ open class SwipeGestureView(
     var swiped = false
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        super.onTouchEvent(event)
         gestureDetector.onTouchEvent(event)
 
         if (event?.isStart() == true) {
