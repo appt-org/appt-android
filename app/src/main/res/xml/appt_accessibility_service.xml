@@ -3,8 +3,8 @@
     android:summary="@string/service_summary"
     android:description="@string/service_description"
     android:accessibilityEventTypes="typeAllMask"
-    android:accessibilityFlags="flagIncludeNotImportantViews|flagRequestTouchExplorationMode"
-    android:accessibilityFeedbackType="feedbackSpoken|feedbackHaptic|feedbackAudible|feedbackGeneric"
-    android:canRetrieveWindowContent="true"
+    android:accessibilityFlags="flagRequestTouchExplorationMode|flagRequestMultiFingerGestures|flagServiceHandlesDoubleTap"
+    android:accessibilityFeedbackType="feedbackAllMask"
     android:canRequestTouchExplorationMode="true"
+    android:canPerformGestures="true"
     android:notificationTimeout="100" />

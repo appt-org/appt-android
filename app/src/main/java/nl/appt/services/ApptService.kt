@@ -9,6 +9,7 @@ import android.graphics.Region
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import android.view.KeyEvent
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
@@ -55,7 +56,7 @@ class ApptService: AccessibilityService() {
 
                 val displays = DisplayManagerCompat.getInstance(this).displays
                 displays.forEach { display ->
-                    Log.d(TAG, "Setting passthrough for display $${display.displayId} to: $region")
+                    Log.d(TAG, "Setting passthrough for display ${display.displayId} to: $region")
                     setTouchExplorationPassthroughRegion(display.displayId, region)
                     setGestureDetectionPassthroughRegion(display.displayId, region)
                 }
@@ -63,9 +64,14 @@ class ApptService: AccessibilityService() {
         }
     }
 
+    override fun onKeyEvent(event: KeyEvent?): Boolean {
+        Log.d(TAG, "onKeyEvent: $event")
+        return super.onKeyEvent(event)
+    }
+
     override fun onServiceConnected() {
-        super.onServiceConnected()
         Log.i(TAG, "Service connected")
+        super.onServiceConnected()
     }
 
     override fun onUnbind(intent: Intent?): Boolean {
@@ -80,12 +86,39 @@ class ApptService: AccessibilityService() {
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         Log.i(TAG, "onAccessibilityEvent: $event")
 
-        if (event != null && event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            // Kill service if window has changed or if GestureActivity is no longer active.
-            if (event.packageName != this.packageName || !isGestureTraining()) {
-                kill()
-            }
+        // Continue if eventType = TYPE_WINDOW_STATE_CHANGED
+        if (event == null || event.eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            return
         }
+
+        // Continue if packageName is empty
+        if (event.packageName == null || event.packageName.isEmpty()) {
+            return
+        }
+
+        // Continue if event does not come from own package
+        if (event.packageName == this.packageName) {
+            return
+        }
+
+        // Continue if event does not come from accessibility package
+        if (event.packageName.contains("accessibility")) {
+            return
+        }
+
+        // Continue if text does not contain the service label
+        val serviceName = getString(R.string.service_label)
+        if (event.text.contains(serviceName)) {
+            return
+        }
+
+        // Continue if the gesture training is not active
+        if (isGestureTraining()) {
+            return
+        }
+
+        // Kill the service
+        kill()
     }
 
     override fun onGesture(gestureId: Int): Boolean {
@@ -109,7 +142,7 @@ class ApptService: AccessibilityService() {
         val intent = Intent(Constants.SERVICE_ACTION)
         intent.setPackage(packageName)
         intent.putExtra(key, value)
-        applicationContext.sendBroadcast(intent)
+        sendBroadcast(intent)
     }
 
     private fun kill() {
@@ -170,7 +203,7 @@ class ApptService: AccessibilityService() {
                 .setMessage(R.string.service_enable_message)
                 .setPositiveButton(R.string.action_activate) { _, _ ->
                     val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_DOCUMENT
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     context.startActivity(intent)
                 }
                 .setNegativeButton(R.string.action_cancel) { _, _ ->
