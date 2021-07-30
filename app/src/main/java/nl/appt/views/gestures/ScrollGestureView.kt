@@ -20,13 +20,14 @@ class ScrollGestureView(
     vararg directions: Direction
 ): SwipeGestureView(context, gesture, *directions) {
 
+    private val TAG = "ScrollGestureView"
     private val requiredFingers = 2
 
     override fun onSwipe(directions: Array<Direction>) {
         swiped = true
 
         val usedFingers = directions.map { it.fingers }.average().toInt()
-        Log.d("Swipe", "onSwipe: ${directions.joinToString { it.toString() }}, usedFingers: $usedFingers")
+        Log.d(TAG, "onSwipe: ${directions.joinToString { it.toString() }}, usedFingers: $usedFingers")
 
         if (requiredFingers != usedFingers) {
             incorrect("Gebruik $requiredFingers vingers in plaats van $usedFingers vingers.")

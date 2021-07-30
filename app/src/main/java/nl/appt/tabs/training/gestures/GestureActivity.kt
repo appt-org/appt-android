@@ -6,6 +6,7 @@ import android.content.*
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_training.*
@@ -53,10 +54,7 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
         override fun onReceive(context: Context?, intent: Intent?) {
             // Received kill event
             intent?.getBooleanExtra(Constants.SERVICE_KILLED, false)?.let { killed ->
-                if (killed) {
-                    toast(context, R.string.service_killed)
-                }
-                Log.d(TAG, "SERVICE KILLED")
+                Log.d(TAG, "ApptService has been killed")
             }
 
             // Received gesture event
@@ -133,11 +131,11 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
 
     override fun correct(gesture: Gesture) {
         finished = true
-        events.log(Events.Category.gestureCompleted, gesture.identifier, errorCount)
+        feedbackTextView.visibility = View.GONE
 
+        events.log(Events.Category.gestureCompleted, gesture.identifier, errorCount)
         gesture.completed(baseContext, true)
         setResult(RESULT_OK)
-        feedbackTextView.visibility = View.GONE
 
         gestures?.let { gestures ->
             if (gestures.size > 1) {
@@ -172,6 +170,9 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
             .setDuration(250)
             .setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animator: Animator?) {
+                    if (finished) {
+                        return
+                    }
                     feedbackTextView.visibility = View.VISIBLE
                     feedbackTextView.text = feedback
                     feedbackTextView.animate().alpha(1.0f).setDuration(250)

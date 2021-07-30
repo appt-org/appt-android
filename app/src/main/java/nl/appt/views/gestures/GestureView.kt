@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Point
+import android.graphics.Region
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -40,7 +41,46 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
     }
     private var touches = mutableMapOf<Int, ArrayList<Point>>()
 
-    /** Touch events **/
+    /** Drawing **/
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        touches.clear()
+        invalidate()
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+
+        touches.entries.forEach { entry ->
+            val points = entry.value
+
+            points.firstOrNull()?.let { point ->
+                canvas.drawPoint(point.x.toFloat(), point.y.toFloat(), paint)
+            }
+
+            points.forEachIndexed { index, point1 ->
+                if (index < points.size-1) {
+                    val point2 = points[index+1]
+
+                    canvas.drawLine(
+                        point1.x.toFloat(),
+                        point1.y.toFloat(),
+                        point2.x.toFloat(),
+                        point2.y.toFloat(),
+                        paint
+                    )
+                }
+            }
+        }
+    }
+
+    /** Motion events **/
+
+    override fun onGenericMotionEvent(event: MotionEvent?): Boolean {
+        Log.d(TAG, "onGenericMotionEvent: $event")
+        return super.onGenericMotionEvent(event)
+    }
 
     override fun onHoverEvent(event: MotionEvent?): Boolean {
         Log.d(TAG, "onHoverEvent: $event")
@@ -88,7 +128,7 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
                         path.add(Point(x, y))
                     }
                     MotionEvent.ACTION_UP -> {
-                        // Ignored
+                        path.add(Point(x, y))
                     }
                 }
 
@@ -98,33 +138,6 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         }
 
         return super.onTouchEvent(event)
-    }
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        touches.clear()
-        invalidate()
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-
-        touches.entries.forEach { entry ->
-            val points = entry.value
-
-            points.forEachIndexed { index, point1 ->
-                val x1 = point1.x.toFloat()
-                val y1 = point1.y.toFloat()
-
-                if (index < points.size-1) {
-                    val point2 = points[index+1]
-                    val x2 = point2.x.toFloat()
-                    val y2 = point2.y.toFloat()
-
-                    canvas.drawLine(x1, y1, x2, y2, paint)
-                }
-            }
-        }
     }
 
     /** Accessibility events **/
