@@ -29,6 +29,6 @@ class TouchGestureView(
     }
 
     override fun onAccessibilityGesture(gesture: AccessibilityGesture) {
-        incorrect("Je maakte een veegbeweging in plaats van een aanraking.")
+        incorrect("Raak het scherm aan in plaats van te vegen.")
     }
 }

@@ -35,7 +35,7 @@ class TapGestureView(
             tapped = false
         } else if (event?.isEnd() == true) {
             if (!tapped) {
-                incorrect("Je maakte geen tik.")
+                incorrect("Tik op het scherm. Je veegde op het scherm.")
             }
         }
 
@@ -44,7 +44,7 @@ class TapGestureView(
 
     override fun onAccessibilityGesture(gesture: AccessibilityGesture) {
         if (!tapped) {
-            incorrect("Je maakte een veegbeweging in plaats van een tik.")
+            incorrect("Tik op het scherm. Je veegde op het scherm.")
         }
     }
 
@@ -58,20 +58,20 @@ class TapGestureView(
         }
 
         if (fingers != this.fingers) {
-            incorrect("Je tikte met $fingers vingers, gebruik ${this.fingers} vingers.")
+            incorrect("Tik met ${this.fingers} vingers. Je tikte met $fingers vingers.")
             return
         }
 
         if (actualTaps != this.taps) {
-            incorrect("Je tikte $actualTaps keer, tik ${this.taps} keer.")
+            incorrect("Tik ${this.taps} keer. Je tikte $actualTaps keer.")
             return
         }
 
         if (longPress != this.longPress) {
             if (longPress) {
-                incorrect("Je hield het scherm te lang ingedrukt.")
+                incorrect("Houd het scherm lang ingedrukt. Je hield het scherm te kort ingedrukt.")
             } else {
-                incorrect("Je hield het scherm te kort ingedrukt.")
+                incorrect("Houd het scherm kort ingedrukt. Je hield het scherm te lang ingedrukt.")
             }
             return
         }

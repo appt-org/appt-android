@@ -56,7 +56,7 @@ open class SwipeGestureView(
 
     override fun incorrect(feedback: String) {
         val instructions = "Veeg ${Direction.feedback(*this.directions)}."
-        super.incorrect("$feedback $instructions")
+        super.incorrect("$instructions $feedback")
     }
 
     /**
