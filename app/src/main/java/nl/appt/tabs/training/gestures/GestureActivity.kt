@@ -76,7 +76,7 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
 
         titleTextView.text = gesture.title(this)
         descriptionTextView.text = gesture.description(this)
-        gestureImageView.setImageResource(gesture.image())
+        gestureImageView.setImageResource(gesture.image(this))
 
         // Initialize GestureView
         gestureView = gesture.view(this)

@@ -100,65 +100,65 @@
     <string name="gesture_one_finger_swipe_up_description">Veeg omhoog om de navigatie instelling omhoog aan te passen.</string>
     <string name="gesture_one_finger_swipe_up_explanation">Door omhoog te vegen ga je naar de vorige navigatie instelling. Zo stel je bijvoorbeeld in om te navigeren via links.</string>
 
-    <string name="gesture_two_finger_scroll_down_title">Omlaag scrollen</string>
-    <string name="gesture_two_finger_scroll_down_description">Veeg met twee vingers omlaag om omlaag te scrollen.</string>
-    <string name="gesture_two_finger_scroll_down_explanation">In lijsten kun je met dit gebaar omlaag scrollen.</string>
+    <string name="gesture_two_finger_swipe_down_title">Omlaag scrollen</string>
+    <string name="gesture_two_finger_swipe_down_description">Veeg met twee vingers omlaag om omlaag te scrollen.</string>
+    <string name="gesture_two_finger_swipe_down_explanation">In lijsten kun je met dit gebaar omlaag scrollen.</string>
 
-    <string name="gesture_two_finger_scroll_up_title">Omhoog scrollen</string>
-    <string name="gesture_two_finger_scroll_up_description">Veeg met twee vingers omhoog om omhoog te scrollen.</string>
-    <string name="gesture_two_finger_scroll_up_explanation">In lijsten kun je met dit gebaar omhoog scrollen.</string>
+    <string name="gesture_two_finger_swipe_up_title">Omhoog scrollen</string>
+    <string name="gesture_two_finger_swipe_up_description">Veeg met twee vingers omhoog om omhoog te scrollen.</string>
+    <string name="gesture_two_finger_swipe_up_explanation">In lijsten kun je met dit gebaar omhoog scrollen.</string>
 
-    <string name="gesture_two_finger_scroll_left_title">Naar links scrollen</string>
-    <string name="gesture_two_finger_scroll_left_description">Veeg met twee vingers naar links om naar links te scrollen.</string>
-    <string name="gesture_two_finger_scroll_left_explanation">Je kunt naar het vorige scherm navigeren met dit gebaar.</string>
+    <string name="gesture_two_finger_swipe_left_title">Naar links scrollen</string>
+    <string name="gesture_two_finger_swipe_left_description">Veeg met twee vingers naar links om naar links te scrollen.</string>
+    <string name="gesture_two_finger_swipe_left_explanation">Je kunt naar het vorige scherm navigeren met dit gebaar.</string>
 
-    <string name="gesture_two_finger_scroll_right_title">Naar rechts scrollen</string>
-    <string name="gesture_two_finger_scroll_right_description">Veeg met twee vingers naar rechts om naar rechts te scrollen.</string>
-    <string name="gesture_two_finger_scroll_right_explanation">Je kunt naar het volgende scherm navigeren met dit gebaar.</string>
+    <string name="gesture_two_finger_swipe_right_title">Naar rechts scrollen</string>
+    <string name="gesture_two_finger_swipe_right_description">Veeg met twee vingers naar rechts om naar rechts te scrollen.</string>
+    <string name="gesture_two_finger_swipe_right_explanation">Je kunt naar het volgende scherm navigeren met dit gebaar.</string>
 
-    <string name="gesture_one_finger_swipe_down_up_title">Naar het laatste onderdeel gaan</string>
-    <string name="gesture_one_finger_swipe_down_up_description">Veeg omlaag en dan omhoog om naar het laatste onderdeel te gaan.</string>
-    <string name="gesture_one_finger_swipe_down_up_explanation">Vaak is het laatste element een manier om te navigeren, via dit gebaar kun je hier direct heen verspringen.</string>
+    <string name="gesture_one_finger_swipe_down_then_up_title">Naar het laatste onderdeel gaan</string>
+    <string name="gesture_one_finger_swipe_down_then_up_description">Veeg omlaag en dan omhoog om naar het laatste onderdeel te gaan.</string>
+    <string name="gesture_one_finger_swipe_down_then_up_explanation">Vaak is het laatste element een manier om te navigeren, via dit gebaar kun je hier direct heen verspringen.</string>
 
-    <string name="gesture_one_finger_swipe_up_down_title">Naar het eerste onderdeel gaan</string>
-    <string name="gesture_one_finger_swipe_up_down_description">Veeg omhoog en dan omlaag om naar het eerste onderdeel te gaan.</string>
-    <string name="gesture_one_finger_swipe_up_down_explanation">Vaak is het eerste element de terugknop, via dit gebaar kun je hier direct heen verspringen.</string>
+    <string name="gesture_one_finger_swipe_up_then_down_title">Naar het eerste onderdeel gaan</string>
+    <string name="gesture_one_finger_swipe_up_then_down_description">Veeg omhoog en dan omlaag om naar het eerste onderdeel te gaan.</string>
+    <string name="gesture_one_finger_swipe_up_then_down_explanation">Vaak is het eerste element de terugknop, via dit gebaar kun je hier direct heen verspringen.</string>
 
-    <string name="gesture_one_finger_swipe_right_left_title">Vooruit scrollen</string>
-    <string name="gesture_one_finger_swipe_right_left_description">Veeg naar rechts en dan naar links om vooruit te scrollen.</string>
-    <string name="gesture_one_finger_swipe_right_left_explanation">Met dit gebaar kun je een klein stukje naar voren scrollen. Je kan dit ook doen door met twee vingers naar onder te vegen.</string>
+    <string name="gesture_one_finger_swipe_right_then_left_title">Vooruit scrollen</string>
+    <string name="gesture_one_finger_swipe_right_then_left_description">Veeg naar rechts en dan naar links om vooruit te scrollen.</string>
+    <string name="gesture_one_finger_swipe_right_then_left_explanation">Met dit gebaar kun je een klein stukje naar voren scrollen. Je kan dit ook doen door met twee vingers naar onder te vegen.</string>
 
-    <string name="gesture_one_finger_swipe_left_right_title">Terug scrollen</string>
-    <string name="gesture_one_finger_swipe_left_right_description">Veeg naar links en dan naar rechts om achteruit te scrollen.</string>
-    <string name="gesture_one_finger_swipe_left_right_explanation">Met dit gebaar kun je een klein stukje terug scrollen. Je kan dit ook doen door met twee vingers omhoog te vegen.</string>
+    <string name="gesture_one_finger_swipe_left_then_right_title">Terug scrollen</string>
+    <string name="gesture_one_finger_swipe_left_then_right_description">Veeg naar links en dan naar rechts om achteruit te scrollen.</string>
+    <string name="gesture_one_finger_swipe_left_then_right_explanation">Met dit gebaar kun je een klein stukje terug scrollen. Je kan dit ook doen door met twee vingers omhoog te vegen.</string>
 
-    <string name="gesture_one_finger_swipe_down_left_title">Terug</string>
-    <string name="gesture_one_finger_swipe_down_left_description">Veeg omlaag en dan naar links om terug te gaan.</string>
-    <string name="gesture_one_finger_swipe_down_left_explanation">Dit gebaar is superhandig. Je kunt namelijk vanuit elke plek in een app terug navigeren. Daarnaast kun je ook meldingen sluiten.\n\nHelaas ondersteunen niet alle apps dit gebaar, als het niet werkt ligt het dus niet aan jou.</string>
+    <string name="gesture_one_finger_swipe_down_then_left_title">Terug</string>
+    <string name="gesture_one_finger_swipe_down_then_left_description">Veeg omlaag en dan naar links om terug te gaan.</string>
+    <string name="gesture_one_finger_swipe_down_then_left_explanation">Dit gebaar is superhandig. Je kunt namelijk vanuit elke plek in een app terug navigeren. Daarnaast kun je ook meldingen sluiten.\n\nHelaas ondersteunen niet alle apps dit gebaar, als het niet werkt ligt het dus niet aan jou.</string>
 
-    <string name="gesture_one_finger_swipe_up_left_title">Thuis</string>
-    <string name="gesture_one_finger_swipe_up_left_description">Veeg omhoog en dan naar links om de thuisknop te activeren.</string>
-    <string name="gesture_one_finger_swipe_up_left_explanation">Dit is de snelste manier om naar het thuisscherm te gaan.</string>
+    <string name="gesture_one_finger_swipe_up_then_left_title">Thuis</string>
+    <string name="gesture_one_finger_swipe_up_then_left_description">Veeg omhoog en dan naar links om de thuisknop te activeren.</string>
+    <string name="gesture_one_finger_swipe_up_then_left_explanation">Dit is de snelste manier om naar het thuisscherm te gaan.</string>
 
-    <string name="gesture_one_finger_swipe_left_up_title">Overzicht</string>
-    <string name="gesture_one_finger_swipe_left_up_description">Veeg naar links en dan omhoog om recente apps te bekijken.</string>
-    <string name="gesture_one_finger_swipe_left_up_explanation">Dit is de snelste manier om je recente apps te bekijken.</string>
+    <string name="gesture_one_finger_swipe_left_then_up_title">Overzicht</string>
+    <string name="gesture_one_finger_swipe_left_then_up_description">Veeg naar links en dan omhoog om recente apps te bekijken.</string>
+    <string name="gesture_one_finger_swipe_left_then_up_explanation">Dit is de snelste manier om je recente apps te bekijken.</string>
 
-    <string name="gesture_one_finger_swipe_right_down_title">Meldingen</string>
-    <string name="gesture_one_finger_swipe_right_down_description">Veeg naar rechts en dan omlaag om meldingen te tonen.</string>
-    <string name="gesture_one_finger_swipe_right_down_explanation">Dit is de snelste manier om je meldingen te bekijken. Je kunt ook met twee vingers bovenaan het scherm naar onder vegen.</string>
+    <string name="gesture_one_finger_swipe_right_then_down_title">Meldingen</string>
+    <string name="gesture_one_finger_swipe_right_then_down_description">Veeg naar rechts en dan omlaag om meldingen te tonen.</string>
+    <string name="gesture_one_finger_swipe_right_then_down_explanation">Dit is de snelste manier om je meldingen te bekijken. Je kunt ook met twee vingers bovenaan het scherm naar onder vegen.</string>
 
-    <string name="gesture_one_finger_swipe_left_down_title">Zoeken</string>
-    <string name="gesture_one_finger_swipe_left_down_description">Veeg naar links en dan omlaag om op het scherm te zoeken</string>
-    <string name="gesture_one_finger_swipe_left_down_explanation">Dit is een superhandige manier om te vinden wat je zoekt. Voer het gebaar uit, en typ waar je naar op zoekt bent. Onder het zoekveld verschijnt een lijst met zoekresultaten. Wanneer je gevonden hebt waar je op zoek naar was kun je dubbeltikken om de focus te laten verspringen naar dit zoekresultaat.</string>
+    <string name="gesture_one_finger_swipe_left_then_down_title">Zoeken</string>
+    <string name="gesture_one_finger_swipe_left_then_down_description">Veeg naar links en dan omlaag om op het scherm te zoeken</string>
+    <string name="gesture_one_finger_swipe_left_then_down_explanation">Dit is een superhandige manier om te vinden wat je zoekt. Voer het gebaar uit, en typ waar je naar op zoekt bent. Onder het zoekveld verschijnt een lijst met zoekresultaten. Wanneer je gevonden hebt waar je op zoek naar was kun je dubbeltikken om de focus te laten verspringen naar dit zoekresultaat.</string>
 
-    <string name="gesture_one_finger_swipe_up_right_title">Lokaal contextmenu</string>
-    <string name="gesture_one_finger_swipe_up_right_description">Veeg omhoog en dan naar rechts om het lokale contextmenu te openen.</string>
-    <string name="gesture_one_finger_swipe_up_right_explanation">Dit is een cruciaal gebaar om te kennen. Via het lokale contextmenu kun je diverse acties uitvoeren, waaronder tekst kopiëren en plakken.</string>
+    <string name="gesture_one_finger_swipe_up_then_right_title">Lokaal contextmenu</string>
+    <string name="gesture_one_finger_swipe_up_then_right_description">Veeg omhoog en dan naar rechts om het lokale contextmenu te openen.</string>
+    <string name="gesture_one_finger_swipe_up_then_right_explanation">Dit is een cruciaal gebaar om te kennen. Via het lokale contextmenu kun je diverse acties uitvoeren, waaronder tekst kopiëren en plakken.</string>
 
-    <string name="gesture_one_finger_swipe_down_right_title">Algemeen contextmenu</string>
-    <string name="gesture_one_finger_swipe_down_right_description">Veeg omlaag en dan naar rechts om het algemene contextmenu te openen.</string>
-    <string name="gesture_one_finger_swipe_down_right_explanation">Dit is een enorm handig gebaar om de opties die beschikbaar zijn te bekijken. Je kunt bijvoorbeeld het scherm laten voorlezen of de laatste uiting naar het klembord kopiëren.</string>
+    <string name="gesture_one_finger_swipe_down_then_right_title">Algemeen contextmenu</string>
+    <string name="gesture_one_finger_swipe_down_then_right_description">Veeg omlaag en dan naar rechts om het algemene contextmenu te openen.</string>
+    <string name="gesture_one_finger_swipe_down_then_right_explanation">Dit is een enorm handig gebaar om de opties die beschikbaar zijn te bekijken. Je kunt bijvoorbeeld het scherm laten voorlezen of de laatste uiting naar het klembord kopiëren.</string>
 
     <!-- TalkBack actions -->
     <string name="talkback_action_headings_title">Navigeren via koppen</string>
