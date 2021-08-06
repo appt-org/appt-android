@@ -6,7 +6,6 @@ import android.content.*
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_training.*
@@ -41,7 +40,7 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
         intent.getGestures()
     }
     private val gesture: Gesture by lazy {
-        gestures?.firstOrNull() ?: intent.getGesture() ?: Gesture.TOUCH
+        gestures?.firstOrNull() ?: intent.getGesture() ?: Gesture.ONE_FINGER_TOUCH
     }
     private lateinit var gestureView: GestureView
 
