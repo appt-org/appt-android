@@ -1,6 +1,7 @@
 package nl.appt.views.gestures
 
 import android.content.Context
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import nl.appt.accessibility.Accessibility
@@ -9,6 +10,7 @@ import nl.appt.extensions.isEnd
 import nl.appt.extensions.isStart
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Gesture
+import nl.appt.model.Touch
 
 /**
  * Created by Jan Jaap de Groot on 22/10/2020
@@ -87,6 +89,7 @@ class TapGestureView(
         }
 
         override fun onDoubleTap(e: MotionEvent?): Boolean {
+            showTouches(e, 2)
             onTapped(1, 2)
             return true
         }
@@ -102,6 +105,7 @@ class TapGestureView(
         }
 
         override fun onLongPress(e: MotionEvent?) {
+            showTouches(e, 1, true)
             onTapped(1, 1, true)
         }
     })

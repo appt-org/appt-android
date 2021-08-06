@@ -3,8 +3,6 @@ package nl.appt.views.gestures
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.Point
-import android.graphics.Region
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -15,6 +13,7 @@ import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Gesture
+import nl.appt.model.Touch
 
 interface GestureViewCallback {
     fun correct(gesture: Gesture)
@@ -36,10 +35,11 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         paint.style = Paint.Style.STROKE
         paint.strokeJoin = Paint.Join.ROUND
         paint.strokeCap = Paint.Cap.ROUND
-        paint.strokeWidth = 20F
+        paint.strokeWidth = 20f
+        paint.isAntiAlias = true
         paint
     }
-    private var touches = mutableMapOf<Int, ArrayList<Point>>()
+    private var touches = mutableMapOf<Int, ArrayList<Touch>>()
 
     /** Drawing **/
 
@@ -52,27 +52,72 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        touches.entries.forEach { entry ->
-            val points = entry.value
+        val offset = paint.strokeWidth / 2
 
-            points.firstOrNull()?.let { point ->
-                canvas.drawPoint(point.x.toFloat(), point.y.toFloat(), paint)
+        touches.entries.forEach { entry ->
+            val touches = entry.value
+
+            // Draw circle(s) around first touch.
+            touches.firstOrNull()?.let { touch ->
+                var i = 0
+                while(i < touch.taps) {
+                    val radius = 50f * (i+1)
+                    canvas.drawCircle(touch.x.toFloat() - offset, touch.y.toFloat() - offset, radius, paint)
+                    i++
+                }
             }
 
-            points.forEachIndexed { index, point1 ->
-                if (index < points.size-1) {
-                    val point2 = points[index+1]
+            // Draw lines if there are more than 5 touches.
+            if (touches.size >= 5) {
+                touches.forEachIndexed { index, touch1 ->
+                    if (index < touches.size - 1) {
+                        val touch2 = touches[index+1]
 
-                    canvas.drawLine(
-                        point1.x.toFloat(),
-                        point1.y.toFloat(),
-                        point2.x.toFloat(),
-                        point2.y.toFloat(),
-                        paint
-                    )
+                        canvas.drawLine(
+                            touch1.x.toFloat() - offset,
+                            touch1.y.toFloat() - offset,
+                            touch2.x.toFloat() - offset,
+                            touch2.y.toFloat() - offset,
+                            paint
+                        )
+                    }
                 }
             }
         }
+    }
+
+//    private fun drawLine(canvas: Canvas, paint: Paint, touch1: Touch, touch2: Touch) {
+//        val offset = paint.strokeWidth / 2
+//
+//        canvas.drawLine(
+//            touch1.x.toFloat() - offset,
+//            touch1.y.toFloat() - offset,
+//            touch2.x.toFloat() - offset,
+//            touch2.y.toFloat() - offset,
+//            paint
+//        )
+//    }
+
+    fun showTouches(event: MotionEvent?, taps: Int = 1, longPress: Boolean = false) {
+        if (event != null) {
+            touches.clear()
+            for (i in 0 until event.pointerCount) {
+                val id = event.getPointerId(i)
+                val coordinates = touches[id] ?: arrayListOf()
+
+                val x = event.getX(i).toInt()
+                val y = event.getY(i).toInt()
+
+                coordinates.add(Touch(x, y, taps, longPress))
+                touches[id] = coordinates
+            }
+            invalidate()
+        }
+    }
+
+    fun showTouches(touches: MutableMap<Int, ArrayList<Touch>>) {
+        this.touches = touches
+        invalidate()
     }
 
     /** Motion events **/
@@ -113,7 +158,7 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
 
             for (i in 0 until event.pointerCount) {
                 val id = event.getPointerId(i)
-                val path = touches[id] ?: arrayListOf()
+                val coordinates = touches[id] ?: arrayListOf()
 
                 val x = event.getX(i).toInt()
                 val y = event.getY(i).toInt()
@@ -122,17 +167,17 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
 
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        path.add(Point(x, y))
+                        coordinates.add(Touch(x, y))
                     }
                     MotionEvent.ACTION_MOVE -> {
-                        path.add(Point(x, y))
+                        coordinates.add(Touch(x, y))
                     }
                     MotionEvent.ACTION_UP -> {
-                        path.add(Point(x, y))
+                        coordinates.add(Touch(x, y))
                     }
                 }
 
-                touches[id] = path
+                this.touches[id] = coordinates
             }
             invalidate()
         }
