@@ -2,6 +2,7 @@ package nl.appt.views.gestures
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.util.Log
 import android.view.MotionEvent
@@ -14,6 +15,7 @@ import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Gesture
 import nl.appt.model.Touch
+import kotlin.math.atan2
 
 interface GestureViewCallback {
     fun correct(gesture: Gesture)
@@ -52,55 +54,116 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val offset = paint.strokeWidth / 2
-
         touches.entries.forEach { entry ->
             val touches = entry.value
 
             // Draw circle(s) around first touch.
             touches.firstOrNull()?.let { touch ->
-                var i = 0
-                while(i < touch.taps) {
-                    val radius = 50f * (i+1)
-                    canvas.drawCircle(touch.x.toFloat() - offset, touch.y.toFloat() - offset, radius, paint)
-                    i++
-                }
+                drawCircle(canvas, paint, touch)
             }
 
-            // Draw lines if there are more than 5 touches.
+            // Draw lines.
             if (touches.size >= 5) {
-                touches.forEachIndexed { index, touch1 ->
-                    if (index < touches.size - 1) {
-                        val touch2 = touches[index+1]
-
-                        canvas.drawLine(
-                            touch1.x.toFloat() - offset,
-                            touch1.y.toFloat() - offset,
-                            touch2.x.toFloat() - offset,
-                            touch2.y.toFloat() - offset,
-                            paint
-                        )
-                    }
-                }
+                drawLines(canvas, paint, touches)
+                drawArrowHead(canvas, paint, touches)
             }
         }
     }
 
-//    private fun drawLine(canvas: Canvas, paint: Paint, touch1: Touch, touch2: Touch) {
-//        val offset = paint.strokeWidth / 2
-//
-//        canvas.drawLine(
-//            touch1.x.toFloat() - offset,
-//            touch1.y.toFloat() - offset,
-//            touch2.x.toFloat() - offset,
-//            touch2.y.toFloat() - offset,
-//            paint
-//        )
-//    }
+    private fun drawCircle(
+        canvas: Canvas,
+        paint: Paint,
+        touch: Touch,
+        size: Float = 40f
+    ) {
+        val offset = paint.strokeWidth / 2
+        val x = touch.x.toFloat() - offset
+        val y = touch.y.toFloat() - offset
+
+        var i = 0
+        while(i < touch.taps) {
+            val radius = size * (i+1)
+            canvas.drawCircle(x, y, radius, paint)
+            i++
+        }
+    }
+
+    private fun drawLines(
+        canvas: Canvas,
+        paint: Paint,
+        touches: List<Touch>
+    ) {
+        touches.forEachIndexed { index, t1 ->
+            if (index < touches.size - 1) {
+                val t2 = touches[index+1]
+
+                drawLine(canvas, paint, t1, t2)
+            }
+        }
+    }
+
+    private fun drawLine(
+        canvas: Canvas,
+        paint: Paint,
+        touch1: Touch,
+        touch2: Touch
+    ) {
+        val offset = paint.strokeWidth / 2
+
+        canvas.drawLine(
+            touch1.x.toFloat() - offset,
+            touch1.y.toFloat() - offset,
+            touch2.x.toFloat() - offset,
+            touch2.y.toFloat() - offset,
+            paint
+        )
+    }
+
+    private fun drawArrowHead(
+        canvas: Canvas,
+        paint: Paint,
+        touches: List<Touch>,
+        arrowSize:Int = 50,
+        arrowAngle: Int = 45
+    ) {
+        // Use a subset of up to 10 points
+        val subset = touches.takeLast(10)
+        if (subset.size < 2) {
+            return
+        }
+        val t1 = subset.first()
+        val t2 = subset.last()
+
+        // Determine start and end coordinates
+        val offset = paint.strokeWidth / 2
+        val x1 = t1.x - offset
+        val y1 = t1.y - offset
+        val x2 = t2.x - offset
+        val y2 = t2.y - offset
+
+        // Calculate points of left and right side of arrow
+        val leftPoints = floatArrayOf(x2 - arrowSize, y2, x2, y2)
+        val rightPoints = floatArrayOf(x2, y2, x2, y2 + arrowSize)
+
+        // Calculate angle
+        val angle = atan2((y2 - y1).toDouble(), (x2 - x1).toDouble()) * 180 / Math.PI + arrowAngle
+
+        // Rotate the matrix around the angle
+        val matrix = Matrix()
+        matrix.setRotate(angle.toFloat(), x2, y2)
+        matrix.mapPoints(leftPoints)
+        matrix.mapPoints(rightPoints)
+
+        // Draw arrow
+        canvas.drawLine(leftPoints[0], leftPoints[1], leftPoints[2], leftPoints[3], paint)
+        canvas.drawLine(rightPoints[0], rightPoints[1], rightPoints[2], rightPoints[3], paint)
+    }
+
+    /** Touches **/
 
     fun showTouches(event: MotionEvent?, taps: Int = 1, longPress: Boolean = false) {
         if (event != null) {
-            touches.clear()
+            val touches = mutableMapOf<Int, ArrayList<Touch>>()
             for (i in 0 until event.pointerCount) {
                 val id = event.getPointerId(i)
                 val coordinates = touches[id] ?: arrayListOf()
@@ -111,7 +174,7 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
                 coordinates.add(Touch(x, y, taps, longPress))
                 touches[id] = coordinates
             }
-            invalidate()
+            showTouches(touches)
         }
     }
 
