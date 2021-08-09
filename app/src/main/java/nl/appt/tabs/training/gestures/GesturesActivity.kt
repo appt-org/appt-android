@@ -101,6 +101,7 @@ class GesturesActivity: ToolbarActivity() {
             "Selecteren",
             Gesture.ONE_FINGER_TOUCH,
             Gesture.ONE_FINGER_DOUBLE_TAP,
+            Gesture.ONE_FINGER_DOUBLE_TAP_HOLD,
             "Navigeren",
             Gesture.ONE_FINGER_SWIPE_RIGHT,
             Gesture.ONE_FINGER_SWIPE_LEFT,

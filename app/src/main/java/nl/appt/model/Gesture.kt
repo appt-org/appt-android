@@ -18,6 +18,7 @@ enum class Gesture: Training, Serializable {
 
     ONE_FINGER_TOUCH,
     ONE_FINGER_DOUBLE_TAP,
+    ONE_FINGER_DOUBLE_TAP_HOLD,
 
     ONE_FINGER_SWIPE_RIGHT,
     ONE_FINGER_SWIPE_LEFT,
@@ -99,6 +100,7 @@ enum class Gesture: Training, Serializable {
         return when (this) {
             ONE_FINGER_TOUCH -> TouchGestureView(context, this)
             ONE_FINGER_DOUBLE_TAP -> TapGestureView(context, this, 1, 2)
+            ONE_FINGER_DOUBLE_TAP_HOLD -> TapGestureView(context, this, 1, 2, true)
 
             ONE_FINGER_SWIPE_RIGHT -> SwipeGestureView(context, this)
             ONE_FINGER_SWIPE_LEFT -> SwipeGestureView(context, this)

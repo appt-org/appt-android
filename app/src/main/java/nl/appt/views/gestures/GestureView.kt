@@ -29,6 +29,7 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
 
     private val TAG = "GestureView"
     private val CLASS_NAME = GestureView::class.java.name
+    private var correct = false
 
     private val paint: Paint by lazy {
         val paint = Paint()
@@ -82,7 +83,14 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         var i = 0
         while(i < touch.taps) {
             val radius = size * (i+1)
+
+            if (i == 0 && touch.longPress) {
+                paint.style = Paint.Style.FILL
+            } else {
+                paint.style = Paint.Style.STROKE
+            }
             canvas.drawCircle(x, y, radius, paint)
+
             i++
         }
     }
@@ -92,6 +100,8 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         paint: Paint,
         touches: List<Touch>
     ) {
+        paint.style = Paint.Style.STROKE
+
         touches.forEachIndexed { index, t1 ->
             if (index < touches.size - 1) {
                 val t2 = touches[index+1]
@@ -109,6 +119,7 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
     ) {
         val offset = paint.strokeWidth / 2
 
+        paint.style = Paint.Style.STROKE
         canvas.drawLine(
             touch1.x.toFloat() - offset,
             touch1.y.toFloat() - offset,
@@ -125,9 +136,9 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         arrowSize:Int = 50,
         arrowAngle: Int = 45
     ) {
-        // Use a subset of up to 10 points
+        // Use a subset of 10 points
         val subset = touches.takeLast(10)
-        if (subset.size < 2) {
+        if (subset.size < 10) {
             return
         }
         val t1 = subset.first()
@@ -154,6 +165,7 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         matrix.mapPoints(rightPoints)
 
         // Draw arrow
+        paint.style = Paint.Style.STROKE
         canvas.drawLine(leftPoints[0], leftPoints[1], leftPoints[2], leftPoints[3], paint)
         canvas.drawLine(rightPoints[0], rightPoints[1], rightPoints[2], rightPoints[3], paint)
     }
@@ -266,10 +278,17 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
     var callback: GestureViewCallback? = null
 
     open fun correct() {
-        callback?.correct(gesture)
+        Log.d(TAG, "Correct")
+        if (!correct) {
+            correct = true
+            callback?.correct(gesture)
+        }
     }
 
     open fun incorrect(feedback: String = "Geen feedback") {
-        callback?.incorrect(gesture, feedback)
+        Log.d(TAG, "Incorrect: $feedback")
+        if (!correct) {
+            callback?.incorrect(gesture, feedback)
+        }
     }
 }

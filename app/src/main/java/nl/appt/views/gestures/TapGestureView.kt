@@ -1,19 +1,20 @@
 package nl.appt.views.gestures
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.view.ViewConfiguration
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.extensions.isEnd
-import nl.appt.extensions.isStart
 import nl.appt.model.Gesture
 
 /**
  * Created by Jan Jaap de Groot on 22/10/2020
  * Copyright 2020 Stichting Appt
  */
-
 class TapGestureView(
     context: Context,
     gesture: Gesture,
@@ -22,17 +23,15 @@ class TapGestureView(
     private val longPress: Boolean = false
 ): GestureView(gesture, context) {
 
-    private var tapped = false
+    private var tapCount = 0
+    private var longPressed = false
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         super.onTouchEvent(event)
-        gestureDetector.onTouchEvent(event)
 
-        if (event?.isStart() == true) {
-            tapped = false
-        } else if (event?.isEnd() == true) {
-            if (!tapped) {
-                incorrect("Tik op het scherm. Je veegde op het scherm.")
+        if (!gestureDetector.onTouchEvent(event)) {
+            if (event?.isEnd() == true && tapCount == 0) {
+                incorrect("Je veegde op het scherm. Tik op het scherm.")
             }
         }
 
@@ -42,36 +41,41 @@ class TapGestureView(
     override fun onAccessibilityGesture(gesture: Gesture) {
         if (this.gesture == gesture) {
             correct()
-        } else if (!tapped) {
-            incorrect("Tik op het scherm. Je veegde op het scherm.")
+        } else {
+            incorrect("Je veegde op het scherm. Tik op het scherm.")
         }
     }
 
     private fun onTapped(fingers: Int, taps: Int, longPress: Boolean = false) {
-        tapped = true
+        // Check amount of fingers
+        if (fingers != this.fingers) {
+            incorrect("Tik met ${this.fingers} vingers. Je tikte met $fingers vingers.")
+            return
+        }
 
         // Add one tap if TalkBack is activated
         var actualTaps = taps
         if (Accessibility.isTalkBackEnabled(context)) {
             actualTaps += 1
         }
-
-        if (fingers != this.fingers) {
-            incorrect("Tik met ${this.fingers} vingers. Je tikte met $fingers vingers.")
-            return
-        }
-
+        // Check amount of taps
         if (actualTaps != this.taps) {
             incorrect("Tik ${this.taps} keer. Je tikte $actualTaps keer.")
             return
         }
 
+        // Check if long pressed
         if (longPress != this.longPress) {
-            if (longPress) {
-                incorrect("Houd het scherm lang ingedrukt. Je hield het scherm te kort ingedrukt.")
-            } else {
-                incorrect("Houd het scherm kort ingedrukt. Je hield het scherm te lang ingedrukt.")
-            }
+            val timeout = ViewConfiguration.getLongPressTimeout()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (longPress) {
+                    incorrect("Houd het scherm korter ingedrukt na het tikken.")
+                } else {
+                    incorrect("Houd het scherm langer ingedrukt na het tikken.")
+                }
+            }, timeout.toLong())
+
             return
         }
 
@@ -87,25 +91,38 @@ class TapGestureView(
             return true
         }
 
-        override fun onDoubleTap(e: MotionEvent?): Boolean {
-            showTouches(e, 2)
-            onTapped(1, 2)
-            return true
-        }
-
         override fun onSingleTapUp(e: MotionEvent?): Boolean {
-            tapped = true // Set to true in advance to avoid triggering incorrect feedback.
+            tapCount = 1
             return true
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
-            onTapped(1, 1)
-            return super.onSingleTapConfirmed(e)
+            tapCount = 1
+
+            showTouches(e, tapCount)
+            onTapped (e?.pointerCount ?: 1, tapCount)
+
+            return true
+        }
+
+        override fun onDoubleTap(e: MotionEvent?): Boolean {
+            tapCount = 2
+
+            showTouches(e, tapCount)
+            onTapped(e?.pointerCount ?: 1, tapCount)
+
+            return true
         }
 
         override fun onLongPress(e: MotionEvent?) {
-            showTouches(e, 1, true)
-            onTapped(1, 1, true)
+            longPressed = true
+
+            if (tapCount == 0) {
+                tapCount = 1
+            }
+
+            showTouches(e, tapCount, longPressed)
+            onTapped(e?.pointerCount ?: 1, tapCount, longPressed)
         }
     })
 }
