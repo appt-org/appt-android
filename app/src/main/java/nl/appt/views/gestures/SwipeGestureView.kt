@@ -8,7 +8,6 @@ import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.extensions.isEnd
 import nl.appt.extensions.isStart
-import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Direction
 import nl.appt.model.Gesture
 
@@ -18,8 +17,7 @@ import nl.appt.model.Gesture
  */
 open class SwipeGestureView(
     context: Context,
-    gesture: Gesture,
-    vararg val directions: Direction
+    gesture: Gesture
 ): GestureView(gesture, context) {
 
     private val TAG = "SwipeGestureView"
@@ -40,22 +38,28 @@ open class SwipeGestureView(
         return true
     }
 
-    override fun onAccessibilityGesture(gesture: AccessibilityGesture) {
-        onSwipe(gesture.directions)
+    override fun onAccessibilityGesture(gesture: Gesture) {
+        if (this.gesture == gesture) {
+            correct()
+        } else if (gesture.directions.isNotEmpty()) {
+            onSwipe(gesture.directions)
+        } else {
+            incorrect("Maak een veegbeweging.")
+        }
     }
 
     open fun onSwipe(directions: Array<Direction>) {
         swiped = true
 
-        if (directions.contentEquals(this.directions)) {
+        if (directions.contentEquals(gesture.directions)) {
             correct()
         } else {
-            incorrect("Je veegde ${Direction.feedback(*directions)}.")
+            incorrect("Je veegde ${Direction.feedback(directions)}.")
         }
     }
 
     override fun incorrect(feedback: String) {
-        val instructions = "Veeg ${Direction.feedback(*this.directions)}."
+        val instructions = "Veeg ${Direction.feedback(gesture.directions)}."
         super.incorrect("$instructions $feedback")
     }
 

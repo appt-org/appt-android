@@ -35,7 +35,7 @@ enum class Direction(var fingers: Int = 1) {
     }
 
     companion object {
-        fun feedback(vararg directions: Direction): String {
+        fun feedback(directions: Array<Direction>): String {
             return directions.joinToString(separator = ", ") { it.title }
         }
     }

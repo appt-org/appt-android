@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import nl.appt.R
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
-import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Gesture
 import nl.appt.model.Touch
 import kotlin.math.atan2
@@ -260,7 +259,7 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         super.onPopulateAccessibilityEvent(event)
     }
 
-    abstract fun onAccessibilityGesture(gesture: AccessibilityGesture)
+    abstract fun onAccessibilityGesture(gesture: Gesture)
 
     /** Callback **/
 

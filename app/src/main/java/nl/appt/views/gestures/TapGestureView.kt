@@ -1,16 +1,13 @@
 package nl.appt.views.gestures
 
 import android.content.Context
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.extensions.isEnd
 import nl.appt.extensions.isStart
-import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Gesture
-import nl.appt.model.Touch
 
 /**
  * Created by Jan Jaap de Groot on 22/10/2020
@@ -42,8 +39,10 @@ class TapGestureView(
         return true
     }
 
-    override fun onAccessibilityGesture(gesture: AccessibilityGesture) {
-        if (!tapped) {
+    override fun onAccessibilityGesture(gesture: Gesture) {
+        if (this.gesture == gesture) {
+            correct()
+        } else if (!tapped) {
             incorrect("Tik op het scherm. Je veegde op het scherm.")
         }
     }

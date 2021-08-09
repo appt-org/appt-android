@@ -17,7 +17,6 @@ import nl.appt.accessibility.setFocus
 import nl.appt.accessibility.view.accessibility
 import nl.appt.extensions.*
 import nl.appt.helpers.Events
-import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
 import nl.appt.model.Gesture
 import nl.appt.services.ApptService
@@ -26,7 +25,6 @@ import nl.appt.views.gestures.GestureViewCallback
 import nl.appt.widgets.ToolbarActivity
 import java.util.*
 import kotlin.concurrent.schedule
-
 
 /**
  * Created by Jan Jaap de Groot on 12/10/2020
@@ -57,7 +55,7 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
             }
 
             // Received gesture event
-            (intent?.getSerializableExtra(Constants.SERVICE_GESTURE) as? AccessibilityGesture)?.let { gesture ->
+            (intent?.getSerializableExtra(Constants.SERVICE_GESTURE) as? Gesture)?.let { gesture ->
                 if (dialog != null) {
                     dialog?.onAccessibilityGesture(gesture) // Pass gesture to AlertDialog if shown.
                 } else {

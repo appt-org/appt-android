@@ -3,7 +3,6 @@ package nl.appt.views.gestures
 import android.content.Context
 import android.view.MotionEvent
 import nl.appt.extensions.isStart
-import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Gesture
 
 /**
@@ -28,7 +27,11 @@ class TouchGestureView(
         return true
     }
 
-    override fun onAccessibilityGesture(gesture: AccessibilityGesture) {
-        incorrect("Raak het scherm aan in plaats van te vegen.")
+    override fun onAccessibilityGesture(gesture: Gesture) {
+        if (gesture == gesture) {
+            correct()
+        } else {
+            incorrect("Raak het scherm aan in plaats van te vegen.")
+        }
     }
 }

@@ -2,11 +2,6 @@ package nl.appt.views.gestures
 
 import android.content.Context
 import android.util.Log
-import android.view.GestureDetector
-import android.view.MotionEvent
-import nl.appt.extensions.isEnd
-import nl.appt.extensions.isStart
-import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Direction
 import nl.appt.model.Gesture
 
@@ -16,9 +11,8 @@ import nl.appt.model.Gesture
  */
 class ScrollGestureView(
     context: Context,
-    gesture: Gesture,
-    vararg directions: Direction
-): SwipeGestureView(context, gesture, *directions) {
+    gesture: Gesture
+): SwipeGestureView(context, gesture) {
 
     private val TAG = "ScrollGestureView"
     private val requiredFingers = 2
@@ -31,10 +25,10 @@ class ScrollGestureView(
 
         if (requiredFingers != usedFingers) {
             incorrect("Gebruik $requiredFingers vingers in plaats van $usedFingers vingers.")
-        } else if (directions.contentEquals(this.directions)) {
+        } else if (directions.contentEquals(gesture.directions)) {
             correct()
         } else {
-            incorrect("Je veegde ${Direction.feedback(*directions)}.")
+            incorrect("Je veegde ${Direction.feedback(directions)}.")
         }
     }
 }

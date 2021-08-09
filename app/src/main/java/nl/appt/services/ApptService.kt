@@ -18,7 +18,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.hardware.display.DisplayManagerCompat
 import nl.appt.R
 import nl.appt.extensions.setGestures
-import nl.appt.model.AccessibilityGesture
 import nl.appt.model.Constants
 import nl.appt.model.Gesture
 import nl.appt.tabs.training.gestures.GestureActivity
@@ -125,7 +124,7 @@ class ApptService: AccessibilityService() {
         Log.i(TAG, "onGesture: $gestureId")
 
         // Broadcast gesture to GestureActivity
-        AccessibilityGesture.from(gestureId)?.let { gesture ->
+        Gesture.from(gestureId)?.let { gesture ->
             broadcast(Constants.SERVICE_GESTURE, gesture)
         }
 
