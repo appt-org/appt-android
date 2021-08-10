@@ -30,6 +30,10 @@ enum class Gesture: Training, Serializable {
     THREE_FINGER_DOUBLE_TAP_HOLD,
     THREE_FINGER_TRIPLE_TAP,
 
+    FOUR_FINGER_TAP,
+    FOUR_FINGER_DOUBLE_TAP,
+    FOUR_FINGER_DOUBLE_TAP_HOLD,
+
     ONE_FINGER_SWIPE_RIGHT,
     ONE_FINGER_SWIPE_LEFT,
     ONE_FINGER_SWIPE_UP,
@@ -72,6 +76,10 @@ enum class Gesture: Training, Serializable {
                 THREE_FINGER_DOUBLE_TAP_HOLD,
                 THREE_FINGER_TRIPLE_TAP -> 3
 
+                FOUR_FINGER_TAP,
+                FOUR_FINGER_DOUBLE_TAP,
+                FOUR_FINGER_DOUBLE_TAP_HOLD -> 4
+
                 else -> 1
             }
         }
@@ -84,7 +92,9 @@ enum class Gesture: Training, Serializable {
                 TWO_FINGER_DOUBLE_TAP,
                 TWO_FINGER_DOUBLE_TAP_HOLD,
                 THREE_FINGER_DOUBLE_TAP,
-                THREE_FINGER_DOUBLE_TAP_HOLD,-> 2
+                THREE_FINGER_DOUBLE_TAP_HOLD,
+                FOUR_FINGER_DOUBLE_TAP,
+                FOUR_FINGER_DOUBLE_TAP_HOLD -> 2
 
                 TWO_FINGER_TRIPLE_TAP,
                 THREE_FINGER_TRIPLE_TAP -> 3
@@ -167,7 +177,10 @@ enum class Gesture: Training, Serializable {
             TWO_FINGER_TRIPLE_TAP,
             THREE_FINGER_TAP,
             THREE_FINGER_DOUBLE_TAP,
-            THREE_FINGER_TRIPLE_TAP -> {
+            THREE_FINGER_TRIPLE_TAP,
+            FOUR_FINGER_TAP,
+            FOUR_FINGER_DOUBLE_TAP,
+            FOUR_FINGER_DOUBLE_TAP_HOLD -> {
                 TapGestureView(context, this)
             }
 
@@ -254,10 +267,9 @@ enum class Gesture: Training, Serializable {
                     AccessibilityService.GESTURE_3_FINGER_SWIPE_LEFT -> return null
 
                     // FOUR FINGER TAP
-                    AccessibilityService.GESTURE_4_FINGER_SINGLE_TAP -> return null
-                    AccessibilityService.GESTURE_4_FINGER_DOUBLE_TAP -> return null
-                    AccessibilityService.GESTURE_4_FINGER_DOUBLE_TAP_AND_HOLD -> return null
-                    AccessibilityService.GESTURE_4_FINGER_TRIPLE_TAP -> return null
+                    AccessibilityService.GESTURE_4_FINGER_SINGLE_TAP -> return FOUR_FINGER_TAP
+                    AccessibilityService.GESTURE_4_FINGER_DOUBLE_TAP -> return FOUR_FINGER_DOUBLE_TAP
+                    AccessibilityService.GESTURE_4_FINGER_DOUBLE_TAP_AND_HOLD -> return FOUR_FINGER_DOUBLE_TAP_HOLD
 
                     // FOUR FINGER SWIPE
                     AccessibilityService.GESTURE_4_FINGER_SWIPE_UP -> return null

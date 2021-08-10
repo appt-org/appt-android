@@ -120,6 +120,18 @@
     <string name="gesture_three_finger_triple_tap_description">Tik met 3 vingers 3 keer op het scherm.</string>
     <string name="gesture_three_finger_triple_tap_explanation">Dit gebaar is de snelste manier om tekst te plakken.</string>
 
+    <string name="gesture_four_finger_tap_title">Gebaren oefenen</string>
+    <string name="gesture_four_finger_tap_description">Tik met 4 vingers op het scherm.</string>
+    <string name="gesture_four_finger_tap_explanation">Nadat je dit gebaar gebruikt wordt de oefenmodus vor TalkBack gebaren geopend.</string>
+
+    <string name="gesture_four_finger_double_tap_title">Help voor TalkBack</string>
+    <string name="gesture_four_finger_double_tap_description">Tik met 4 vingers 2 keer op het scherm.</string>
+    <string name="gesture_four_finger_double_tap_explanation">Nadat je dit gebaar gebruikt wordt er hulp voor het gebruiken van TalkBack getoond.</string>
+
+    <string name="gesture_four_finger_double_tap_hold_title">Aanrakingen direct doorgeven</string>
+    <string name="gesture_four_finger_double_tap_hold_description">Tik met 4 vingers 2 keer en houd vast.</string>
+    <string name="gesture_four_finger_double_tap_hold_explanation">Nadat je dit gebaar te gebruikt worden alle aanrakingen direct aan de app doorgegeven. Hierdoor is het bijvoorbeeld mogelijk om je handtekening te zetten.</string>
+
     <string name="gesture_one_finger_swipe_right_title">Naar het volgende onderdeel gaan</string>
     <string name="gesture_one_finger_swipe_right_description">Veeg met 1 vinger naar rechts.</string>
     <string name="gesture_one_finger_swipe_right_explanation">Door naar rechts te vegen verken je het scherm van links naar rechts en van boven naar beneden.</string>

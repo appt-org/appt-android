@@ -25,9 +25,9 @@ class TapGestureView(
     private var tapped = false
 
     private val gestureListener = { recognizer: UIGestureRecognizer ->
-        tapped = true
-
         if (recognizer is UITapGestureRecognizer) {
+            tapped = true
+
             val fingers = recognizer.touchesRequired
 
             var taps = recognizer.tapsRequired
@@ -70,7 +70,11 @@ class TapGestureView(
     init {
         val delegate = UIGestureRecognizerDelegate()
 
-        val threeFingerTripleTapRecognizer = tapGestureRecognizer(3, 3)
+        val fourFingerTripleTapRecognizer = tapGestureRecognizer(4, 3)
+        val fourFingerTwoTapRecognizer = tapGestureRecognizer(4, 2, fourFingerTripleTapRecognizer)
+        val fourFingerOneTapRecognizer = tapGestureRecognizer(4, 1, fourFingerTwoTapRecognizer)
+
+        val threeFingerTripleTapRecognizer = tapGestureRecognizer(3, 3, fourFingerTripleTapRecognizer)
         val threeFingerTwoTapRecognizer = tapGestureRecognizer(3, 2, threeFingerTripleTapRecognizer)
         val threeFingerOneTapRecognizer = tapGestureRecognizer(3, 1, threeFingerTwoTapRecognizer)
 
@@ -81,6 +85,10 @@ class TapGestureView(
         val oneFingerTripleTapRecognizer = tapGestureRecognizer(1, 3, twoFingerTripleTapRecognizer)
         val oneFingerTwoTapRecognizer = tapGestureRecognizer(1, 2, oneFingerTripleTapRecognizer)
         val oneFingerOneTapRecognizer = tapGestureRecognizer(1, 1, oneFingerTwoTapRecognizer)
+
+        delegate.addGestureRecognizer(fourFingerTripleTapRecognizer)
+        delegate.addGestureRecognizer(fourFingerTwoTapRecognizer)
+        delegate.addGestureRecognizer(fourFingerOneTapRecognizer)
 
         delegate.addGestureRecognizer(threeFingerTripleTapRecognizer)
         delegate.addGestureRecognizer(threeFingerTwoTapRecognizer)
@@ -101,7 +109,11 @@ class TapGestureView(
         if (event?.isStart() == true) {
             tapped = false
         } else if (event?.isEnd() == true && !tapped) {
-            incorrect("Je veegde op het scherm. Tik op het scherm.")
+            postDelayed({
+                if (!tapped) {
+                    incorrect("Je veegde op het scherm. Tik op het scherm.")
+                }
+            }, 500)
         }
         return super.onTouchEvent(event)
     }
@@ -125,14 +137,6 @@ class TapGestureView(
         invalidate()
 
         super.correct()
-    }
-
-    override fun incorrect(feedback: String) {
-        postDelayed({
-            if (!tapped) {
-                super.incorrect(feedback)
-            }
-        }, 500)
     }
 
 //    private fun onTapped(fingers: Int, taps: Int, longPress: Boolean = false) {
