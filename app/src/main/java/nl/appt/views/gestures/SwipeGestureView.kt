@@ -48,19 +48,23 @@ open class SwipeGestureView(
         }
     }
 
-    open fun onSwipe(directions: Array<Direction>) {
+    fun onSwipe(directions: Array<Direction>) {
         swiped = true
 
-        if (directions.contentEquals(gesture.directions)) {
-            correct()
-        } else {
-            incorrect("Je veegde ${Direction.feedback(directions)}.")
-        }
-    }
+        val fingers = directions.map { it.fingers }.average().toInt()
+        Log.d(TAG, "onSwipe: ${directions.joinToString { it.toString() }}, fingers: $fingers")
 
-    override fun incorrect(feedback: String) {
-        val instructions = "Veeg ${Direction.feedback(gesture.directions)}."
-        super.incorrect("$instructions $feedback")
+        when {
+            fingers != gesture.fingers -> {
+                incorrect("Gebruik ${gesture.fingers} vingers in plaats van $fingers vingers.")
+            }
+            directions.contentEquals(gesture.directions) -> {
+                correct()
+            }
+            else -> {
+                incorrect("Je veegde ${Direction.feedback(directions)}.")
+            }
+        }
     }
 
     /**
@@ -97,9 +101,7 @@ open class SwipeGestureView(
 
                 // Add one finger if TalkBack is activated
                 if (Accessibility.isTalkBackEnabled(context)) {
-                    if (direction.fingers == 1) {
-                        direction.fingers = 2
-                    }
+                    direction.fingers++
                 }
 
                 if (path.isEmpty()) {

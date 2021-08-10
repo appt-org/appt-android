@@ -44,10 +44,10 @@ enum class Gesture(
     ONE_FINGER_SWIPE_DOWN(fingers = 1, directions = arrayOf(Direction.DOWN)),
     ONE_FINGER_SWIPE_LEFT(fingers = 1, directions = arrayOf(Direction.LEFT)),
 
-    TWO_FINGER_SWIPE_UP(fingers = 1, directions = arrayOf(Direction.UP)),
-    TWO_FINGER_SWIPE_RIGHT(fingers = 1, directions = arrayOf(Direction.RIGHT)),
-    TWO_FINGER_SWIPE_DOWN(fingers = 1, directions = arrayOf(Direction.DOWN)),
-    TWO_FINGER_SWIPE_LEFT(fingers = 1, directions = arrayOf(Direction.LEFT)),
+    TWO_FINGER_SWIPE_UP(fingers = 2, directions = arrayOf(Direction.UP)),
+    TWO_FINGER_SWIPE_RIGHT(fingers = 2, directions = arrayOf(Direction.RIGHT)),
+    TWO_FINGER_SWIPE_DOWN(fingers = 2, directions = arrayOf(Direction.DOWN)),
+    TWO_FINGER_SWIPE_LEFT(fingers = 2, directions = arrayOf(Direction.LEFT)),
 
     ONE_FINGER_SWIPE_UP_THEN_RIGHT(fingers = 1, directions = arrayOf(Direction.UP, Direction.RIGHT)),
     ONE_FINGER_SWIPE_UP_THEN_DOWN(fingers = 1, directions = arrayOf(Direction.UP, Direction.DOWN)),
@@ -104,9 +104,7 @@ enum class Gesture(
             TWO_FINGER_SWIPE_DOWN,
             TWO_FINGER_SWIPE_UP,
             TWO_FINGER_SWIPE_RIGHT,
-            TWO_FINGER_SWIPE_LEFT -> {
-                ScrollGestureView(context, this)
-            }
+            TWO_FINGER_SWIPE_LEFT,
 
             ONE_FINGER_SWIPE_RIGHT,
             ONE_FINGER_SWIPE_LEFT,
