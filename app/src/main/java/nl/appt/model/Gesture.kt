@@ -49,6 +49,9 @@ enum class Gesture(
     TWO_FINGER_SWIPE_DOWN(fingers = 2, directions = arrayOf(Direction.DOWN)),
     TWO_FINGER_SWIPE_LEFT(fingers = 2, directions = arrayOf(Direction.LEFT)),
 
+    THREE_FINGER_SWIPE_UP(fingers = 3, directions = arrayOf(Direction.UP)),
+    THREE_FINGER_SWIPE_DOWN(fingers = 3, directions = arrayOf(Direction.DOWN)),
+
     ONE_FINGER_SWIPE_UP_THEN_RIGHT(fingers = 1, directions = arrayOf(Direction.UP, Direction.RIGHT)),
     ONE_FINGER_SWIPE_UP_THEN_DOWN(fingers = 1, directions = arrayOf(Direction.UP, Direction.DOWN)),
     ONE_FINGER_SWIPE_UP_THEN_LEFT(fingers = 1, directions = arrayOf(Direction.UP, Direction.LEFT)),
@@ -101,15 +104,18 @@ enum class Gesture(
                 TapGestureView(context, this)
             }
 
+            ONE_FINGER_SWIPE_RIGHT,
+            ONE_FINGER_SWIPE_LEFT,
+            ONE_FINGER_SWIPE_DOWN,
+            ONE_FINGER_SWIPE_UP,
+
             TWO_FINGER_SWIPE_DOWN,
             TWO_FINGER_SWIPE_UP,
             TWO_FINGER_SWIPE_RIGHT,
             TWO_FINGER_SWIPE_LEFT,
 
-            ONE_FINGER_SWIPE_RIGHT,
-            ONE_FINGER_SWIPE_LEFT,
-            ONE_FINGER_SWIPE_DOWN,
-            ONE_FINGER_SWIPE_UP,
+            THREE_FINGER_SWIPE_DOWN,
+            THREE_FINGER_SWIPE_UP,
 
             ONE_FINGER_SWIPE_UP_THEN_RIGHT,
             ONE_FINGER_SWIPE_UP_THEN_DOWN,
@@ -155,34 +161,34 @@ enum class Gesture(
                     AccessibilityService.GESTURE_2_FINGER_DOUBLE_TAP_AND_HOLD -> return TWO_FINGER_DOUBLE_TAP_HOLD
                     AccessibilityService.GESTURE_2_FINGER_TRIPLE_TAP -> return TWO_FINGER_TRIPLE_TAP
 
-                    // TWO FINGER SWIPE
-                    AccessibilityService.GESTURE_2_FINGER_SWIPE_UP -> return TWO_FINGER_SWIPE_UP
-                    AccessibilityService.GESTURE_2_FINGER_SWIPE_RIGHT -> return TWO_FINGER_SWIPE_RIGHT
-                    AccessibilityService.GESTURE_2_FINGER_SWIPE_DOWN -> return TWO_FINGER_SWIPE_DOWN
-                    AccessibilityService.GESTURE_2_FINGER_SWIPE_LEFT -> return TWO_FINGER_SWIPE_LEFT
-
                     // THREE FINGER TAP
                     AccessibilityService.GESTURE_3_FINGER_SINGLE_TAP -> return THREE_FINGER_TAP
                     AccessibilityService.GESTURE_3_FINGER_DOUBLE_TAP -> return THREE_FINGER_DOUBLE_TAP
                     AccessibilityService.GESTURE_3_FINGER_DOUBLE_TAP_AND_HOLD -> return THREE_FINGER_DOUBLE_TAP_HOLD
                     AccessibilityService.GESTURE_3_FINGER_TRIPLE_TAP -> return THREE_FINGER_TRIPLE_TAP
 
-                    // THREE FINGER SWIPE
-                    AccessibilityService.GESTURE_3_FINGER_SWIPE_UP -> return null
-                    AccessibilityService.GESTURE_3_FINGER_SWIPE_RIGHT -> return null
-                    AccessibilityService.GESTURE_3_FINGER_SWIPE_DOWN -> return null
-                    AccessibilityService.GESTURE_3_FINGER_SWIPE_LEFT -> return null
-
                     // FOUR FINGER TAP
                     AccessibilityService.GESTURE_4_FINGER_SINGLE_TAP -> return FOUR_FINGER_TAP
                     AccessibilityService.GESTURE_4_FINGER_DOUBLE_TAP -> return FOUR_FINGER_DOUBLE_TAP
                     AccessibilityService.GESTURE_4_FINGER_DOUBLE_TAP_AND_HOLD -> return FOUR_FINGER_DOUBLE_TAP_HOLD
 
-                    // FOUR FINGER SWIPE
-                    AccessibilityService.GESTURE_4_FINGER_SWIPE_UP -> return null
-                    AccessibilityService.GESTURE_4_FINGER_SWIPE_RIGHT -> return null
-                    AccessibilityService.GESTURE_4_FINGER_SWIPE_DOWN -> return null
-                    AccessibilityService.GESTURE_4_FINGER_SWIPE_LEFT -> return null
+                    // TWO FINGER SWIPE
+                    AccessibilityService.GESTURE_2_FINGER_SWIPE_UP -> return TWO_FINGER_SWIPE_UP
+                    AccessibilityService.GESTURE_2_FINGER_SWIPE_RIGHT -> return TWO_FINGER_SWIPE_RIGHT
+                    AccessibilityService.GESTURE_2_FINGER_SWIPE_DOWN -> return TWO_FINGER_SWIPE_DOWN
+                    AccessibilityService.GESTURE_2_FINGER_SWIPE_LEFT -> return TWO_FINGER_SWIPE_LEFT
+
+                    // THREE FINGER SWIPE
+                    AccessibilityService.GESTURE_3_FINGER_SWIPE_UP -> return THREE_FINGER_SWIPE_UP
+                    AccessibilityService.GESTURE_3_FINGER_SWIPE_DOWN -> return THREE_FINGER_SWIPE_DOWN
+
+                    // UNUSED
+                    AccessibilityService.GESTURE_3_FINGER_SWIPE_RIGHT,
+                    AccessibilityService.GESTURE_3_FINGER_SWIPE_LEFT,
+                    AccessibilityService.GESTURE_4_FINGER_SWIPE_UP,
+                    AccessibilityService.GESTURE_4_FINGER_SWIPE_RIGHT,
+                    AccessibilityService.GESTURE_4_FINGER_SWIPE_DOWN,
+                    AccessibilityService.GESTURE_4_FINGER_SWIPE_LEFT -> null
                 }
             }
 

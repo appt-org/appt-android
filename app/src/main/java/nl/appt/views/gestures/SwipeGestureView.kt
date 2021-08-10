@@ -10,6 +10,7 @@ import nl.appt.extensions.isEnd
 import nl.appt.extensions.isStart
 import nl.appt.model.Direction
 import nl.appt.model.Gesture
+import nl.appt.services.ApptService
 
 /**
  * Created by Jan Jaap de Groot on 15/10/2020
@@ -96,11 +97,9 @@ open class SwipeGestureView(
             }
 
             if (direction != Direction.UNKNOWN) {
-                // Set amount of fingers
+                // Determine amount of fingers
                 direction.fingers = e2?.pointerCount ?: 1
-
-                // Add one finger if TalkBack is activated
-                if (Accessibility.isTalkBackEnabled(context)) {
+                if (ApptService.isEnabled(context)) {
                     direction.fingers++
                 }
 
