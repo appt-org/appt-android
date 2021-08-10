@@ -100,12 +100,17 @@ class TapGestureView(
     init {
         val delegate = UIGestureRecognizerDelegate()
 
-        val fourFingerLongPressRecognizer = longPressRecognizer(4, 2)
-        val threeFingerLongPressRecognizer = longPressRecognizer(3, 2, fourFingerLongPressRecognizer)
-        val twoFingerLongPressRecognizer = longPressRecognizer(2, 2, threeFingerLongPressRecognizer)
-        val oneFingerLongPressRecognizer = longPressRecognizer(1, 2, twoFingerLongPressRecognizer)
+        val fourFingerDoubleTapLongPressRecognizer = longPressRecognizer(4, 2)
+        val threeFingerDoubleTapLongPressRecognizer = longPressRecognizer(3, 2, fourFingerDoubleTapLongPressRecognizer)
+        val twoFingerDoubleTapLongPressRecognizer = longPressRecognizer(2, 2, threeFingerDoubleTapLongPressRecognizer)
+        val oneFingerDoubleTapLongPressRecognizer = longPressRecognizer(1, 2, twoFingerDoubleTapLongPressRecognizer)
 
-        val fourFingerTripleTapRecognizer = tapGestureRecognizer(4, 3, threeFingerLongPressRecognizer)
+        val fourFingerOneTapLongPressRecognizer = longPressRecognizer(4, 1, fourFingerDoubleTapLongPressRecognizer)
+        val threeFingerOneTapLongPressRecognizer = longPressRecognizer(3, 1, threeFingerDoubleTapLongPressRecognizer)
+        val twoFingerOneTapLongPressRecognizer = longPressRecognizer(2, 1, twoFingerDoubleTapLongPressRecognizer)
+        val oneFingerOneTapLongPressRecognizer = longPressRecognizer(1, 1, oneFingerDoubleTapLongPressRecognizer)
+
+        val fourFingerTripleTapRecognizer = tapGestureRecognizer(4, 3, threeFingerDoubleTapLongPressRecognizer)
         val fourFingerTwoTapRecognizer = tapGestureRecognizer(4, 2, fourFingerTripleTapRecognizer)
         val fourFingerOneTapRecognizer = tapGestureRecognizer(4, 1, fourFingerTwoTapRecognizer)
 
@@ -121,10 +126,15 @@ class TapGestureView(
         val oneFingerTwoTapRecognizer = tapGestureRecognizer(1, 2, oneFingerTripleTapRecognizer)
         val oneFingerOneTapRecognizer = tapGestureRecognizer(1, 1, oneFingerTwoTapRecognizer)
 
-        delegate.addGestureRecognizer(fourFingerLongPressRecognizer)
-        delegate.addGestureRecognizer(threeFingerLongPressRecognizer)
-        delegate.addGestureRecognizer(twoFingerLongPressRecognizer)
-        delegate.addGestureRecognizer(oneFingerLongPressRecognizer)
+        delegate.addGestureRecognizer(fourFingerDoubleTapLongPressRecognizer)
+        delegate.addGestureRecognizer(threeFingerDoubleTapLongPressRecognizer)
+        delegate.addGestureRecognizer(twoFingerDoubleTapLongPressRecognizer)
+        delegate.addGestureRecognizer(oneFingerDoubleTapLongPressRecognizer)
+
+        delegate.addGestureRecognizer(fourFingerOneTapLongPressRecognizer)
+        delegate.addGestureRecognizer(threeFingerOneTapLongPressRecognizer)
+        delegate.addGestureRecognizer(twoFingerOneTapLongPressRecognizer)
+        delegate.addGestureRecognizer(oneFingerOneTapLongPressRecognizer)
 
         delegate.addGestureRecognizer(fourFingerTripleTapRecognizer)
         delegate.addGestureRecognizer(fourFingerTwoTapRecognizer)
