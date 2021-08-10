@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import nl.appt.R
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
+import nl.appt.extensions.isStart
 import nl.appt.model.Gesture
 import nl.appt.model.Touch
 import kotlin.math.atan2
@@ -29,7 +30,6 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
 
     private val TAG = "GestureView"
     private val CLASS_NAME = GestureView::class.java.name
-    private var correct = false
 
     private val paint: Paint by lazy {
         val paint = Paint()
@@ -41,7 +41,9 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         paint.isAntiAlias = true
         paint
     }
-    private var touches = mutableMapOf<Int, ArrayList<Touch>>()
+
+    var touches = mutableMapOf<Int, ArrayList<Touch>>()
+    var correct = false
 
     /** Drawing **/
 
@@ -230,7 +232,7 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         Log.d(TAG, "onTouchEvent: $event")
 
         if (event != null && event.pointerCount > 0) {
-            if (event.action == MotionEvent.ACTION_DOWN) {
+            if (event.isStart()) {
                 touches.clear()
             }
 
@@ -285,18 +287,11 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
             correct = true
             callback?.correct(gesture)
         }
-
-        for (key in touches.keys) {
-            touches[key]?.lastOrNull()?.let { lastTouch ->
-                val touch = Touch(lastTouch.x, lastTouch.y, gesture.taps, gesture.longPress)
-                touches[key] = arrayListOf(touch)
-            }
-        }
-        invalidate()
     }
 
     open fun incorrect(feedback: String = "Geen feedback") {
         Log.d(TAG, "Incorrect: $feedback")
+
         if (!correct) {
             callback?.incorrect(gesture, feedback)
         }

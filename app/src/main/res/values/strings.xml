@@ -104,6 +104,22 @@
     <string name="gesture_two_finger_triple_tap_description">Tik met 2 vingers 3 keer op het scherm.</string>
     <string name="gesture_two_finger_triple_tap_explanation">Door dit gebaar te gebruiken wordt alle inhoud op het scherm voorgelezen vanaf het gedeelte waar je bent gebleven.</string>
 
+    <string name="gesture_three_finger_tap_title">TalkBack-menu openen</string>
+    <string name="gesture_three_finger_tap_description">Tik met 3 vingers 1 keer op het scherm.</string>
+    <string name="gesture_three_finger_tap_explanation">Via het TalkBack-menu kun je acties op het geselecteerde element uitvoeren.</string>
+
+    <string name="gesture_three_finger_double_tap_title">Tekst kopiëren</string>
+    <string name="gesture_three_finger_double_tap_description">Tik met 3 vingers 2 keer op het scherm.</string>
+    <string name="gesture_three_finger_double_tap_explanation">Dit gebaar is de snelste manier om tekst te kopiëren.</string>
+
+    <string name="gesture_three_finger_double_tap_hold_title">Tekst knippen</string>
+    <string name="gesture_three_finger_double_tap_hold_description">Tik met 3 vingers 2 keer en houd vast.</string>
+    <string name="gesture_three_finger_double_tap_hold_explanation">Dit gebaar is de snelste manier om tekst te knippen.</string>
+
+    <string name="gesture_three_finger_triple_tap_title">Tekst plakken</string>
+    <string name="gesture_three_finger_triple_tap_description">Tik met 3 vingers 3 keer op het scherm.</string>
+    <string name="gesture_three_finger_triple_tap_explanation">Dit gebaar is de snelste manier om tekst te plakken.</string>
+
     <string name="gesture_one_finger_swipe_right_title">Naar het volgende onderdeel gaan</string>
     <string name="gesture_one_finger_swipe_right_description">Veeg met 1 vinger naar rechts.</string>
     <string name="gesture_one_finger_swipe_right_explanation">Door naar rechts te vegen verken je het scherm van links naar rechts en van boven naar beneden.</string>

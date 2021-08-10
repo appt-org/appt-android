@@ -25,6 +25,11 @@ enum class Gesture: Training, Serializable {
     TWO_FINGER_DOUBLE_TAP_HOLD,
     TWO_FINGER_TRIPLE_TAP,
 
+    THREE_FINGER_TAP,
+    THREE_FINGER_DOUBLE_TAP,
+    THREE_FINGER_DOUBLE_TAP_HOLD,
+    THREE_FINGER_TRIPLE_TAP,
+
     ONE_FINGER_SWIPE_RIGHT,
     ONE_FINGER_SWIPE_LEFT,
     ONE_FINGER_SWIPE_UP,
@@ -57,11 +62,15 @@ enum class Gesture: Training, Serializable {
                 TWO_FINGER_DOUBLE_TAP,
                 TWO_FINGER_DOUBLE_TAP_HOLD,
                 TWO_FINGER_TRIPLE_TAP,
-
                 TWO_FINGER_SWIPE_DOWN,
                 TWO_FINGER_SWIPE_UP,
                 TWO_FINGER_SWIPE_RIGHT,
                 TWO_FINGER_SWIPE_LEFT -> 2
+
+                THREE_FINGER_TAP,
+                THREE_FINGER_DOUBLE_TAP,
+                THREE_FINGER_DOUBLE_TAP_HOLD,
+                THREE_FINGER_TRIPLE_TAP -> 3
 
                 else -> 1
             }
@@ -73,9 +82,12 @@ enum class Gesture: Training, Serializable {
                 ONE_FINGER_DOUBLE_TAP,
                 ONE_FINGER_DOUBLE_TAP_HOLD,
                 TWO_FINGER_DOUBLE_TAP,
-                TWO_FINGER_DOUBLE_TAP_HOLD -> 2
+                TWO_FINGER_DOUBLE_TAP_HOLD,
+                THREE_FINGER_DOUBLE_TAP,
+                THREE_FINGER_DOUBLE_TAP_HOLD,-> 2
 
-                TWO_FINGER_TRIPLE_TAP -> 3
+                TWO_FINGER_TRIPLE_TAP,
+                THREE_FINGER_TRIPLE_TAP -> 3
 
                 else -> 1
             }
@@ -85,7 +97,8 @@ enum class Gesture: Training, Serializable {
         get() {
             return when (this) {
                 ONE_FINGER_DOUBLE_TAP_HOLD,
-                TWO_FINGER_DOUBLE_TAP_HOLD -> true
+                TWO_FINGER_DOUBLE_TAP_HOLD,
+                THREE_FINGER_DOUBLE_TAP_HOLD -> true
 
                 else -> false
             }
@@ -144,39 +157,57 @@ enum class Gesture: Training, Serializable {
 
     fun view(context: Context): GestureView {
         return when (this) {
-            ONE_FINGER_TOUCH -> TouchGestureView(context, this)
-            ONE_FINGER_DOUBLE_TAP -> TapGestureView(context, this)
-            ONE_FINGER_DOUBLE_TAP_HOLD -> TapGestureView(context, this)
+            ONE_FINGER_TOUCH -> {
+                TouchGestureView(context, this)
+            }
 
-            TWO_FINGER_TAP -> TapGestureView(context, this)
-            TWO_FINGER_DOUBLE_TAP -> TapGestureView(context, this)
-            TWO_FINGER_DOUBLE_TAP_HOLD -> TapGestureView(context, this)
-            TWO_FINGER_TRIPLE_TAP -> TapGestureView(context, this)
+            ONE_FINGER_DOUBLE_TAP,
+            TWO_FINGER_TAP,
+            TWO_FINGER_DOUBLE_TAP,
+            TWO_FINGER_TRIPLE_TAP,
+            THREE_FINGER_TAP,
+            THREE_FINGER_DOUBLE_TAP,
+            THREE_FINGER_TRIPLE_TAP -> {
+                TapGestureView(context, this)
+            }
 
-            ONE_FINGER_SWIPE_RIGHT -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_LEFT -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_DOWN -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_UP -> SwipeGestureView(context, this)
+            ONE_FINGER_DOUBLE_TAP_HOLD,
+            TWO_FINGER_DOUBLE_TAP_HOLD,
+            THREE_FINGER_DOUBLE_TAP_HOLD -> {
+                TapGestureView(context, this)
+            }
 
-            TWO_FINGER_SWIPE_DOWN -> ScrollGestureView(context, this)
-            TWO_FINGER_SWIPE_UP -> ScrollGestureView(context, this)
-            TWO_FINGER_SWIPE_RIGHT -> ScrollGestureView(context, this)
-            TWO_FINGER_SWIPE_LEFT -> ScrollGestureView(context, this)
+            ONE_FINGER_SWIPE_RIGHT,
+            ONE_FINGER_SWIPE_LEFT,
+            ONE_FINGER_SWIPE_DOWN,
+            ONE_FINGER_SWIPE_UP -> {
+                SwipeGestureView(context, this)
+            }
 
-            ONE_FINGER_SWIPE_UP_THEN_RIGHT -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_UP_THEN_DOWN -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_UP_THEN_LEFT -> SwipeGestureView(context, this)
+            TWO_FINGER_SWIPE_DOWN,
+            TWO_FINGER_SWIPE_UP,
+            TWO_FINGER_SWIPE_RIGHT,
+            TWO_FINGER_SWIPE_LEFT -> {
+                ScrollGestureView(context, this)
+            }
 
-            ONE_FINGER_SWIPE_LEFT_THEN_UP -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_LEFT_THEN_RIGHT -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_LEFT_THEN_DOWN -> SwipeGestureView(context, this)
+            ONE_FINGER_SWIPE_UP_THEN_RIGHT,
+            ONE_FINGER_SWIPE_UP_THEN_DOWN,
+            ONE_FINGER_SWIPE_UP_THEN_LEFT,
 
-            ONE_FINGER_SWIPE_RIGHT_THEN_DOWN -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_RIGHT_THEN_LEFT -> SwipeGestureView(context, this)
+            ONE_FINGER_SWIPE_LEFT_THEN_UP,
+            ONE_FINGER_SWIPE_LEFT_THEN_RIGHT,
+            ONE_FINGER_SWIPE_LEFT_THEN_DOWN,
 
-            ONE_FINGER_SWIPE_DOWN_THEN_UP -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_DOWN_THEN_RIGHT -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_DOWN_THEN_LEFT -> SwipeGestureView(context, this)}
+            ONE_FINGER_SWIPE_RIGHT_THEN_DOWN,
+            ONE_FINGER_SWIPE_RIGHT_THEN_LEFT,
+
+            ONE_FINGER_SWIPE_DOWN_THEN_UP,
+            ONE_FINGER_SWIPE_DOWN_THEN_RIGHT,
+            ONE_FINGER_SWIPE_DOWN_THEN_LEFT -> {
+                SwipeGestureView(context, this)
+            }
+        }
     }
 
     override fun completed(context: Context): Boolean {
@@ -211,10 +242,10 @@ enum class Gesture: Training, Serializable {
                     AccessibilityService.GESTURE_2_FINGER_SWIPE_LEFT -> return TWO_FINGER_SWIPE_LEFT
 
                     // THREE FINGER TAP
-                    AccessibilityService.GESTURE_3_FINGER_SINGLE_TAP -> return null
-                    AccessibilityService.GESTURE_3_FINGER_DOUBLE_TAP -> return null
-                    AccessibilityService.GESTURE_3_FINGER_DOUBLE_TAP_AND_HOLD -> return null
-                    AccessibilityService.GESTURE_3_FINGER_TRIPLE_TAP -> return null
+                    AccessibilityService.GESTURE_3_FINGER_SINGLE_TAP -> return THREE_FINGER_TAP
+                    AccessibilityService.GESTURE_3_FINGER_DOUBLE_TAP -> return THREE_FINGER_DOUBLE_TAP
+                    AccessibilityService.GESTURE_3_FINGER_DOUBLE_TAP_AND_HOLD -> return THREE_FINGER_DOUBLE_TAP_HOLD
+                    AccessibilityService.GESTURE_3_FINGER_TRIPLE_TAP -> return THREE_FINGER_TRIPLE_TAP
 
                     // THREE FINGER SWIPE
                     AccessibilityService.GESTURE_3_FINGER_SWIPE_UP -> return null
