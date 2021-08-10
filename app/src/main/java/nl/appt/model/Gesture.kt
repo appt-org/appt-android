@@ -20,6 +20,11 @@ enum class Gesture: Training, Serializable {
     ONE_FINGER_DOUBLE_TAP,
     ONE_FINGER_DOUBLE_TAP_HOLD,
 
+    TWO_FINGER_TAP,
+    TWO_FINGER_DOUBLE_TAP,
+    TWO_FINGER_DOUBLE_TAP_HOLD,
+    TWO_FINGER_TRIPLE_TAP,
+
     ONE_FINGER_SWIPE_RIGHT,
     ONE_FINGER_SWIPE_LEFT,
     ONE_FINGER_SWIPE_UP,
@@ -44,6 +49,47 @@ enum class Gesture: Training, Serializable {
     ONE_FINGER_SWIPE_LEFT_THEN_UP,
     ONE_FINGER_SWIPE_LEFT_THEN_RIGHT,
     ONE_FINGER_SWIPE_LEFT_THEN_DOWN;
+
+    val fingers: Int
+        get() {
+            return when (this) {
+                TWO_FINGER_TAP,
+                TWO_FINGER_DOUBLE_TAP,
+                TWO_FINGER_DOUBLE_TAP_HOLD,
+                TWO_FINGER_TRIPLE_TAP,
+
+                TWO_FINGER_SWIPE_DOWN,
+                TWO_FINGER_SWIPE_UP,
+                TWO_FINGER_SWIPE_RIGHT,
+                TWO_FINGER_SWIPE_LEFT -> 2
+
+                else -> 1
+            }
+        }
+
+    val taps: Int
+        get() {
+            return when (this) {
+                ONE_FINGER_DOUBLE_TAP,
+                ONE_FINGER_DOUBLE_TAP_HOLD,
+                TWO_FINGER_DOUBLE_TAP,
+                TWO_FINGER_DOUBLE_TAP_HOLD -> 2
+
+                TWO_FINGER_TRIPLE_TAP -> 3
+
+                else -> 1
+            }
+        }
+
+    val longPress: Boolean
+        get() {
+            return when (this) {
+                ONE_FINGER_DOUBLE_TAP_HOLD,
+                TWO_FINGER_DOUBLE_TAP_HOLD -> true
+
+                else -> false
+            }
+        }
 
     val directions: Array<Direction>
         get() {
@@ -99,8 +145,13 @@ enum class Gesture: Training, Serializable {
     fun view(context: Context): GestureView {
         return when (this) {
             ONE_FINGER_TOUCH -> TouchGestureView(context, this)
-            ONE_FINGER_DOUBLE_TAP -> TapGestureView(context, this, 1, 2)
-            ONE_FINGER_DOUBLE_TAP_HOLD -> TapGestureView(context, this, 1, 2, true)
+            ONE_FINGER_DOUBLE_TAP -> TapGestureView(context, this)
+            ONE_FINGER_DOUBLE_TAP_HOLD -> TapGestureView(context, this)
+
+            TWO_FINGER_TAP -> TapGestureView(context, this)
+            TWO_FINGER_DOUBLE_TAP -> TapGestureView(context, this)
+            TWO_FINGER_DOUBLE_TAP_HOLD -> TapGestureView(context, this)
+            TWO_FINGER_TRIPLE_TAP -> TapGestureView(context, this)
 
             ONE_FINGER_SWIPE_RIGHT -> SwipeGestureView(context, this)
             ONE_FINGER_SWIPE_LEFT -> SwipeGestureView(context, this)
@@ -112,19 +163,20 @@ enum class Gesture: Training, Serializable {
             TWO_FINGER_SWIPE_RIGHT -> ScrollGestureView(context, this)
             TWO_FINGER_SWIPE_LEFT -> ScrollGestureView(context, this)
 
-            ONE_FINGER_SWIPE_DOWN_THEN_UP -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_UP_THEN_DOWN -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_RIGHT_THEN_LEFT -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_LEFT_THEN_RIGHT -> SwipeGestureView(context, this)
-
-            ONE_FINGER_SWIPE_DOWN_THEN_LEFT -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_UP_THEN_LEFT -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_LEFT_THEN_UP -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_RIGHT_THEN_DOWN -> SwipeGestureView(context, this)
-            ONE_FINGER_SWIPE_LEFT_THEN_DOWN -> SwipeGestureView(context, this)
             ONE_FINGER_SWIPE_UP_THEN_RIGHT -> SwipeGestureView(context, this)
+            ONE_FINGER_SWIPE_UP_THEN_DOWN -> SwipeGestureView(context, this)
+            ONE_FINGER_SWIPE_UP_THEN_LEFT -> SwipeGestureView(context, this)
+
+            ONE_FINGER_SWIPE_LEFT_THEN_UP -> SwipeGestureView(context, this)
+            ONE_FINGER_SWIPE_LEFT_THEN_RIGHT -> SwipeGestureView(context, this)
+            ONE_FINGER_SWIPE_LEFT_THEN_DOWN -> SwipeGestureView(context, this)
+
+            ONE_FINGER_SWIPE_RIGHT_THEN_DOWN -> SwipeGestureView(context, this)
+            ONE_FINGER_SWIPE_RIGHT_THEN_LEFT -> SwipeGestureView(context, this)
+
+            ONE_FINGER_SWIPE_DOWN_THEN_UP -> SwipeGestureView(context, this)
             ONE_FINGER_SWIPE_DOWN_THEN_RIGHT -> SwipeGestureView(context, this)
-        }
+            ONE_FINGER_SWIPE_DOWN_THEN_LEFT -> SwipeGestureView(context, this)}
     }
 
     override fun completed(context: Context): Boolean {
@@ -144,13 +196,13 @@ enum class Gesture: Training, Serializable {
                 when (gestureId) {
                     // ONE FINGER TAP
                     AccessibilityService.GESTURE_DOUBLE_TAP -> return ONE_FINGER_DOUBLE_TAP
-                    AccessibilityService.GESTURE_DOUBLE_TAP_AND_HOLD -> return null
+                    AccessibilityService.GESTURE_DOUBLE_TAP_AND_HOLD -> return ONE_FINGER_DOUBLE_TAP_HOLD
 
                     // TWO FINGER TAP
-                    AccessibilityService.GESTURE_2_FINGER_SINGLE_TAP -> return null
-                    AccessibilityService.GESTURE_2_FINGER_DOUBLE_TAP -> return null
-                    AccessibilityService.GESTURE_2_FINGER_DOUBLE_TAP_AND_HOLD -> return null
-                    AccessibilityService.GESTURE_2_FINGER_TRIPLE_TAP -> return null
+                    AccessibilityService.GESTURE_2_FINGER_SINGLE_TAP -> return TWO_FINGER_TAP
+                    AccessibilityService.GESTURE_2_FINGER_DOUBLE_TAP -> return TWO_FINGER_DOUBLE_TAP
+                    AccessibilityService.GESTURE_2_FINGER_DOUBLE_TAP_AND_HOLD -> return TWO_FINGER_DOUBLE_TAP_HOLD
+                    AccessibilityService.GESTURE_2_FINGER_TRIPLE_TAP -> return TWO_FINGER_TRIPLE_TAP
 
                     // TWO FINGER SWIPE
                     AccessibilityService.GESTURE_2_FINGER_SWIPE_UP -> return TWO_FINGER_SWIPE_UP

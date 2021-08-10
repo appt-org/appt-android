@@ -1,15 +1,14 @@
 package nl.appt.views.gestures
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
-import android.view.GestureDetector
+import android.util.Log
 import android.view.MotionEvent
-import android.view.ViewConfiguration
-import nl.appt.accessibility.Accessibility
-import nl.appt.accessibility.isTalkBackEnabled
-import nl.appt.extensions.isEnd
+import it.sephiroth.android.library.uigestures.UIGestureRecognizer
+import it.sephiroth.android.library.uigestures.UIGestureRecognizerDelegate
+import it.sephiroth.android.library.uigestures.UITapGestureRecognizer
+import it.sephiroth.android.library.uigestures.setGestureDelegate
 import nl.appt.model.Gesture
+import nl.appt.services.ApptService
 
 /**
  * Created by Jan Jaap de Groot on 22/10/2020
@@ -17,25 +16,71 @@ import nl.appt.model.Gesture
  */
 class TapGestureView(
     context: Context,
-    gesture: Gesture,
-    private val fingers: Int,
-    private val taps: Int,
-    private val longPress: Boolean = false
+    gesture: Gesture
 ): GestureView(gesture, context) {
 
-    private var tapCount = 0
-    private var longPressed = false
+    private val TAG = "TapGestureView"
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        super.onTouchEvent(event)
+    private val gestureListener = { recognizer: UIGestureRecognizer ->
+        Log.d(TAG, "Gesture recognized")
 
-        if (!gestureDetector.onTouchEvent(event)) {
-            if (event?.isEnd() == true && tapCount == 0) {
-                incorrect("Je veegde op het scherm. Tik op het scherm.")
+        if (recognizer is UITapGestureRecognizer) {
+            val fingers = recognizer.touchesRequired
+
+            var taps = recognizer.tapsRequired
+            if (ApptService.isEnabled(context)) {
+                taps += 1
+            }
+
+            when {
+                fingers != gesture.fingers -> {
+                    incorrect("Tik met ${gesture.fingers} vingers. Je tikte met $fingers vingers.")
+                }
+                taps != gesture.taps -> {
+                    incorrect("Tik ${gesture.taps} keer. Je tikte $taps keer.")
+                }
+                else -> {
+                    correct()
+                }
             }
         }
+    }
 
-        return true
+    private fun tapGestureRecognizer(fingers: Int, taps: Int, requiresFailureOf: UIGestureRecognizer? = null): UITapGestureRecognizer {
+        val recognizer = object : UITapGestureRecognizer(context) {
+            override fun onTouchEvent(event: MotionEvent): Boolean {
+                this@TapGestureView.onTouchEvent(event)
+                return super.onTouchEvent(event)
+            }
+        }
+        recognizer.tag = "fingers-$fingers-taps-$taps"
+        recognizer.touchesRequired = fingers
+        recognizer.tapsRequired = taps
+        recognizer.requireFailureOf = requiresFailureOf
+        recognizer.actionListener = gestureListener
+        return recognizer
+    }
+
+    init {
+        val delegate = UIGestureRecognizerDelegate()
+
+        val twoFingerTripleTapRecognizer = tapGestureRecognizer(2, 3)
+        val twoFingerTwoTapRecognizer = tapGestureRecognizer(2, 2, twoFingerTripleTapRecognizer)
+        val twoFingerOneTapRecognizer = tapGestureRecognizer(2, 1, twoFingerTwoTapRecognizer)
+
+        val oneFingerTripleTapRecognizer = tapGestureRecognizer(1, 3, twoFingerTripleTapRecognizer)
+        val oneFingerTwoTapRecognizer = tapGestureRecognizer(1, 2, oneFingerTripleTapRecognizer)
+        val oneFingerOneTapRecognizer = tapGestureRecognizer(1, 1, oneFingerTwoTapRecognizer)
+
+        delegate.addGestureRecognizer(twoFingerTripleTapRecognizer)
+        delegate.addGestureRecognizer(twoFingerTwoTapRecognizer)
+        delegate.addGestureRecognizer(twoFingerOneTapRecognizer)
+
+        delegate.addGestureRecognizer(oneFingerTripleTapRecognizer)
+        delegate.addGestureRecognizer(oneFingerTwoTapRecognizer)
+        delegate.addGestureRecognizer(oneFingerOneTapRecognizer)
+
+        setGestureDelegate(delegate)
     }
 
     override fun onAccessibilityGesture(gesture: Gesture) {
@@ -46,83 +91,41 @@ class TapGestureView(
         }
     }
 
-    private fun onTapped(fingers: Int, taps: Int, longPress: Boolean = false) {
-        // Check amount of fingers
-        if (fingers != this.fingers) {
-            incorrect("Tik met ${this.fingers} vingers. Je tikte met $fingers vingers.")
-            return
-        }
-
-        // Add one tap if TalkBack is activated
-        var actualTaps = taps
-        if (Accessibility.isTalkBackEnabled(context)) {
-            actualTaps += 1
-        }
-        // Check amount of taps
-        if (actualTaps != this.taps) {
-            incorrect("Tik ${this.taps} keer. Je tikte $actualTaps keer.")
-            return
-        }
-
-        // Check if long pressed
-        if (longPress != this.longPress) {
-            val timeout = ViewConfiguration.getLongPressTimeout()
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (longPress) {
-                    incorrect("Houd het scherm korter ingedrukt na het tikken.")
-                } else {
-                    incorrect("Houd het scherm langer ingedrukt na het tikken.")
-                }
-            }, timeout.toLong())
-
-            return
-        }
-
-        correct()
-    }
-
-    /**
-     * Custom implementation of GestureDetector to detect taps
-     */
-    private val gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
-
-        override fun onDown(e: MotionEvent?): Boolean {
-            return true
-        }
-
-        override fun onSingleTapUp(e: MotionEvent?): Boolean {
-            tapCount = 1
-            return true
-        }
-
-        override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
-            tapCount = 1
-
-            showTouches(e, tapCount)
-            onTapped (e?.pointerCount ?: 1, tapCount)
-
-            return true
-        }
-
-        override fun onDoubleTap(e: MotionEvent?): Boolean {
-            tapCount = 2
-
-            showTouches(e, tapCount)
-            onTapped(e?.pointerCount ?: 1, tapCount)
-
-            return true
-        }
-
-        override fun onLongPress(e: MotionEvent?) {
-            longPressed = true
-
-            if (tapCount == 0) {
-                tapCount = 1
-            }
-
-            showTouches(e, tapCount, longPressed)
-            onTapped(e?.pointerCount ?: 1, tapCount, longPressed)
-        }
-    })
+//    private fun onTapped(fingers: Int, taps: Int, longPress: Boolean = false) {
+//        Log.d(TAG, "onTapped, fingers: $fingers, taps: $taps, longPress: $longPress")
+//
+//        // Check amount of fingers
+//        if (fingers != gesture.fingers) {
+//            incorrect("Tik met ${gesture.fingers} vingers. Je tikte met $fingers vingers.")
+//            return
+//        }
+//
+//        // Add one tap if TalkBack is activated
+//        var actualTaps = taps
+//        if (Accessibility.isTalkBackEnabled(context)) {
+//            actualTaps += 1
+//        }
+//        // Check amount of taps
+//        if (actualTaps != gesture.taps) {
+//            incorrect("Tik ${gesture.taps} keer. Je tikte $actualTaps keer.")
+//            return
+//        }
+//
+//        // Check if long pressed
+//        if (longPress != gesture.longPress) {
+//            val timeout = ViewConfiguration.getLongPressTimeout()
+//
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                if (longPress) {
+//                    incorrect("Houd het scherm korter ingedrukt na het tikken.")
+//                } else {
+//                    incorrect("Houd het scherm langer ingedrukt na het tikken.")
+//                }
+//            }, timeout.toLong())
+//
+//            return
+//        }
+//
+//        correct()
+//    }
 }

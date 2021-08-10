@@ -223,6 +223,10 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (correct) {
+            return true
+        }
+
         Log.d(TAG, "onTouchEvent: $event")
 
         if (event != null && event.pointerCount > 0) {
@@ -237,20 +241,17 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
                 val x = event.getX(i).toInt()
                 val y = event.getY(i).toInt()
 
-                Log.d(TAG, "Point index $i with id $id touches position ($x, $y)")
-
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        coordinates.add(Touch(x, y))
-                    }
-                    MotionEvent.ACTION_MOVE -> {
-                        coordinates.add(Touch(x, y))
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        coordinates.add(Touch(x, y))
+                if (coordinates.size > 0) {
+                    val lastTouch = coordinates.last()
+                    if (lastTouch.x == x && lastTouch.y == y) {
+                        Log.d(TAG, "Duplicate touch ignored")
+                        continue
                     }
                 }
 
+                Log.d(TAG, "Point index $i with id $id touches position ($x, $y)")
+
+                coordinates.add(Touch(x, y))
                 this.touches[id] = coordinates
             }
             invalidate()
@@ -279,10 +280,19 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
 
     open fun correct() {
         Log.d(TAG, "Correct")
+
         if (!correct) {
             correct = true
             callback?.correct(gesture)
         }
+
+        for (key in touches.keys) {
+            touches[key]?.lastOrNull()?.let { lastTouch ->
+                val touch = Touch(lastTouch.x, lastTouch.y, gesture.taps, gesture.longPress)
+                touches[key] = arrayListOf(touch)
+            }
+        }
+        invalidate()
     }
 
     open fun incorrect(feedback: String = "Geen feedback") {
