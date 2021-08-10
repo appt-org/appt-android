@@ -14,144 +14,55 @@ import kotlin.collections.ArrayList
  * Created by Jan Jaap de Groot on 12/10/2020
  * Copyright 2020 Stichting Appt
  */
-enum class Gesture: Training, Serializable {
+enum class Gesture(
+    val fingers: Int = 1,
+    val taps: Int = 1,
+    val hold: Boolean = false,
+    val directions: Array<Direction> = arrayOf()
+): Training, Serializable {
 
-    ONE_FINGER_TOUCH,
-    ONE_FINGER_DOUBLE_TAP,
-    ONE_FINGER_DOUBLE_TAP_HOLD,
+    ONE_FINGER_TOUCH(fingers = 1, taps = 1),
+    ONE_FINGER_DOUBLE_TAP(fingers = 1, taps = 2),
+    ONE_FINGER_DOUBLE_TAP_HOLD(fingers = 1, taps = 2, hold = true),
 
-    TWO_FINGER_TAP,
-    TWO_FINGER_DOUBLE_TAP,
-    TWO_FINGER_DOUBLE_TAP_HOLD,
-    TWO_FINGER_TRIPLE_TAP,
+    TWO_FINGER_TAP(fingers = 2, taps = 1),
+    TWO_FINGER_DOUBLE_TAP(fingers = 2, taps = 2),
+    TWO_FINGER_DOUBLE_TAP_HOLD(fingers = 2, taps = 2, hold = true),
+    TWO_FINGER_TRIPLE_TAP(fingers = 2, taps = 3),
 
-    THREE_FINGER_TAP,
-    THREE_FINGER_DOUBLE_TAP,
-    THREE_FINGER_DOUBLE_TAP_HOLD,
-    THREE_FINGER_TRIPLE_TAP,
+    THREE_FINGER_TAP(fingers = 3, taps = 1),
+    THREE_FINGER_DOUBLE_TAP(fingers = 3, taps = 2),
+    THREE_FINGER_DOUBLE_TAP_HOLD(fingers = 3, taps = 2, hold = true),
+    THREE_FINGER_TRIPLE_TAP(fingers = 3, taps = 3),
 
-    FOUR_FINGER_TAP,
-    FOUR_FINGER_DOUBLE_TAP,
-    FOUR_FINGER_DOUBLE_TAP_HOLD,
+    FOUR_FINGER_TAP(fingers = 4, taps = 1),
+    FOUR_FINGER_DOUBLE_TAP(fingers = 4, taps = 2),
+    FOUR_FINGER_DOUBLE_TAP_HOLD(fingers = 4, taps = 2, hold = true),
 
-    ONE_FINGER_SWIPE_RIGHT,
-    ONE_FINGER_SWIPE_LEFT,
-    ONE_FINGER_SWIPE_UP,
-    ONE_FINGER_SWIPE_DOWN,
+    ONE_FINGER_SWIPE_UP(fingers = 1, directions = arrayOf(Direction.UP)),
+    ONE_FINGER_SWIPE_RIGHT(fingers = 1, directions = arrayOf(Direction.RIGHT)),
+    ONE_FINGER_SWIPE_DOWN(fingers = 1, directions = arrayOf(Direction.DOWN)),
+    ONE_FINGER_SWIPE_LEFT(fingers = 1, directions = arrayOf(Direction.LEFT)),
 
-    TWO_FINGER_SWIPE_DOWN,
-    TWO_FINGER_SWIPE_UP,
-    TWO_FINGER_SWIPE_RIGHT,
-    TWO_FINGER_SWIPE_LEFT,
+    TWO_FINGER_SWIPE_UP(fingers = 1, directions = arrayOf(Direction.UP)),
+    TWO_FINGER_SWIPE_RIGHT(fingers = 1, directions = arrayOf(Direction.RIGHT)),
+    TWO_FINGER_SWIPE_DOWN(fingers = 1, directions = arrayOf(Direction.DOWN)),
+    TWO_FINGER_SWIPE_LEFT(fingers = 1, directions = arrayOf(Direction.LEFT)),
 
-    ONE_FINGER_SWIPE_UP_THEN_RIGHT,
-    ONE_FINGER_SWIPE_UP_THEN_DOWN,
-    ONE_FINGER_SWIPE_UP_THEN_LEFT,
+    ONE_FINGER_SWIPE_UP_THEN_RIGHT(fingers = 1, directions = arrayOf(Direction.UP, Direction.RIGHT)),
+    ONE_FINGER_SWIPE_UP_THEN_DOWN(fingers = 1, directions = arrayOf(Direction.UP, Direction.DOWN)),
+    ONE_FINGER_SWIPE_UP_THEN_LEFT(fingers = 1, directions = arrayOf(Direction.UP, Direction.LEFT)),
 
-    ONE_FINGER_SWIPE_DOWN_THEN_UP,
-    ONE_FINGER_SWIPE_DOWN_THEN_RIGHT,
-    ONE_FINGER_SWIPE_DOWN_THEN_LEFT,
+    ONE_FINGER_SWIPE_RIGHT_THEN_DOWN(fingers = 1, directions = arrayOf(Direction.RIGHT, Direction.DOWN)),
+    ONE_FINGER_SWIPE_RIGHT_THEN_LEFT(fingers = 1, directions = arrayOf(Direction.RIGHT, Direction.LEFT)),
 
-    ONE_FINGER_SWIPE_RIGHT_THEN_DOWN,
-    ONE_FINGER_SWIPE_RIGHT_THEN_LEFT,
+    ONE_FINGER_SWIPE_DOWN_THEN_UP(fingers = 1, directions = arrayOf(Direction.DOWN, Direction.UP)),
+    ONE_FINGER_SWIPE_DOWN_THEN_RIGHT(fingers = 1, directions = arrayOf(Direction.DOWN, Direction.RIGHT)),
+    ONE_FINGER_SWIPE_DOWN_THEN_LEFT(fingers = 1, directions = arrayOf(Direction.DOWN, Direction.LEFT)),
 
-    ONE_FINGER_SWIPE_LEFT_THEN_UP,
-    ONE_FINGER_SWIPE_LEFT_THEN_RIGHT,
-    ONE_FINGER_SWIPE_LEFT_THEN_DOWN;
-
-    val fingers: Int
-        get() {
-            return when (this) {
-                TWO_FINGER_TAP,
-                TWO_FINGER_DOUBLE_TAP,
-                TWO_FINGER_DOUBLE_TAP_HOLD,
-                TWO_FINGER_TRIPLE_TAP,
-                TWO_FINGER_SWIPE_DOWN,
-                TWO_FINGER_SWIPE_UP,
-                TWO_FINGER_SWIPE_RIGHT,
-                TWO_FINGER_SWIPE_LEFT -> 2
-
-                THREE_FINGER_TAP,
-                THREE_FINGER_DOUBLE_TAP,
-                THREE_FINGER_DOUBLE_TAP_HOLD,
-                THREE_FINGER_TRIPLE_TAP -> 3
-
-                FOUR_FINGER_TAP,
-                FOUR_FINGER_DOUBLE_TAP,
-                FOUR_FINGER_DOUBLE_TAP_HOLD -> 4
-
-                else -> 1
-            }
-        }
-
-    val taps: Int
-        get() {
-            return when (this) {
-                ONE_FINGER_DOUBLE_TAP,
-                ONE_FINGER_DOUBLE_TAP_HOLD,
-                TWO_FINGER_DOUBLE_TAP,
-                TWO_FINGER_DOUBLE_TAP_HOLD,
-                THREE_FINGER_DOUBLE_TAP,
-                THREE_FINGER_DOUBLE_TAP_HOLD,
-                FOUR_FINGER_DOUBLE_TAP,
-                FOUR_FINGER_DOUBLE_TAP_HOLD -> 2
-
-                TWO_FINGER_TRIPLE_TAP,
-                THREE_FINGER_TRIPLE_TAP -> 3
-
-                else -> 1
-            }
-        }
-
-    val longPress: Boolean
-        get() {
-            return when (this) {
-                ONE_FINGER_DOUBLE_TAP_HOLD,
-                TWO_FINGER_DOUBLE_TAP_HOLD,
-                THREE_FINGER_DOUBLE_TAP_HOLD -> true
-
-                else -> false
-            }
-        }
-
-    val directions: Array<Direction>
-        get() {
-            val array = when (this) {
-                ONE_FINGER_SWIPE_UP -> arrayOf(Direction.UP)
-                ONE_FINGER_SWIPE_RIGHT -> arrayOf(Direction.RIGHT)
-                ONE_FINGER_SWIPE_DOWN -> arrayOf(Direction.DOWN)
-                ONE_FINGER_SWIPE_LEFT -> arrayOf(Direction.LEFT)
-
-                TWO_FINGER_SWIPE_UP -> arrayOf(Direction.UP)
-                TWO_FINGER_SWIPE_RIGHT -> arrayOf(Direction.RIGHT)
-                TWO_FINGER_SWIPE_DOWN -> arrayOf(Direction.DOWN)
-                TWO_FINGER_SWIPE_LEFT -> arrayOf(Direction.LEFT)
-
-                ONE_FINGER_SWIPE_UP_THEN_RIGHT -> arrayOf(Direction.UP, Direction.RIGHT)
-                ONE_FINGER_SWIPE_UP_THEN_DOWN -> arrayOf(Direction.UP, Direction.DOWN)
-                ONE_FINGER_SWIPE_UP_THEN_LEFT -> arrayOf(Direction.UP, Direction.LEFT)
-
-                //ONE_FINGER_SWIPE_RIGHT_THEN_UP -> arrayOf(Direction.RIGHT, Direction.UP)
-                ONE_FINGER_SWIPE_RIGHT_THEN_DOWN -> arrayOf(Direction.RIGHT, Direction.DOWN)
-                ONE_FINGER_SWIPE_RIGHT_THEN_LEFT -> arrayOf(Direction.RIGHT, Direction.LEFT)
-
-                ONE_FINGER_SWIPE_DOWN_THEN_UP -> arrayOf(Direction.DOWN, Direction.UP)
-                ONE_FINGER_SWIPE_DOWN_THEN_RIGHT -> arrayOf(Direction.DOWN, Direction.RIGHT)
-                ONE_FINGER_SWIPE_DOWN_THEN_LEFT -> arrayOf(Direction.DOWN, Direction.LEFT)
-
-                ONE_FINGER_SWIPE_LEFT_THEN_UP -> arrayOf(Direction.LEFT, Direction.UP)
-                ONE_FINGER_SWIPE_LEFT_THEN_RIGHT -> arrayOf(Direction.LEFT, Direction.RIGHT)
-                ONE_FINGER_SWIPE_LEFT_THEN_DOWN -> arrayOf(Direction.LEFT, Direction.DOWN)
-
-                else -> arrayOf()
-            }
-
-            array.forEach { direction ->
-                direction.fingers = 1
-            }
-
-            return array
-        }
+    ONE_FINGER_SWIPE_LEFT_THEN_UP(fingers = 1, directions = arrayOf(Direction.LEFT, Direction.UP)),
+    ONE_FINGER_SWIPE_LEFT_THEN_RIGHT(fingers = 1, directions = arrayOf(Direction.LEFT, Direction.RIGHT)),
+    ONE_FINGER_SWIPE_LEFT_THEN_DOWN(fingers = 1, directions = arrayOf(Direction.LEFT, Direction.DOWN));
 
     private fun getString(context: Context, property: String): String {
         return context.getString("gesture_${identifier}_${property}")
@@ -172,29 +83,22 @@ enum class Gesture: Training, Serializable {
             }
 
             ONE_FINGER_DOUBLE_TAP,
+            ONE_FINGER_DOUBLE_TAP_HOLD,
+
             TWO_FINGER_TAP,
             TWO_FINGER_DOUBLE_TAP,
             TWO_FINGER_TRIPLE_TAP,
+            TWO_FINGER_DOUBLE_TAP_HOLD,
+
             THREE_FINGER_TAP,
             THREE_FINGER_DOUBLE_TAP,
+            THREE_FINGER_DOUBLE_TAP_HOLD,
             THREE_FINGER_TRIPLE_TAP,
+
             FOUR_FINGER_TAP,
             FOUR_FINGER_DOUBLE_TAP,
             FOUR_FINGER_DOUBLE_TAP_HOLD -> {
                 TapGestureView(context, this)
-            }
-
-            ONE_FINGER_DOUBLE_TAP_HOLD,
-            TWO_FINGER_DOUBLE_TAP_HOLD,
-            THREE_FINGER_DOUBLE_TAP_HOLD -> {
-                TapGestureView(context, this)
-            }
-
-            ONE_FINGER_SWIPE_RIGHT,
-            ONE_FINGER_SWIPE_LEFT,
-            ONE_FINGER_SWIPE_DOWN,
-            ONE_FINGER_SWIPE_UP -> {
-                SwipeGestureView(context, this)
             }
 
             TWO_FINGER_SWIPE_DOWN,
@@ -203,6 +107,11 @@ enum class Gesture: Training, Serializable {
             TWO_FINGER_SWIPE_LEFT -> {
                 ScrollGestureView(context, this)
             }
+
+            ONE_FINGER_SWIPE_RIGHT,
+            ONE_FINGER_SWIPE_LEFT,
+            ONE_FINGER_SWIPE_DOWN,
+            ONE_FINGER_SWIPE_UP,
 
             ONE_FINGER_SWIPE_UP_THEN_RIGHT,
             ONE_FINGER_SWIPE_UP_THEN_DOWN,

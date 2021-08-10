@@ -120,9 +120,9 @@
     <string name="gesture_three_finger_triple_tap_description">Tik met 3 vingers 3 keer op het scherm.</string>
     <string name="gesture_three_finger_triple_tap_explanation">Dit gebaar is de snelste manier om tekst te plakken.</string>
 
-    <string name="gesture_four_finger_tap_title">Gebaren oefenen</string>
+    <string name="gesture_four_finger_tap_title">Oefenmodus voor gebaren</string>
     <string name="gesture_four_finger_tap_description">Tik met 4 vingers op het scherm.</string>
-    <string name="gesture_four_finger_tap_explanation">Nadat je dit gebaar gebruikt wordt de oefenmodus vor TalkBack gebaren geopend.</string>
+    <string name="gesture_four_finger_tap_explanation">Nadat je dit gebaar gebruikt wordt de oefenmodus voor TalkBack gebaren geopend.</string>
 
     <string name="gesture_four_finger_double_tap_title">Help voor TalkBack</string>
     <string name="gesture_four_finger_double_tap_description">Tik met 4 vingers 2 keer op het scherm.</string>

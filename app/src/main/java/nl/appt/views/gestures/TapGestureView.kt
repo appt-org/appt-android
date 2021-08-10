@@ -2,10 +2,7 @@ package nl.appt.views.gestures
 
 import android.content.Context
 import android.view.MotionEvent
-import it.sephiroth.android.library.uigestures.UIGestureRecognizer
-import it.sephiroth.android.library.uigestures.UIGestureRecognizerDelegate
-import it.sephiroth.android.library.uigestures.UITapGestureRecognizer
-import it.sephiroth.android.library.uigestures.setGestureDelegate
+import it.sephiroth.android.library.uigestures.*
 import nl.appt.extensions.isEnd
 import nl.appt.extensions.isStart
 import nl.appt.model.Gesture
@@ -25,28 +22,43 @@ class TapGestureView(
     private var tapped = false
 
     private val gestureListener = { recognizer: UIGestureRecognizer ->
+        var fingers = 1
+        var taps = 1
+        var hold = false
+
         if (recognizer is UITapGestureRecognizer) {
-            tapped = true
+            fingers = recognizer.touchesRequired
+            taps = recognizer.tapsRequired
+        } else if (recognizer is UILongPressGestureRecognizer) {
+            fingers = recognizer.touchesRequired
+            taps = recognizer.tapsRequired
+            hold = true
+        }
 
-            val fingers = recognizer.touchesRequired
+        if (ApptService.isEnabled(context)) {
+            taps += 1
+        }
 
-            var taps = recognizer.tapsRequired
-            if (ApptService.isEnabled(context)) {
-                taps += 1
+        when {
+            fingers != gesture.fingers -> {
+                incorrect("Tik met ${gesture.fingers} vingers. Je tikte met $fingers vingers.")
             }
-
-            when {
-                fingers != gesture.fingers -> {
-                    incorrect("Tik met ${gesture.fingers} vingers. Je tikte met $fingers vingers.")
+            taps != gesture.taps -> {
+                incorrect("Tik ${gesture.taps} keer. Je tikte $taps keer.")
+            }
+            hold != gesture.hold -> {
+                if (hold) {
+                    incorrect("Houd het scherm korter ingedrukt na het tikken.")
+                } else {
+                    incorrect("Houd het scherm langer ingedrukt na het tikken.")
                 }
-                taps != gesture.taps -> {
-                    incorrect("Tik ${gesture.taps} keer. Je tikte $taps keer.")
-                }
-                else -> {
-                    correct()
-                }
+            }
+            else -> {
+                correct()
             }
         }
+
+        showTap(taps, hold)
     }
 
     private fun tapGestureRecognizer(fingers: Int, taps: Int, requiresFailureOf: UIGestureRecognizer? = null): UITapGestureRecognizer {
@@ -59,7 +71,25 @@ class TapGestureView(
                 return result
             }
         }
-        recognizer.tag = "fingers-$fingers-taps-$taps"
+        recognizer.tag = "tap-$fingers-fingers-$taps-taps"
+        recognizer.touchesRequired = fingers
+        recognizer.tapsRequired = taps
+        recognizer.requireFailureOf = requiresFailureOf
+        recognizer.actionListener = gestureListener
+        return recognizer
+    }
+
+    private fun longPressRecognizer(fingers: Int, taps: Int, requiresFailureOf: UIGestureRecognizer? = null): UILongPressGestureRecognizer {
+        val recognizer = object : UILongPressGestureRecognizer(context) {
+            override fun onTouchEvent(event: MotionEvent): Boolean {
+                val result = super.onTouchEvent(event)
+                if (requiresFailureOf == null) {
+                    this@TapGestureView.onTouchEvent(event)
+                }
+                return result
+            }
+        }
+        recognizer.tag = "long-press-$fingers-fingers-$taps-taps"
         recognizer.touchesRequired = fingers
         recognizer.tapsRequired = taps
         recognizer.requireFailureOf = requiresFailureOf
@@ -70,7 +100,12 @@ class TapGestureView(
     init {
         val delegate = UIGestureRecognizerDelegate()
 
-        val fourFingerTripleTapRecognizer = tapGestureRecognizer(4, 3)
+        val fourFingerLongPressRecognizer = longPressRecognizer(4, 2)
+        val threeFingerLongPressRecognizer = longPressRecognizer(3, 2, fourFingerLongPressRecognizer)
+        val twoFingerLongPressRecognizer = longPressRecognizer(2, 2, threeFingerLongPressRecognizer)
+        val oneFingerLongPressRecognizer = longPressRecognizer(1, 2, twoFingerLongPressRecognizer)
+
+        val fourFingerTripleTapRecognizer = tapGestureRecognizer(4, 3, threeFingerLongPressRecognizer)
         val fourFingerTwoTapRecognizer = tapGestureRecognizer(4, 2, fourFingerTripleTapRecognizer)
         val fourFingerOneTapRecognizer = tapGestureRecognizer(4, 1, fourFingerTwoTapRecognizer)
 
@@ -85,6 +120,11 @@ class TapGestureView(
         val oneFingerTripleTapRecognizer = tapGestureRecognizer(1, 3, twoFingerTripleTapRecognizer)
         val oneFingerTwoTapRecognizer = tapGestureRecognizer(1, 2, oneFingerTripleTapRecognizer)
         val oneFingerOneTapRecognizer = tapGestureRecognizer(1, 1, oneFingerTwoTapRecognizer)
+
+        delegate.addGestureRecognizer(fourFingerLongPressRecognizer)
+        delegate.addGestureRecognizer(threeFingerLongPressRecognizer)
+        delegate.addGestureRecognizer(twoFingerLongPressRecognizer)
+        delegate.addGestureRecognizer(oneFingerLongPressRecognizer)
 
         delegate.addGestureRecognizer(fourFingerTripleTapRecognizer)
         delegate.addGestureRecognizer(fourFingerTwoTapRecognizer)
@@ -126,54 +166,19 @@ class TapGestureView(
         }
     }
 
-    override fun correct() {
-        // Show tap
+    private fun showTap(taps: Int, longPress: Boolean) {
+        if (tapped) {
+            return
+        }
+
+        tapped = true
+
         for (key in touches.keys) {
             touches[key]?.lastOrNull()?.let { lastTouch ->
-                val touch = Touch(lastTouch.x, lastTouch.y, gesture.taps, gesture.longPress)
+                val touch = Touch(lastTouch.x, lastTouch.y, taps, longPress)
                 touches[key] = arrayListOf(touch)
             }
         }
         invalidate()
-
-        super.correct()
     }
-
-//    private fun onTapped(fingers: Int, taps: Int, longPress: Boolean = false) {
-//        Log.d(TAG, "onTapped, fingers: $fingers, taps: $taps, longPress: $longPress")
-//
-//        // Check amount of fingers
-//        if (fingers != gesture.fingers) {
-//            incorrect("Tik met ${gesture.fingers} vingers. Je tikte met $fingers vingers.")
-//            return
-//        }
-//
-//        // Add one tap if TalkBack is activated
-//        var actualTaps = taps
-//        if (Accessibility.isTalkBackEnabled(context)) {
-//            actualTaps += 1
-//        }
-//        // Check amount of taps
-//        if (actualTaps != gesture.taps) {
-//            incorrect("Tik ${gesture.taps} keer. Je tikte $actualTaps keer.")
-//            return
-//        }
-//
-//        // Check if long pressed
-//        if (longPress != gesture.longPress) {
-//            val timeout = ViewConfiguration.getLongPressTimeout()
-//
-//            Handler(Looper.getMainLooper()).postDelayed({
-//                if (longPress) {
-//                    incorrect("Houd het scherm korter ingedrukt na het tikken.")
-//                } else {
-//                    incorrect("Houd het scherm langer ingedrukt na het tikken.")
-//                }
-//            }, timeout.toLong())
-//
-//            return
-//        }
-//
-//        correct()
-//    }
 }

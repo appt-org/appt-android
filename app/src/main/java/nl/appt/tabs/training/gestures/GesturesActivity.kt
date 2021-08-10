@@ -98,7 +98,7 @@ class GesturesActivity: ToolbarActivity() {
         private const val REQUEST_CODE_MULTIPLE = 2
 
         private val gestures = arrayListOf(
-            "Selecteren",
+            "Eén vinger",
             Gesture.ONE_FINGER_TOUCH,
             Gesture.ONE_FINGER_DOUBLE_TAP,
             Gesture.ONE_FINGER_DOUBLE_TAP_HOLD,
