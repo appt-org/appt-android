@@ -8,9 +8,12 @@ import nl.appt.model.Gesture
  * Copyright 2020 Stichting Appt
  */
 fun AlertDialog.onAccessibilityGesture(gesture: Gesture) {
-    if (gesture == Gesture.ONE_FINGER_SWIPE_LEFT) {
-        getButton(AlertDialog.BUTTON_NEGATIVE)?.performClick()
-    } else if (gesture == Gesture.ONE_FINGER_SWIPE_RIGHT) {
-        getButton(AlertDialog.BUTTON_POSITIVE)?.performClick()
+    when (gesture) {
+        Gesture.ONE_FINGER_SWIPE_LEFT -> AlertDialog.BUTTON_NEGATIVE
+        Gesture.ONE_FINGER_SWIPE_RIGHT -> AlertDialog.BUTTON_POSITIVE
+        Gesture.ONE_FINGER_SWIPE_DOWN -> AlertDialog.BUTTON_NEUTRAL
+        else -> null
+    }?.let { button ->
+        getButton(button)?.performClick()
     }
 }

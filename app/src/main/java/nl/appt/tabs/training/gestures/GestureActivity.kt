@@ -34,8 +34,8 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
 
     private val TAG = "GestureActivity"
 
-    private val gestures: ArrayList<Gesture>? by lazy {
-        intent.getGestures()
+    private val gestures: ArrayList<Gesture> by lazy {
+        intent.getGestures() ?: arrayListOf()
     }
     private val gesture: Gesture by lazy {
         gestures?.firstOrNull() ?: intent.getGesture() ?: Gesture.ONE_FINGER_TOUCH
@@ -46,6 +46,9 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
     private var errorLimit = 5
     private var errorCount = 0
     private var finished = false
+
+    private val isPracticing: Boolean
+        get() = gestures.isNotEmpty()
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -134,26 +137,19 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
         gesture.completed(baseContext, true)
         setResult(RESULT_OK)
 
-        gestures?.let { gestures ->
-            if (gestures.size > 1) {
-                toast("Gebaar correct uitgevoerd!") {
-                    gestures.removeAt(0)
-
-                    startActivity<GestureActivity> {
-                        setGestures(gestures)
-                    }
-
-                    finish()
-                }
-            } else {
-                toast("Gefeliciteerd, je hebt alle gebaren correct uitgevoerd!") {
-                    finish()
-                }
+        toast("Gebaar correct uitgevoerd!") {
+            if (isPracticing) {
+                next()
             }
-        } ?: run {
-            toast("Gebaar correct uitgevoerd!") {
-                finish()
-            }
+            finish()
+        }
+    }
+
+    private fun next() {
+        gestures.removeAt(0)
+
+        startActivity<GestureActivity> {
+            setGestures(gestures)
         }
     }
 
@@ -162,6 +158,7 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
             return
         }
 
+        // Show feedback
         feedbackTextView.animate()
             .alpha(0.0f)
             .setDuration(250)
@@ -176,16 +173,30 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
                 }
             })
 
+        // Check if error count exceeds limit
         errorCount++
+        if (errorCount < errorLimit) {
+            return
+        }
 
-        if (errorCount >= errorLimit) {
-            var message = "Je hebt het gebaar $errorCount keer fout uitgevoerd. Wil je doorgaan of stoppen?"
+        // Show option dialog
+        var message = "Je hebt het gebaar $errorCount keer fout uitgevoerd."
 
-            if (Accessibility.isTalkBackEnabled(this)) {
-                message += "\n\nVeeg naar links om te stoppen.\n\nVeeg naar rechts om door te gaan."
+        message += if (Accessibility.isTalkBackEnabled(this)) {
+            if (isPracticing) {
+                "\n\nVeeg naar links om te stoppen.\n\nVeeg omlaag om over te slaan.\n\nVeeg naar rechts om door te gaan."
+            } else {
+                "\n\nVeeg naar links om te stoppen.\n\nVeeg naar rechts om door te gaan."
             }
+        } else {
+            if (isPracticing) {
+                "\n\nWil je doorgaan, overslaan of stoppen?"
+            } else {
+                "\n\nWil je doorgaan of stoppen?"
+            }
+        }
 
-            dialog = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(this)
                         .setMessage(message)
                         .setPositiveButton(R.string.action_continue) { _, _ ->
                             errorLimit *= 2
@@ -194,7 +205,19 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
                             finish()
                         }
                         .setCancelable(false)
-                        .show()
+                        .setOnDismissListener {
+                            dialog = null
+                        }
+
+        if (isPracticing) {
+            builder.setNeutralButton(R.string.action_skip) { _, _ ->
+                next()
+                finish()
+            }
+        }
+
+        if (dialog == null) {
+            dialog = builder.show()
         }
     }
 }

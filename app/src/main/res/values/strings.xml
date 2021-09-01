@@ -53,6 +53,7 @@
     <string name="action_explanation">Uitleg</string>
     <string name="action_stop">Stoppen</string>
     <string name="action_continue">Doorgaan</string>
+    <string name="action_skip">Overslaan</string>
 
     <!-- Courses -->
     <string name="course_talkback_gestures_title">1. TalkBack gebaren</string>
