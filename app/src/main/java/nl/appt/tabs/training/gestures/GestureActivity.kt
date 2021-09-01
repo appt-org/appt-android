@@ -37,9 +37,15 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
     private val gestures: ArrayList<Gesture> by lazy {
         intent.getGestures() ?: arrayListOf()
     }
+
     private val gesture: Gesture by lazy {
-        gestures?.firstOrNull() ?: intent.getGesture() ?: Gesture.ONE_FINGER_TOUCH
+        gestures.firstOrNull() ?: intent.getGesture() ?: Gesture.ONE_FINGER_TOUCH
     }
+
+    private val instructions: Boolean by lazy {
+        intent.getInstructions()
+    }
+
     private lateinit var gestureView: GestureView
 
     private var dialog: AlertDialog? = null
@@ -75,16 +81,25 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
     override fun onViewCreated() {
         super.onViewCreated()
 
+        // Setup GestureView
+        gestureView = gesture.view(this)
+        gestureView.callback = this
+        container.addView(gestureView)
+        accessibility.elements = arrayOf(gestureView)
+
+        // Setup other views
         titleTextView.text = gesture.title(this)
         descriptionTextView.text = gesture.description(this)
         gestureImageView.setImageResource(gesture.image(this))
 
-        // Initialize GestureView
-        gestureView = gesture.view(this)
-        gestureView.callback = this
-        gestureView.accessibility.label = String.format("%s: %s", titleTextView.text, descriptionTextView.text)
-        container.addView(gestureView)
-        accessibility.elements = arrayOf(gestureView)
+        // Setup instructions
+        if (instructions) {
+            gestureView.accessibility.label = String.format("%s: %s", titleTextView.text, descriptionTextView.text)
+        } else {
+            descriptionTextView.setVisible(false)
+            gestureImageView.setVisible(false)
+            gestureView.accessibility.label = titleTextView.text
+        }
 
         // Listen to events from ApptService
         val filter = IntentFilter()
@@ -93,7 +108,9 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.explanation, menu)
+        if (instructions) {
+            menuInflater.inflate(R.menu.explanation, menu)
+        }
         return true
     }
 
@@ -150,12 +167,19 @@ class GestureActivity: ToolbarActivity(), GestureViewCallback {
 
         startActivity<GestureActivity> {
             setGestures(gestures)
+            setInstructions(instructions)
         }
     }
 
     override fun incorrect(gesture: Gesture, feedback: String) {
         if (finished) {
             return
+        }
+
+        val feedback = if (instructions) {
+            feedback
+        } else {
+            "Fout"
         }
 
         // Show feedback

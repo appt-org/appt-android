@@ -140,12 +140,18 @@ enum class Gesture(
         return Preferences.isCompleted(this)
     }
     override fun completed(context: Context, completed: Boolean) {
-        Preferences.setCompleted(this, true)
+        Preferences.setCompleted(this, completed)
     }
 
     companion object {
         fun all(): ArrayList<Gesture> {
             return values().toCollection(arrayListOf())
+        }
+
+        fun randomized(): ArrayList<Gesture> {
+            val gestures = all()
+            gestures.shuffle()
+            return gestures
         }
 
         fun from(gestureId: Int): Gesture? {

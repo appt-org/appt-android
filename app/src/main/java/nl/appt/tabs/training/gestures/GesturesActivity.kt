@@ -3,6 +3,7 @@ package nl.appt.tabs.training.gestures
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import kotlinx.android.synthetic.main.view_list.*
@@ -11,8 +12,7 @@ import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.adapters.trainingAdapterDelegate
-import nl.appt.extensions.setGesture
-import nl.appt.extensions.setGestures
+import nl.appt.extensions.*
 import nl.appt.model.Gesture
 import nl.appt.services.ApptService
 import nl.appt.widgets.ToolbarActivity
@@ -57,24 +57,12 @@ class GesturesActivity: ToolbarActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == RESULT_OK) {
-            recyclerView.adapter?.notifyDataSetChanged()
-        }
-    }
-
-    private fun needApptService(): Boolean {
-        if (Accessibility.isTalkBackEnabled(this)) {
-            if (!ApptService.isEnabled(this)) {
-                ApptService.enable(this)
-                return true
-            }
-        }
-        return false
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 
     private fun onGestureClicked(gesture: Gesture) {
-        if (needApptService()) {
+        if (Accessibility.isTalkBackEnabled(this)) {
+            showError(R.string.service_reason_message)
             return
         }
 
@@ -84,12 +72,33 @@ class GesturesActivity: ToolbarActivity() {
     }
 
     private fun onPracticeClicked() {
-        if (needApptService()) {
-            return
+        AlertDialog.Builder(this)
+            .setMessage("Wil je oefenen met of zonder instructies?")
+            .setPositiveButton("Met instructies") { _, _ ->
+                startPractice(true)
+            }
+            .setNegativeButton("Zonder instructies") { _, _ ->
+                startPractice(false)
+            }
+            .show()
+    }
+
+    private fun startPractice(instructions: Boolean) {
+        if (Accessibility.isTalkBackEnabled(this)) {
+            if (!ApptService.isEnabled(this)) {
+                ApptService.enable(this, instructions)
+                return
+            }
+        }
+
+        val gestures = Gesture.randomized()
+        gestures.forEach { gesture ->
+            gesture.completed(this, false)
         }
 
         startActivity<GestureActivity>(REQUEST_CODE_MULTIPLE) {
-            setGestures(Gesture.all())
+            setGestures(gestures)
+            setInstructions(instructions)
         }
     }
 

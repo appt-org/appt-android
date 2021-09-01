@@ -28,6 +28,11 @@ private const val KEY_GESTURES = "gestures"
 fun Intent.getGestures() = getSerializableExtra(KEY_GESTURES) as? ArrayList<Gesture>
 fun Intent.setGestures(gestures: ArrayList<Gesture>) = putExtra(KEY_GESTURES, gestures)
 
+/** Instructions **/
+private const val KEY_INSTRUCTIONS = "instructions"
+fun Intent.getInstructions() = getBooleanExtra(KEY_INSTRUCTIONS, true)
+fun Intent.setInstructions(instructions: Boolean) = putExtra(KEY_INSTRUCTIONS, instructions)
+
 /** Launch **/
 private const val KEY_LAUNCH = "launch"
 fun Intent.getLaunch() = getBooleanExtra(KEY_LAUNCH, false)

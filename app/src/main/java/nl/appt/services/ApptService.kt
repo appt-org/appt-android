@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.hardware.display.DisplayManagerCompat
 import nl.appt.R
 import nl.appt.extensions.setGestures
+import nl.appt.extensions.setInstructions
 import nl.appt.model.Constants
 import nl.appt.model.Gesture
 import nl.appt.tabs.training.gestures.GestureActivity
@@ -177,8 +178,14 @@ class ApptService: AccessibilityService() {
     }
 
     private fun startGestureTraining() {
+        val gestures = Gesture.randomized()
+        gestures.forEach { gesture ->
+            gesture.completed(this, false)
+        }
+
         val intent = Intent(this, GestureActivity::class.java)
-        intent.setGestures(Gesture.all())
+        intent.setGestures(gestures)
+        intent.setInstructions(instructions)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
@@ -196,7 +203,9 @@ class ApptService: AccessibilityService() {
             return false
         }
 
-        fun enable(context: Context) {
+        fun enable(context: Context, instructions: Boolean = false) {
+            this.instructions = instructions
+
             AlertDialog.Builder(context)
                 .setTitle(R.string.service_enable_title)
                 .setMessage(R.string.service_enable_message)
@@ -211,5 +220,7 @@ class ApptService: AccessibilityService() {
                 .setCancelable(false)
                 .show()
         }
+
+        var instructions = true
     }
 }
