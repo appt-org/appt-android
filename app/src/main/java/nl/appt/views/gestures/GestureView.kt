@@ -37,7 +37,7 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         paint.style = Paint.Style.STROKE
         paint.strokeJoin = Paint.Join.ROUND
         paint.strokeCap = Paint.Cap.ROUND
-        paint.strokeWidth = 20f
+        paint.strokeWidth = resources.getDimension(R.dimen.stroke_width)
         paint.isAntiAlias = true
         paint
     }
@@ -76,7 +76,7 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         canvas: Canvas,
         paint: Paint,
         touch: Touch,
-        size: Float = 40f
+        size: Float = paint.strokeWidth * 2
     ) {
         val offset = paint.strokeWidth / 2
         val x = touch.x.toFloat() - offset
@@ -135,8 +135,8 @@ abstract class GestureView(val gesture: Gesture, context: Context) : View(contex
         canvas: Canvas,
         paint: Paint,
         touches: List<Touch>,
-        arrowSize:Int = 50,
-        arrowAngle: Int = 45
+        arrowSize: Float = paint.strokeWidth * 3,
+        arrowAngle: Float = 45f
     ) {
         // Use a subset of 10 points
         val subset = touches.takeLast(10)

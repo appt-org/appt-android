@@ -7,5 +7,5 @@
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_large">32dp</dimen>
 
-    <dimen name="padding_recycler_view">32dp</dimen>
+    <dimen name="stroke_width">10dp</dimen>
 </resources>
