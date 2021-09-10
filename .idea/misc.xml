@@ -10,6 +10,11 @@
       <map>
         <entry key="app/src/main/res/drawable/gesture_four_finger_double_tap.xml" value="0.34923076923076923" />
         <entry key="app/src/main/res/drawable/gesture_one_finger_swipe_down_then_right.xml" value="0.31666666666666665" />
+        <entry key="app/src/main/res/drawable/icon_hands_up.xml" value="0.31296296296296294" />
+        <entry key="app/src/main/res/drawable/tab_home.xml" value="0.31296296296296294" />
+        <entry key="app/src/main/res/drawable/tab_knowledge.xml" value="0.31296296296296294" />
+        <entry key="app/src/main/res/drawable/tab_more.xml" value="0.31296296296296294" />
+        <entry key="app/src/main/res/drawable/tab_services.xml" value="0.31296296296296294" />
         <entry key="app/src/main/res/menu/explanation.xml" value="0.3385416666666667" />
         <entry key="app/src/main/res/menu/practice.xml" value="0.32685185185185184" />
       </map>

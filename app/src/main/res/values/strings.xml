@@ -77,11 +77,54 @@
     <string name="talkback_disabled_title">TalkBack staat uit</string>
     <string name="talkback_disabled_explanation">Je moet TalkBack aanzetten om deze training te volgen.</string>
 
-    <!-- One finger tap -->
+    <!-- One finger swipe -->
     <string name="gesture_one_finger_touch_title">Het scherm verkennen</string>
     <string name="gesture_one_finger_touch_description">Raak het scherm met 1 vinger aan.</string>
     <string name="gesture_one_finger_touch_explanation">Wanneer je het scherm aanraakt wordt de inhoud onder in je vinger voorgelezen. Dit is een handige manier om te ontdekken hoe een scherm precies in elkaar zit.</string>
 
+    <string name="gesture_one_finger_swipe_up_title">Instelling omhoog aanpassen</string>
+    <string name="gesture_one_finger_swipe_up_description">Veeg met 1 vinger omhoog.</string>
+    <string name="gesture_one_finger_swipe_up_explanation">Door omhoog te vegen ga je naar de vorige instelling. Zo stel je bijvoorbeeld in om te navigeren via links. Of je kunt de waarde van een schuifregelaar ophogen.</string>
+
+    <string name="gesture_one_finger_swipe_down_title">Instelling omlaag aanpassen</string>
+    <string name="gesture_one_finger_swipe_down_description">Veeg met 1 vinger omlaag.</string>
+    <string name="gesture_one_finger_swipe_down_explanation">Door omlaag te vegen ga je naar de volgende instelling. Zo stel je bijvoorbeeld in om te navigeren via koppen. Of je kunt de waarde van een schuifregelaar verlagen.</string>
+
+    <string name="gesture_one_finger_swipe_right_title">Naar het volgende onderdeel gaan</string>
+    <string name="gesture_one_finger_swipe_right_description">Veeg met 1 vinger naar rechts.</string>
+    <string name="gesture_one_finger_swipe_right_explanation">Door naar rechts te vegen verken je het scherm van links naar rechts en daarna van boven naar beneden.</string>
+
+    <string name="gesture_one_finger_swipe_left_title">Naar het vorige onderdeel gaan</string>
+    <string name="gesture_one_finger_swipe_left_description">Veeg met 1 vinger naar links.</string>
+    <string name="gesture_one_finger_swipe_left_explanation">Door naar links te vegen verken je het scherm van rechts naar links en daarna van beneden naar boven.</string>
+
+    <!-- Two finger swipe -->
+    <string name="gesture_two_finger_swipe_up_title">Omhoog scrollen</string>
+    <string name="gesture_two_finger_swipe_up_description">Veeg met 2 vingers omhoog.</string>
+    <string name="gesture_two_finger_swipe_up_explanation">In lijsten kun je met dit gebaar omhoog scrollen.</string>
+
+    <string name="gesture_two_finger_swipe_down_title">Omlaag scrollen</string>
+    <string name="gesture_two_finger_swipe_down_description">Veeg met 2 vingers omlaag.</string>
+    <string name="gesture_two_finger_swipe_down_explanation">In lijsten kun je met dit gebaar omlaag scrollen.</string>
+
+    <string name="gesture_two_finger_swipe_right_title">Naar rechts scrollen</string>
+    <string name="gesture_two_finger_swipe_right_description">Veeg met 2 vingers naar rechts.</string>
+    <string name="gesture_two_finger_swipe_right_explanation">In lijsten kun je met dit gebaar naar rechts scrollen. Soms kun je ook naar het volgende scherm navigeren met dit gebaar.</string>
+
+    <string name="gesture_two_finger_swipe_left_title">Naar links scrollen</string>
+    <string name="gesture_two_finger_swipe_left_description">Veeg met 2 vingers naar links.</string>
+    <string name="gesture_two_finger_swipe_left_explanation">In lijsten kun je met dit gebaar naar links scrollen. Soms kun je ook naar het vorige scherm navigeren met dit gebaar.</string>
+
+    <!-- Three finger swipe -->
+    <string name="gesture_three_finger_swipe_up_title">Naar de vorige leesinstelling gaan</string>
+    <string name="gesture_three_finger_swipe_up_description">Veeg met 3 vingers omhoog.</string>
+    <string name="gesture_three_finger_swipe_up_explanation">Door dit gebaar te gebruiken verspring je naar de vorige leesinstelling, bijvoorbeeld van \'Koppen\' naar \'Links\'.</string>
+
+    <string name="gesture_three_finger_swipe_down_title">Naar de volgende leesinstelling gaan</string>
+    <string name="gesture_three_finger_swipe_down_description">Veeg met 3 vingers omlaag.</string>
+    <string name="gesture_three_finger_swipe_down_explanation">Door dit gebaar te gebruiken verspring je naar de vorige leesinstelling, bijvoorbeeld van \'Links\' naar \'Koppen\'.</string>
+
+    <!-- One finger tap -->
     <string name="gesture_one_finger_double_tap_title">Het geselecteerde onderdeel activeren</string>
     <string name="gesture_one_finger_double_tap_description">Tik met 1 vinger 2 keer op het scherm.</string>
     <string name="gesture_one_finger_double_tap_explanation">Door twee keer op het scherm te tikken kun je bijvoorbeeld een knop activeren.</string>
@@ -89,6 +132,10 @@
     <string name="gesture_one_finger_double_tap_hold_title">Het geselecteerde onderdeel lang indrukken</string>
     <string name="gesture_one_finger_double_tap_hold_description">Tik met 1 vinger 2 keer en houd vast.</string>
     <string name="gesture_one_finger_double_tap_hold_explanation">In veel apps verschijnt er een menu met opties wanneer je dit gebaar gebruikt. In een lijst kun je op deze manier meestal acties uitvoeren op het geselecteerde onderdeel.</string>
+
+    <string name="gesture_one_finger_triple_tap_hold_title">Dubbeltikken op het geselecteerde onderdeel</string>
+    <string name="gesture_one_finger_triple_tap_hold_description">Tik met 1 vinger 3 keer op het scherm</string>
+    <string name="gesture_one_finger_triple_tap_hold_explanation">In sommige apps is het nodig om te dubbeltikken om bepaalde handelingen uit te voeren.</string>
 
     <!-- Two finger tap -->
     <string name="gesture_two_finger_tap_title">Spraak pauzeren of hervatten</string>
@@ -137,50 +184,7 @@
     <string name="gesture_four_finger_double_tap_hold_description">Tik met 4 vingers 2 keer en houd vast.</string>
     <string name="gesture_four_finger_double_tap_hold_explanation">Nadat je dit gebaar te gebruikt worden alle aanrakingen direct aan de app doorgegeven. Hierdoor is het bijvoorbeeld mogelijk om je handtekening te zetten.</string>
 
-    <!-- One finger swipe -->
-    <string name="gesture_one_finger_swipe_up_title">Instelling omhoog aanpassen</string>
-    <string name="gesture_one_finger_swipe_up_description">Veeg met 1 vinger omhoog.</string>
-    <string name="gesture_one_finger_swipe_up_explanation">Door omhoog te vegen ga je naar de vorige instelling. Zo stel je bijvoorbeeld in om te navigeren via links. Of je kunt de waarde van een schuifregelaar ophogen.</string>
-
-    <string name="gesture_one_finger_swipe_down_title">Instelling omlaag aanpassen</string>
-    <string name="gesture_one_finger_swipe_down_description">Veeg met 1 vinger omlaag.</string>
-    <string name="gesture_one_finger_swipe_down_explanation">Door omlaag te vegen ga je naar de volgende instelling. Zo stel je bijvoorbeeld in om te navigeren via koppen. Of je kunt de waarde van een schuifregelaar verlagen.</string>
-
-    <string name="gesture_one_finger_swipe_right_title">Naar het volgende onderdeel gaan</string>
-    <string name="gesture_one_finger_swipe_right_description">Veeg met 1 vinger naar rechts.</string>
-    <string name="gesture_one_finger_swipe_right_explanation">Door naar rechts te vegen verken je het scherm van links naar rechts en daarna van boven naar beneden.</string>
-
-    <string name="gesture_one_finger_swipe_left_title">Naar het vorige onderdeel gaan</string>
-    <string name="gesture_one_finger_swipe_left_description">Veeg met 1 vinger naar links.</string>
-    <string name="gesture_one_finger_swipe_left_explanation">Door naar links te vegen verken je het scherm van rechts naar links en daarna van beneden naar boven.</string>
-
-    <!-- Two finger swipe -->
-    <string name="gesture_two_finger_swipe_up_title">Omhoog scrollen</string>
-    <string name="gesture_two_finger_swipe_up_description">Veeg met 2 vingers omhoog.</string>
-    <string name="gesture_two_finger_swipe_up_explanation">In lijsten kun je met dit gebaar omhoog scrollen.</string>
-
-    <string name="gesture_two_finger_swipe_down_title">Omlaag scrollen</string>
-    <string name="gesture_two_finger_swipe_down_description">Veeg met 2 vingers omlaag.</string>
-    <string name="gesture_two_finger_swipe_down_explanation">In lijsten kun je met dit gebaar omlaag scrollen.</string>
-
-    <string name="gesture_two_finger_swipe_right_title">Naar rechts scrollen</string>
-    <string name="gesture_two_finger_swipe_right_description">Veeg met 2 vingers naar rechts.</string>
-    <string name="gesture_two_finger_swipe_right_explanation">In lijsten kun je met dit gebaar naar rechts scrollen. Soms kun je ook naar het volgende scherm navigeren met dit gebaar.</string>
-
-    <string name="gesture_two_finger_swipe_left_title">Naar links scrollen</string>
-    <string name="gesture_two_finger_swipe_left_description">Veeg met 2 vingers naar links.</string>
-    <string name="gesture_two_finger_swipe_left_explanation">In lijsten kun je met dit gebaar naar links scrollen. Soms kun je ook naar het vorige scherm navigeren met dit gebaar.</string>
-
-    <!-- Three finger swipe -->
-    <string name="gesture_three_finger_swipe_up_title">Naar de vorige leesinstelling gaan</string>
-    <string name="gesture_three_finger_swipe_up_description">Veeg met 3 vingers omhoog.</string>
-    <string name="gesture_three_finger_swipe_up_explanation">Door dit gebaar te gebruiken verspring je naar de vorige leesinstelling, bijvoorbeeld van \'Koppen\' naar \'Links\'.</string>
-
-    <string name="gesture_three_finger_swipe_down_title">Naar de volgende leesinstelling gaan</string>
-    <string name="gesture_three_finger_swipe_down_description">Veeg met 3 vingers omlaag.</string>
-    <string name="gesture_three_finger_swipe_down_explanation">Door dit gebaar te gebruiken verspring je naar de vorige leesinstelling, bijvoorbeeld van \'Links\' naar \'Koppen\'.</string>
-
-    <!-- Directional swipe -->
+    <!-- Shortcuts -->
     <string name="gesture_one_finger_swipe_down_then_up_title">Naar het laatste onderdeel gaan</string>
     <string name="gesture_one_finger_swipe_down_then_up_description">Veeg met 1 vinger omlaag en dan omhoog.</string>
     <string name="gesture_one_finger_swipe_down_then_up_explanation">Met dit gebaar kun je direct naar het laatste element op het scherm verspringen. Dit is vaak een knop waarmee je een actie kunt uitvoeren.</string>

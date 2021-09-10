@@ -77,8 +77,11 @@ class GesturesActivity: ToolbarActivity() {
             .setPositiveButton("Met instructies") { _, _ ->
                 startPractice(true)
             }
-            .setNegativeButton("Zonder instructies") { _, _ ->
+            .setNeutralButton("Zonder instructies") { _, _ ->
                 startPractice(false)
+            }
+            .setNegativeButton("Annuleren") { _, _ ->
+                // Ignored
             }
             .show()
     }
@@ -107,8 +110,21 @@ class GesturesActivity: ToolbarActivity() {
         private const val REQUEST_CODE_MULTIPLE = 2
 
         private val gestures = arrayListOf(
-            "Tikken met 1 vinger",
+            "Vegen met 1 vinger",
             Gesture.ONE_FINGER_TOUCH,
+            Gesture.ONE_FINGER_SWIPE_RIGHT,
+            Gesture.ONE_FINGER_SWIPE_LEFT,
+            Gesture.ONE_FINGER_SWIPE_UP,
+            Gesture.ONE_FINGER_SWIPE_DOWN,
+            "Vegen met 2 vingers",
+            Gesture.TWO_FINGER_SWIPE_UP,
+            Gesture.TWO_FINGER_SWIPE_DOWN,
+            Gesture.TWO_FINGER_SWIPE_RIGHT,
+            Gesture.TWO_FINGER_SWIPE_LEFT,
+            "Vegen met 3 vingers",
+            Gesture.THREE_FINGER_SWIPE_UP,
+            Gesture.THREE_FINGER_SWIPE_DOWN,
+            "Tikken met 1 vinger",
             Gesture.ONE_FINGER_DOUBLE_TAP,
             Gesture.ONE_FINGER_DOUBLE_TAP_HOLD,
             "Tikken met 2 vingers",
@@ -125,25 +141,11 @@ class GesturesActivity: ToolbarActivity() {
             Gesture.FOUR_FINGER_TAP,
             Gesture.FOUR_FINGER_DOUBLE_TAP,
             Gesture.FOUR_FINGER_DOUBLE_TAP_HOLD,
-            "Vegen met 1 vinger",
-            Gesture.ONE_FINGER_SWIPE_RIGHT,
-            Gesture.ONE_FINGER_SWIPE_LEFT,
-            Gesture.ONE_FINGER_SWIPE_UP,
-            Gesture.ONE_FINGER_SWIPE_DOWN,
-            "Vegen met 2 vingers",
-            Gesture.TWO_FINGER_SWIPE_UP,
-            Gesture.TWO_FINGER_SWIPE_DOWN,
-            Gesture.TWO_FINGER_SWIPE_RIGHT,
-            Gesture.TWO_FINGER_SWIPE_LEFT,
-            "Vegen met 3 vingers",
-            Gesture.THREE_FINGER_SWIPE_UP,
-            Gesture.THREE_FINGER_SWIPE_DOWN,
-            "Verplaatsing",
+            "Snelkoppelingen",
             Gesture.ONE_FINGER_SWIPE_UP_THEN_DOWN,
             Gesture.ONE_FINGER_SWIPE_DOWN_THEN_UP,
             Gesture.ONE_FINGER_SWIPE_RIGHT_THEN_LEFT,
             Gesture.ONE_FINGER_SWIPE_LEFT_THEN_RIGHT,
-            "Snelkoppelingen",
             Gesture.ONE_FINGER_SWIPE_DOWN_THEN_LEFT,
             Gesture.ONE_FINGER_SWIPE_UP_THEN_LEFT,
             Gesture.ONE_FINGER_SWIPE_LEFT_THEN_UP,

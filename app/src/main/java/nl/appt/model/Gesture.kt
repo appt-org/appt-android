@@ -22,8 +22,22 @@ enum class Gesture(
 ): Training, Serializable {
 
     ONE_FINGER_TOUCH(fingers = 1, taps = 1),
+    ONE_FINGER_SWIPE_UP(fingers = 1, directions = arrayOf(Direction.UP)),
+    ONE_FINGER_SWIPE_RIGHT(fingers = 1, directions = arrayOf(Direction.RIGHT)),
+    ONE_FINGER_SWIPE_DOWN(fingers = 1, directions = arrayOf(Direction.DOWN)),
+    ONE_FINGER_SWIPE_LEFT(fingers = 1, directions = arrayOf(Direction.LEFT)),
+
+    TWO_FINGER_SWIPE_UP(fingers = 2, directions = arrayOf(Direction.UP)),
+    TWO_FINGER_SWIPE_RIGHT(fingers = 2, directions = arrayOf(Direction.RIGHT)),
+    TWO_FINGER_SWIPE_DOWN(fingers = 2, directions = arrayOf(Direction.DOWN)),
+    TWO_FINGER_SWIPE_LEFT(fingers = 2, directions = arrayOf(Direction.LEFT)),
+
+    THREE_FINGER_SWIPE_UP(fingers = 3, directions = arrayOf(Direction.UP)),
+    THREE_FINGER_SWIPE_DOWN(fingers = 3, directions = arrayOf(Direction.DOWN)),
+
     ONE_FINGER_DOUBLE_TAP(fingers = 1, taps = 2),
     ONE_FINGER_DOUBLE_TAP_HOLD(fingers = 1, taps = 2, hold = true),
+    ONE_FINGER_TRIPLE_TAP(fingers = 1, taps = 3),
 
     TWO_FINGER_TAP(fingers = 2, taps = 1),
     TWO_FINGER_DOUBLE_TAP(fingers = 2, taps = 2),
@@ -38,19 +52,6 @@ enum class Gesture(
     FOUR_FINGER_TAP(fingers = 4, taps = 1),
     FOUR_FINGER_DOUBLE_TAP(fingers = 4, taps = 2),
     FOUR_FINGER_DOUBLE_TAP_HOLD(fingers = 4, taps = 2, hold = true),
-
-    ONE_FINGER_SWIPE_UP(fingers = 1, directions = arrayOf(Direction.UP)),
-    ONE_FINGER_SWIPE_RIGHT(fingers = 1, directions = arrayOf(Direction.RIGHT)),
-    ONE_FINGER_SWIPE_DOWN(fingers = 1, directions = arrayOf(Direction.DOWN)),
-    ONE_FINGER_SWIPE_LEFT(fingers = 1, directions = arrayOf(Direction.LEFT)),
-
-    TWO_FINGER_SWIPE_UP(fingers = 2, directions = arrayOf(Direction.UP)),
-    TWO_FINGER_SWIPE_RIGHT(fingers = 2, directions = arrayOf(Direction.RIGHT)),
-    TWO_FINGER_SWIPE_DOWN(fingers = 2, directions = arrayOf(Direction.DOWN)),
-    TWO_FINGER_SWIPE_LEFT(fingers = 2, directions = arrayOf(Direction.LEFT)),
-
-    THREE_FINGER_SWIPE_UP(fingers = 3, directions = arrayOf(Direction.UP)),
-    THREE_FINGER_SWIPE_DOWN(fingers = 3, directions = arrayOf(Direction.DOWN)),
 
     ONE_FINGER_SWIPE_UP_THEN_RIGHT(fingers = 1, directions = arrayOf(Direction.UP, Direction.RIGHT)),
     ONE_FINGER_SWIPE_UP_THEN_DOWN(fingers = 1, directions = arrayOf(Direction.UP, Direction.DOWN)),
@@ -87,6 +88,7 @@ enum class Gesture(
 
             ONE_FINGER_DOUBLE_TAP,
             ONE_FINGER_DOUBLE_TAP_HOLD,
+            ONE_FINGER_TRIPLE_TAP,
 
             TWO_FINGER_TAP,
             TWO_FINGER_DOUBLE_TAP,
