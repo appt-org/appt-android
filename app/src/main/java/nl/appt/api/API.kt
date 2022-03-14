@@ -2,7 +2,6 @@ package nl.appt.api
 
 import android.net.Uri
 import com.github.kittinunf.fuel.core.Parameters
-import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.gson.jsonBody
 import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.fuel.httpDelete
@@ -82,7 +81,7 @@ class API {
         /** Block **/
 
         fun getBlocks(path: String, callback: (Response<Block>) -> Unit) {
-            getBlockObject(path, null, callback)
+            getBlocks(path, null, callback)
         }
 
         /** Articles **/
@@ -255,7 +254,7 @@ class API {
                 }
         }
 
-        private inline fun <reified T : Any> getBlockObject(
+        private inline fun <reified T : Any> getBlocks(
             path: String,
             parameters: Parameters?,
             crossinline callback: (Response<T>) -> Unit

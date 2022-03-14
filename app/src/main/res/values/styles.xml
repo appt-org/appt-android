@@ -76,7 +76,7 @@
 
     <style name="Toolbar.Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="fontPath">@string/font_bold</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/foreground</item>
     </style>
 

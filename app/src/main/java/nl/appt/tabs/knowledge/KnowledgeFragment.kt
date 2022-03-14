@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.R
 import nl.appt.adapters.blockAdapterDelegate
 import nl.appt.adapters.descriptionAdapterDelegate
+import nl.appt.adapters.listItemAdapterDelegate
 import nl.appt.databinding.ViewCategoryBinding
+import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setBlock
 import nl.appt.extensions.showError
@@ -42,7 +45,7 @@ class KnowledgeFragment : ToolbarFragment() {
 
     private val adapterDelegate = ListDelegationAdapter(
         descriptionAdapterDelegate(),
-        blockAdapterDelegate { block ->
+        listItemAdapterDelegate { block ->
             onCategoryClicked(block)
         })
 
@@ -70,23 +73,17 @@ class KnowledgeFragment : ToolbarFragment() {
     }
 
     private fun setAdapter() {
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            manager = GridLayoutManager(context, GridLayoutConst.LANDSCAPE_SPAN_COUNT)
-            manager.spanSizeLookup = GridLayoutLandscapeSpanSize
-        } else {
-            manager = GridLayoutManager(context, GridLayoutConst.PORTRAIT_SPAN_COUNT)
-            manager.spanSizeLookup = GridLayoutPortraitSpanSize
-        }
         binding.itemsContainer.run {
-            layoutManager = manager
+            layoutManager = LinearLayoutManager(context)
             adapter = adapterDelegate
+            addItemDecoration()
         }
     }
 
     private fun setAdapterData() {
-        viewModel.blockResponse.observe(viewLifecycleOwner, { result ->
+        viewModel.blockResponse.observe(viewLifecycleOwner) { result ->
             onEvent(result)
-        })
+        }
     }
 
     private fun onEvent(result: Result<List<Any>>) {
