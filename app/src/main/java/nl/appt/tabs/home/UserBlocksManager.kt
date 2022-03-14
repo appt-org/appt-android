@@ -33,7 +33,7 @@ object UserBlocksManager {
         R.string.home_professional_title,
         HomePagerModel(
             R.drawable.icon_tiles_kennisbank,
-            R.string.home_block_title_kennisbank,
+            R.string.knowledge_toolbar_title,
             MainActivity.KNOWLEDGE_FRAGMENT_NUMBER
         ),
         HomeAppLinkModel(

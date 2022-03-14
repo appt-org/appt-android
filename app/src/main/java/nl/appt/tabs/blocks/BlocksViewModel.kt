@@ -1,4 +1,4 @@
-package nl.appt.tabs.knowledge
+package nl.appt.tabs.blocks
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel
 import nl.appt.api.API
 import nl.appt.helpers.Result
 
-const val PATH_KNOWLEDGE_JSON = "wp-content/themes/appt/knowledgeBase.json"
-
-class KnowledgeViewModel : ViewModel() {
+open class BlocksViewModel(private val url: String) : ViewModel() {
 
     private val _blockResponse = MutableLiveData<Result<List<Any>>>()
 
@@ -16,7 +14,7 @@ class KnowledgeViewModel : ViewModel() {
 
     fun getBlocksData() {
         _blockResponse.value = Result.loading()
-        API.getBlocks(PATH_KNOWLEDGE_JSON) { response ->
+        API.getBlocks(url) { response ->
 
             response.result?.let { block ->
                 val list = arrayListOf<Any>()
