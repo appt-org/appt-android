@@ -17,7 +17,7 @@
         <item name="android:actionMenuTextAppearance">@style/Menu.TextAppearance</item>
 
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:statusBarColor">@color/background</item>
         <item name="android:windowBackground">@color/background</item>
 
         <item name="alertDialogTheme">@style/Dialog</item>
@@ -69,15 +69,15 @@
 
     <!-- Toolbar -->
     <style name="Toolbar" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
-        <item name="android:background">@color/primary</item>
-        <item name="colorControlNormal">@color/white</item>
-        <item name="colorControlHighlight">@color/white</item>
+        <item name="android:background">@color/background</item>
+        <item name="colorControlNormal">@color/primary</item>
+        <item name="colorControlHighlight">@color/primary</item>
     </style>
 
     <style name="Toolbar.Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="fontPath">@string/font_bold</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/foreground</item>
     </style>
 
     <!-- Menu -->
@@ -157,10 +157,10 @@
 
     <style name="Widget.ViewPagerToolbar">
         <item name="tabTextAppearance">@style/Toolbar.Title</item>
-        <item name="tabSelectedTextColor">@color/white</item>
-        <item name="tabTextColor">@color/white</item>
-        <item name="android:background">@color/primary</item>
-        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabSelectedTextColor">@color/primary</item>
+        <item name="tabTextColor">@color/foreground</item>
+        <item name="android:background">@color/background</item>
+        <item name="tabIndicatorColor">@color/primary</item>
     </style>
 
     <style name="Widget.TextView.CheckBox">

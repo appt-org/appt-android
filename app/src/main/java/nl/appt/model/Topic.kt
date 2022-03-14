@@ -2,9 +2,7 @@ package nl.appt.model
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import nl.appt.R
 import nl.appt.extensions.getString
 import nl.appt.extensions.identifier
@@ -39,7 +37,7 @@ enum class Topic : Item, Meer, Serializable {
             TERMS -> ContextCompat.getDrawable(context, R.drawable.icon_terms)
             PRIVACY -> ContextCompat.getDrawable(context, R.drawable.icon_privacy)
             ACCESSIBILITY -> ContextCompat.getDrawable(context, R.drawable.icon_accessibility)
-            SOURCE -> ContextCompat.getDrawable(context, R.drawable.icon_sourse)
+            SOURCE -> ContextCompat.getDrawable(context, R.drawable.icon_source)
             SPONSOR -> ContextCompat.getDrawable(context, R.drawable.icon_sponsor)
             CONTACT -> ContextCompat.getDrawable(context, R.drawable.icon_contact)
         }

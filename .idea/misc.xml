@@ -10,7 +10,25 @@
       <map>
         <entry key="app/src/main/res/drawable/gesture_four_finger_double_tap.xml" value="0.34923076923076923" />
         <entry key="app/src/main/res/drawable/gesture_one_finger_swipe_down_then_right.xml" value="0.31666666666666665" />
+        <entry key="app/src/main/res/drawable/icon_accessibility.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_appt.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_back.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_check.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_contact.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_filter.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/icon_hands_up.xml" value="0.31296296296296294" />
+        <entry key="app/src/main/res/drawable/icon_info.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_launcher.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_placeholder.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_privacy.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_profile.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_share.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_sourse.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_sponsor.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_terms.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_tiles_aanpak.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_tiles_community.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/icon_tiles_diensten.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/tab_home.xml" value="0.31296296296296294" />
         <entry key="app/src/main/res/drawable/tab_knowledge.xml" value="0.31296296296296294" />
         <entry key="app/src/main/res/drawable/tab_more.xml" value="0.31296296296296294" />
@@ -21,6 +39,7 @@
         <entry key="app/src/main/res/layout/view_meer_list.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/menu/explanation.xml" value="0.3385416666666667" />
         <entry key="app/src/main/res/menu/practice.xml" value="0.32685185185185184" />
+        <entry key="app/src/main/res/menu/share.xml" value="0.3255208333333333" />
       </map>
     </option>
   </component>
