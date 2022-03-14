@@ -36,7 +36,9 @@
         <entry key="app/src/main/res/drawable/tab_services.xml" value="0.31296296296296294" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_category.xml" value="0.3255208333333333" />
+        <entry key="app/src/main/res/layout/view_checkbox.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_item.xml" value="0.3255208333333333" />
+        <entry key="app/src/main/res/layout/view_list.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_meer_item.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_meer_list.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/menu/explanation.xml" value="0.3385416666666667" />

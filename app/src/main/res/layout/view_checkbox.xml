@@ -2,10 +2,12 @@
 <androidx.appcompat.widget.AppCompatCheckBox style="@style/Widget.TextView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/checkBox"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/margin_medium"
     android:paddingStart="@dimen/margin_small"
     android:background="@drawable/selector_row"
+    app:buttonTint="@color/foreground"
     tools:text="CheckBox" />
