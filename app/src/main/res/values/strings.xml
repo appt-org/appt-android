@@ -62,8 +62,8 @@
     <string name="course_talkback_actions_title">3. TalkBack acties</string>
 
     <!-- Topic -->
-    <string name="topic_terms_title">Algemene Voorwaarden</string>
-    <string name="topic_privacy_title">Privacybeleid</string>
+    <string name="topic_terms_title">Algemene voorwaarden</string>
+    <string name="topic_privacy_title">Privacyverklaring</string>
     <string name="topic_accessibility_title">Toegankelijkheidsverklaring</string>
     <string name="topic_source_title">Broncode</string>
     <string name="topic_sponsor_title">SIDN Fonds</string>
