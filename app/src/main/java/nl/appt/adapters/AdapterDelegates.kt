@@ -1,5 +1,6 @@
 package nl.appt.adapters
 
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
@@ -12,20 +13,10 @@ import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegate
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import nl.appt.R
 import nl.appt.accessibility.view.accessibility
-import nl.appt.databinding.ViewBlockBinding
-import nl.appt.databinding.ViewHeaderDescriptionBinding
-import nl.appt.databinding.ViewHomeDescriptionBinding
-import nl.appt.databinding.ViewMeerItemBinding
+import nl.appt.databinding.*
+import nl.appt.extensions.load
 import nl.appt.extensions.setVisible
-import nl.appt.model.Block
-import nl.appt.model.HomeAppLinkModel
-import nl.appt.model.HomeLinkModel
-import nl.appt.model.HomePagerModel
-import nl.appt.model.HomeTrainingModel
-import nl.appt.model.Item
-import nl.appt.model.Taxonomy
-import nl.appt.model.Topic
-import nl.appt.model.Training
+import nl.appt.model.*
 
 /**
  * Created by Jan Jaap de Groot on 03/11/2020
@@ -56,8 +47,8 @@ inline fun <reified T : Item> itemAdapterDelegate(crossinline callback: (T) -> U
     }
 
 fun moreItemAdapterDelegate(callback: (Topic) -> Unit) =
-    adapterDelegateViewBinding<Topic, Any, ViewMeerItemBinding>(
-        { layoutInflater, root -> ViewMeerItemBinding.inflate(layoutInflater, root, false) }
+    adapterDelegateViewBinding<Topic, Any, ViewIconItemBinding>(
+        { layoutInflater, root -> ViewIconItemBinding.inflate(layoutInflater, root, false) }
     ) {
 
         itemView.setOnClickListener {
@@ -67,7 +58,7 @@ fun moreItemAdapterDelegate(callback: (Topic) -> Unit) =
 
         bind {
             binding.textView.text = item.title(context)
-            binding.meerImageView.setImageDrawable(item.image(context))
+            binding.imageView.setImageDrawable(item.image(context))
 
             itemView.accessibility.label = item.title(context)
             setAccessibilityButtonDelegate(itemView)
@@ -126,9 +117,10 @@ fun blockAdapterDelegate(itemClickedListener: (Block) -> Unit) =
 
         bind {
             binding.blockTitle.text = item.title
-            GlideApp.with(itemView.context).load(item.image)
-                .error(R.drawable.icon_placeholder)
-                .into(binding.blockImage)
+
+            Log.d("AdapterDelegates", "Loading url: ${item.image}")
+
+            binding.blockImage.load(item.image)
 
             itemView.accessibility.label = item.title
             setAccessibilityButtonDelegate(itemView)
@@ -136,8 +128,8 @@ fun blockAdapterDelegate(itemClickedListener: (Block) -> Unit) =
     }
 
 fun listItemAdapterDelegate(itemClickedListener: (Block) -> Unit) =
-    adapterDelegateViewBinding<Block, Any, ViewMeerItemBinding>(
-        { layoutInflater, root -> ViewMeerItemBinding.inflate(layoutInflater, root, false) }
+    adapterDelegateViewBinding<Block, Any, ViewIconItemBinding>(
+        { layoutInflater, root -> ViewIconItemBinding.inflate(layoutInflater, root, false) }
     ) {
 
         itemView.setOnClickListener {
@@ -146,9 +138,7 @@ fun listItemAdapterDelegate(itemClickedListener: (Block) -> Unit) =
 
         bind {
             binding.textView.text = item.title
-            GlideApp.with(itemView.context).load(item.image)
-                .error(R.drawable.icon_placeholder)
-                .into(binding.meerImageView)
+            binding.imageView.load(item.image)
 
             itemView.accessibility.label = item.title
             setAccessibilityButtonDelegate(itemView)

@@ -20,7 +20,7 @@
             android:importantForAccessibility="yes"
             app:layoutManager="LinearLayoutManager"
             tools:context=".tabs.training.TrainingFragment2"
-            tools:listitem="@layout/view_meer_item" />
+            tools:listitem="@layout/view_icon_item" />
 
         <ProgressBar
             android:id="@+id/progressBar"
