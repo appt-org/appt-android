@@ -139,12 +139,12 @@ abstract class BlocksFragment : ToolbarFragment() {
     }
 
     private fun onCategoryClicked(block: Block) {
-        if (block.url.isNotEmpty()) {
-            requireContext().openWebsite(block.url)
-        } else {
+        if (block.children.isNotEmpty()) {
             startActivity<BlockActivity> {
                 setBlock(block)
             }
+        } else if (block.url.isNotEmpty()) {
+            requireContext().openWebsite(block.url)
         }
     }
 

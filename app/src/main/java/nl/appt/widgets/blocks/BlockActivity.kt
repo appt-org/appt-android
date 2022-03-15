@@ -138,7 +138,7 @@ class BlockActivity : ToolbarActivity() {
             startActivity<BlockActivity> {
                 setBlock(block)
             }
-        } else {
+        } else if (block.url.isNotEmpty()){
             openWebsite(block.url)
         }
     }
