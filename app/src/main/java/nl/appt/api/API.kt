@@ -4,19 +4,14 @@ import android.net.Uri
 import com.github.kittinunf.fuel.core.Parameters
 import com.github.kittinunf.fuel.gson.jsonBody
 import com.github.kittinunf.fuel.gson.responseObject
-import com.github.kittinunf.fuel.httpDelete
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
-import com.google.gson.JsonObject
 import nl.appt.model.Article
 import nl.appt.model.Block
 import nl.appt.model.Category
 import nl.appt.model.Filters
 import nl.appt.model.Tag
 import nl.appt.model.Taxonomy
-import nl.appt.model.UserLogin
-import nl.appt.model.UserRegistration
-import nl.appt.model.UserResponse
 import nl.appt.model.ids
 import nl.appt.model.selected
 
@@ -27,56 +22,6 @@ import nl.appt.model.selected
 
 class API {
     companion object {
-
-        /** Auth **/
-
-        fun userRegistration(data: UserRegistration, callback: (Response<UserResponse>) -> Unit) {
-            postObject(ApiConst.REGISTRATION_PATH, data, callback)
-        }
-
-        fun userLogin(data: UserLogin, callback: (Response<JsonObject>) -> Unit) {
-            postObject(ApiConst.LOGIN_PATH, data, callback)
-        }
-
-        fun userLogout(data: Int, callback: (Response<Any>) -> Unit) {
-            val parameters = arrayListOf(
-                ApiConst.PARAM_ID to data
-            )
-            getObject(ApiConst.LOGOUT_PATH, parameters, callback)
-        }
-
-        fun userDelete(data: Int, callback: (Response<UserResponse>) -> Unit) {
-            val parameters = arrayListOf(
-                ApiConst.PARAM_REASSIGN to "",
-                ApiConst.PARAM_FORCE to true
-
-            )
-            deleteObject(ApiConst.DELETE_PATH + data.toString(), parameters, callback)
-        }
-
-        fun sendResetPasswordEmail(
-            email: String,
-            callback: (Response<Map<String, String>>) -> Unit
-        ) {
-            val parameters = arrayListOf(
-                ApiConst.PARAM_USER_LOGIN to email
-            )
-            getObject(ApiConst.RESET_PASSWORD_PATH, parameters, callback)
-        }
-
-        fun setNewPassword(
-            key: String,
-            login: String,
-            password: String,
-            callback: (Response<Any>) -> Unit
-        ) {
-            val data = arrayListOf(
-                ApiConst.PARAM_KEY to key,
-                ApiConst.PARAM_PASSWORD to password,
-                ApiConst.PARAM_LOGIN to login
-            )
-            postPassword<Any>(ApiConst.NEW_PASSWORD_PATH, data, callback)
-        }
 
         /** Block **/
 
@@ -211,7 +156,7 @@ class API {
             parameters: Parameters?,
             crossinline callback: (Response<T>) -> Unit
         ) {
-            (ApiConst.ARTICLE_PATH + path).httpGet(parameters)
+            (ApiConst.API_PATH + path).httpGet(parameters)
                 .responseObject<T> { _, response, result ->
                     callback(Response.from(response, result))
                 }
@@ -222,33 +167,9 @@ class API {
             data: Any,
             crossinline callback: (Response<T>) -> Unit
         ) {
-            (ApiConst.ARTICLE_PATH + path)
+            (ApiConst.API_PATH + path)
                 .httpPost()
                 .jsonBody(data)
-                .responseObject<T> { _, response, result ->
-                    callback(Response.from(response, result))
-                }
-        }
-
-        private inline fun <reified T : Any> postPassword(
-            path: String,
-            data: Parameters?,
-            crossinline callback: (Response<Any>) -> Unit
-        ) {
-            (ApiConst.ARTICLE_PATH + path)
-                .httpPost(data)
-                .responseString { _, response, result ->
-                    callback(Response.from(response, result))
-                }
-        }
-
-        private inline fun <reified T : Any> deleteObject(
-            path: String,
-            data: Parameters?,
-            crossinline callback: (Response<T>) -> Unit
-        ) {
-            (ApiConst.ARTICLE_PATH + path)
-                .httpDelete(data)
                 .responseObject<T> { _, response, result ->
                     callback(Response.from(response, result))
                 }
