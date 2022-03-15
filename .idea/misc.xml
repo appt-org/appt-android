@@ -35,15 +35,31 @@
         <entry key="app/src/main/res/drawable/tab_knowledge.xml" value="0.31296296296296294" />
         <entry key="app/src/main/res/drawable/tab_more.xml" value="0.31296296296296294" />
         <entry key="app/src/main/res/drawable/tab_services.xml" value="0.31296296296296294" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3255208333333333" />
+        <entry key="app/src/main/res/layout/action_selection.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/activity_action.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/activity_auth.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/activity_choose_type.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3190883190883191" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/activity_registration.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/activity_text.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/activity_training.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/activity_web.xml" value="0.21693840579710144" />
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.3255208333333333" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/fragment_services.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/view_block.xml" value="0.21693840579710144" />
         <entry key="app/src/main/res/layout/view_category.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_checkbox.xml" value="0.3255208333333333" />
+        <entry key="app/src/main/res/layout/view_divider.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/view_header.xml" value="0.21693840579710144" />
         <entry key="app/src/main/res/layout/view_icon_item.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_item.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_list.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_meer_item.xml" value="0.3255208333333333" />
-        <entry key="app/src/main/res/layout/view_meer_list.xml" value="0.3255208333333333" />
+        <entry key="app/src/main/res/layout/view_meer_list.xml" value="0.3190883190883191" />
+        <entry key="app/src/main/res/layout/view_toast.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/view_toolbar.xml" value="0.21693840579710144" />
         <entry key="app/src/main/res/menu/explanation.xml" value="0.3385416666666667" />
         <entry key="app/src/main/res/menu/practice.xml" value="0.32685185185185184" />
         <entry key="app/src/main/res/menu/share.xml" value="0.3255208333333333" />

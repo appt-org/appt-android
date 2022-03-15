@@ -1,4 +1,4 @@
-package nl.appt.tabs.blocks
+package nl.appt.widgets.blocks
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

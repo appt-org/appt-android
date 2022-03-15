@@ -22,4 +22,6 @@
             android:accessibilityHeading="true"
             tools:text="Title"/>
     </androidx.appcompat.widget.Toolbar>
+
+    <include layout="@layout/view_divider" />
 </LinearLayout>

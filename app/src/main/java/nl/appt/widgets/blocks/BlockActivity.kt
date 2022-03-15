@@ -1,4 +1,4 @@
-package nl.appt.widgets
+package nl.appt.widgets.blocks
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -18,6 +18,7 @@ import nl.appt.helpers.GridLayoutConst
 import nl.appt.helpers.GridLayoutLandscapeSpanSize
 import nl.appt.helpers.GridLayoutPortraitSpanSize
 import nl.appt.model.Block
+import nl.appt.widgets.ToolbarActivity
 
 private const val BLOCK_TYPE = "blocks"
 private const val LIST_TYPE = "list"

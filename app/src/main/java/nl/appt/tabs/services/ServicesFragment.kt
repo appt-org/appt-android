@@ -2,8 +2,8 @@ package nl.appt.tabs.services
 
 import androidx.lifecycle.ViewModelProvider
 import nl.appt.R
-import nl.appt.tabs.blocks.BlocksFragment
-import nl.appt.tabs.blocks.BlocksViewModel
+import nl.appt.widgets.blocks.BlocksFragment
+import nl.appt.widgets.blocks.BlocksViewModel
 
 class ServicesViewModel : BlocksViewModel("wp-content/themes/appt/services.json")
 

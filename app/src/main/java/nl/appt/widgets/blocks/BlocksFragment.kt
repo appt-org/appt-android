@@ -1,4 +1,4 @@
-package nl.appt.tabs.blocks
+package nl.appt.widgets.blocks
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -18,7 +18,6 @@ import nl.appt.extensions.showError
 import nl.appt.helpers.Result
 import nl.appt.helpers.Status
 import nl.appt.model.Block
-import nl.appt.widgets.BlockActivity
 import nl.appt.widgets.ToolbarFragment
 
 abstract class BlocksFragment : ToolbarFragment() {

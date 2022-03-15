@@ -24,11 +24,6 @@ import nl.appt.widgets.BaseActivity
  */
 class MainActivity : BaseActivity() {
 
-    companion object {
-        const val KNOWLEDGE_FRAGMENT_NUMBER = 1
-        const val SERVICE_FRAGMENT_NUMBER = 3
-    }
-
     private val tabs = listOf(
         R.id.tab_home,
         R.id.tab_knowledge,
@@ -50,7 +45,7 @@ class MainActivity : BaseActivity() {
 
     override fun onViewCreated() {
         this.title = ""
-        //   checkUserMailVerification()
+
         events.property(Events.Property.talkback, Accessibility.isTalkBackEnabled(this))
 
         // Tab adapter
@@ -86,21 +81,6 @@ class MainActivity : BaseActivity() {
             tabs.contains(item.itemId)
         }
         navigationView.selectedItemId = tabs[0]
-    }
-
-    private fun checkUserMailVerification() {
-        if (Preferences.getString(PrefsKeys.USER_VERIFIED_KEY) == "0") {
-            showSnackbar()
-        }
-    }
-
-    private fun showSnackbar() {
-        val snackbar = SnackbarCreator.createSnackbar(this, coordinatorLayout)
-        snackbar.show()
-    }
-
-    fun setPagerItem(itemNumber: Int) {
-        viewPager.currentItem = itemNumber
     }
 
     private class TabPagerAdapter(

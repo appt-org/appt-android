@@ -13,7 +13,7 @@ import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.R
 import nl.appt.adapters.headerAdapterDelegate
 import nl.appt.adapters.moreItemAdapterDelegate
-import nl.appt.databinding.ViewMeerListBinding
+import nl.appt.databinding.ViewListBinding
 import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setArticleType
@@ -33,11 +33,11 @@ private const val TYPE_FOR_CHOOSER = "text/plain"
 
 class MoreFragment : ToolbarFragment() {
 
-    override fun getLayoutId() = R.layout.view_meer_list
+    override fun getLayoutId() = R.layout.view_list
 
     override fun getTitle() = getString(R.string.tab_more)
 
-    private var _binding: ViewMeerListBinding? = null
+    private var _binding: ViewListBinding? = null
 
     private val binding get() = _binding!!
 
@@ -45,7 +45,7 @@ class MoreFragment : ToolbarFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ViewMeerListBinding.inflate(inflater, container, false)
+        _binding = ViewListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -69,10 +69,6 @@ class MoreFragment : ToolbarFragment() {
                         setArticleType(Article.Type.PAGE)
                         setSlug(slug)
                     }
-                }
-
-                if (topic.userProfile) {
-                   startActivity<ProfileActivity>()
                 }
             }
         )
@@ -104,7 +100,6 @@ class MoreFragment : ToolbarFragment() {
 
     companion object {
         private val items = listOf(
-        //  Topic.PROFILE,
             "Over deze app",
             Topic.SOURCE,
             Topic.CONTACT,

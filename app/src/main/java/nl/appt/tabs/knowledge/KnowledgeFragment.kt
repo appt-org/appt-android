@@ -2,8 +2,8 @@ package nl.appt.tabs.knowledge
 
 import androidx.lifecycle.ViewModelProvider
 import nl.appt.R
-import nl.appt.tabs.blocks.BlocksFragment
-import nl.appt.tabs.blocks.BlocksViewModel
+import nl.appt.widgets.blocks.BlocksFragment
+import nl.appt.widgets.blocks.BlocksViewModel
 
 class KnowledgeViewModel : BlocksViewModel("wp-content/themes/appt/knowledgeBase.json")
 

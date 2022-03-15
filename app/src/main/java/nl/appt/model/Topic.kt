@@ -15,7 +15,6 @@ import java.io.Serializable
  */
 enum class Topic : Item, Meer, Serializable {
 
-    PROFILE,
     TERMS,
     PRIVACY,
     ACCESSIBILITY,
@@ -33,7 +32,6 @@ enum class Topic : Item, Meer, Serializable {
 
     override fun image(context: Context): Drawable? {
         return when (this) {
-            PROFILE -> ContextCompat.getDrawable(context, R.drawable.icon_profile)
             TERMS -> ContextCompat.getDrawable(context, R.drawable.icon_terms)
             PRIVACY -> ContextCompat.getDrawable(context, R.drawable.icon_privacy)
             ACCESSIBILITY -> ContextCompat.getDrawable(context, R.drawable.icon_accessibility)
@@ -42,14 +40,6 @@ enum class Topic : Item, Meer, Serializable {
             CONTACT -> ContextCompat.getDrawable(context, R.drawable.icon_contact)
         }
     }
-
-    val userProfile: Boolean
-        get() {
-            return when (this) {
-                PROFILE -> true
-                else -> false
-            }
-        }
 
     val slug: String?
         get() {
