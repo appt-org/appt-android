@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
@@ -46,7 +47,7 @@ inline fun <reified T : Item> itemAdapterDelegate(crossinline callback: (T) -> U
         }
     }
 
-fun moreItemAdapterDelegate(callback: (Topic) -> Unit) =
+fun iconItemAdapterDelegate(callback: (Topic) -> Unit) =
     adapterDelegateViewBinding<Topic, Any, ViewIconItemBinding>(
         { layoutInflater, root -> ViewIconItemBinding.inflate(layoutInflater, root, false) }
     ) {
@@ -58,6 +59,7 @@ fun moreItemAdapterDelegate(callback: (Topic) -> Unit) =
 
         bind {
             binding.textView.text = item.title(context)
+
             binding.imageView.setImageDrawable(item.image(context))
 
             itemView.accessibility.label = item.title(context)
@@ -116,11 +118,11 @@ fun blockAdapterDelegate(itemClickedListener: (Block) -> Unit) =
         }
 
         bind {
-            binding.blockTitle.text = item.title
+            binding.textView.text = item.title
 
             Log.d("AdapterDelegates", "Loading url: ${item.image}")
 
-            binding.blockImage.load(item.image)
+            binding.imageView.load(item.image)
 
             itemView.accessibility.label = item.title
             setAccessibilityButtonDelegate(itemView)
@@ -138,6 +140,7 @@ fun listItemAdapterDelegate(itemClickedListener: (Block) -> Unit) =
 
         bind {
             binding.textView.text = item.title
+
             binding.imageView.load(item.image)
 
             itemView.accessibility.label = item.title
@@ -157,7 +160,7 @@ fun descriptionAdapterDelegate() =
     ) {
 
         bind {
-            binding.title.text = item
+            binding.textView.text = item
 
             setAccessibilityHeading(itemView)
         }

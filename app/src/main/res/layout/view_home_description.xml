@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/textView"
         style="@style/Widget.TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

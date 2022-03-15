@@ -9,5 +9,5 @@
     android:padding="@dimen/margin_medium"
     android:paddingStart="@dimen/margin_small"
     android:background="@drawable/selector_row"
-    app:buttonTint="@color/foreground"
+    app:buttonTint="@color/primary"
     tools:text="CheckBox" />

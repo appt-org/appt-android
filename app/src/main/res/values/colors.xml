@@ -8,16 +8,13 @@
     <color name="highlight">#80d023be</color>
 
     <color name="red">#f00</color>
-    <color name="white">#fff</color>
-    <color name="black">#000</color>
+    <color name="white">#f6f6f6</color>
+    <color name="black">#121212</color>
 
-    <color name="foreground">#000</color>
-    <color name="background">#fff</color>
+    <color name="foreground">@color/black</color>
+    <color name="background">@color/white</color>
     <color name="list">@color/background</color>
     <color name="row">@color/background</color>
     <color name="divider">#c6c6c6</color>
     <color name="disabled">#757575</color>
-
-    <color name="edit_text_background">#19c3c3c3</color>
-    <color name="pager_toolbar_text">#99ffffff</color>
 </resources>

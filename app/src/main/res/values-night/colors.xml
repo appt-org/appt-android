@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="foreground">#fff</color>
-    <color name="background">#000</color>
+    <color name="foreground">@color/white</color>
+    <color name="background">@color/black</color>
     <color name="list">@color/background</color>
     <color name="row">@color/background</color>
     <color name="divider">#383838</color>

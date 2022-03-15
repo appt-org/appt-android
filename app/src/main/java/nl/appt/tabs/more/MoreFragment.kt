@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentActivity
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.R
 import nl.appt.adapters.headerAdapterDelegate
-import nl.appt.adapters.moreItemAdapterDelegate
+import nl.appt.adapters.iconItemAdapterDelegate
 import nl.appt.databinding.ViewListBinding
 import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.openWebsite
@@ -28,7 +28,7 @@ import nl.appt.widgets.ToolbarFragment
  * Copyright 2020 Stichting Appt
  */
 
-private const val TEXT_FOR_CHOOSER = "https://appt.nl/app"
+private const val TEXT_FOR_CHOOSER = "Download de gratis Appt app en leer over toegankelijkheid! https://appt.nl/app"
 private const val TYPE_FOR_CHOOSER = "text/plain"
 
 class MoreFragment : ToolbarFragment() {
@@ -60,7 +60,7 @@ class MoreFragment : ToolbarFragment() {
 
         val adapter = ListDelegationAdapter(
             headerAdapterDelegate(),
-            moreItemAdapterDelegate { topic ->
+            iconItemAdapterDelegate { topic ->
                 topic.url?.let { url ->
                     requireContext().openWebsite(url)
                 }

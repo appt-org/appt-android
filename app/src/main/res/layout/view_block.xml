@@ -18,13 +18,13 @@
         android:padding="24dp">
 
         <ImageView
-            android:id="@+id/block_image"
+            android:id="@+id/imageView"
             android:layout_width="82dp"
             android:layout_height="82dp"
             app:srcCompat="@drawable/icon_tiles_community" />
 
         <TextView
-            android:id="@+id/block_title"
+            android:id="@+id/textView"
             style="@style/Widget.TextView.SemiBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

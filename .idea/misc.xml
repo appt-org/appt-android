@@ -53,6 +53,7 @@
         <entry key="app/src/main/res/layout/view_checkbox.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_divider.xml" value="0.21693840579710144" />
         <entry key="app/src/main/res/layout/view_header.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/layout/view_header_description.xml" value="0.21693840579710144" />
         <entry key="app/src/main/res/layout/view_icon_item.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_item.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_list.xml" value="0.3255208333333333" />
