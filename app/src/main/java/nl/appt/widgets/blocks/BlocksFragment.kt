@@ -2,9 +2,9 @@ package nl.appt.widgets.blocks
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.app.ShareCompat
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.R
@@ -52,6 +52,32 @@ abstract class BlocksFragment : ToolbarFragment() {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
         setAdapterData()
+
+        setHasOptionsMenu(true)
+        toolbar?.inflateMenu(R.menu.share)
+        toolbar?.setOnMenuItemClickListener { item ->
+            onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.share, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_share) {
+            startChooser(requireActivity())
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun startChooser(activity: FragmentActivity) {
+        ShareCompat.IntentBuilder.from(activity)
+            .setType(TYPE_FOR_CHOOSER)
+            .setText(TEXT_FOR_CHOOSER)
+            .startChooser()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -113,5 +139,10 @@ abstract class BlocksFragment : ToolbarFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val TEXT_FOR_CHOOSER = "Download de gratis Appt app en leer over toegankelijkheid! https://appt.nl/app"
+        private const val TYPE_FOR_CHOOSER = "text/plain"
     }
 }
