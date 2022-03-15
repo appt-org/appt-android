@@ -2,6 +2,9 @@ package nl.appt.widgets.blocks
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.core.app.ShareCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
@@ -54,11 +57,38 @@ class BlockActivity : ToolbarActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ViewCategoryBinding.inflate(layoutInflater)
+
         val view = binding.root
         setContentView(view)
+
         onViewCreated()
         setAdapterData()
         setAdapter()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.share, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_share -> {
+                onShare()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun onShare() {
+        val block = this.block
+
+        ShareCompat.IntentBuilder.from(this)
+            .setChooserTitle(R.string.action_share_article)
+            .setType("text/plain")
+            .setSubject(block.title)
+            .setText(block.url)
+            .startChooser()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

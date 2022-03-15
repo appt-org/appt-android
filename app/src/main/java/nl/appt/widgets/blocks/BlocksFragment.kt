@@ -38,7 +38,10 @@ abstract class BlocksFragment : ToolbarFragment() {
         descriptionAdapterDelegate(),
         listItemAdapterDelegate { block ->
             onCategoryClicked(block)
-        })
+        }
+    )
+
+    private var block: Block? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,10 +77,13 @@ abstract class BlocksFragment : ToolbarFragment() {
     }
 
     private fun startChooser(activity: FragmentActivity) {
-        ShareCompat.IntentBuilder.from(activity)
-            .setType(TYPE_FOR_CHOOSER)
-            .setText(TEXT_FOR_CHOOSER)
-            .startChooser()
+        block?.let { block ->
+            ShareCompat.IntentBuilder.from(activity)
+                .setChooserTitle(R.string.action_share_article)
+                .setType("text/plain")
+                .setText(block.url)
+                .startChooser()
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -99,11 +105,17 @@ abstract class BlocksFragment : ToolbarFragment() {
         }
     }
 
-    private fun onEvent(result: Result<List<Any>>) {
+    private fun onEvent(result: Result<Block>) {
         when (result.status) {
             Status.SUCCESS -> {
                 result.data?.let { block ->
-                    adapterDelegate.items = block
+                    this.block = block
+
+                    val items = arrayListOf<Any>()
+                    items.add(block.description)
+                    items.addAll(block.children)
+
+                    adapterDelegate.items = items
                     adapterDelegate.notifyDataSetChanged()
                 }
                 isLoading = false
@@ -139,10 +151,5 @@ abstract class BlocksFragment : ToolbarFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        private const val TEXT_FOR_CHOOSER = "Download de gratis Appt app en leer over toegankelijkheid! https://appt.nl/app"
-        private const val TYPE_FOR_CHOOSER = "text/plain"
     }
 }

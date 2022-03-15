@@ -85,8 +85,8 @@ class ArticleActivity: WebActivity() {
     override fun onShare() {
         article?.let { article ->
             ShareCompat.IntentBuilder.from(this)
-                .setType("text/plain")
                 .setChooserTitle(R.string.action_share_article)
+                .setType("text/plain")
                 .setSubject(article.title.decoded())
                 .setText(article.link)
                 .startChooser()
