@@ -11,8 +11,8 @@
     <color name="white">#f6f6f6</color>
     <color name="black">#121212</color>
 
-    <color name="foreground">@color/black</color>
-    <color name="background">@color/white</color>
+    <color name="foreground">#222222</color>
+    <color name="background">#ffffff</color>
     <color name="list">@color/background</color>
     <color name="row">@color/background</color>
     <color name="divider">#c6c6c6</color>

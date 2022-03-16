@@ -1,5 +1,6 @@
 package nl.appt.extensions
 
+import android.graphics.PorterDuff
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -32,4 +33,6 @@ fun ImageView.load(url: String) {
         .build()
 
     imageLoader.enqueue(request)
+
+    setColorFilter(ContextCompat.getColor(context, R.color.primary), PorterDuff.Mode.SRC_IN)
 }
