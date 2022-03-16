@@ -47,26 +47,6 @@ inline fun <reified T : Item> itemAdapterDelegate(crossinline callback: (T) -> U
         }
     }
 
-fun iconItemAdapterDelegate(callback: (Topic) -> Unit) =
-    adapterDelegateViewBinding<Topic, Any, ViewIconItemBinding>(
-        { layoutInflater, root -> ViewIconItemBinding.inflate(layoutInflater, root, false) }
-    ) {
-
-        itemView.setOnClickListener {
-            callback(item)
-        }
-
-
-        bind {
-            binding.textView.text = item.title(context)
-
-            binding.imageView.setImageDrawable(item.image(context))
-
-            itemView.accessibility.label = item.title(context)
-            setAccessibilityButtonDelegate(itemView)
-        }
-    }
-
 inline fun <reified T : Training> trainingAdapterDelegate(crossinline callback: (T) -> Unit) =
     adapterDelegate<T, Any>(R.layout.view_training) {
         val textView: TextView = findViewById(R.id.textView)

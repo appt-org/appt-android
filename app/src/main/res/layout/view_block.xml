@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center|top"
     android:layout_marginBottom="16dp"
     android:orientation="vertical">
@@ -21,7 +22,7 @@
             android:id="@+id/imageView"
             android:layout_width="82dp"
             android:layout_height="82dp"
-            app:srcCompat="@drawable/icon_tiles_community" />
+            tools:srcCompat="@drawable/icon_appt" />
 
         <TextView
             android:id="@+id/textView"
