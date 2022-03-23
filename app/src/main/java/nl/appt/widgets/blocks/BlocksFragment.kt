@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.R
-import nl.appt.adapters.descriptionAdapterDelegate
+import nl.appt.adapters.textAdapterDelegate
 import nl.appt.adapters.listItemAdapterDelegate
 import nl.appt.databinding.ViewCategoryBinding
 import nl.appt.extensions.addItemDecoration
@@ -35,7 +35,7 @@ abstract class BlocksFragment : ToolbarFragment() {
     }
 
     private val adapterDelegate = ListDelegationAdapter(
-        descriptionAdapterDelegate(),
+        textAdapterDelegate(),
         listItemAdapterDelegate { block ->
             onCategoryClicked(block)
         }

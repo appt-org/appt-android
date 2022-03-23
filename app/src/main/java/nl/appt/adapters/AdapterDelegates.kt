@@ -128,10 +128,10 @@ fun listItemAdapterDelegate(itemClickedListener: (Block) -> Unit) =
         }
     }
 
-fun descriptionAdapterDelegate() =
-    adapterDelegateViewBinding<String, Any, ViewHeaderDescriptionBinding>(
+fun textAdapterDelegate() =
+    adapterDelegateViewBinding<String, Any, ViewTextBinding>(
         { layoutInflater, root ->
-            ViewHeaderDescriptionBinding.inflate(
+            ViewTextBinding.inflate(
                 layoutInflater,
                 root,
                 false

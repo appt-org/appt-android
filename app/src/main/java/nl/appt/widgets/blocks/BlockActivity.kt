@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.R
 import nl.appt.adapters.blockAdapterDelegate
-import nl.appt.adapters.descriptionAdapterDelegate
+import nl.appt.adapters.textAdapterDelegate
 import nl.appt.adapters.listItemAdapterDelegate
 import nl.appt.databinding.ViewCategoryBinding
 import nl.appt.extensions.addItemDecoration
@@ -37,13 +37,13 @@ class BlockActivity : ToolbarActivity() {
     }
 
     private val blockAdapterDelegate = ListDelegationAdapter(
-        descriptionAdapterDelegate(),
+        textAdapterDelegate(),
         blockAdapterDelegate { block ->
             onBlockClicked(block)
         })
 
     private val listAdapterDelegate = ListDelegationAdapter(
-        descriptionAdapterDelegate(),
+        textAdapterDelegate(),
         listItemAdapterDelegate { block ->
             onBlockClicked(block)
         })

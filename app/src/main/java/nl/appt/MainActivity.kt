@@ -8,9 +8,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.helpers.Events
-import nl.appt.helpers.Preferences
-import nl.appt.helpers.PrefsKeys
-import nl.appt.helpers.SnackbarCreator
 import nl.appt.tabs.home.HomeFragment
 import nl.appt.tabs.knowledge.KnowledgeFragment
 import nl.appt.tabs.more.MoreFragment
