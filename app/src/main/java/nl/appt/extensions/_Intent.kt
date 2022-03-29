@@ -2,10 +2,8 @@ package nl.appt.extensions
 
 import android.content.Intent
 import android.net.Uri
-import nl.appt.model.Action
 import nl.appt.model.Article
 import nl.appt.model.Filters
-import nl.appt.model.Gesture
 import nl.appt.model.Block
 
 /**
@@ -17,16 +15,6 @@ import nl.appt.model.Block
 private const val KEY_BLOCK = "block"
 fun Intent.getBlock() = getParcelableExtra<Block>(KEY_BLOCK) as Block
 fun Intent.setBlock(block: Block) = putExtra(KEY_BLOCK, block)
-
-/** Gesture **/
-private const val KEY_GESTURE = "gesture"
-fun Intent.getGesture() = getSerializableExtra(KEY_GESTURE) as? Gesture
-fun Intent.setGesture(gesture: Gesture) = putExtra(KEY_GESTURE, gesture)
-
-/** Gestures **/
-private const val KEY_GESTURES = "gestures"
-fun Intent.getGestures() = getSerializableExtra(KEY_GESTURES) as? ArrayList<Gesture>
-fun Intent.setGestures(gestures: ArrayList<Gesture>) = putExtra(KEY_GESTURES, gestures)
 
 /** Instructions **/
 private const val KEY_INSTRUCTIONS = "instructions"
@@ -78,8 +66,3 @@ fun Intent.setTitle(title: String) = putExtra(KEY_TITLE, title)
 private const val KEY_TEXT = "text"
 fun Intent.getText() = getStringExtra(KEY_TEXT)
 fun Intent.setText(text: String) = putExtra(KEY_TEXT, text)
-
-/** Action **/
-private const val KEY_ACTION = "action"
-fun Intent.getAction2() = getSerializableExtra(KEY_ACTION) as? Action
-fun Intent.setAction2(action: Action) = putExtra(KEY_ACTION, action)

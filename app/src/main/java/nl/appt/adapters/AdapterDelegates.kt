@@ -47,32 +47,6 @@ inline fun <reified T : Item> itemAdapterDelegate(crossinline callback: (T) -> U
         }
     }
 
-inline fun <reified T : Training> trainingAdapterDelegate(crossinline callback: (T) -> Unit) =
-    adapterDelegate<T, Any>(R.layout.view_training) {
-        val textView: TextView = findViewById(R.id.textView)
-        val imageView: ImageView = findViewById(R.id.imageView)
-
-        itemView.setOnClickListener {
-            callback(item)
-        }
-
-        bind {
-            val title = item.title(context)
-            val completed = item.completed(context)
-
-            textView.text = title
-
-            if (completed) {
-                imageView.setVisible(true)
-                itemView.accessibility.label =
-                    getString(R.string.adgerong_accessibility_label, title)
-            } else {
-                imageView.setVisible(false)
-                itemView.accessibility.label = title
-            }
-        }
-    }
-
 fun taxonomyAdapterDelegate(callback: (Taxonomy) -> Unit) =
     adapterDelegate<Taxonomy, Any>(R.layout.view_checkbox) {
         val checkBox: CheckBox = findViewById(R.id.checkBox)

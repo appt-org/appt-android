@@ -32,26 +32,6 @@
             android:configChanges="orientation|screenSize" />
 
         <activity
-            android:name=".tabs.training.TrainingActivity"
-            android:configChanges="orientation|screenSize" />
-
-        <activity
-            android:name=".tabs.training.gestures.GesturesActivity"
-            android:configChanges="orientation|screenSize" />
-
-        <activity
-            android:name=".tabs.training.gestures.GestureActivity"
-            android:configChanges="orientation|screenSize" />
-
-        <activity
-            android:name=".tabs.training.actions.ActionsActivity"
-            android:configChanges="orientation|screenSize" />
-
-        <activity
-            android:name=".tabs.training.actions.ActionActivity"
-            android:configChanges="orientation|screenSize" />
-
-        <activity
             android:name=".tabs.news.ArticleActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true" />
@@ -59,23 +39,5 @@
         <activity
             android:name=".tabs.news.FilterActivity"
             android:configChanges="orientation|screenSize" />
-
-        <activity
-            android:name=".widgets.TextActivity"
-            android:configChanges="orientation|screenSize" />
-
-        <service
-            android:name=".services.ApptService"
-            android:label="@string/service_label"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/appt_accessibility_service" />
-        </service>
     </application>
 </manifest>
