@@ -4,10 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.Gravity
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -31,7 +28,7 @@ abstract class BaseActivity : AppCompatActivity() {
             field = value
 
             if (value) {
-                Accessibility.announce(this, getString(R.string.loading))
+                Accessibility.announce(this, getString(R.string.action_loading))
             }
 
             findViewById<ProgressBar>(R.id.progressBar)?.setVisible(value)

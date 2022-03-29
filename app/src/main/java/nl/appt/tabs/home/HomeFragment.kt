@@ -10,7 +10,7 @@ class HomeViewModel : BlocksViewModel("wp-content/themes/appt/home.json")
 class HomeFragment : BlocksFragment() {
 
     override fun getTitle(): String {
-        return getString(R.string.home_toolbar_title)
+        return getString(R.string.tab_home)
     }
 
     override fun viewModel(): BlocksViewModel {

@@ -2,7 +2,6 @@ package nl.appt.widgets
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
-import android.net.Uri
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -15,11 +14,9 @@ import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import kotlinx.android.synthetic.main.activity_web.*
 import nl.appt.R
-import nl.appt.extensions.*
-import nl.appt.extensions.setSlug
+import nl.appt.extensions.openWebsite
+import nl.appt.extensions.setVisible
 import nl.appt.helpers.Events
-import nl.appt.model.Article
-import nl.appt.tabs.news.ArticleActivity
 
 /**
  * Created by Jan Jaap de Groot on 28/10/2020

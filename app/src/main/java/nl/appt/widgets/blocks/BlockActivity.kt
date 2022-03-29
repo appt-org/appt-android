@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import nl.appt.R
 import nl.appt.adapters.blockAdapterDelegate
-import nl.appt.adapters.textAdapterDelegate
 import nl.appt.adapters.listItemAdapterDelegate
+import nl.appt.adapters.textAdapterDelegate
 import nl.appt.databinding.ViewCategoryBinding
 import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.getBlock

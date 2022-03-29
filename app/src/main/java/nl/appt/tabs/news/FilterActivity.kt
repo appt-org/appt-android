@@ -17,7 +17,9 @@ import nl.appt.extensions.getFilters
 import nl.appt.extensions.setFilters
 import nl.appt.extensions.showError
 import nl.appt.helpers.Events
-import nl.appt.model.*
+import nl.appt.model.Filters
+import nl.appt.model.names
+import nl.appt.model.selected
 import nl.appt.widgets.ToolbarActivity
 
 /**

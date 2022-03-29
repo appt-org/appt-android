@@ -114,6 +114,7 @@ fun Context.showError(message: String?, callback: (() -> Unit)? = null) {
 fun Context.showError(error: FuelError?, callback: (() -> Unit)? = null) {
     if (error != null) {
         when (error.response.statusCode) {
+            301, 302 -> showError(R.string.error_redirect, callback)
             404 -> showError(R.string.error_404, callback)
             500 -> showError(R.string.error_500, callback)
             503 -> showError(R.string.error_503, callback)

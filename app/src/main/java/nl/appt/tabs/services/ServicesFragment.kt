@@ -10,7 +10,7 @@ class ServicesViewModel : BlocksViewModel("wp-content/themes/appt/services.json"
 class ServicesFragment : BlocksFragment() {
 
     override fun getTitle(): String {
-        return getString(R.string.services_toolbar_title)
+        return getString(R.string.tab_services)
     }
 
     override fun viewModel(): BlocksViewModel {

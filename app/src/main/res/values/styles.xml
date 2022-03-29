@@ -98,31 +98,12 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="Widget.TextView.EditTextLabel">
-        <item name="android:textSize">12sp</item>
-    </style>
-
     <style name="Widget.TextView.Bold">
         <item name="fontPath">@string/font_bold</item>
     </style>
 
     <style name="Widget.TextView.SemiBold">
         <item name="fontPath">@string/font_semibold</item>
-    </style>
-
-    <style name="Widget.TextView.Training">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">@dimen/margin_small</item>
-        <item name="android:paddingBottom">@dimen/margin_small</item>
-        <item name="android:paddingStart">@dimen/margin_medium</item>
-        <item name="android:paddingEnd">@dimen/margin_medium</item>
-        <item name="android:focusable">true</item>
-        <item name="android:focusableInTouchMode">true</item>
-    </style>
-
-    <style name="Widget.TextView.Training.Bold">
-        <item name="fontPath">@string/font_bold</item>
     </style>
 
     <style name="Widget.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
@@ -137,18 +118,5 @@
         <item name="android:textSize">18sp</item>
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
-    </style>
-
-    <style name="Widget.ViewPagerToolbar">
-        <item name="tabTextAppearance">@style/Toolbar.Title</item>
-        <item name="tabSelectedTextColor">@color/primary</item>
-        <item name="tabIndicatorColor">@color/primary</item>
-        <item name="tabTextColor">@color/foreground</item>
-        <item name="android:background">@color/background</item>
-    </style>
-
-    <style name="Widget.TextView.CheckBox">
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
     </style>
 </resources>

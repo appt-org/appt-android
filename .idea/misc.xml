@@ -35,6 +35,7 @@
         <entry key="app/src/main/res/drawable/icon_tiles_community.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/icon_tiles_diensten.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/icon_tiles_training.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/logo.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_registration_button.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/selector_tabs.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/shadow.xml" value="0.1235" />
@@ -66,9 +67,12 @@
         <entry key="app/src/main/res/layout/view_list.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_meer_item.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/layout/view_meer_list.xml" value="0.3190883190883191" />
+        <entry key="app/src/main/res/layout/view_text.xml" value="0.1716485507246377" />
         <entry key="app/src/main/res/layout/view_toast.xml" value="0.21693840579710144" />
         <entry key="app/src/main/res/layout/view_toolbar.xml" value="0.21693840579710144" />
+        <entry key="app/src/main/res/menu/apply.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/menu/explanation.xml" value="0.3385416666666667" />
+        <entry key="app/src/main/res/menu/filter.xml" value="0.17552083333333332" />
         <entry key="app/src/main/res/menu/practice.xml" value="0.32685185185185184" />
         <entry key="app/src/main/res/menu/share.xml" value="0.3255208333333333" />
         <entry key="app/src/main/res/menu/tabs.xml" value="0.3255208333333333" />

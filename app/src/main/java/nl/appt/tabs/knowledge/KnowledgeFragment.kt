@@ -10,7 +10,7 @@ class KnowledgeViewModel : BlocksViewModel("wp-content/themes/appt/knowledgeBase
 class KnowledgeFragment : BlocksFragment() {
 
     override fun getTitle(): String {
-        return getString(R.string.knowledge_toolbar_title)
+        return getString(R.string.tab_knowledge)
     }
 
     override fun viewModel(): BlocksViewModel {

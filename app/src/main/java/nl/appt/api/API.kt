@@ -6,14 +6,7 @@ import com.github.kittinunf.fuel.gson.jsonBody
 import com.github.kittinunf.fuel.gson.responseObject
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.httpPost
-import nl.appt.model.Article
-import nl.appt.model.Block
-import nl.appt.model.Category
-import nl.appt.model.Filters
-import nl.appt.model.Tag
-import nl.appt.model.Taxonomy
-import nl.appt.model.ids
-import nl.appt.model.selected
+import nl.appt.model.*
 
 /**
  * Created by Jan Jaap de Groot on 26/10/2020

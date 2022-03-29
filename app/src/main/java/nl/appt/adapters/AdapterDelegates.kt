@@ -4,9 +4,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.view.AccessibilityDelegateCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
@@ -14,10 +12,13 @@ import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegate
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import nl.appt.R
 import nl.appt.accessibility.view.accessibility
-import nl.appt.databinding.*
+import nl.appt.databinding.ViewBlockBinding
+import nl.appt.databinding.ViewIconItemBinding
+import nl.appt.databinding.ViewTextBinding
 import nl.appt.extensions.load
-import nl.appt.extensions.setVisible
-import nl.appt.model.*
+import nl.appt.model.Block
+import nl.appt.model.Item
+import nl.appt.model.Taxonomy
 
 /**
  * Created by Jan Jaap de Groot on 03/11/2020

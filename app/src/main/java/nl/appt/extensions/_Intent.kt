@@ -3,8 +3,8 @@ package nl.appt.extensions
 import android.content.Intent
 import android.net.Uri
 import nl.appt.model.Article
-import nl.appt.model.Filters
 import nl.appt.model.Block
+import nl.appt.model.Filters
 
 /**
  * Created by Jan Jaap de Groot on 06/11/2020
