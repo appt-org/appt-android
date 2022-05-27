@@ -17,6 +17,7 @@ import nl.appt.R
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setVisible
 import nl.appt.helpers.Events
+import nl.appt.helpers.Preferences
 
 /**
  * Created by Jan Jaap de Groot on 28/10/2020
@@ -160,11 +161,23 @@ open class WebActivity: ToolbarActivity() {
             progressBar.setVisible(false)
             swipeRefreshLayout.isRefreshing = false
         }
+
+        override fun doUpdateVisitedHistory(view: WebView?, url: String?, isReload: Boolean) {
+            super.doUpdateVisitedHistory(view, url, isReload)
+
+            Log.d(TAG, "doUpdateVisitedHistory: $url, isReload: $isReload")
+
+            if (url != null) {
+                Preferences.setUrl(this@WebActivity, url)
+            }
+        }
     }
 
     private inner class ApptWebChromeClient: WebChromeClient() {
         override fun onProgressChanged(view: WebView?, newProgress: Int) {
             super.onProgressChanged(view, newProgress)
         }
+
+
     }
 }

@@ -4,6 +4,7 @@ import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.extensions.setVisible
 import nl.appt.helpers.Events
+import nl.appt.helpers.Preferences
 import nl.appt.widgets.WebActivity
 
 /**
@@ -20,6 +21,10 @@ class MainActivity : WebActivity() {
 
         events.property(Events.Property.talkback, Accessibility.isTalkBackEnabled(this))
 
-        load(getString(R.string.appt_url))
+        Preferences.getUrl(this)?.let { url ->
+            load(url)
+        } ?: run {
+            load(getString(R.string.appt_url))
+        }
     }
 }

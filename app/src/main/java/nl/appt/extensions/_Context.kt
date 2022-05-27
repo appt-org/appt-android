@@ -7,10 +7,9 @@ import android.net.Uri
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import com.github.kittinunf.fuel.core.FuelError
 import nl.appt.R
-import nl.appt.model.Article
-import nl.appt.tabs.news.ArticleActivity
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -22,28 +21,27 @@ fun Context.hasInternet(): Boolean {
 }
 
 /** Browser **/
-private const val HOST = "appt.nl"
-private const val KENNISBANK = "kennisbank"
 
 fun Context.openWebsite(url: String) {
     val uri = Uri.parse(url)
-    val segments = uri.pathSegments
-
-    if (uri.host == HOST && segments.size > 0 && segments[0] == KENNISBANK) {
-        startArticleActivity(this, uri)
-    } else {
-        openWebsite(uri)
-    }
-}
-
-private fun startArticleActivity(context: Context, uri: Uri) {
-    val intent = Intent(context, ArticleActivity::class.java)
-    intent.setArticleType(Article.Type.PAGE)
-    intent.setUri(uri)
-    context.startActivity(intent)
+    openWebsite(uri)
 }
 
 fun Context.openWebsite(uri: Uri) {
+    // Open non-http uri outside app
+    uri.scheme?.let { scheme ->
+        if (!scheme.startsWith("http")) {
+            if (uri.scheme?.startsWith("mailto") == true) {
+                // TODO: Improve mail handling
+            }
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = uri
+            ContextCompat.startActivity(this, intent, null)
+            return@openWebsite
+        }
+    }
+
+    // Open http uri inside ChromeTab
     val darkColor = resources.getColor(R.color.dark, null)
     val lightColor = resources.getColor(R.color.light, null)
 
