@@ -44,29 +44,29 @@ private fun startArticleActivity(context: Context, uri: Uri) {
 }
 
 fun Context.openWebsite(uri: Uri) {
-    val black = resources.getColor(R.color.black, null)
-    val white = resources.getColor(R.color.white, null)
+    val darkColor = resources.getColor(R.color.dark, null)
+    val lightColor = resources.getColor(R.color.light, null)
 
-    val dark = CustomTabColorSchemeParams.Builder()
-        .setToolbarColor(black)
-        .setNavigationBarColor(black)
-        .setNavigationBarDividerColor(black)
-        .setSecondaryToolbarColor(black)
+    val darkScheme = CustomTabColorSchemeParams.Builder()
+        .setToolbarColor(darkColor)
+        .setNavigationBarColor(darkColor)
+        .setNavigationBarDividerColor(darkColor)
+        .setSecondaryToolbarColor(darkColor)
         .build()
 
-    val light = CustomTabColorSchemeParams.Builder()
-        .setToolbarColor(white)
-        .setNavigationBarColor(white)
-        .setNavigationBarDividerColor(white)
-        .setSecondaryToolbarColor(white)
+    val lightScheme = CustomTabColorSchemeParams.Builder()
+        .setToolbarColor(lightColor)
+        .setNavigationBarColor(lightColor)
+        .setNavigationBarDividerColor(lightColor)
+        .setSecondaryToolbarColor(lightColor)
         .build()
 
     val intent = CustomTabsIntent.Builder()
         .setShareState(CustomTabsIntent.SHARE_STATE_ON)
         .setUrlBarHidingEnabled(false)
         .setColorScheme(CustomTabsIntent.COLOR_SCHEME_SYSTEM)
-        .setColorSchemeParams(CustomTabsIntent.COLOR_SCHEME_DARK, dark)
-        .setColorSchemeParams(CustomTabsIntent.COLOR_SCHEME_LIGHT, light)
+        .setColorSchemeParams(CustomTabsIntent.COLOR_SCHEME_DARK, darkScheme)
+        .setColorSchemeParams(CustomTabsIntent.COLOR_SCHEME_LIGHT, lightScheme)
         .build()
 
     intent.launchUrl(this, uri)

@@ -70,6 +70,7 @@ open class WebActivity: ToolbarActivity() {
     private fun setupWebView() {
         webView.setBackgroundColor(0x00000000)
         webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+        webView.overScrollMode = View.OVER_SCROLL_NEVER
 
         webView.accessibilityDelegate = View.AccessibilityDelegate()
         webView.webChromeClient = ApptWebChromeClient()
@@ -127,7 +128,11 @@ open class WebActivity: ToolbarActivity() {
         webView.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "UTF-8", null)
     }
 
-    inner class ApptWebViewClient : WebViewClient() {
+    fun load(url: String) {
+        webView.loadUrl(url)
+    }
+
+    private inner class ApptWebViewClient : WebViewClient() {
 
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             Log.d(TAG, "shouldOverrideUrlLoading: $url")
@@ -148,7 +153,7 @@ open class WebActivity: ToolbarActivity() {
         }
     }
 
-    inner class ApptWebChromeClient: WebChromeClient() {
+    private inner class ApptWebChromeClient: WebChromeClient() {
         override fun onProgressChanged(view: WebView?, newProgress: Int) {
             super.onProgressChanged(view, newProgress)
         }
