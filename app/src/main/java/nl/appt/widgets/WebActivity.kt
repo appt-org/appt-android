@@ -2,6 +2,7 @@ package nl.appt.widgets
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.net.Uri
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -27,6 +28,10 @@ import nl.appt.helpers.Preferences
 open class WebActivity: ToolbarActivity() {
 
     private val TAG = "WebActivity"
+    private val APPT_DOMAIN: String by lazy {
+        getString(R.string.appt_domain)
+    }
+
     private var shareItem: MenuItem? = null
 
     override fun getLayoutId(): Int {
@@ -67,6 +72,14 @@ open class WebActivity: ToolbarActivity() {
         super.onViewCreated()
         setupWebView()
         setupRefresh()
+    }
+
+    override fun onBackPressed() {
+        if (webView.canGoBack()) {
+            webView.goBack()
+        } else {
+            super.onBackPressed()
+        }
     }
 
     private fun setupWebView() {
@@ -113,29 +126,6 @@ open class WebActivity: ToolbarActivity() {
         }
     }
 
-    fun load(content: String, title: String) {
-        isLoading = true
-
-        events.log(Events.Category.article, title)
-
-        val html = """
-                <html lang="nl">
-                    <head>
-                        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-                        <link rel="stylesheet" type="text/css" href="style.css">
-                    </head>
-                <body>
-                <h1>
-                """ + title + """
-                </h1>
-                """ + content + """
-                </body>
-                </html>
-        """
-
-        webView.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "UTF-8", null)
-    }
-
     fun load(url: String) {
         webView.loadUrl(url)
     }
@@ -145,12 +135,17 @@ open class WebActivity: ToolbarActivity() {
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             Log.d(TAG, "shouldOverrideUrlLoading: $url")
 
-            if (url != null) {
-                openWebsite(url)
-                return true
+            if (url == null) {
+                return false
             }
 
-            return false
+            val uri = Uri.parse(url)
+            if (uri.host == APPT_DOMAIN) {
+                return false
+            }
+
+            openWebsite(url)
+            return true
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
@@ -169,6 +164,7 @@ open class WebActivity: ToolbarActivity() {
 
             if (url != null) {
                 Preferences.setUrl(this@WebActivity, url)
+                events.log(Events.Category.url_change, url)
             }
         }
     }
@@ -177,7 +173,5 @@ open class WebActivity: ToolbarActivity() {
         override fun onProgressChanged(view: WebView?, newProgress: Int) {
             super.onProgressChanged(view, newProgress)
         }
-
-
     }
 }

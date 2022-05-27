@@ -24,10 +24,7 @@ class Events(private val firebaseAnalytics: FirebaseAnalytics) {
     }
 
     enum class Category {
-        article,
-        filters,
-        actionCompleted,
-        gestureCompleted
+        url_change
     }
 
     fun log(category: Category, identifier: String, value: Int? = null) {
