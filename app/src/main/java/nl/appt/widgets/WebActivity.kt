@@ -65,6 +65,7 @@ open class WebActivity: ToolbarActivity() {
     override fun onViewCreated() {
         super.onViewCreated()
         setupWebView()
+        setupRefresh()
     }
 
     private fun setupWebView() {
@@ -103,6 +104,12 @@ open class WebActivity: ToolbarActivity() {
         settings.setAppCacheEnabled(true)
         settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
         settings.setSupportZoom(true)
+    }
+
+    private fun setupRefresh() {
+        swipeRefreshLayout.setOnRefreshListener {
+            webView.reload()
+        }
     }
 
     fun load(content: String, title: String) {
@@ -147,9 +154,11 @@ open class WebActivity: ToolbarActivity() {
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
+            Log.d(TAG, "onPageFinished: $url")
 
             webView.setVisible(true)
             progressBar.setVisible(false)
+            swipeRefreshLayout.isRefreshing = false
         }
     }
 

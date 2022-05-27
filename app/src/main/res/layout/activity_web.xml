@@ -11,16 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <WebView
-            android:theme="@style/WebView"
-            android:id="@+id/webView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:importantForAccessibility="yes"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:background="@android:color/transparent"
-            android:visibility="invisible"/>
+            android:layout_height="match_parent">
+
+            <WebView
+                android:theme="@style/WebView"
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="yes"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:background="@android:color/transparent"
+                android:visibility="invisible"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar style="?android:attr/progressBarStyle"
             android:id="@+id/progressBar"
