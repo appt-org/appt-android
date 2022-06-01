@@ -5,4 +5,5 @@
     <color name="foreground">#eeeeee</color>
     <color name="background">#262626</color>
     <color name="divider">#383838</color>
+    <color name="disabled">#8c8c8c</color>
 </resources>

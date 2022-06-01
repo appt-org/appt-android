@@ -4,13 +4,14 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.net.Uri
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.widget.TooltipCompat
+import androidx.core.app.ShareCompat
+import androidx.core.view.children
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import kotlinx.android.synthetic.main.activity_web.*
@@ -31,8 +32,7 @@ open class WebActivity: ToolbarActivity() {
     private val APPT_DOMAIN: String by lazy {
         getString(R.string.appt_domain)
     }
-
-    private var shareItem: MenuItem? = null
+    private val bookmarks = HashMap<String, Boolean>()
 
     override fun getLayoutId(): Int {
         return R.layout.activity_web
@@ -42,34 +42,9 @@ open class WebActivity: ToolbarActivity() {
         return null
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.share, menu)
-
-        shareItem = menu?.findItem(R.id.action_share)
-        setShareEnabled(false)
-
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_share -> {
-                onShare()
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    fun setShareEnabled(enabled: Boolean) {
-        shareItem?.isVisible = enabled
-    }
-
-    open fun onShare() {
-        // Can be overridden
-    }
-
     override fun onViewCreated() {
         super.onViewCreated()
+        setupActions()
         setupWebView()
         setupRefresh()
     }
@@ -80,6 +55,67 @@ open class WebActivity: ToolbarActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun setupActions() {
+        actionLayout.children.forEach { view ->
+            TooltipCompat.setTooltipText(view, view.contentDescription)
+        }
+
+        backButton.setOnClickListener { onBack() }
+        forwardButton.setOnClickListener { onForward() }
+        shareButton.setOnClickListener { onShare() }
+        bookmarkButton.setOnClickListener { onBookmark() }
+        menuButton.setOnClickListener { onMenu() }
+    }
+
+    private fun onBack() {
+        if (webView.canGoBack()) {
+            webView.goBack()
+        }
+    }
+
+    private fun onForward() {
+        if (webView.canGoForward()) {
+            webView.goForward()
+        }
+    }
+
+    private fun onShare() {
+        webView.url?.let { url ->
+            ShareCompat.IntentBuilder.from(this)
+                .setType("text/plain")
+                .setChooserTitle(R.string.action_share)
+                .setText(url)
+                .startChooser()
+        }
+    }
+
+    private fun onBookmark() {
+        webView.url?.let { url ->
+            val bookmarked = !bookmarks.getOrDefault(url, false)
+            bookmarks[url] = bookmarked
+
+            updateBookmark(bookmarked)
+        }
+    }
+
+    private fun updateBookmark(url: String) {
+        val bookmarked = bookmarks.getOrDefault(url, false)
+        updateBookmark(bookmarked)
+    }
+
+    private fun updateBookmark(bookmarked: Boolean) {
+        val icon = if (bookmarked) R.drawable.icon_bookmarked else R.drawable.icon_bookmark
+        val text = if (bookmarked) R.string.action_bookmarked else R.string.action_bookmark
+
+        bookmarkButton.setImageResource(icon)
+        bookmarkButton.contentDescription = getString(text)
+        TooltipCompat.setTooltipText(bookmarkButton, bookmarkButton.contentDescription)
+    }
+
+    private fun onMenu() {
+        toast(R.string.action_menu)
     }
 
     private fun setupWebView() {
@@ -162,7 +198,14 @@ open class WebActivity: ToolbarActivity() {
 
             Log.d(TAG, "doUpdateVisitedHistory: $url, isReload: $isReload")
 
+            backButton.isEnabled = webView.canGoBack()
+            forwardButton.isEnabled = webView.canGoForward()
+
             if (url != null) {
+                shareButton.isEnabled = true
+                bookmarkButton.isEnabled = true
+                updateBookmark(url)
+
                 Preferences.setUrl(this@WebActivity, url)
                 events.log(Events.Category.url_change, url)
             }

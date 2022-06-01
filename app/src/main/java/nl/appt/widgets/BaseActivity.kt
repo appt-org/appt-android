@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -69,11 +70,11 @@ abstract class BaseActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-    fun toast(message: String, duration: Long = 3000, callback: (() -> Unit)? = null) {
+    fun toast(message: String, duration: Int = Toast.LENGTH_SHORT, callback: (() -> Unit)? = null) {
         toast(this, message, duration, callback)
     }
 
-    fun toast(message: Int, duration: Long = 3000, callback: (() -> Unit)? = null) {
+    fun toast(message: Int, duration: Int = Toast.LENGTH_SHORT, callback: (() -> Unit)? = null) {
         toast(this, message, duration, callback)
     }
 

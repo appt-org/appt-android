@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -54,7 +55,7 @@ abstract class BaseFragment : Fragment() {
         // Can be overridden
     }
 
-    fun toast(message: String, duration: Long = 3000, callback: (() -> Unit)? = null) {
+    fun toast(message: String, duration: Int = Toast.LENGTH_SHORT, callback: (() -> Unit)? = null) {
         toast(context, message, duration, callback)
     }
 

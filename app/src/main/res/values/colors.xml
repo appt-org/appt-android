@@ -18,5 +18,5 @@
     <color name="list">@color/background</color>
     <color name="row">@color/background</color>
     <color name="divider">#c6c6c6</color>
-    <color name="disabled">#757575</color>
+    <color name="disabled">#767676</color>
 </resources>

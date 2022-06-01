@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Uri
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
@@ -109,65 +110,34 @@ fun Context.showError(message: String?, callback: (() -> Unit)? = null) {
     }
 }
 
-fun Context.showError(error: FuelError?, callback: (() -> Unit)? = null) {
-    if (error != null) {
-        when (error.response.statusCode) {
-            301, 302 -> showError(R.string.error_redirect, callback)
-            404 -> showError(R.string.error_404, callback)
-            500 -> showError(R.string.error_500, callback)
-            503 -> showError(R.string.error_503, callback)
-            else -> {
-                if (!hasInternet()) {
-                    showError(R.string.error_network, callback)
-                } else if (error.causedByInterruption) {
-                    showError(R.string.error_interrupted, callback)
-                } else {
-                    showError(error.localizedMessage, callback)
-                }
-            }
-        }
-    } else {
-        showError(R.string.error_something, callback)
-    }
-}
-
 /** Toast **/
 fun toast(
     context: Context?,
-    message: String,
-    duration: Long = 3000,
+    message: String?,
+    duration: Int = Toast.LENGTH_SHORT,
     callback: (() -> Unit)? = null
 ) {
-    if (context == null) {
+    if (context == null || message == null) {
         return
     }
 
-    val builder = AlertDialog.Builder(context, R.style.Toast)
-    builder.setCancelable(false)
-    builder.setMessage(message)
+    Toast.makeText(context, message, duration).show()
 
-    builder.setOnDismissListener {
-        callback?.let {
-            it()
+    if (callback != null) {
+        Timer().schedule(duration.toLong()) {
+            callback()
         }
-    }
-
-    val dialog = builder.create()
-    dialog.show()
-
-    Timer().schedule(duration) {
-        dialog.dismiss()
     }
 }
 
-fun toast(context: Context?, message: Int, duration: Long = 3000, callback: (() -> Unit)? = null) {
-    toast(context, context?.getString(message) ?: "", duration, callback)
+fun toast(context: Context?, message: Int, duration: Int = Toast.LENGTH_SHORT, callback: (() -> Unit)? = null) {
+    toast(context, context?.getString(message), duration, callback)
 }
 
 /** String **/
 
 fun Context.getIdentifier(resourceType: String, resourceName: String): Int {
-    return resources.getIdentifier(resourceName, resourceType, "nl.appt")
+    return resources.getIdentifier(resourceName, resourceType, packageName)
 }
 
 fun Context.getString(name: String): String {
