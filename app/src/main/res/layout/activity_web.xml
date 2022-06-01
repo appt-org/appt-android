@@ -55,7 +55,8 @@
             app:layout_constraintLeft_toLeftOf="@+id/actionContainer"
             app:layout_constraintRight_toRightOf="@+id/actionContainer"
             android:layout_height="wrap_content"
-            android:background="@color/background"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center">
@@ -64,40 +65,40 @@
                 style="@style/Widget.ImageButton"
                 android:id="@+id/backButton"
                 android:src="@drawable/icon_back"
-                android:contentDescription="@string/action_back"
-                android:tooltipText="@string/action_back"
+                android:contentDescription="@string/back"
+                android:tooltipText="@string/back"
                 android:enabled="false"/>
 
             <androidx.appcompat.widget.AppCompatImageButton
                 style="@style/Widget.ImageButton"
                 android:id="@+id/forwardButton"
                 android:src="@drawable/icon_forward"
-                android:contentDescription="@string/action_forward"
-                android:tooltipText="@string/action_forward"
+                android:contentDescription="@string/forward"
+                android:tooltipText="@string/forward"
                 android:enabled="false"/>
 
             <androidx.appcompat.widget.AppCompatImageButton
                 style="@style/Widget.ImageButton"
                 android:id="@+id/shareButton"
                 android:src="@drawable/icon_share"
-                android:contentDescription="@string/action_share"
-                android:tooltipText="@string/action_share"
+                android:contentDescription="@string/share"
+                android:tooltipText="@string/share"
                 android:enabled="false"/>
 
             <androidx.appcompat.widget.AppCompatImageButton
                 style="@style/Widget.ImageButton"
                 android:id="@+id/bookmarkButton"
                 android:src="@drawable/icon_bookmark"
-                android:contentDescription="@string/action_bookmark"
-                android:tooltipText="@string/action_bookmark"
+                android:contentDescription="@string/bookmark"
+                android:tooltipText="@string/bookmark"
                 android:enabled="false"/>
 
             <androidx.appcompat.widget.AppCompatImageButton
                 style="@style/Widget.ImageButton"
                 android:id="@+id/menuButton"
                 android:src="@drawable/icon_menu"
-                android:contentDescription="@string/action_menu"
-                android:tooltipText="@string/action_menu"/>
+                android:contentDescription="@string/menu"
+                android:tooltipText="@string/menu"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

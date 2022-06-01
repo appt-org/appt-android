@@ -30,7 +30,7 @@ abstract class BaseFragment : Fragment() {
             field = value
 
             if (value) {
-                Accessibility.announce(context, getString(R.string.action_loading))
+                Accessibility.announce(context, getString(R.string.loading))
             }
 
             view?.findViewById<ProgressBar>(R.id.progressBar)?.setVisible(value)

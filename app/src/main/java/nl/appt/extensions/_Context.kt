@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.browser.customtabs.CustomTabColorSchemeParams
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import com.github.kittinunf.fuel.core.FuelError
 import nl.appt.R
 import java.util.*
 import kotlin.concurrent.schedule
@@ -79,7 +78,7 @@ fun Context.showDialog(title: String, message: String?, callback: (() -> Unit)? 
     builder.setTitle(title)
     builder.setMessage(message)
 
-    builder.setPositiveButton(R.string.action_ok) { _, _ ->
+    builder.setPositiveButton(R.string.ok) { _, _ ->
         // Ignored, handled by on dismiss listener.
     }
 

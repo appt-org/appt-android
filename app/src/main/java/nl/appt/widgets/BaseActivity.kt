@@ -29,7 +29,7 @@ abstract class BaseActivity : AppCompatActivity() {
             field = value
 
             if (value) {
-                Accessibility.announce(this, getString(R.string.action_loading))
+                Accessibility.announce(this, getString(R.string.loading))
             }
 
             findViewById<ProgressBar>(R.id.progressBar)?.setVisible(value)

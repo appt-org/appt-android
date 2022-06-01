@@ -16,10 +16,12 @@ import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import kotlinx.android.synthetic.main.activity_web.*
 import nl.appt.R
+import nl.appt.dialog.MoreDialog
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setVisible
 import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
+
 
 /**
  * Created by Jan Jaap de Groot on 28/10/2020
@@ -85,7 +87,7 @@ open class WebActivity: ToolbarActivity() {
         webView.url?.let { url ->
             ShareCompat.IntentBuilder.from(this)
                 .setType("text/plain")
-                .setChooserTitle(R.string.action_share)
+                .setChooserTitle(R.string.share)
                 .setText(url)
                 .startChooser()
         }
@@ -107,7 +109,7 @@ open class WebActivity: ToolbarActivity() {
 
     private fun updateBookmark(bookmarked: Boolean) {
         val icon = if (bookmarked) R.drawable.icon_bookmarked else R.drawable.icon_bookmark
-        val text = if (bookmarked) R.string.action_bookmarked else R.string.action_bookmark
+        val text = if (bookmarked) R.string.bookmarked else R.string.bookmark
 
         bookmarkButton.setImageResource(icon)
         bookmarkButton.contentDescription = getString(text)
@@ -115,7 +117,8 @@ open class WebActivity: ToolbarActivity() {
     }
 
     private fun onMenu() {
-        toast(R.string.action_menu)
+        val dialog = MoreDialog(this, R.layout.layout_list)
+        dialog.show()
     }
 
     private fun setupWebView() {
