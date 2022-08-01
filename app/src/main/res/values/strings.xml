@@ -1,8 +1,8 @@
 <resources>
     <!-- Appt -->
     <string name="app_name">Appt</string>
-    <string name="appt_domain">appt-acceptance-o4ale4roda-ez.a.run.app</string>
-    <string name="appt_url">https://appt-acceptance-o4ale4roda-ez.a.run.app/en</string>
+    <string name="appt_domain">appt-production-o4ale4roda-ez.a.run.app</string>
+    <string name="appt_url">https://appt-production-o4ale4roda-ez.a.run.app/en</string>
 
     <!-- Fonts -->
     <string name="font_regular" translatable="false">fonts/open_sans_regular.ttf</string>
@@ -23,8 +23,10 @@
     <string name="bookmark">Bookmark</string>
     <string name="bookmarked">Bookmarked</string>
     <string name="menu">Menu</string>
+    <string name="home">Home</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="history">History</string>
     <string name="settings">Settings</string>
+    <string name="reload">Reload</string>
     <string name="cancel">Cancel</string>
 </resources>

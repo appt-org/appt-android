@@ -21,6 +21,9 @@ import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setVisible
 import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
+import java.util.*
+import kotlin.collections.HashMap
+import kotlin.concurrent.timerTask
 
 
 /**
@@ -118,6 +121,17 @@ open class WebActivity: ToolbarActivity() {
 
     private fun onMenu() {
         val dialog = MoreDialog(this, R.layout.layout_list)
+        dialog.callback = { text ->
+            Timer().schedule(timerTask {
+                dialog.dismiss()
+            }, 250)
+
+            if (text == getString(R.string.home)) {
+                load(getString(R.string.appt_url))
+            } else if (text == getString(R.string.reload)) {
+                webView.reload()
+            }
+        }
         dialog.show()
     }
 

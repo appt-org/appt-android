@@ -11,17 +11,20 @@ import nl.appt.R
 import nl.appt.extensions.addItemDecoration
 import nl.appt.helpers.headerAdapterDelegate
 import nl.appt.helpers.textAdapterDelegate
+import nl.appt.model.Header
 import java.util.*
 import kotlin.concurrent.timerTask
 
 class MoreDialog(context: Context, layout: Int) : BottomSheetDialog(context) {
 
+    var callback: ((String) -> Unit)? = null
+
     private val adapterDelegate = ListDelegationAdapter(
         headerAdapterDelegate(),
-        textAdapterDelegate {
-            Timer().schedule(timerTask {
-                dismiss()
-            }, 250)
+        textAdapterDelegate { text ->
+            callback?.let { callback ->
+                callback(text)
+            }
         }
     )
 
@@ -35,9 +38,11 @@ class MoreDialog(context: Context, layout: Int) : BottomSheetDialog(context) {
         }
 
         val items = listOf(
+            context.getString(R.string.home),
             context.getString(R.string.bookmarks),
             context.getString(R.string.history),
             context.getString(R.string.settings),
+            context.getString(R.string.reload),
             context.getString(R.string.cancel),
         )
         adapterDelegate.items = items
