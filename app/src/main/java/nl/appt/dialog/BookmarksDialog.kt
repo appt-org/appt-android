@@ -1,6 +1,5 @@
 package nl.appt.dialog
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +43,7 @@ class BookmarksDialog : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         isLoading = true
 
-        model.all().observe(this) { bookmarks ->
+        model.allBookmarks().observe(this) { bookmarks ->
             isLoading = false
 
             adapterDelegate.items = bookmarks

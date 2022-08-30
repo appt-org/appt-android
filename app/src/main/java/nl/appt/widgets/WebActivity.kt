@@ -18,6 +18,7 @@ import androidx.webkit.WebViewFeature
 import kotlinx.android.synthetic.main.activity_web.*
 import nl.appt.R
 import nl.appt.database.Bookmark
+import nl.appt.database.Page
 import nl.appt.dialog.BookmarksDialog
 import nl.appt.dialog.MoreDialog
 import nl.appt.extensions.observeOnce
@@ -27,8 +28,6 @@ import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
 import nl.appt.model.Action
 import nl.appt.model.WebViewModel
-import java.util.*
-import kotlin.concurrent.timerTask
 
 /**
  * Created by Jan Jaap de Groot on 28/10/2020
@@ -76,6 +75,10 @@ open class WebActivity: ToolbarActivity() {
         backButton.setOnClickListener {
             onBack()
         }
+        backButton.setOnLongClickListener {
+            showHistory()
+            true
+        }
 
         forwardButton.setOnClickListener {
             onForward()
@@ -86,7 +89,7 @@ open class WebActivity: ToolbarActivity() {
         }
 
         bookmarkButton.setOnClickListener {
-            onBookmark()
+            onBookmarked()
         }
         bookmarkButton.setOnLongClickListener {
             showBookmarks()
@@ -118,28 +121,31 @@ open class WebActivity: ToolbarActivity() {
         }
     }
 
-    private fun onBookmark() {
+    private fun onBookmarked() {
         webView.url?.let { url ->
-            viewModel.get(url).observeOnce(this) { bookmark ->
+            viewModel.getBookmark(url).observeOnce(this) { bookmark ->
                 if (bookmark != null) {
-                    viewModel.delete(bookmark)
-                    updateBookmark(false)
+                    viewModel.deleteBookmark(bookmark)
+                    updateBookmarkState(false)
                 } else {
                     val newBookmark = Bookmark(url = url, title = webView.title)
-                    viewModel.insert(newBookmark)
-                    updateBookmark(true)
+                    viewModel.insertBookmark(newBookmark)
+                    updateBookmarkState(true)
                 }
             }
         }
     }
 
-    private fun updateBookmark(url: String) {
-        viewModel.get(url).observe(this) { bookmark ->
-            updateBookmark(bookmark != null)
+    private fun onUrlChanged(url: String ) {
+        val page = Page(url = url, title = webView.title)
+        viewModel.insertHistory(page)
+
+        viewModel.getBookmark(url).observe(this) { bookmark ->
+            updateBookmarkState(bookmark != null)
         }
     }
 
-    private fun updateBookmark(bookmarked: Boolean) {
+    private fun updateBookmarkState(bookmarked: Boolean) {
         val icon = if (bookmarked) R.drawable.icon_bookmarked else R.drawable.icon_bookmark
         val label = if (bookmarked) R.string.bookmarked else R.string.bookmark
 
@@ -157,6 +163,7 @@ open class WebActivity: ToolbarActivity() {
                 Action.HOME -> load(getString(R.string.appt_url))
                 Action.RELOAD -> webView.reload()
                 Action.BOOKMARKS -> showBookmarks()
+                Action.HISTORY -> showHistory()
                 Action.CANCEL -> {
                     // Nothing
                 }
@@ -178,6 +185,10 @@ open class WebActivity: ToolbarActivity() {
             // TODO: Remove bookmark
         }
         dialog.show(supportFragmentManager, dialog.tag)
+    }
+
+    private fun showHistory() {
+
     }
 
     private fun setupWebView() {
@@ -266,7 +277,7 @@ open class WebActivity: ToolbarActivity() {
             if (url != null) {
                 shareButton.isEnabled = true
                 bookmarkButton.isEnabled = true
-                updateBookmark(url)
+                onUrlChanged(url)
 
                 Preferences.setUrl(this@WebActivity, url)
                 events.log(Events.Category.url_change, url)
