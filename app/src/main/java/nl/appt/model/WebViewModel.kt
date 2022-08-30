@@ -18,6 +18,10 @@ class WebViewModel(application: Application) : AndroidViewModel(application) {
         ).build()
     }
 
+    fun all(): LiveData<List<Bookmark>> {
+        return database.bookmarks().all()
+    }
+
     fun get(url: String): LiveData<Bookmark?> {
         return database.bookmarks().get(url)
     }

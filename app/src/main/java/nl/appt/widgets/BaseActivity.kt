@@ -14,8 +14,8 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import nl.appt.R
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.announce
-import nl.appt.extensions.setVisible
 import nl.appt.extensions.toast
+import nl.appt.extensions.visible
 import nl.appt.helpers.Events
 
 /**
@@ -23,17 +23,6 @@ import nl.appt.helpers.Events
  * Copyright 2020 Stichting Appt
  */
 abstract class BaseActivity : AppCompatActivity() {
-
-    var isLoading: Boolean = false
-        set(value) {
-            field = value
-
-            if (value) {
-                Accessibility.announce(this, getString(R.string.loading))
-            }
-
-            findViewById<ProgressBar>(R.id.progressBar)?.setVisible(value)
-        }
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     lateinit var events: Events

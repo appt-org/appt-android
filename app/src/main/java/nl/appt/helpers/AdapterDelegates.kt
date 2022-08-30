@@ -4,6 +4,8 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegate
 import nl.appt.R
+import nl.appt.database.Bookmark
+import nl.appt.model.Action
 import nl.appt.model.Header
 
 /**
@@ -36,6 +38,36 @@ fun textAdapterDelegate(callback: (String) -> Unit) =
 
             textView.setOnClickListener {
                 callback(item)
+            }
+        }
+    }
+
+fun actionAdapterDelegate(callback: (Action) -> Unit) =
+    adapterDelegate<Action, Any>(R.layout.view_text) {
+        val textView: TextView = findViewById(R.id.textView)
+
+        bind {
+            textView.setText(item.string)
+
+            textView.setOnClickListener {
+                callback(item)
+            }
+        }
+    }
+
+fun bookmarkAdapterDelegate(callback: (Bookmark) -> Unit) =
+    adapterDelegate<Bookmark, Any>(R.layout.view_text) {
+        val textView: TextView = findViewById(R.id.textView)
+
+        bind {
+            textView.text = item.url
+
+            textView.setOnClickListener {
+                callback(item)
+            }
+
+            textView.setOnLongClickListener {
+                true
             }
         }
     }

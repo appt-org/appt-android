@@ -13,26 +13,20 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.app.ShareCompat
 import androidx.core.view.children
-import androidx.lifecycle.ViewModelProvider
-import androidx.room.Room
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import kotlinx.android.synthetic.main.activity_web.*
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import nl.appt.R
-import nl.appt.database.ApptDatabase
 import nl.appt.database.Bookmark
+import nl.appt.dialog.BookmarksDialog
 import nl.appt.dialog.MoreDialog
 import nl.appt.extensions.observeOnce
 import nl.appt.extensions.openWebsite
-import nl.appt.extensions.setVisible
+import nl.appt.extensions.visible
 import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
+import nl.appt.model.Action
 import nl.appt.model.WebViewModel
-import java.util.*
-import kotlin.concurrent.timerTask
 
 /**
  * Created by Jan Jaap de Groot on 28/10/2020
@@ -138,18 +132,28 @@ open class WebActivity: ToolbarActivity() {
 
     private fun onMenu() {
         val dialog = MoreDialog(this, R.layout.layout_list)
-        dialog.callback = { text ->
-            Timer().schedule(timerTask {
-                dialog.dismiss()
-            }, 250)
-
-            if (text == getString(R.string.home)) {
-                load(getString(R.string.appt_url))
-            } else if (text == getString(R.string.reload)) {
-                webView.reload()
+        dialog.callback = { action ->
+            when (action) {
+                Action.HOME -> load(getString(R.string.appt_url))
+                Action.RELOAD -> webView.reload()
+                Action.BOOKMARKS -> showBookmarks()
+                Action.CANCEL -> {
+                    // Nothing
+                }
+                else -> {
+                    toast("Not implemented")
+                }
             }
         }
         dialog.show()
+    }
+
+    private fun showBookmarks() {
+        val dialog = BookmarksDialog()
+        dialog.callback = { bookmark ->
+            load(bookmark.url)
+        }
+        dialog.show(supportFragmentManager, dialog.tag)
     }
 
     private fun setupWebView() {
@@ -222,8 +226,8 @@ open class WebActivity: ToolbarActivity() {
             super.onPageFinished(view, url)
             Log.d(TAG, "onPageFinished: $url")
 
-            webView.setVisible(true)
-            progressBar.setVisible(false)
+            webView.visible = true
+            progressBar.visible = false
             swipeRefreshLayout.isRefreshing = false
         }
 

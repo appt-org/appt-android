@@ -6,10 +6,15 @@ import android.view.View
  * Created by Jan Jaap de Groot on 29/10/2020
  * Copyright 2020 Stichting Appt
  */
-fun View.setVisible(visible: Boolean) {
-    visibility = if (visible) {
-        View.VISIBLE
-    } else {
-        View.GONE
+
+var View.visible: Boolean
+    get() {
+        return visibility == View.VISIBLE
     }
-}
+    set(value) {
+        visibility = if (value) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }

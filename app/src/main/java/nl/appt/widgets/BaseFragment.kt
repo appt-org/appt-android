@@ -15,8 +15,8 @@ import com.google.firebase.ktx.Firebase
 import nl.appt.R
 import nl.appt.accessibility.Accessibility
 import nl.appt.accessibility.announce
-import nl.appt.extensions.setVisible
 import nl.appt.extensions.toast
+import nl.appt.extensions.visible
 import nl.appt.helpers.Events
 
 /**
@@ -24,17 +24,6 @@ import nl.appt.helpers.Events
  * Copyright 2020 Stichting Appt
  */
 abstract class BaseFragment : Fragment() {
-
-    var isLoading: Boolean = false
-        set(value) {
-            field = value
-
-            if (value) {
-                Accessibility.announce(context, getString(R.string.loading))
-            }
-
-            view?.findViewById<ProgressBar>(R.id.progressBar)?.setVisible(value)
-        }
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     lateinit var events: Events
