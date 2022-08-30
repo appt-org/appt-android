@@ -11,9 +11,6 @@ import nl.appt.R
 import nl.appt.extensions.addItemDecoration
 import nl.appt.helpers.headerAdapterDelegate
 import nl.appt.helpers.textAdapterDelegate
-import nl.appt.model.Header
-import java.util.*
-import kotlin.concurrent.timerTask
 
 class MoreDialog(context: Context, layout: Int) : BottomSheetDialog(context) {
 

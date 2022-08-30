@@ -9,35 +9,45 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.viewModels
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.app.ShareCompat
 import androidx.core.view.children
+import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import kotlinx.android.synthetic.main.activity_web.*
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import nl.appt.R
+import nl.appt.database.ApptDatabase
+import nl.appt.database.Bookmark
 import nl.appt.dialog.MoreDialog
+import nl.appt.extensions.observeOnce
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.setVisible
 import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
+import nl.appt.model.WebViewModel
 import java.util.*
-import kotlin.collections.HashMap
 import kotlin.concurrent.timerTask
-
 
 /**
  * Created by Jan Jaap de Groot on 28/10/2020
- * Copyright 2020 Stichting Appt
+ * Copyright 2022 Stichting Appt
  */
 @SuppressLint("SetJavaScriptEnabled")
 open class WebActivity: ToolbarActivity() {
 
     private val TAG = "WebActivity"
+
     private val APPT_DOMAIN: String by lazy {
         getString(R.string.appt_domain)
     }
-    private val bookmarks = HashMap<String, Boolean>()
+
+    private val viewModel: WebViewModel by viewModels()
 
     override fun getLayoutId(): Int {
         return R.layout.activity_web
@@ -98,24 +108,31 @@ open class WebActivity: ToolbarActivity() {
 
     private fun onBookmark() {
         webView.url?.let { url ->
-            val bookmarked = !bookmarks.getOrDefault(url, false)
-            bookmarks[url] = bookmarked
-
-            updateBookmark(bookmarked)
+            viewModel.get(url).observeOnce(this) { bookmark ->
+                if (bookmark != null) {
+                    viewModel.delete(bookmark)
+                    updateBookmark(false)
+                } else {
+                    val newBookmark = Bookmark(url = url)
+                    viewModel.insert(newBookmark)
+                    updateBookmark(true)
+                }
+            }
         }
     }
 
     private fun updateBookmark(url: String) {
-        val bookmarked = bookmarks.getOrDefault(url, false)
-        updateBookmark(bookmarked)
+        viewModel.get(url).observe(this) { bookmark ->
+            updateBookmark(bookmark != null)
+        }
     }
 
     private fun updateBookmark(bookmarked: Boolean) {
         val icon = if (bookmarked) R.drawable.icon_bookmarked else R.drawable.icon_bookmark
-        val text = if (bookmarked) R.string.bookmarked else R.string.bookmark
+        val label = if (bookmarked) R.string.bookmarked else R.string.bookmark
 
         bookmarkButton.setImageResource(icon)
-        bookmarkButton.contentDescription = getString(text)
+        bookmarkButton.contentDescription = getString(label)
         TooltipCompat.setTooltipText(bookmarkButton, bookmarkButton.contentDescription)
     }
 
