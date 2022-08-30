@@ -27,6 +27,8 @@ import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
 import nl.appt.model.Action
 import nl.appt.model.WebViewModel
+import java.util.*
+import kotlin.concurrent.timerTask
 
 /**
  * Created by Jan Jaap de Groot on 28/10/2020
@@ -71,10 +73,26 @@ open class WebActivity: ToolbarActivity() {
             TooltipCompat.setTooltipText(view, view.contentDescription)
         }
 
-        backButton.setOnClickListener { onBack() }
-        forwardButton.setOnClickListener { onForward() }
-        shareButton.setOnClickListener { onShare() }
-        bookmarkButton.setOnClickListener { onBookmark() }
+        backButton.setOnClickListener {
+            onBack()
+        }
+
+        forwardButton.setOnClickListener {
+            onForward()
+        }
+
+        shareButton.setOnClickListener {
+            onShare()
+        }
+
+        bookmarkButton.setOnClickListener {
+            onBookmark()
+        }
+        bookmarkButton.setOnLongClickListener {
+            showBookmarks()
+            true
+        }
+
         menuButton.setOnClickListener { onMenu() }
     }
 
@@ -107,7 +125,7 @@ open class WebActivity: ToolbarActivity() {
                     viewModel.delete(bookmark)
                     updateBookmark(false)
                 } else {
-                    val newBookmark = Bookmark(url = url)
+                    val newBookmark = Bookmark(url = url, title = webView.title)
                     viewModel.insert(newBookmark)
                     updateBookmark(true)
                 }
@@ -133,6 +151,8 @@ open class WebActivity: ToolbarActivity() {
     private fun onMenu() {
         val dialog = MoreDialog(this, R.layout.layout_list)
         dialog.callback = { action ->
+            dialog.dismiss()
+
             when (action) {
                 Action.HOME -> load(getString(R.string.appt_url))
                 Action.RELOAD -> webView.reload()
@@ -150,8 +170,12 @@ open class WebActivity: ToolbarActivity() {
 
     private fun showBookmarks() {
         val dialog = BookmarksDialog()
-        dialog.callback = { bookmark ->
+        dialog.onClick = { bookmark ->
+            dialog.dismiss()
             load(bookmark.url)
+        }
+        dialog.onLongClick = { bookmark ->
+            // TODO: Remove bookmark
         }
         dialog.show(supportFragmentManager, dialog.tag)
     }

@@ -16,25 +16,20 @@ import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.isLoading
 import nl.appt.helpers.bookmarkAdapterDelegate
 import nl.appt.model.WebViewModel
-import java.util.*
-import kotlin.concurrent.timerTask
 
 class BookmarksDialog : BottomSheetDialogFragment() {
 
     private val model: WebViewModel by activityViewModels()
 
-    var callback: ((Bookmark) -> Unit)? = null
+    var onClick: ((Bookmark) -> Unit)? = null
+    var onLongClick: ((Bookmark) -> Unit)? = null
 
     private val adapterDelegate = ListDelegationAdapter(
-        bookmarkAdapterDelegate { bookmark ->
-            callback?.let { callback ->
-                callback(bookmark)
-            }
-
-            Timer().schedule(timerTask {
-                dismiss()
-            }, 250)
-        }
+        bookmarkAdapterDelegate(onClick = { bookmark ->
+            this.onClick?.let { it(bookmark)}
+        }, onLongClick = { bookmark ->
+            this.onLongClick?.let { it(bookmark) }
+        })
     )
 
     override fun onCreateView(

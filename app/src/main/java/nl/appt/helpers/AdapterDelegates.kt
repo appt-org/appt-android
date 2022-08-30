@@ -55,18 +55,21 @@ fun actionAdapterDelegate(callback: (Action) -> Unit) =
         }
     }
 
-fun bookmarkAdapterDelegate(callback: (Bookmark) -> Unit) =
-    adapterDelegate<Bookmark, Any>(R.layout.view_text) {
-        val textView: TextView = findViewById(R.id.textView)
+fun bookmarkAdapterDelegate(onClick: (Bookmark) -> Unit, onLongClick: (Bookmark) -> Unit) =
+    adapterDelegate<Bookmark, Any>(R.layout.view_page) {
+        val titleView: TextView = findViewById(R.id.titleView)
+        val descriptionView: TextView = findViewById(R.id.descriptionView)
 
         bind {
-            textView.text = item.url
+            titleView.text = item.title ?: getString(R.string.unknown)
+            descriptionView.text = item.url
 
-            textView.setOnClickListener {
-                callback(item)
+            itemView.setOnClickListener {
+                onClick(item)
             }
 
-            textView.setOnLongClickListener {
+            itemView.setOnLongClickListener {
+                onLongClick(item)
                 true
             }
         }

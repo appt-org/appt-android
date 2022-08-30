@@ -5,7 +5,7 @@ import androidx.room.*
 
 @Dao
 interface BookmarkDao {
-    @Query("SELECT * FROM bookmarks")
+    @Query("SELECT * FROM bookmarks ORDER BY updated_at DESC")
     fun all(): LiveData<List<Bookmark>>
 
     @Query("SELECT * FROM bookmarks WHERE url LIKE :url")
@@ -16,6 +16,9 @@ interface BookmarkDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg bookmarks: Bookmark)
+
+    @Update
+    suspend fun update(bookmark: Bookmark)
 
     @Delete
     suspend fun delete(bookmark: Bookmark)

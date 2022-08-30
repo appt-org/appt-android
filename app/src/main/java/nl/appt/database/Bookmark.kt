@@ -13,11 +13,11 @@ data class Bookmark(
     val createdAt: Long = System.currentTimeMillis(),
 
     @ColumnInfo(name = "updated_at")
-    val updatedAt: Long = System.currentTimeMillis(),
+    var updatedAt: Long = System.currentTimeMillis(),
 
     @ColumnInfo(name = "url")
     val url: String,
 
     @ColumnInfo(name = "title")
-    val title: String? = null
+    var title: String? = null
 )
