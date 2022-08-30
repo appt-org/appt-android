@@ -13,7 +13,6 @@
         android:id="@+id/titleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         tools:text="Title" />
 
     <TextView
