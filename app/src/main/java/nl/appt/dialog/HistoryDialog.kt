@@ -2,14 +2,14 @@ package nl.appt.dialog
 
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LiveData
-import nl.appt.database.Bookmark
+import nl.appt.database.History
 import nl.appt.model.WebViewModel
 
-class BookmarksDialog : PageDialog<Bookmark>() {
+class HistoryDialog : PageDialog<History>() {
 
     private val model: WebViewModel by activityViewModels()
 
-    override fun getData(): LiveData<List<Bookmark>> {
-        return model.allBookmarks()
+    override fun getData(): LiveData<List<History>> {
+        return model.allHistory()
     }
 }

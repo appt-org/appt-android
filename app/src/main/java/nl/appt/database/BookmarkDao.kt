@@ -8,10 +8,10 @@ interface BookmarkDao {
     @Query("SELECT * FROM bookmarks ORDER BY updated_at DESC")
     fun all(): LiveData<List<Bookmark>>
 
-    @Query("SELECT * FROM bookmarks WHERE url LIKE :url")
+    @Query("SELECT * FROM bookmarks WHERE url LIKE :url ORDER BY updated_at DESC")
     fun get(url: String): LiveData<Bookmark?>
 
-    @Query("SELECT * FROM bookmarks WHERE url LIKE :query OR title LIKE :query")
+    @Query("SELECT * FROM bookmarks WHERE url LIKE :query OR title LIKE :query ORDER BY updated_at DESC")
     fun search(query: String): LiveData<List<Bookmark>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

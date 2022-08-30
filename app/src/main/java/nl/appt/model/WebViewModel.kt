@@ -8,7 +8,7 @@ import androidx.room.Room
 import kotlinx.coroutines.launch
 import nl.appt.database.ApptDatabase
 import nl.appt.database.Bookmark
-import nl.appt.database.Page
+import nl.appt.database.History
 
 class WebViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -39,19 +39,23 @@ class WebViewModel(application: Application) : AndroidViewModel(application) {
 
     // History
 
-    fun allHistory(): LiveData<List<Page>> {
+    fun allHistory(): LiveData<List<History>> {
         return database.history().all()
     }
 
-    fun getHistory(url: String): LiveData<Page?> {
+    fun getHistory(url: String): LiveData<History?> {
         return database.history().get(url)
     }
 
-    fun insertHistory(page: Page) = viewModelScope.launch {
-        database.history().insert(page)
+    fun insertHistory(history: History) = viewModelScope.launch {
+        database.history().insert(history)
     }
 
-    fun deleteHistory(page: Page) = viewModelScope.launch {
-        database.history().delete(page)
+    fun updateHistory(history: History) = viewModelScope.launch {
+        database.history().update(history)
+    }
+
+    fun deleteHistory(history: History) = viewModelScope.launch {
+        database.history().delete(history)
     }
 }

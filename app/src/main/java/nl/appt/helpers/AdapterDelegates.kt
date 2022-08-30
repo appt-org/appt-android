@@ -4,7 +4,7 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegate
 import nl.appt.R
-import nl.appt.database.Bookmark
+import nl.appt.database.Page
 import nl.appt.model.Action
 import nl.appt.model.Header
 
@@ -55,22 +55,24 @@ fun actionAdapterDelegate(callback: (Action) -> Unit) =
         }
     }
 
-fun bookmarkAdapterDelegate(onClick: (Bookmark) -> Unit, onLongClick: (Bookmark) -> Unit) =
-    adapterDelegate<Bookmark, Any>(R.layout.view_page) {
-        val titleView: TextView = findViewById(R.id.titleView)
-        val descriptionView: TextView = findViewById(R.id.descriptionView)
+inline fun <reified T: Page> pageAdapterDelegate(
+    crossinline onClick: (T) -> Unit,
+    crossinline onLongClick: (T) -> Unit
+) = adapterDelegate<T, Any>(R.layout.view_page) {
+    val titleView: TextView = findViewById(R.id.titleView)
+    val descriptionView: TextView = findViewById(R.id.descriptionView)
 
-        bind {
-            titleView.text = item.title ?: getString(R.string.unknown)
-            descriptionView.text = item.url
+    bind {
+        titleView.text = item.title ?: getString(R.string.unknown)
+        descriptionView.text = item.url
 
-            itemView.setOnClickListener {
-                onClick(item)
-            }
+        itemView.setOnClickListener {
+            onClick(item)
+        }
 
-            itemView.setOnLongClickListener {
-                onLongClick(item)
-                true
-            }
+        itemView.setOnLongClickListener {
+            onLongClick(item)
+            true
         }
     }
+}

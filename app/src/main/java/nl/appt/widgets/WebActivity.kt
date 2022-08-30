@@ -18,8 +18,9 @@ import androidx.webkit.WebViewFeature
 import kotlinx.android.synthetic.main.activity_web.*
 import nl.appt.R
 import nl.appt.database.Bookmark
-import nl.appt.database.Page
+import nl.appt.database.History
 import nl.appt.dialog.BookmarksDialog
+import nl.appt.dialog.HistoryDialog
 import nl.appt.dialog.MoreDialog
 import nl.appt.extensions.observeOnce
 import nl.appt.extensions.openWebsite
@@ -137,7 +138,7 @@ open class WebActivity: ToolbarActivity() {
     }
 
     private fun onUrlChanged(url: String ) {
-        val page = Page(url = url, title = webView.title)
+        val page = History(url = url, title = null)
         viewModel.insertHistory(page)
 
         viewModel.getBookmark(url).observe(this) { bookmark ->
@@ -182,13 +183,21 @@ open class WebActivity: ToolbarActivity() {
             load(bookmark.url)
         }
         dialog.onLongClick = { bookmark ->
-            // TODO: Remove bookmark
+            // TODO: Remove from bookmarks
         }
         dialog.show(supportFragmentManager, dialog.tag)
     }
 
     private fun showHistory() {
-
+        val dialog = HistoryDialog()
+        dialog.onClick = { history ->
+            dialog.dismiss()
+            load(history.url)
+        }
+        dialog.onLongClick = { history ->
+            // TODO: Remove from history
+        }
+        dialog.show(supportFragmentManager, dialog.tag)
     }
 
     private fun setupWebView() {
@@ -241,6 +250,8 @@ open class WebActivity: ToolbarActivity() {
 
     private inner class ApptWebViewClient : WebViewClient() {
 
+        private var previousUrl: String? = null
+
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             Log.d(TAG, "shouldOverrideUrlLoading: $url")
 
@@ -274,13 +285,15 @@ open class WebActivity: ToolbarActivity() {
             backButton.isEnabled = webView.canGoBack()
             forwardButton.isEnabled = webView.canGoForward()
 
-            if (url != null) {
+            if (url != null && url != previousUrl) {
                 shareButton.isEnabled = true
                 bookmarkButton.isEnabled = true
                 onUrlChanged(url)
 
                 Preferences.setUrl(this@WebActivity, url)
                 events.log(Events.Category.url_change, url)
+
+                previousUrl = url
             }
         }
     }
@@ -288,6 +301,26 @@ open class WebActivity: ToolbarActivity() {
     private inner class ApptWebChromeClient: WebChromeClient() {
         override fun onProgressChanged(view: WebView?, newProgress: Int) {
             super.onProgressChanged(view, newProgress)
+            Log.d(TAG, "onProgressChanged: $newProgress")
+        }
+
+        override fun onReceivedTitle(view: WebView?, title: String?) {
+            super.onReceivedTitle(view, title)
+            Log.d(TAG, "onReceivedTitle: $title")
+
+            if (title == null) {
+                return
+            }
+
+            webView.url?.let { url ->
+                viewModel.getHistory(url).observeOnce { history ->
+                    if (history != null && history.title != title) {
+                        Log.d(TAG, "Updating history title")
+                        history.title = title
+                        viewModel.updateHistory(history)
+                    }
+                }
+            }
         }
     }
 }
