@@ -5,9 +5,9 @@
     <string name="appt_domain">beta.appt.org</string>
 
     <!-- Fonts -->
-    <string name="font_regular" translatable="false">fonts/open_sans_regular.ttf</string>
-    <string name="font_semibold" translatable="false">fonts/open_sans_semibold.ttf</string>
-    <string name="font_bold" translatable="false">fonts/open_sans_bold.ttf</string>
+    <string name="font_regular" translatable="false">fonts/rubik_regular.ttf</string>
+    <string name="font_semibold" translatable="false">fonts/rubik_semibold.ttf</string>
+    <string name="font_bold" translatable="false">fonts/rubik_bold.ttf</string>
 
     <!-- Errors -->
     <string name="error">Error</string>

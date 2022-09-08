@@ -108,7 +108,6 @@
 
     <style name="Widget.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
         <item name="fontPath">@string/font_semibold</item>
-        <item name="android:fontFamily">@font/open_sans_semibold</item>
         <item name="labelVisibilityMode">labeled</item>
     </style>
 
