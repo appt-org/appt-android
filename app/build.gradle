@@ -67,9 +67,6 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
 
-    // Accessibility
-    implementation 'nl.appt.accessibility:accessibility:0.2.0'
-
     // Calligraphy
     implementation 'io.github.inflationx:calligraphy3:3.1.1'
     implementation 'io.github.inflationx:viewpump:2.0.3'

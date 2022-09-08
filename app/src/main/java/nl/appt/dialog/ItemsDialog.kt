@@ -7,20 +7,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import kotlinx.android.synthetic.main.layout_list.view.*
+import nl.appt.R
 import nl.appt.extensions.addItemDecoration
-import nl.appt.helpers.actionAdapterDelegate
-import nl.appt.model.Action
+import nl.appt.helpers.itemAdapterDelegate
+import nl.appt.model.Item
 import java.util.*
 import kotlin.concurrent.timerTask
 
-class MoreDialog(context: Context, layout: Int) : BottomSheetDialog(context) {
+typealias ItemCallback = ((Item) -> Unit)
 
-    var callback: ((Action) -> Unit)? = null
+open class ItemsDialog(context: Context, private val items: List<Item>) : BottomSheetDialog(context) {
+
+    var callback: ItemCallback? = null
 
     private val adapterDelegate = ListDelegationAdapter(
-        actionAdapterDelegate { action ->
+        itemAdapterDelegate { item ->
             callback?.let { callback ->
-                callback(action)
+                callback(item)
             }
 
             Timer().schedule(timerTask {
@@ -30,7 +33,7 @@ class MoreDialog(context: Context, layout: Int) : BottomSheetDialog(context) {
     )
 
     private val view: View by lazy {
-        val view = LayoutInflater.from(context).inflate(layout, null)
+        val view = LayoutInflater.from(context).inflate(R.layout.layout_list, null)
 
         view.recyclerView.run {
             layoutManager = LinearLayoutManager(context)
@@ -38,14 +41,6 @@ class MoreDialog(context: Context, layout: Int) : BottomSheetDialog(context) {
             addItemDecoration()
         }
 
-        val items = listOf(
-            Action.HOME,
-            Action.BOOKMARKS,
-            Action.HISTORY,
-            Action.SETTINGS,
-            Action.RELOAD,
-            Action.CANCEL
-        )
         adapterDelegate.items = items
 
         view

@@ -4,18 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
-import nl.appt.R
-import nl.appt.accessibility.Accessibility
-import nl.appt.accessibility.announce
 import nl.appt.extensions.toast
-import nl.appt.extensions.visible
 import nl.appt.helpers.Events
 
 /**

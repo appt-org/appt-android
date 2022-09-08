@@ -6,17 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import nl.appt.R
-import nl.appt.accessibility.Accessibility
-import nl.appt.accessibility.announce
 import nl.appt.extensions.toast
-import nl.appt.extensions.visible
 import nl.appt.helpers.Events
 
 /**

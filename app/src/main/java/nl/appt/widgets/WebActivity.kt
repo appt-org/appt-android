@@ -21,13 +21,13 @@ import nl.appt.database.Bookmark
 import nl.appt.database.History
 import nl.appt.dialog.BookmarksDialog
 import nl.appt.dialog.HistoryDialog
-import nl.appt.dialog.MoreDialog
+import nl.appt.dialog.ItemsDialog
 import nl.appt.extensions.observeOnce
 import nl.appt.extensions.openWebsite
 import nl.appt.extensions.visible
 import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
-import nl.appt.model.Action
+import nl.appt.model.Item
 import nl.appt.model.WebViewModel
 
 /**
@@ -97,7 +97,7 @@ open class WebActivity: ToolbarActivity() {
             true
         }
 
-        menuButton.setOnClickListener { onMenu() }
+        menuButton.setOnClickListener { showMenu() }
     }
 
     private fun onBack() {
@@ -155,17 +155,26 @@ open class WebActivity: ToolbarActivity() {
         TooltipCompat.setTooltipText(bookmarkButton, bookmarkButton.contentDescription)
     }
 
-    private fun onMenu() {
-        val dialog = MoreDialog(this, R.layout.layout_list)
-        dialog.callback = { action ->
+    private fun showMenu() {
+        val items = listOf(
+            Item.HOME,
+            Item.BOOKMARKS,
+            Item.HISTORY,
+            Item.SETTINGS,
+            Item.RELOAD,
+            Item.CLOSE
+        )
+
+        val dialog = ItemsDialog(this, items)
+        dialog.callback = { item ->
             dialog.dismiss()
 
-            when (action) {
-                Action.HOME -> load(getString(R.string.appt_url))
-                Action.RELOAD -> webView.reload()
-                Action.BOOKMARKS -> showBookmarks()
-                Action.HISTORY -> showHistory()
-                Action.CANCEL -> {
+            when (item) {
+                Item.HOME -> load(getString(R.string.appt_url))
+                Item.RELOAD -> webView.reload()
+                Item.BOOKMARKS -> showBookmarks()
+                Item.HISTORY -> showHistory()
+                Item.CLOSE -> {
                     // Nothing
                 }
                 else -> {

@@ -1,7 +1,5 @@
 package nl.appt
 
-import nl.appt.accessibility.Accessibility
-import nl.appt.accessibility.isTalkBackEnabled
 import nl.appt.extensions.visible
 import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
@@ -19,7 +17,7 @@ class MainActivity : WebActivity() {
         this.title = getString(R.string.app_name)
         toolbar?.visible = false
 
-        events.property(Events.Property.talkback, Accessibility.isTalkBackEnabled(this))
+        //events.property(Events.Property.talkback, Accessibility.isTalkBackEnabled(this))
 
         Preferences.getUrl(this)?.let { url ->
             load(url)

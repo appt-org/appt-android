@@ -5,29 +5,30 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:background="?attr/selectableItemBackground"
     android:padding="@dimen/margin_medium"
     android:focusable="true"
     android:clickable="true"
     android:importantForAccessibility="yes"
-    tools:contentDescription="Page">
+    android:addStatesFromChildren="true"
+    tools:contentDescription="Item">
 
-    <TextView
-        style="@style/Widget.TextView.SemiBold"
-        android:id="@+id/titleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="24sp"
+        android:layout_height="24sp"
+        android:layout_gravity="center_vertical"
         android:importantForAccessibility="no"
-        tools:text="Title" />
+        tools:src="@drawable/icon_menu" />
 
     <TextView
         style="@style/Widget.TextView"
-        android:id="@+id/descriptionView"
+        android:id="@+id/titleView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="14sp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:gravity="center_vertical"
         android:importantForAccessibility="no"
-        tools:text="URL" />
+        tools:text="Title" />
 </LinearLayout>
