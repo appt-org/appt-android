@@ -5,10 +5,7 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.util.Log
 import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import androidx.activity.viewModels
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.app.ShareCompat
@@ -22,12 +19,12 @@ import nl.appt.database.History
 import nl.appt.dialog.BookmarksDialog
 import nl.appt.dialog.HistoryDialog
 import nl.appt.dialog.ItemsDialog
-import nl.appt.extensions.observeOnce
-import nl.appt.extensions.openWebsite
-import nl.appt.extensions.visible
+import nl.appt.dialog.WebPageDialog
+import nl.appt.extensions.*
 import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
 import nl.appt.model.Item
+import nl.appt.model.WebPage
 import nl.appt.model.WebViewModel
 
 /**
@@ -77,12 +74,16 @@ open class WebActivity: ToolbarActivity() {
             onBack()
         }
         backButton.setOnLongClickListener {
-            showHistory()
+            showBack()
             true
         }
 
         forwardButton.setOnClickListener {
             onForward()
+        }
+        forwardButton.setOnLongClickListener {
+            showForward()
+            true
         }
 
         shareButton.setOnClickListener {
@@ -106,10 +107,20 @@ open class WebActivity: ToolbarActivity() {
         }
     }
 
+    private fun showBack() {
+        val pages = webView.getBackList().toWebPages()
+        showPages(pages)
+    }
+
     private fun onForward() {
         if (webView.canGoForward()) {
             webView.goForward()
         }
+    }
+
+    private fun showForward() {
+        val pages = webView.getForwardList().toWebPages()
+        showPages(pages)
     }
 
     private fun onShare() {
@@ -205,6 +216,15 @@ open class WebActivity: ToolbarActivity() {
         }
         dialog.onLongClick = { history ->
             // TODO: Remove from history
+        }
+        dialog.show(supportFragmentManager, dialog.tag)
+    }
+
+    private fun showPages(pages: List<WebPage>) {
+        val dialog = WebPageDialog(pages)
+        dialog.onClick = { history ->
+            dialog.dismiss()
+            load(history.url)
         }
         dialog.show(supportFragmentManager, dialog.tag)
     }
