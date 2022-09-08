@@ -9,13 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import kotlinx.android.synthetic.main.layout_list.view.*
+import kotlinx.android.synthetic.main.layout_list.view.recyclerView
+import kotlinx.android.synthetic.main.layout_list_dialog.view.*
 import nl.appt.R
 import nl.appt.database.Page
 import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.isLoading
 import nl.appt.helpers.pageAdapterDelegate
 
-abstract class PageDialog<T: Page> : BottomSheetDialogFragment() {
+abstract class PageDialog<T: Page>(val title: Int) : BottomSheetDialogFragment() {
 
     var onClick: ((Page) -> Unit)? = null
     var onLongClick: ((Page) -> Unit)? = null
@@ -33,11 +35,18 @@ abstract class PageDialog<T: Page> : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.layout_list, container, false)
+        return inflater.inflate(R.layout.layout_list_dialog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        view.titleView.setText(title)
+
+        view.actionButton.setOnClickListener {
+            dismiss()
+        }
+
         isLoading = true
 
         getData().observe(this) { items ->

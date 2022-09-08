@@ -30,4 +30,6 @@
     <string name="reload">Reload</string>
     <string name="close">Close</string>
     <string name="unknown">Unknown</string>
+    <string name="jump_back">Jump back</string>
+    <string name="jump_forward">Jump forward</string>
 </resources>

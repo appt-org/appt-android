@@ -109,7 +109,7 @@ open class WebActivity: ToolbarActivity() {
 
     private fun showBack() {
         val pages = webView.getBackList().toWebPages()
-        showPages(pages)
+        showPages(Item.JUMP_BACK, pages)
     }
 
     private fun onForward() {
@@ -120,7 +120,7 @@ open class WebActivity: ToolbarActivity() {
 
     private fun showForward() {
         val pages = webView.getForwardList().toWebPages()
-        showPages(pages)
+        showPages(Item.JUMP_FORWARD, pages)
     }
 
     private fun onShare() {
@@ -186,7 +186,7 @@ open class WebActivity: ToolbarActivity() {
                 Item.BOOKMARKS -> showBookmarks()
                 Item.HISTORY -> showHistory()
                 Item.CLOSE -> {
-                    // Nothing
+                    // Ignored
                 }
                 else -> {
                     toast("Not implemented")
@@ -220,8 +220,8 @@ open class WebActivity: ToolbarActivity() {
         dialog.show(supportFragmentManager, dialog.tag)
     }
 
-    private fun showPages(pages: List<WebPage>) {
-        val dialog = WebPageDialog(pages)
+    private fun showPages(item: Item, pages: List<WebPage>) {
+        val dialog = WebPageDialog(item, pages)
         dialog.onClick = { history ->
             dialog.dismiss()
             load(history.url)
