@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 
 @Database(entities = [Bookmark::class, History::class], version = 1)
-abstract class ApptDatabase : RoomDatabase() {
+abstract class Database : RoomDatabase() {
     abstract fun bookmarks(): BookmarkDao
     abstract fun history(): HistoryDao
 }

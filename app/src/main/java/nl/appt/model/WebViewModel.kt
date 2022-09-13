@@ -6,16 +6,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import kotlinx.coroutines.launch
-import nl.appt.database.ApptDatabase
+import nl.appt.database.Database
 import nl.appt.database.Bookmark
 import nl.appt.database.History
 
 class WebViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val database: ApptDatabase by lazy {
+    private val database: Database by lazy {
         Room.databaseBuilder(
             application,
-            ApptDatabase::class.java, "appt_database"
+            Database::class.java, "appt_database"
         ).build()
     }
 

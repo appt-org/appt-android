@@ -42,6 +42,6 @@ fun WebView.getForwardList(): List<WebHistoryItem> {
  */
 fun List<WebHistoryItem>.toWebPages(): List<WebPage> {
     return map { item ->
-        WebPage(url = item.url, title = item.title)
+        WebPage(item)
     }
 }
