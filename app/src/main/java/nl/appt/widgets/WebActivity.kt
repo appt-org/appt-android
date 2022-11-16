@@ -42,6 +42,9 @@ open class WebActivity: ToolbarActivity() {
 
     private val viewModel: WebViewModel by viewModels()
 
+    private var initialScale = 1.0f
+    private var zoomScale = 1.0f
+
     override fun getLayoutId(): Int {
         return R.layout.activity_web
     }
@@ -265,6 +268,12 @@ open class WebActivity: ToolbarActivity() {
         settings.setAppCacheEnabled(true)
         settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
         settings.setSupportZoom(true)
+        settings.useWideViewPort = false
+        settings.loadWithOverviewMode = false
+
+        // Store initial scale, set zoom scale
+        this.initialScale = webView.scale
+        webView.setScale(initialScale, zoomScale)
     }
 
     private fun setupRefresh() {
@@ -328,6 +337,7 @@ open class WebActivity: ToolbarActivity() {
     }
 
     private inner class ApptWebChromeClient: WebChromeClient() {
+
         override fun onProgressChanged(view: WebView?, newProgress: Int) {
             super.onProgressChanged(view, newProgress)
             Log.d(TAG, "onProgressChanged: $newProgress")

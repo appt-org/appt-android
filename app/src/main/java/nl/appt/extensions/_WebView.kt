@@ -45,3 +45,11 @@ fun List<WebHistoryItem>.toWebPages(): List<WebPage> {
         WebPage(item)
     }
 }
+
+/**
+ * Helper method to set scale level
+ */
+fun WebView.setScale(initialScale: Float, zoomScale: Float) {
+    val zoom = (initialScale * zoomScale * 100).toInt()
+    setInitialScale(zoom)
+}
