@@ -95,10 +95,10 @@
 
             <androidx.appcompat.widget.AppCompatImageButton
                 style="@style/Widget.ImageButton"
-                android:id="@+id/menuButton"
-                android:src="@drawable/icon_menu"
-                android:contentDescription="@string/menu"
-                android:tooltipText="@string/menu"/>
+                android:id="@+id/moreButton"
+                android:src="@drawable/icon_more"
+                android:contentDescription="@string/more"
+                android:tooltipText="@string/more"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

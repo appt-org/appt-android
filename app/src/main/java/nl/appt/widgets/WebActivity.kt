@@ -101,7 +101,7 @@ open class WebActivity: ToolbarActivity() {
             true
         }
 
-        menuButton.setOnClickListener { showMenu() }
+        moreButton.setOnClickListener { showMenu() }
     }
 
     private fun onBack() {
