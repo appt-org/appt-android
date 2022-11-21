@@ -1,7 +1,6 @@
 package nl.appt
 
 import nl.appt.extensions.visible
-import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
 import nl.appt.widgets.WebActivity
 
@@ -14,7 +13,7 @@ class MainActivity : WebActivity() {
     override fun onViewCreated() {
         super.onViewCreated()
 
-        this.title = getString(R.string.app_name)
+        this.title = getString(R.string.appt_title)
         toolbar?.visible = false
 
         //events.property(Events.Property.talkback, Accessibility.isTalkBackEnabled(this))

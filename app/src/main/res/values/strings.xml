@@ -1,37 +1,41 @@
 <resources>
-    <!-- Appt -->
-    <string name="app_name">Appt</string>
-    <string name="appt_url">https://beta.appt.org/en</string>
-    <string name="appt_domain">beta.appt.org</string>
-
     <!-- Fonts -->
     <string name="font_regular" translatable="false">fonts/rubik_regular.ttf</string>
     <string name="font_semibold" translatable="false">fonts/rubik_semibold.ttf</string>
     <string name="font_bold" translatable="false">fonts/rubik_bold.ttf</string>
 
+    <!-- Appt -->
+    <string name="appt_title">Appt</string>
+    <string name="appt_url">https://beta.appt.org/en</string>
+    <string name="appt_domain">beta.appt.org</string>
+
     <!-- Errors -->
-    <string name="error">Error</string>
     <string name="error_something">Something went wrong. Try again later.</string>
     <string name="error_network">You are not connected to the internet. Try again later.</string>
+    <string name="error_server">Sorry, something went wrong on our server. Try again later.</string>
+    <string name="error_404">The page you\'re looking for has been moved, deleted, or never existed.</string>
 
     <!-- Words -->
-    <string name="loading">Loading</string>
-    <string name="ok">Oké</string>
     <string name="back">Back</string>
-    <string name="forward">Forward</string>
-    <string name="share">Share</string>
     <string name="bookmark">Bookmark</string>
     <string name="bookmarked">Bookmarked</string>
-    <string name="more">More</string>
-    <string name="home">Home</string>
     <string name="bookmarks">Bookmarks</string>
-    <string name="history">History</string>
-    <string name="settings">Settings</string>
-    <string name="reload">Reload</string>
+    <string name="cancel">Cancel</string>
     <string name="close">Close</string>
-    <string name="unknown">Unknown</string>
+    <string name="delete">Delete</string>
+    <string name="error">Error</string>
+    <string name="forward">Forward</string>
+    <string name="history">History</string>
+    <string name="home">Home</string>
     <string name="jump_back">Jump back</string>
     <string name="jump_forward">Jump forward</string>
+    <string name="loading">Loading</string>
+    <string name="more">More</string>
+    <string name="ok">Ok</string>
+    <string name="reload">Reload</string>
+    <string name="settings">Settings</string>
+    <string name="share">Share</string>
+    <string name="unknown">Unknown</string>
 
     <!-- Settings -->
     <string name="settings_zoom">Zoom level</string>

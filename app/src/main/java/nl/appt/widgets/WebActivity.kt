@@ -360,6 +360,76 @@ open class WebActivity: ToolbarActivity() {
                 previousUrl = url
             }
         }
+
+        override fun onReceivedHttpError(
+            view: WebView?,
+            request: WebResourceRequest?,
+            errorResponse: WebResourceResponse?
+        ) {
+            super.onReceivedHttpError(view, request, errorResponse)
+            onError(errorResponse?.statusCode)
+        }
+
+        override fun onReceivedError(
+            view: WebView?,
+            request: WebResourceRequest?,
+            error: WebResourceError?
+        ) {
+            super.onReceivedError(view, request, error)
+            onError(error?.errorCode)
+        }
+
+        private var showingError = false
+
+        private fun onError(code: Int?) {
+            Log.d(TAG, "onError: $code")
+
+            if (code == 200 || code == 301 || code == 302) {
+                return
+            }
+
+            val message = when (code) {
+                ERROR_AUTHENTICATION -> R.string.error_something
+                ERROR_BAD_URL -> R.string.error_something
+                ERROR_CONNECT -> R.string.error_something
+                ERROR_FAILED_SSL_HANDSHAKE -> R.string.error_something
+                ERROR_FILE,ERROR_FILE_NOT_FOUND -> R.string.error_something
+                ERROR_HOST_LOOKUP -> R.string.error_network
+                ERROR_IO -> R.string.error_something
+                ERROR_PROXY_AUTHENTICATION -> R.string.error_something
+                ERROR_REDIRECT_LOOP -> R.string.error_something
+                ERROR_TIMEOUT -> R.string.error_something
+                ERROR_TOO_MANY_REQUESTS -> R.string.error_something
+                ERROR_UNKNOWN -> R.string.error_something
+                ERROR_UNSAFE_RESOURCE -> R.string.error_something
+                ERROR_UNSUPPORTED_AUTH_SCHEME -> R.string.error_something
+                ERROR_UNSUPPORTED_SCHEME -> R.string.error_something
+                SAFE_BROWSING_THREAT_BILLING -> R.string.error_something
+                SAFE_BROWSING_THREAT_MALWARE -> R.string.error_something
+                SAFE_BROWSING_THREAT_PHISHING -> R.string.error_something
+                SAFE_BROWSING_THREAT_UNKNOWN -> R.string.error_something
+                SAFE_BROWSING_THREAT_UNWANTED_SOFTWARE -> R.string.error_something
+                else -> {
+                    if (code == 404) {
+                        R.string.error_404
+                    } else if ((500 .. 600).contains(code)) {
+                        R.string.error_server
+                    } else {
+                        R.string.error_something
+                    }
+                }
+            }
+
+            if (showingError) {
+                return
+            }
+
+            showingError = true
+
+            showError(message) {
+                showingError = false
+            }
+        }
     }
 
     private inner class ApptWebChromeClient: WebChromeClient() {
