@@ -138,16 +138,8 @@
     </style>
 
     <style name="Widget.Slider.Label" parent="Widget.Material3.Tooltip">
-<!--        <item name="android:textAppearance">@style/Menu.TextAppearance</item>-->
         <item name="android:background">@color/primary</item>
         <item name="android:backgroundTint">@color/primary</item>
         <item name="android:textColor">@color/primary</item>
-
     </style>
-
-<!--    <style name="Widget.Slider.Label.TextAppearance" parent="Widget.Material3.Toolti">-->
-<!--        <item name="fontPath">@string/font_regular</item>-->
-<!--        <item name="android:textAllCaps">false</item>-->
-<!--        <item name="android:textSize">20sp</item>-->
-<!--    </style>-->
 </resources>
