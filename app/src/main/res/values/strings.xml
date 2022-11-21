@@ -32,4 +32,7 @@
     <string name="unknown">Unknown</string>
     <string name="jump_back">Jump back</string>
     <string name="jump_forward">Jump forward</string>
+
+    <!-- Settings -->
+    <string name="settings_zoom">Zoom level</string>
 </resources>

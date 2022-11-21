@@ -1,10 +1,10 @@
 package nl.appt.dialog
 
-import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import kotlinx.android.synthetic.main.layout_list.view.*
 import nl.appt.R
@@ -16,7 +16,7 @@ import kotlin.concurrent.timerTask
 
 typealias ItemCallback = ((Item) -> Unit)
 
-open class ItemsDialog(context: Context, private val items: List<Item>) : BottomSheetDialog(context) {
+open class ItemsDialog(private val items: List<Item>) : BaseDialog() {
 
     var callback: ItemCallback? = null
 
@@ -32,8 +32,12 @@ open class ItemsDialog(context: Context, private val items: List<Item>) : Bottom
         }
     )
 
-    private val view: View by lazy {
-        val view = LayoutInflater.from(context).inflate(R.layout.layout_list, null)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.layout_list, container, false)
 
         view.recyclerView.run {
             layoutManager = LinearLayoutManager(context)
@@ -43,11 +47,6 @@ open class ItemsDialog(context: Context, private val items: List<Item>) : Bottom
 
         adapterDelegate.items = items
 
-        view
-    }
-
-    init {
-        setContentView(view)
-        behavior.peekHeight = 1000
+        return view
     }
 }

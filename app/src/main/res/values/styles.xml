@@ -22,6 +22,7 @@
 
         <item name="alertDialogTheme">@style/Dialog</item>
         <item name="bottomNavigationStyle">@style/Widget.BottomNavigationView</item>
+        <item name="sliderStyle">@style/Widget.Slider</item>
     </style>
 
     <style name="Theme.App" parent="Theme">
@@ -127,4 +128,26 @@
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
         <item name="android:tint">@color/selector_button</item>
     </style>
+
+    <style name="Widget.Slider" parent="Widget.Material3.Slider">
+        <item name="haloColor">@color/highlight</item>
+        <item name="thumbColor">@color/primary</item>
+        <item name="labelStyle">@style/Widget.Slider.Label</item>
+        <item name="trackColorActive">@color/highlight</item>
+        <item name="trackColorInactive">@color/disabled</item>
+    </style>
+
+    <style name="Widget.Slider.Label" parent="Widget.Material3.Tooltip">
+<!--        <item name="android:textAppearance">@style/Menu.TextAppearance</item>-->
+        <item name="android:background">@color/primary</item>
+        <item name="android:backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/primary</item>
+
+    </style>
+
+<!--    <style name="Widget.Slider.Label.TextAppearance" parent="Widget.Material3.Toolti">-->
+<!--        <item name="fontPath">@string/font_regular</item>-->
+<!--        <item name="android:textAllCaps">false</item>-->
+<!--        <item name="android:textSize">20sp</item>-->
+<!--    </style>-->
 </resources>

@@ -1,23 +1,17 @@
 package nl.appt.dialog
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
-import kotlinx.android.synthetic.main.layout_list.view.*
 import kotlinx.android.synthetic.main.layout_list.view.recyclerView
-import kotlinx.android.synthetic.main.layout_list_dialog.view.*
-import nl.appt.R
 import nl.appt.database.Page
 import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.isLoading
 import nl.appt.helpers.pageAdapterDelegate
 
-abstract class PageDialog<T: Page>(val title: Int) : BottomSheetDialogFragment() {
+abstract class PageDialog<T: Page>(title: Int) : ListDialog(title) {
 
     var onClick: ((Page) -> Unit)? = null
     var onLongClick: ((Page) -> Unit)? = null
@@ -30,27 +24,15 @@ abstract class PageDialog<T: Page>(val title: Int) : BottomSheetDialogFragment()
         })
     )
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.layout_list_dialog, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        view.titleView.setText(title)
-
-        view.actionButton.setOnClickListener {
-            dismiss()
-        }
 
         isLoading = true
 
         getData().observe(this) { items ->
             isLoading = false
+
+            // TODO: Add empty state
 
             adapterDelegate.items = items
             view.recyclerView?.run {

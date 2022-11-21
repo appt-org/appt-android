@@ -20,20 +20,12 @@
             tools:text="Header" />
 
         <Button style="@style/Widget.Button"
-            android:id="@+id/actionButton"
+            android:id="@+id/closeButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@color/primary"
             android:text="@string/close" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
     </LinearLayout>
 
     <include layout="@layout/view_divider" />

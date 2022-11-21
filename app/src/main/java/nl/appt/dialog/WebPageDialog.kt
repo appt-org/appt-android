@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import nl.appt.model.Item
 import nl.appt.model.WebPage
 
-class WebPageDialog(val item: Item, val pages: List<WebPage>) : PageDialog<WebPage>(item.title) {
+class WebPageDialog(val item: Item, private val pages: List<WebPage>) : PageDialog<WebPage>(item.title) {
 
     override fun getData(): LiveData<List<WebPage>> {
         return MutableLiveData(pages)

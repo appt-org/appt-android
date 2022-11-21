@@ -16,10 +16,7 @@ import kotlinx.android.synthetic.main.activity_web.*
 import nl.appt.R
 import nl.appt.database.Bookmark
 import nl.appt.database.History
-import nl.appt.dialog.BookmarksDialog
-import nl.appt.dialog.HistoryDialog
-import nl.appt.dialog.ItemsDialog
-import nl.appt.dialog.WebPageDialog
+import nl.appt.dialog.*
 import nl.appt.extensions.*
 import nl.appt.helpers.Events
 import nl.appt.helpers.Preferences
@@ -43,7 +40,6 @@ open class WebActivity: ToolbarActivity() {
     private val viewModel: WebViewModel by viewModels()
 
     private var initialScale = 1.0f
-    private var zoomScale = 1.0f
 
     override fun getLayoutId(): Int {
         return R.layout.activity_web
@@ -69,10 +65,12 @@ open class WebActivity: ToolbarActivity() {
     }
 
     private fun setupActions() {
+        // Tooltips
         actionLayout.children.forEach { view ->
             TooltipCompat.setTooltipText(view, view.contentDescription)
         }
 
+        // Back
         backButton.setOnClickListener {
             onBack()
         }
@@ -81,6 +79,7 @@ open class WebActivity: ToolbarActivity() {
             true
         }
 
+        // Forward
         forwardButton.setOnClickListener {
             onForward()
         }
@@ -89,10 +88,12 @@ open class WebActivity: ToolbarActivity() {
             true
         }
 
+        // Share
         shareButton.setOnClickListener {
             onShare()
         }
 
+        // Bookmark
         bookmarkButton.setOnClickListener {
             onBookmarked()
         }
@@ -101,7 +102,10 @@ open class WebActivity: ToolbarActivity() {
             true
         }
 
-        moreButton.setOnClickListener { showMenu() }
+        // More
+        moreButton.setOnClickListener {
+            showMenu()
+        }
     }
 
     private fun onBack() {
@@ -172,14 +176,14 @@ open class WebActivity: ToolbarActivity() {
     private fun showMenu() {
         val items = listOf(
             Item.HOME,
+            Item.RELOAD,
             Item.BOOKMARKS,
             Item.HISTORY,
             Item.SETTINGS,
-            Item.RELOAD,
             Item.CLOSE
         )
 
-        val dialog = ItemsDialog(this, items)
+        val dialog = ItemsDialog(items)
         dialog.callback = { item ->
             dialog.dismiss()
 
@@ -188,6 +192,7 @@ open class WebActivity: ToolbarActivity() {
                 Item.RELOAD -> webView.reload()
                 Item.BOOKMARKS -> showBookmarks()
                 Item.HISTORY -> showHistory()
+                Item.SETTINGS -> showSettings()
                 Item.CLOSE -> {
                     // Ignored
                 }
@@ -196,7 +201,7 @@ open class WebActivity: ToolbarActivity() {
                 }
             }
         }
-        dialog.show()
+        dialog.show(supportFragmentManager, dialog.tag)
     }
 
     private fun showBookmarks() {
@@ -229,6 +234,17 @@ open class WebActivity: ToolbarActivity() {
             dialog.dismiss()
             load(history.url)
         }
+        dialog.show(supportFragmentManager, dialog.tag)
+    }
+
+    private fun showSettings() {
+        val dialog = SettingsDialog()
+
+        dialog.zoomScaleCallback = { zoomScale ->
+            webView.setScale(initialScale, zoomScale)
+            Preferences.setZoomScale(this, zoomScale)
+        }
+
         dialog.show(supportFragmentManager, dialog.tag)
     }
 
@@ -273,6 +289,7 @@ open class WebActivity: ToolbarActivity() {
 
         // Store initial scale, set zoom scale
         this.initialScale = webView.scale
+        val zoomScale = Preferences.getZoomScale(this)
         webView.setScale(initialScale, zoomScale)
     }
 
@@ -290,8 +307,17 @@ open class WebActivity: ToolbarActivity() {
 
         private var previousUrl: String? = null
 
+        @Deprecated("Deprecated in Java")
         override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-            Log.d(TAG, "shouldOverrideUrlLoading: $url")
+            return shouldOverrideUrl(url)
+        }
+
+        override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+            return shouldOverrideUrl(request?.url.toString())
+        }
+
+        private fun shouldOverrideUrl(url: String?): Boolean {
+            Log.d(TAG, "shouldOverrideUrl: $url")
 
             if (url == null) {
                 return false

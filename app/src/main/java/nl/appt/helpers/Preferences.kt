@@ -34,6 +34,14 @@ object Preferences {
         preferences(context).edit()?.putInt(key, value)?.apply()
     }
 
+    private fun getFloat(context: Context, key: String): Float {
+        return preferences(context).getFloat(key, -1f)
+    }
+
+    private fun setFloat(context: Context, key: String, value: Float) {
+        preferences(context).edit()?.putFloat(key, value)?.apply()
+    }
+
     private fun getString(context: Context, key: String): String? {
         return preferences(context).getString(key, null)
     }
@@ -52,5 +60,21 @@ object Preferences {
 
     fun setUrl(context: Context, url: String) {
         setString(context, KEY_URL, url)
+    }
+
+    /* Zoom scale */
+
+    private const val KEY_ZOOM_SCALE = "zoom_scale"
+
+    fun getZoomScale(context: Context): Float {
+        val scale = getFloat(context, KEY_ZOOM_SCALE)
+        if (scale > 0) {
+            return scale
+        }
+        return 1f
+    }
+
+    fun setZoomScale(context: Context, zoomScale: Float) {
+        setFloat(context, KEY_ZOOM_SCALE, zoomScale)
     }
 }

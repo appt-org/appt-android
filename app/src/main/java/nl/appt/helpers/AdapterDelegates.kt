@@ -3,11 +3,13 @@ package nl.appt.helpers
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.ViewCompat
+import com.google.android.material.slider.Slider
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegate
 import nl.appt.R
 import nl.appt.database.Page
 import nl.appt.model.Item
 import nl.appt.model.Header
+import nl.appt.model.Range
 
 /**
  * Created by Jan Jaap de Groot on 01/07/2022
@@ -57,6 +59,35 @@ fun itemAdapterDelegate(callback: (Item) -> Unit) =
             itemView.setOnClickListener {
                 callback(item)
             }
+        }
+    }
+
+fun sliderAdapterDelegate(multiplier: Int = 100, callback: (Float) -> Unit) =
+    adapterDelegate<Range, Any>(R.layout.view_slider) {
+        val title: TextView = findViewById(R.id.titleView)
+        val slider: Slider = findViewById(R.id.slider)
+
+        bind {
+            title.text = item.text
+
+            slider.setLabelFormatter { value: Float ->
+                val number = (value * multiplier).toInt()
+                String.format("%d%%", number)
+            }
+
+            slider.addOnChangeListener { _, value, fromUser ->
+                val number = (value * multiplier).toInt()
+                title.text = String.format("%s %d%%", item.text, number)
+
+                if (fromUser) {
+                    callback(value)
+                }
+            }
+
+            slider.valueFrom = item.minimum
+            slider.valueTo = item.maximum
+            slider.stepSize = item.step
+            slider.value = item.value
         }
     }
 
