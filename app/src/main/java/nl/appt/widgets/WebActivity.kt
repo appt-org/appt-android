@@ -277,11 +277,9 @@ open class WebActivity: ToolbarActivity() {
         settings.displayZoomControls = false
         settings.domStorageEnabled = true
         settings.javaScriptCanOpenWindowsAutomatically = true
-        settings.pluginState = WebSettings.PluginState.ON
         settings.mediaPlaybackRequiresUserGesture = false
         settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
         settings.allowFileAccess = true
-        settings.setAppCacheEnabled(true)
         settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
         settings.setSupportZoom(true)
         settings.useWideViewPort = false
