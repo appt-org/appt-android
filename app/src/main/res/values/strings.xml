@@ -6,8 +6,8 @@
 
     <!-- Appt -->
     <string name="appt_title">Appt</string>
-    <string name="appt_url">https://beta.appt.org/en</string>
-    <string name="appt_domain">beta.appt.org</string>
+    <string name="appt_url">https://appt.org/en</string>
+    <string name="appt_domain">appt.org</string>
 
     <!-- Errors -->
     <string name="error_something">Something went wrong. Try again later.</string>
