@@ -16,8 +16,6 @@ class MainActivity : WebActivity() {
         this.title = getString(R.string.appt_title)
         toolbar?.visible = false
 
-        //events.property(Events.Property.talkback, Accessibility.isTalkBackEnabled(this))
-
         Preferences.getUrl(this)?.let { url ->
             load(url)
         } ?: run {

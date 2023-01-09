@@ -156,6 +156,12 @@ open class WebActivity: ToolbarActivity() {
     }
 
     private fun onUrlChanged(url: String ) {
+        shareButton.isEnabled = true
+        bookmarkButton.isEnabled = true
+
+        Preferences.setUrl(this@WebActivity, url)
+        events.log(Events.Category.url, url)
+
         val page = History(url = url, title = null)
         viewModel.insertHistory(page)
 
@@ -348,13 +354,7 @@ open class WebActivity: ToolbarActivity() {
             forwardButton.isEnabled = webView.canGoForward()
 
             if (url != null && url != previousUrl) {
-                shareButton.isEnabled = true
-                bookmarkButton.isEnabled = true
                 onUrlChanged(url)
-
-                Preferences.setUrl(this@WebActivity, url)
-                events.log(Events.Category.url_change, url)
-
                 previousUrl = url
             }
         }
@@ -365,7 +365,7 @@ open class WebActivity: ToolbarActivity() {
             errorResponse: WebResourceResponse?
         ) {
             super.onReceivedHttpError(view, request, errorResponse)
-            onError(errorResponse?.statusCode)
+            onError(request?.url.toString(), errorResponse?.statusCode)
         }
 
         override fun onReceivedError(
@@ -374,16 +374,20 @@ open class WebActivity: ToolbarActivity() {
             error: WebResourceError?
         ) {
             super.onReceivedError(view, request, error)
-            onError(error?.errorCode)
+            onError(request?.url.toString(), error?.errorCode)
         }
 
         private var showingError = false
 
-        private fun onError(code: Int?) {
+        private fun onError(url: String?, code: Int?) {
             Log.d(TAG, "onError: $code")
 
             if (code == 200 || code == 301 || code == 302) {
                 return
+            }
+
+            url?.let { url ->
+                events.log(Events.Category.error, url, code)
             }
 
             val message = when (code) {

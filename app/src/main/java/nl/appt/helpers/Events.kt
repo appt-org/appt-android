@@ -11,20 +11,9 @@ import nl.appt.extensions.identifier
  */
 class Events(private val firebaseAnalytics: FirebaseAnalytics) {
 
-    enum class Property {
-        talkback
-    }
-
-    fun property(property: Property, value: String) {
-        firebaseAnalytics.setUserProperty(property.identifier, value)
-    }
-
-    fun property(property: Property, value: Boolean) {
-        property(property, if (value) "1" else "0")
-    }
-
     enum class Category {
-        url_change
+        error,
+        url
     }
 
     fun log(category: Category, identifier: String, value: Int? = null) {
