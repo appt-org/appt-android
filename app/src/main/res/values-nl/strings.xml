@@ -1,0 +1,37 @@
+<resources>
+    <!-- Appt -->
+    <string name="appt_title">Appt</string>
+    <string name="appt_url">https://appt.org/nl</string>
+    <string name="appt_domain">appt.org</string>
+
+    <!-- Errors -->
+    <string name="error_something">Er is iets fout gegaan. Probeer het later opnieuw.</string>
+    <string name="error_network">Je bent niet verbonden met het internet. Probeer het later opnieuw.</string>
+    <string name="error_server">Sorry, er ging iets mis op onze server. Probeer het later opnieuw.</string>
+    <string name="error_404">De pagina die je zoekt is verplaatst, verwijderd of heeft nooit bestaan.</string>
+
+    <!-- Words -->
+    <string name="back">Terug</string>
+    <string name="bookmark">Bladwijzer</string>
+    <string name="bookmarked">Bladwijzer gemaakt</string>
+    <string name="bookmarks">Bladwijzers</string>
+    <string name="cancel">Annuleren</string>
+    <string name="close">Sluiten</string>
+    <string name="delete">Verwijderen</string>
+    <string name="error">Foutmelding</string>
+    <string name="forward">Vooruit</string>
+    <string name="history">Geschiedenis</string>
+    <string name="home">Home</string>
+    <string name="jump_back">Spring terug</string>
+    <string name="jump_forward">Spring vooruit</string>
+    <string name="loading">Aan het laden</string>
+    <string name="more">Meer</string>
+    <string name="ok">Oké</string>
+    <string name="reload">Opnieuw laden</string>
+    <string name="settings">Instellingen</string>
+    <string name="share">Delen</string>
+    <string name="unknown">Onbekend</string>
+
+    <!-- Settings -->
+    <string name="settings_zoom">Zoomniveau</string>
+</resources>
