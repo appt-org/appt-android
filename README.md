@@ -1,6 +1,6 @@
 # Appt app (Android)
 
-The purpose of this app is to raise awareness of accessibility features through training and a knowledge base.
+The Appt app is an alternative way to browse the [appt.org](https://appt.org) website.
 
 ## Dependencies
 
@@ -13,8 +13,8 @@ Clone the repository and open the project in Android Studio.
 
 ## Author
 
-Stichting Appt <info@appt.nl>
+Stichting Appt <info@appt.org>
 
 ## License
 
-The source code is available under the MIT license. See the LICENSE file for more info.
+The source code is available under the MIT license. See the [LICENSE file](./LICENSE) for more information.
