@@ -12,8 +12,8 @@ android {
         applicationId 'nl.appt'
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 16
-        versionName '2.0.4'
+        versionCode 200
+        versionName '2.0.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
