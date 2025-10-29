@@ -17,7 +17,8 @@
         <item name="android:actionMenuTextAppearance">@style/Menu.TextAppearance</item>
 
         <item name="android:windowLightStatusBar">@bool/light_mode</item>
-        <item name="android:statusBarColor">@color/background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowBackground">@color/background</item>
 
         <item name="alertDialogTheme">@style/Dialog</item>

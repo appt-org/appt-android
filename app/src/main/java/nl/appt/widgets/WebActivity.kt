@@ -6,13 +6,17 @@ import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.webkit.*
+import android.widget.LinearLayout
 import androidx.activity.viewModels
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.app.ShareCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
+import androidx.core.view.updatePadding
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
-import kotlinx.android.synthetic.main.activity_web.*
 import nl.appt.R
 import nl.appt.database.Bookmark
 import nl.appt.database.History
@@ -41,6 +45,16 @@ open class WebActivity: ToolbarActivity() {
 
     private var initialScale = 1.0f
 
+    private val webView: WebView get() = findViewById(R.id.webView)
+    private val backButton: AppCompatImageButton get() = findViewById(R.id.backButton)
+    private val forwardButton: AppCompatImageButton get() = findViewById(R.id.forwardButton)
+    private val shareButton: AppCompatImageButton get() = findViewById(R.id.shareButton)
+    private val bookmarkButton: AppCompatImageButton get() = findViewById(R.id.bookmarkButton)
+    private val moreButton: AppCompatImageButton get() = findViewById(R.id.moreButton)
+    private val progressBar: View get() = findViewById(R.id.progressBar)
+    private val swipeRefreshLayout: androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        get() = findViewById(R.id.swipeRefreshLayout)
+
     override fun getLayoutId(): Int {
         return R.layout.activity_web
     }
@@ -51,22 +65,49 @@ open class WebActivity: ToolbarActivity() {
 
     override fun onViewCreated() {
         super.onViewCreated()
+        setupWindowInsets()
         setupActions()
         setupWebView()
         setupRefresh()
+        setupBackPressedHandler()
     }
 
-    override fun onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack()
-        } else {
-            super.onBackPressed()
+    private fun setupWindowInsets() {
+        val rootLayout = findViewById<View>(R.id.rootLayout)
+        val toolbarContainer = findViewById<View>(R.id.toolbarContainer)
+        val actionContainer = findViewById<View>(R.id.actionContainer)
+
+        // Apply window insets to distribute properly between toolbar and action bar
+        ViewCompat.setOnApplyWindowInsetsListener(rootLayout) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            // Apply top insets to toolbar container
+            toolbarContainer?.updatePadding(top = insets.top)
+
+            // Apply bottom insets to action container
+            actionContainer?.updatePadding(bottom = insets.bottom)
+
+            WindowInsetsCompat.CONSUMED
         }
+    }
+
+    private fun setupBackPressedHandler() {
+        val callback = object : androidx.activity.OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (webView.canGoBack()) {
+                    webView.goBack()
+                } else {
+                    isEnabled = false
+                    onBackPressedDispatcher.onBackPressed()
+                }
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, callback)
     }
 
     private fun setupActions() {
         // Tooltips
-        actionLayout.children.forEach { view ->
+        findViewById<LinearLayout>(R.id.actionLayout).children.forEach { view ->
             TooltipCompat.setTooltipText(view, view.contentDescription)
         }
 

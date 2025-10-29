@@ -88,3 +88,5 @@ lint/tmp/
 # App
 app/google-services.json
 app/release/*
+
+.idea/

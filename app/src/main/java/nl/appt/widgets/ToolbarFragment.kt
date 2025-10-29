@@ -3,9 +3,9 @@ package nl.appt.widgets
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import kotlinx.android.synthetic.main.view_toolbar.view.*
 import nl.appt.R
 
 /**
@@ -23,13 +23,11 @@ abstract class ToolbarFragment : BaseFragment() {
 
         toolbar = view.findViewById(R.id.toolbar)
 
-        toolbar?.toolbarTitle?.let {
+        toolbar?.findViewById<TextView>(R.id.toolbarTitle)?.let {
             it.text = getTitle()
         }
 
-        (activity as? AppCompatActivity)?.let {
-            it.setSupportActionBar(toolbar)
-        }
+        (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

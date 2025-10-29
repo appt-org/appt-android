@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
-import kotlinx.android.synthetic.main.layout_list.view.recyclerView
+import nl.appt.R
 import nl.appt.database.Page
 import nl.appt.extensions.addItemDecoration
 import nl.appt.extensions.isLoading
@@ -35,7 +36,7 @@ abstract class PageDialog<T: Page>(title: Int) : ListDialog(title) {
             // TODO: Add empty state
 
             adapterDelegate.items = items
-            view.recyclerView?.run {
+            view.findViewById<RecyclerView>(R.id.recyclerView)?.run {
                 layoutManager = LinearLayoutManager(context)
                 adapter = adapterDelegate
                 addItemDecoration()

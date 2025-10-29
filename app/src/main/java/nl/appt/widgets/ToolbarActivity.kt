@@ -1,8 +1,8 @@
 package nl.appt.widgets
 
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
-import kotlinx.android.synthetic.main.view_toolbar.view.*
 import nl.appt.R
 
 /**
@@ -41,7 +41,7 @@ abstract class ToolbarActivity : BaseActivity() {
     override fun setTitle(titleId: Int) {
         super.setTitle("")
 
-        toolbar?.toolbarTitle?.let {
+        toolbar?.findViewById<TextView>(R.id.toolbarTitle)?.let {
             it.text = getString(titleId)
         }
     }
@@ -49,7 +49,7 @@ abstract class ToolbarActivity : BaseActivity() {
     override fun setTitle(title: CharSequence?) {
         super.setTitle("")
 
-        toolbar?.toolbarTitle?.let {
+        toolbar?.findViewById<TextView>(R.id.toolbarTitle)?.let {
             it.text = title
         }
     }
