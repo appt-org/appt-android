@@ -25,7 +25,7 @@ class MainApplication : Application() {
                     CalligraphyInterceptor(
                         CalligraphyConfig.Builder()
                             .setDefaultFontPath(getString(R.string.font_regular))
-                            .setFontAttrId(R.attr.fontPath)
+                            .setFontAttrId(io.github.inflationx.calligraphy3.R.attr.fontPath)
                             .build()
                     )
                 )
