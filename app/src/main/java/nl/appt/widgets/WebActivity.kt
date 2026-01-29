@@ -6,13 +6,16 @@ import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.webkit.*
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.activity.viewModels
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.TooltipCompat
 import androidx.core.app.ShareCompat
 import androidx.core.view.children
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
-import kotlinx.android.synthetic.main.activity_web.*
 import nl.appt.R
 import nl.appt.database.Bookmark
 import nl.appt.database.History
@@ -23,6 +26,7 @@ import nl.appt.helpers.Preferences
 import nl.appt.model.Item
 import nl.appt.model.WebPage
 import nl.appt.model.WebViewModel
+import kotlin.sequences.forEach
 
 /**
  * Created by Jan Jaap de Groot on 28/10/2020
@@ -40,6 +44,44 @@ open class WebActivity: ToolbarActivity() {
     private val viewModel: WebViewModel by viewModels()
 
     private var initialScale = 1.0f
+
+    // Views
+
+    private val webView: WebView by lazy {
+        findViewById(R.id.webView)
+    }
+
+    private val swipeRefreshLayout: SwipeRefreshLayout by lazy {
+        findViewById(R.id.swipeRefreshLayout)
+    }
+
+    private val progressBar: ProgressBar by lazy {
+        findViewById(R.id.progressBar)
+    }
+
+    private val actionLayout: LinearLayout by lazy {
+        findViewById(R.id.actionLayout)
+    }
+
+    private val backButton: AppCompatImageButton by lazy {
+        findViewById(R.id.backButton)
+    }
+
+    private val forwardButton: AppCompatImageButton by lazy {
+        findViewById(R.id.forwardButton)
+    }
+
+    private val shareButton: AppCompatImageButton by lazy {
+        findViewById(R.id.shareButton)
+    }
+
+    private val bookmarkButton: AppCompatImageButton by lazy {
+        findViewById(R.id.bookmarkButton)
+    }
+
+    private val moreButton: AppCompatImageButton by lazy {
+        findViewById(R.id.moreButton)
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.activity_web

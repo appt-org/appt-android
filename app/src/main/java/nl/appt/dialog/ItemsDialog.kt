@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
-import kotlinx.android.synthetic.main.layout_list.view.*
 import nl.appt.R
 import nl.appt.extensions.addItemDecoration
 import nl.appt.helpers.itemAdapterDelegate
@@ -39,7 +39,8 @@ open class ItemsDialog(private val items: List<Item>) : BaseDialog() {
     ): View? {
         val view = inflater.inflate(R.layout.layout_list, container, false)
 
-        view.recyclerView.run {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.run {
             layoutManager = LinearLayoutManager(context)
             adapter = adapterDelegate
             addItemDecoration()

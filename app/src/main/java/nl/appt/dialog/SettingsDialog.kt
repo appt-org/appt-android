@@ -3,8 +3,8 @@ package nl.appt.dialog
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
-import kotlinx.android.synthetic.main.layout_list.view.*
 import nl.appt.R
 import nl.appt.extensions.addItemDecoration
 import nl.appt.helpers.Preferences
@@ -26,7 +26,8 @@ class SettingsDialog() : ListDialog(R.string.settings) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.recyclerView.run {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.run {
             layoutManager = LinearLayoutManager(context)
             adapter = adapterDelegate
             addItemDecoration()

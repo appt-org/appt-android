@@ -1,17 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 35
+    compileSdkVersion 36
 
     defaultConfig {
         applicationId 'nl.appt'
         minSdkVersion 24
-        targetSdkVersion 35
+        targetSdkVersion 36
         versionCode 200
         versionName '2.0.0'
 
@@ -20,11 +19,9 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", '"https://appt.org/"'
             minifyEnabled false
         }
         release {
-            buildConfigField "String", "BASE_URL", '"https://appt.org/"'
             minifyEnabled false
         }
     }
